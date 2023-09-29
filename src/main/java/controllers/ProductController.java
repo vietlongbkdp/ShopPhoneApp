@@ -123,4 +123,6 @@ public class ProductController extends HttpServlet {
         String pin = req.getParameter("pin");
         return new Product(productName, branch, image, price, quantity, warrantyPeriod, ram, size, color, camera, operatingSystem, pin);
     }
+
+//    Feature remove product
 }
