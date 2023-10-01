@@ -13,7 +13,8 @@ import java.util.ArrayList;
 public class ProductDAO extends DatabaseConnection {
     public Object findById(int id) {
         var SELECT_BY_ID = "SELECT p.*, c.name category_name " + "FROM products p JOIN categories c on " + "c.id = p.category_id " + "WHERE p.id = ? and p.deleted = '0'";
-        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID)) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID)) {
             preparedStatement.setInt(1, id);
             System.out.println(preparedStatement);
             var rs = preparedStatement.executeQuery();
