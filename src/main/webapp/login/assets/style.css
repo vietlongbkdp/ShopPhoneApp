@@ -11,11 +11,12 @@ body {
 .auth-container {
     max-width: 750px;
     max-height: 600px;
+    margin: 0 auto;
     background: #fff;
     border-radius: 15px;
     box-shadow: 1px 2px 8px 8px #ccc3;
     display: flex;
-    margin: 4rem auto 0;
+    margin-top: 4rem;
     overflow: hidden;
 }
 
@@ -132,7 +133,7 @@ input.auth-submit:hover {
     box-shadow: 3px 3px 7px 2px #f443362b;
 }
 a.auth-btn-direct:hover {
-    box-shadow: -2px 3px 0 0 #F44336;
+    box-shadow: -2px 3px 0px 0px #F44336;
 }
 
 .auth-external-list ul li a:hover {
@@ -214,11 +215,12 @@ p.auth-sgt {
     .auth-container {
         max-width: 100%;
         max-height: 100vh;
+        margin: 0 auto;
         background: #fff;
         border-radius: 0;
         box-shadow: none;
         display: block;
-        margin: 0 auto;
+        margin-top: 0;
     }
     .auth-action-left {
         width: 100%;

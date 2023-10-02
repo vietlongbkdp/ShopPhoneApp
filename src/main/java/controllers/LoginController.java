@@ -56,8 +56,13 @@ public class LoginController extends HttpServlet {
         }
     }
 
-    private void register(HttpServletRequest req, HttpServletResponse resp) {
-        r
+    private void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String fullName = req.getParameter("fullName");
+        String userName = req.getParameter("userName");
+        String email = req.getParameter("email");
+        String password = req.getParameter("confirmPassword");
+        userService.register(fullName, userName, email, password);
+        req.getRequestDispatcher("login/login.jsp").forward(req, resp);
     }
 
     private void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -41,5 +41,20 @@ public class RoleDao extends DatabaseConnection{
         }
         return null;
     }
+    public Role getRoleByRoleName(String nameRole){
+        String SELECT_ROLE_BY_ROLENAME = "SELECT * FROM `role` WHERE role_name = ? ";
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ROLE_BY_ROLENAME);
+            preparedStatement.setString(1, nameRole);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                return new Role(resultSet.getInt("id"), resultSet.getString("role_Name"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 
 }

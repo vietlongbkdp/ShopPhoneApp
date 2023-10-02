@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "UserController", value = "/user")
-public class UserController extends HttpServlet {
+public class  UserController extends HttpServlet {
     private UserService userService;
     private RoleService roleService;
 
@@ -35,8 +35,8 @@ public class UserController extends HttpServlet {
     private void showCreate(HttpServletRequest req, HttpServletResponse resp) {
     }
 
-    private void showListUser(HttpServletRequest req, HttpServletResponse resp) {
-        
+    private void showListUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("user/admin/manager.jsp").forward(req,resp);
     }
 
     @Override

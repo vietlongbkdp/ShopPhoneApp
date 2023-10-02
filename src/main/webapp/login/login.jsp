@@ -1,68 +1,91 @@
 <%--
   Created by IntelliJ IDEA.
   User: LONG PC
-  Date: 10/1/2023
-  Time: 4:53 PM
+  Date: 10/2/2023
+  Time: 12:45 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../login/assets/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" />
+    <title>Title</title>
+    <link href="../login/assets/all.min.css" rel="stylesheet" type="text/css">
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+    <link href="../login/assets/sb-admin-2.css" rel="stylesheet">
 </head>
-<body>
-<div class="auth-wrapper">
-    <div class="auth-container">
+<body class="bg-gradient-primary">
 
-        <div class="auth-action-left">
-            <div class="auth-form-outer">
-                <h2 class="auth-form-title">
-                    Sign In
-                </h2>
-                <div class="auth-external-container">
-                    <div class="auth-external-list">
-                        <ul>
-                            <li><a href="#" ><i class="fa fa-google" style="padding-top: 5px" ></i></a></li>
-                            <li><a href="#"><i class="fa fa-facebook" style="padding-top: 5px"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter" style="padding-top: 5px"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin" style="padding-top: 5px"></i></a></li>
-                        </ul>
+<div class="container">
+
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+
+        <div class="col-xl-10 col-lg-12 col-md-9">
+
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                        <div class="col-lg-6">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                </div>
+                                <form class="user" action="/login?action=login" method="post">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user"
+                                               id="userName" aria-describedby="emailHelp"
+                                               placeholder="Enter User Name" name="userName" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control form-control-user"
+                                               id="exampleInputPassword" placeholder="Password" name="password" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="custom-control custom-checkbox small">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck">
+                                            <label class="custom-control-label" for="customCheck">Remember
+                                                Me</label>
+                                        </div>
+                                    </div>
+                                    <input type="submit" value="Login" class="btn btn-primary btn-user btn-block">
+<%--                                    <a type="submit" class="btn btn-primary btn-user btn-block">--%>
+<%--                                        Login--%>
+<%--                                    </a>--%>
+                                    <hr>
+                                    <a href="/login" class="btn btn-google btn-user btn-block">
+                                        <i class="fab fa-google fa-fw"></i> Login with Google
+                                    </a>
+                                    <a href="login3.jsp" class="btn btn-facebook btn-user btn-block">
+                                        <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+                                    </a>
+                                </form>
+                                <hr>
+                                <div class="text-center">
+                                    <a class="small" href="/login">Forgot Password?</a>
+                                </div>
+                                <div class="text-center">
+                                    <a class="small" href="/login/register.jsp">Create an Account!</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <p class="auth-sgt">or sign in with:</p>
-                </div>
-                <form class="login-form" action="/login?action=login" method="post">
-                    <input type="text" class="auth-form-input" placeholder="User Name" name="userName">
-                    <div class="input-icon">
-                        <input type="password" class="auth-form-input" placeholder="Password" name="password">
-                        <i class="fa fa-eye show-password"></i>
-                    </div>
-                    <label class="btn active">
-                        <input type="checkbox" name='rememberPassword' checked>
-                        <i class="fa fa-square-o"></i><i class="fa fa-check-square-o"></i>
-                        <span> Remember password.</span>
-                    </label>
-                    <div class="footer-action">
-                        <input type="submit" value="Sign In" class="auth-submit">
-                        <a href="../login/register.jsp" class="auth-btn-direct">Sign Up</a>
-                    </div>
-                </form>
-                <div class="auth-forgot-password">
-                    <a href="#">Forfot Password</a>
                 </div>
             </div>
+
         </div>
-        <div class="auth-action-right">
-            <div class="auth-image">
-                <img src="../login/assets/vector.jpg" alt="login">
-            </div>
-        </div>
+
     </div>
+
 </div>
-<script src="../login/assets/common.js"></script>
+<script src="../login/assets/jquery.min.js"></script>
+<script src="../login/assets/bootstrap.bundle.min.js"></script>
+<script src="../login/assets/jquery.easing.min.js"></script>
+<script src="../login/assets/sb-admin-2.min.js"></script>
+
 </body>
 </html>

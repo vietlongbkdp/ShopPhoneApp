@@ -16,13 +16,18 @@ public class AdminFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpSession session = ((HttpServletRequest)request).getSession();
         User user = (User) session.getAttribute("user");
-        if(user == null){
-            ((HttpServletResponse)response).sendRedirect("/login?message=You_need_Login");
-            return;
-        }
-        if(!user.getRole().getRoleName().equalsIgnoreCase("Admin")){
-            ((HttpServletResponse)response).sendRedirect("/login?message=You_need_Login");
-            return;
+        String url = ((HttpServletRequest) request).getRequestURI();
+        if(url.contains("assets")){
+            chain.doFilter(request, response);
+        }else{
+            if(user == null){
+                ((HttpServletResponse)response).sendRedirect("/login?message=You_need_Login");
+                return;
+            }
+            if(!user.getRole().getRoleName().equalsIgnoreCase("Admin")){
+                ((HttpServletResponse)response).sendRedirect("/login?message=You_need_Login");
+                return;
+            }
         }
         chain.doFilter(request, response);
     }
