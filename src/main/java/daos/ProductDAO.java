@@ -1,6 +1,7 @@
 package daos;
 
 import models.Branch;
+import models.EPriceRange;
 import models.Product;
 import services.dto.Page;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 
 public class ProductDAO extends DatabaseConnection {
     public Object findById(int id) {
-        var SELECT_BY_ID = "SELECT p.*, c.name category_name " + "FROM products p JOIN categories c on " + "c.id = p.category_id " + "WHERE p.id = ? and p.deleted = '0'";
+        var SELECT_BY_ID = "SELECT p.*, b.branch_name branch_name " + "FROM products p JOIN branchs b on " + "b.id = p.branch_id " + "WHERE p.id = ? and p.deleted = '0'";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID)) {
             preparedStatement.setInt(1, id);
@@ -41,7 +42,7 @@ public class ProductDAO extends DatabaseConnection {
                 "FROM products p " +
                 "JOIN branchs b ON b.id = p.branch " +
                 "WHERE " +
-                "    (p.deleted = 1)  " +
+                "    (p.deleted = ?)  " +
                 "    AND ( " +
                 "        LOWER(p.productName) LIKE ?  " +
                 "        OR LOWER(b.name) LIKE ?  " +
@@ -58,8 +59,9 @@ public class ProductDAO extends DatabaseConnection {
             preparedStatement.setString(2, search);
             preparedStatement.setString(3, search);
             preparedStatement.setString(4, search);
-            preparedStatement.setInt(5, TOTAL_ELEMENT);
-            preparedStatement.setInt(6, (page - 1) * TOTAL_ELEMENT);
+            preparedStatement.setString(5, search);
+            preparedStatement.setInt(6, TOTAL_ELEMENT);
+            preparedStatement.setInt(7, (page - 1) * TOTAL_ELEMENT);
             System.out.println(preparedStatement);
             var rs = preparedStatement.executeQuery();
             while (rs.next()) {
@@ -71,6 +73,7 @@ public class ProductDAO extends DatabaseConnection {
             preparedStatementCount.setString(2, search);
             preparedStatementCount.setString(3, search);
             preparedStatementCount.setString(4, search);
+            preparedStatementCount.setString(5, search);
             var rsCount = preparedStatementCount.executeQuery();
             if (rsCount.next()) {
                 result.setTotalPage((int) Math.ceil((double) rsCount.getInt("cnt") / TOTAL_ELEMENT));
@@ -83,12 +86,12 @@ public class ProductDAO extends DatabaseConnection {
     }
 
     public void update(Product product) {
-        String UPDATE = "UPDATE `testcase`.`products` " + "SET `productName` = ?, `branchName` = ?, `image` = ?, `price` = ?, `quantity` = ?, `warrantyPeriod` = ?, `ram` = ?, `size` = ?, `color` = ?, `camera` = ?, `operatingSystem` = ?, `pin` = ? " + "WHERE (`id` = ?)";
+        String UPDATE = "UPDATE `testcase`.`products` " + "SET `productName` = ?, `branch_id` = ?, `image` = ?, `price` = ?, `quantity` = ?, `warrantyPeriod` = ?, `ram` = ?, `size` = ?, `color` = ?, `camera` = ?, `operatingSystem` = ?, `pin` = ? ,`price_range`= ? " + "WHERE (`id` = ?)";
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
             preparedStatement.setString(1, product.getProductName());
             preparedStatement.setInt(2, product.getBranch().getId());
             preparedStatement.setString(3, product.getImage());
-            preparedStatement.setString(4, product.getPrice());
+            preparedStatement.setBigDecimal(4, product.getPrice());
             preparedStatement.setString(5, product.getQuantity());
             preparedStatement.setString(6, product.getWarrantyPeriod());
             preparedStatement.setString(7, product.getRam());
@@ -97,6 +100,8 @@ public class ProductDAO extends DatabaseConnection {
             preparedStatement.setString(10, product.getCamera());
             preparedStatement.setString(11, product.getOperatingSystem());
             preparedStatement.setString(12, product.getPin());
+            preparedStatement.setString(13, product.getePriceRange().toString());
+            preparedStatement.setInt(14,product.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -126,14 +131,14 @@ public class ProductDAO extends DatabaseConnection {
     public void create(Product product) {
         System.out.println("aaaaaa");
         String CREATE = "INSERT INTO `testcase`.`products` (`productName`, `branch`, `image`, `price`, `quantity`, " +
-                "`warrantyPeriod`, `ram`, `size`, `color`, `camera`, `operatingSystem`, `pin`) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "`warrantyPeriod`, `ram`, `size`, `color`, `camera`, `operatingSystem`, `pin` ,`price_range` ) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE)) {
             preparedStatement.setString(1, product.getProductName());
             preparedStatement.setInt(2, product.getBranch().getId());
             preparedStatement.setString(3, product.getImage());
-            preparedStatement.setString(4, product.getPrice());
+            preparedStatement.setBigDecimal(4, product.getPrice());
             preparedStatement.setString(5, product.getQuantity());
             preparedStatement.setString(6, product.getWarrantyPeriod());
             preparedStatement.setString(7, product.getRam());
@@ -142,7 +147,7 @@ public class ProductDAO extends DatabaseConnection {
             preparedStatement.setString(10, product.getCamera());
             preparedStatement.setString(11, product.getOperatingSystem());
             preparedStatement.setString(12, product.getPin());
-
+            preparedStatement.setString(13,product.getePriceRange().toString());
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -152,10 +157,11 @@ public class ProductDAO extends DatabaseConnection {
 
     private Product getProductByResultSet(ResultSet rs) throws SQLException {
         var product = new Product();
+        product.setId(rs.getInt("id"));
         product.setProductName(rs.getString("productName"));
         product.setBranch(new Branch(rs.getInt("branch"), rs.getString("branch_name")));
         product.setImage(rs.getString("image"));
-        product.setPrice(rs.getString("price"));
+        product.setPrice(rs.getBigDecimal("price"));
         product.setQuantity(rs.getString("quantity"));
         product.setWarrantyPeriod(rs.getString("warrantyPeriod"));
         product.setRam(rs.getString("ram"));
@@ -164,6 +170,7 @@ public class ProductDAO extends DatabaseConnection {
         product.setCamera(rs.getString("camera"));
         product.setOperatingSystem(rs.getString("operatingSystem"));
         product.setPin(rs.getString("pin"));
+        product.setPriceRange(product);
         return product;
     }
 }
