@@ -96,6 +96,18 @@ public class UserDao extends DatabaseConnection{
             throw new RuntimeException(e);
         }
     }
+    public void deleteUserById(int id){
+        String DELETE_USER_BY_ID = "DELETE FROM `user` WHERE (`id` = ?)";
+
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER_BY_ID);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 //    public static void main(String[] args) {
 //        UserDao userDao = new UserDao();

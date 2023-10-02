@@ -28,12 +28,18 @@ public class LoginController extends HttpServlet {
             action = "";
         }
         switch (action){
-//            case "create":
-//                showCreate(req, resp);
-//                break;
+            case "logout":
+                logout(req, resp);
+                break;
             default:
                 showLogin(req, resp);
         }
+    }
+
+    private void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        session.invalidate();
+        req.getRequestDispatcher("login/login.jsp").forward(req, resp);
     }
 
     private void showLogin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -74,8 +80,9 @@ public class LoginController extends HttpServlet {
             session.setAttribute("userName", userName);
             switch (userRole) {
                 case "Admin" -> {
-                    req.getRequestDispatcher("user/admin/admin.jsp").forward(req, resp);
+                    req.setAttribute("users", userService.getAllUser());
                     session.setAttribute("user", userService.getUserByUserName(userName));
+                    req.getRequestDispatcher("user/admin/managerTotal.jsp").forward(req, resp);
                 }
                 case "Client" -> {
                     req.getRequestDispatcher("user/client/client.jsp").forward(req, resp);
@@ -87,6 +94,7 @@ public class LoginController extends HttpServlet {
                 }
             }
         }
+        else req.getRequestDispatcher("login/login.jsp").forward(req, resp);
     }
 
     @Override
