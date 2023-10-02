@@ -27,10 +27,10 @@
                 <div class="auth-external-container">
                     <div class="auth-external-list">
                         <ul>
-                            <li><a href="#" ><i class="fa fa-google" ></i></a></li>
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="#" ><i class="fa fa-google" style="padding-top: 5px" ></i></a></li>
+                            <li><a href="#"><i class="fa fa-facebook" style="padding-top: 5px"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter" style="padding-top: 5px"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin" style="padding-top: 5px"></i></a></li>
                         </ul>
                     </div>
                     <p class="auth-sgt">or sign in with:</p>

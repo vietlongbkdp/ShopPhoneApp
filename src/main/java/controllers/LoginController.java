@@ -50,8 +50,16 @@ public class LoginController extends HttpServlet {
             case "login":
                 login(req, resp);
                 break;
+            case "register":
+                register(req, resp);
+                break;
         }
     }
+
+    private void register(HttpServletRequest req, HttpServletResponse resp) {
+        r
+    }
+
     private void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userName = req.getParameter("userName");
         String password = req.getParameter("password");
@@ -59,31 +67,26 @@ public class LoginController extends HttpServlet {
             String userRole = userService.getUserByUserName(userName).getRole().getRoleName();
             HttpSession session = req.getSession();
             session.setAttribute("userName", userName);
-            switch (userRole){
-                case "Admin":
+            switch (userRole) {
+                case "Admin" -> {
                     req.getRequestDispatcher("user/admin/admin.jsp").forward(req, resp);
                     session.setAttribute("user", userService.getUserByUserName(userName));
-                    break;
-                case "Client":
+                }
+                case "Client" -> {
                     req.getRequestDispatcher("user/client/client.jsp").forward(req, resp);
                     session.setAttribute("user", userService.getUserByUserName(userName));
-                    break;
-                case "Staff":
+                }
+                case "Staff" -> {
                     req.getRequestDispatcher("user/staff/staff.jsp").forward(req, resp);
                     session.setAttribute("user", userService.getUserByUserName(userName));
-                    break;
+                }
             }
         }
-
-
     }
 
     @Override
     public void init() throws ServletException {
         userService = new UserService();
         roleService = new RoleService();
-//        adminFilter = new AdminFilter();
-//        clientFilter = new ClientFilter();
-//        staffFilter = new StaffFilter();
     }
 }

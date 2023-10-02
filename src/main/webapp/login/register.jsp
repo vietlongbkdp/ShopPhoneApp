@@ -26,15 +26,15 @@
                   <div class="auth-external-container">
                       <div class="auth-external-list">
                           <ul>
-                              <li><a href="#"><i class="fa fa-google"></i></a></li>
-                              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                              <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                              <li><a href="#"><i class="fa fa-google" style="padding-top: 5px"></i></a></li>
+                              <li><a href="#"><i class="fa fa-facebook" style="padding-top: 5px"></i></a></li>
+                              <li><a href="#"><i class="fa fa-twitter" style="padding-top: 5px"></i></a></li>
+                              <li><a href="#"><i class="fa fa-linkedin" style="padding-top: 5px"></i></a></li>
                           </ul>
                       </div>
                       <p class="auth-sgt">or use your email for registration:</p>
                   </div>
-                  <form class="login-form">
+                  <form class="login-form" action="/login?action=register" method="post">
                       <input type="text" class="auth-form-input" placeholder="Full Name" name="fullName">
                       <input type="text" class="auth-form-input" placeholder="User Name" name="userName">
                       <input type="email" class="auth-form-input" placeholder="Email" name="email">
