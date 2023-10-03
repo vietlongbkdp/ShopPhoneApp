@@ -62,12 +62,12 @@
                                         <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                                     </a>
                                 </form>
-                                <hr>
+                                <hr>1
                                 <div class="text-center">
-                                    <a class="small" href="/login">Forgot Password?</a>
+                                    <a class="small" href="//login?action=forgotPassword">Forgot Password?</a>
                                 </div>
                                 <div class="text-center">
-                                    <a class="small" href="/login/register.jsp">Create an Account!</a>
+                                    <a class="small" href="/login?action=register">Create an Account!</a>
                                 </div>
                             </div>
                         </div>

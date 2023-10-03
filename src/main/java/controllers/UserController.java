@@ -14,10 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(name = "UserController", value = "/admin")
-
 public class UserController extends HttpServlet {
-
-
     private UserService userService;
     private RoleService roleService;
 
