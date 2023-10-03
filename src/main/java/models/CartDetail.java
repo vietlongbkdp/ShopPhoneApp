@@ -9,6 +9,7 @@ public class CartDetail {
     private BigDecimal totalAmount;
     private  Cart cart;
     private  Product product;
+    
 
     public CartDetail(int id, int quantity, BigDecimal totalAmount, Cart cart, Product product) {
         this.id = id;

@@ -62,6 +62,9 @@ public class LoginController extends HttpServlet {
         }
     }
 
+
+
+
     private void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String fullName = req.getParameter("fullName");
         String userName = req.getParameter("userName");
@@ -69,6 +72,7 @@ public class LoginController extends HttpServlet {
         String password = req.getParameter("confirmPassword");
         userService.register(fullName, userName, email, password);
         req.getRequestDispatcher("login/login.jsp").forward(req, resp);
+
     }
 
     private void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -77,16 +81,18 @@ public class LoginController extends HttpServlet {
         if(userService.login(userName, password)){
             String userRole = userService.getUserByUserName(userName).getRole().getRoleName();
             HttpSession session = req.getSession();
+
+            session.setAttribute("userName", userName);
             session.setAttribute("user", userService.getUserByUserName(userName));
             switch (userRole) {
                 case "Admin" -> {
-                    resp.sendRedirect("/admin?message= Login Succes!");
+                resp.sendRedirect("/admin?message= Login Success");
                 }
                 case "Client" -> {
-                    resp.sendRedirect("/shopping?message= Login Succes!");
+                    resp.sendRedirect("/shopping?message= Login Success");
                 }
                 case "Staff" -> {
-                    resp.sendRedirect("/oder?message= Login Succes!");
+                    req.getRequestDispatcher("user/staff/staff.jsp").forward(req, resp);
                 }
             }
         }

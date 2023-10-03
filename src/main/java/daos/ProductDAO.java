@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class ProductDAO extends DatabaseConnection {
     public Object findById(int id) {
-        var SELECT_BY_ID = "SELECT p.*, b.branch_name branch_name " + "FROM products p JOIN branchs b on " + "b.id = p.branch_id " + "WHERE p.id = ? and p.deleted = '0'";
+        var SELECT_BY_ID = "SELECT p.*, b.name branch_name " + "FROM products p JOIN branchs b on " + "b.id = p.branch_id " + "WHERE p.id = ? and p.deleted = '0'";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID)) {
             preparedStatement.setInt(1, id);
@@ -40,7 +40,7 @@ public class ProductDAO extends DatabaseConnection {
         final var DELETED = isShowRestore ? 1 : 0;
         var SELECT_ALL = "SELECT p.*, b.name AS branch_name " +
                 "FROM products p " +
-                "JOIN branchs b ON b.id = p.branch " +
+                "JOIN branchs b ON b.id = p.branch_id " +
                 "WHERE " +
                 "    (p.deleted = ?)  " +
                 "    AND ( " +
@@ -51,7 +51,7 @@ public class ProductDAO extends DatabaseConnection {
                 "    ) " +
                 "LIMIT ? OFFSET ?;";
         var SELECT_COUNT = "SELECT COUNT(1) cnt FROM products p " +
-                "JOIN branchs b on b.id = p.branch WHERE p.deleted = ? And " +
+                "JOIN branchs b on b.id = p.branch_id WHERE p.deleted = ? And " +
                 "(Lower(p.productName) like ? or lower(b.name) like ? or lower(p.ram) like ? or lower(p.operatingSystem) like ?) ";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL)) {
@@ -129,7 +129,6 @@ public class ProductDAO extends DatabaseConnection {
     }
 
     public void create(Product product) {
-        System.out.println("aaaaaa");
         String CREATE = "INSERT INTO `testcase`.`products` (`productName`, `branch`, `image`, `price`, `quantity`, " +
                 "`warrantyPeriod`, `ram`, `size`, `color`, `camera`, `operatingSystem`, `pin` ,`price_range` ) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -159,7 +158,7 @@ public class ProductDAO extends DatabaseConnection {
         var product = new Product();
         product.setId(rs.getInt("id"));
         product.setProductName(rs.getString("productName"));
-        product.setBranch(new Branch(rs.getInt("branch"), rs.getString("branch_name")));
+        product.setBranch(new Branch(rs.getInt("branch_id"), rs.getString("branch_name")));
         product.setImage(rs.getString("image"));
         product.setPrice(rs.getBigDecimal("price"));
         product.setQuantity(rs.getString("quantity"));
@@ -170,7 +169,7 @@ public class ProductDAO extends DatabaseConnection {
         product.setCamera(rs.getString("camera"));
         product.setOperatingSystem(rs.getString("operatingSystem"));
         product.setPin(rs.getString("pin"));
-        product.setPriceRange(product);
+        product.setePriceRange(EPriceRange.valueOf(rs.getString("price_range")));
         return product;
     }
 }

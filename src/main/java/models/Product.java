@@ -22,32 +22,10 @@ public class Product {
         return ePriceRange;
     }
 
-    private boolean getCompare(double price) {
-        boolean result = false;
-        if (this.price.compareTo(BigDecimal.valueOf(price)) == -1) {
-            result = false;
-        } else if (this.price.compareTo(BigDecimal.valueOf(price)) == 1) {
-            result = true;
-        }
-        return result;
+    public void setePriceRange(EPriceRange ePriceRange) {
+        this.ePriceRange = ePriceRange;
     }
 
-    public void setPriceRange(Product product) {
-
-        if (!product.getCompare(100)) {
-            this.ePriceRange = EPriceRange.UNDER_100_USD;
-        } else if (!product.getCompare(300) && product.getCompare(99)) {
-            this.ePriceRange = EPriceRange.RANGE_100_299_USD;
-        } else if (product.getCompare(299) && !product.getCompare(500)) {
-            this.ePriceRange = EPriceRange.RANGE_300_499_USD;
-        } else if (product.getCompare(499) && product.getCompare(700)) {
-            this.ePriceRange = EPriceRange.RANGE_500_699_USD;
-        } else if (product.getCompare(699) && product.getCompare(1000)) {
-            this.ePriceRange = EPriceRange.RANGE_700_999_USD;
-        } else if (product.getCompare(999)) {
-            this.ePriceRange = EPriceRange.OVER_999_USD;
-        }
-    }
 
     public Product() {
     }
