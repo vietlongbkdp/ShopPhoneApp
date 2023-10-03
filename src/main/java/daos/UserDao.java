@@ -14,7 +14,7 @@ public class UserDao extends DatabaseConnection{
     RoleDao roleDao = new RoleDao();
     public List<User> getAllUser(){
         List<User> userList = new ArrayList<>();
-        String SELECT_ALL_USER = "SELECT * FROM `user`";
+        String SELECT_ALL_USER = "SELECT * FROM `users`";
 
         try {
             Connection connection = getConnection();
@@ -40,7 +40,7 @@ public class UserDao extends DatabaseConnection{
         return userList;
     }
     public User getUserById(int id){
-        String SELECT_USER_BY_ID = "SELECT * FROM `user` WHERE id = ?";
+        String SELECT_USER_BY_ID = "SELECT * FROM `users` WHERE id = ?";
 
         try {
             Connection connection = getConnection();

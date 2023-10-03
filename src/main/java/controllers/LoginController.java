@@ -57,7 +57,7 @@ public class LoginController extends HttpServlet {
     }
 
     private void register(HttpServletRequest req, HttpServletResponse resp) {
-        r
+
     }
 
     private void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -67,18 +67,16 @@ public class LoginController extends HttpServlet {
             String userRole = userService.getUserByUserName(userName).getRole().getRoleName();
             HttpSession session = req.getSession();
             session.setAttribute("userName", userName);
+            session.setAttribute("user", userService.getUserByUserName(userName));
             switch (userRole) {
                 case "Admin" -> {
-                    req.getRequestDispatcher("user/admin/admin.jsp").forward(req, resp);
-                    session.setAttribute("user", userService.getUserByUserName(userName));
+                resp.sendRedirect("/admin?message= Login Success");
                 }
                 case "Client" -> {
-                    req.getRequestDispatcher("user/client/client.jsp").forward(req, resp);
-                    session.setAttribute("user", userService.getUserByUserName(userName));
+                    resp.sendRedirect("/shopping?message= Login Success");
                 }
                 case "Staff" -> {
                     req.getRequestDispatcher("user/staff/staff.jsp").forward(req, resp);
-                    session.setAttribute("user", userService.getUserByUserName(userName));
                 }
             }
         }

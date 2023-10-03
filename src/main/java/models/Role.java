@@ -12,4 +12,7 @@ import lombok.Setter;
 public class Role {
     private int id;
     private String roleName;
+    public Role(int id){
+
+    }
 }
