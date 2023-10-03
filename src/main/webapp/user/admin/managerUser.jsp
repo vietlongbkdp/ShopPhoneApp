@@ -34,7 +34,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="/user?action=userManager">
+            <a class="nav-link" href="/admin?action=userManager">
                 <i class="fas fa-users-cog"></i>
                 <span>User Management</span></a>
         </li>
@@ -49,7 +49,7 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/user?action=userManager" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/admin?action=userManager" aria-expanded="true" >
                 <i class="fas fa-fw fa-table"></i>
                 <span>Product</span>
             </a>
@@ -57,7 +57,7 @@
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/user?action=userManager" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/admin?action=userManager" aria-expanded="true" >
                 <i class="fas fa-file-invoice"></i>
                 <span>Order</span>
             </a>
@@ -138,7 +138,7 @@
                 <div class="card shadow mb-4">
                     <div class="card-header py-3" style="display: flex; justify-content: space-between">
                         <h6 class="m-0 font-weight-bold text-primary">User Management</h6>
-                        <a href="/user?action=create" class="btn btn-primary ">Create new User</a>
+                        <a href="/admin?action=create" class="btn btn-primary ">Create new User</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -170,8 +170,8 @@
                                         <td>${user.gender}</td>
                                         <td>${user.role.roleName}</td>
                                         <td>
-                                            <a href="/user?action=edit&id=${user.id}" class="btn btn-warning ">Edit</a>
-                                            <a href="/user?action=delete&id=${user.id}" class="btn btn-danger ">Delete</a>
+                                            <a href="/admin?action=edit&id=${user.id}" class="btn btn-warning ">Edit</a>
+                                            <a href="/admin?action=delete&id=${user.id}" class="btn btn-danger ">Delete</a>
                                         </td>
                                     </tr>
                                 </c:forEach>

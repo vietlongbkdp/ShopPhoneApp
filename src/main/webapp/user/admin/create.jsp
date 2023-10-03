@@ -144,6 +144,7 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
                 <form class="user" action="/user?action=create" method="post">
+                    <div class="sidebar-brand-text mx-5 mb-3 font-weight-bold">CREATE USER</div>
                     <div class="col-sm-6 mb-3 mb-sm-3">User Name
                         <input type="text" class="form-control form-control-user" id="userName"  placeholder="User Name" name="userName" required>
                     </div>
@@ -162,36 +163,20 @@
                     <div class="col-sm-6 mb-3 mb-sm-3"> Date of Birth
                         <input type="date" class="form-control form-control-user" id="dob"  placeholder="Date of Birth" name="dob" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="branch" class="form-label">Branch</label>
-                        <select class="form-control" name="branch" id="branch">
-                            <c:forEach var="branch" items="${branchs}">
-                                <option value="${branch.id}"
-                                    ${branch.id == product.branch.id ?'selected' : ' ' }>
-                                        ${branch.name}
-                                </option>
-                            </c:forEach>
-                        </select>
-                    </div>
-                    <div class="col-sm-6 mb-3 mb-sm-3">Gender
-                            <select class="form-select" aria-label="Default select example" id="gender" name="gender">
+                    <div class="col-sm-6 mb-3 mb-sm-3">
+                        <label for="gender" class="form-label">Gender</label>
+                            <select class="form-control" id="gender" name="gender">
                                 <c:forEach var="gender" items="${genders}">
-                                    <option value="${gender}"${gender == user.gender ?'selected' : ' ' }>
-                                            ${branch.name}
-                                    </option>
+                                    <option value="${gender}">${gender}</option>
                                 </c:forEach>
-                            <option selected>-- Select gender --</option>
-                            <option value="MALE">MALE</option>
-                            <option value="FEMALE">FEMALE</option>
-                            <option value="OTHER">OTHER</option>
                         </select>
                     </div>
-                    <div class="col-sm-6 mb-3 mb-sm-3">Role
-                        <select class="form-select" aria-label="Default select example" id="role" name="role">
-                            <option selected>-- Select Role --</option>
-                            <option value="Admin">Admin</option>
-                            <option value="Staff">Staff</option>
-                            <option value="Client">Client</option>
+                    <div class="col-sm-6 mb-3 mb-sm-3">
+                        <label for="role" class="form-label">Role</label>
+                        <select class="form-control" id="role" name="role">
+                            <c:forEach var="role" items="${roles}">
+                                <option value="${role.roleName}">${role.roleName}</option>
+                            </c:forEach>
                         </select>
                     </div>
                     <div class="col-sm-6 mb-3 mb-sm-3">Password

@@ -59,7 +59,22 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        String action = req.getParameter("action");
+        if(action == null){
+            action = "";
+        }
+        switch (action){
+            case "create":
+                create(req, resp);
+                break;
+            default:
+                showListUser(req, resp);
+        }
+    }
+
+    private void create(HttpServletRequest req, HttpServletResponse resp) {
+        String userName = req.getParameter("userName");
+        String fullName = req.getParameter("fullName");
     }
 
     @Override

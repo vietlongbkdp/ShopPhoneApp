@@ -13,7 +13,7 @@ public class ClientFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpSession session = ((HttpServletRequest)request).getSession();
-        User user = (User) request.getAttribute("user");
+        User user = (User) session.getAttribute("user");
         if(user == null){
             ((HttpServletResponse)response).sendRedirect("/login?message=You_need_Login");
             return;

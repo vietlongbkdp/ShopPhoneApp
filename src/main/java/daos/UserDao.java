@@ -19,6 +19,7 @@ public class UserDao extends DatabaseConnection{
             Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USER);
             ResultSet resultSet = preparedStatement.executeQuery();
+            System.out.println(SELECT_ALL_USER);
             while (resultSet.next()){
                User user = new User();
                user.setId(resultSet.getInt("id"));

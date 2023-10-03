@@ -31,9 +31,23 @@ public class LoginController extends HttpServlet {
             case "logout":
                 logout(req, resp);
                 break;
+            case "registerUser":
+                registerUser(req, resp);
+                break;
+            case "forgotPassword":
+                forgotPassword(req, resp);
+                break;
             default:
                 showLogin(req, resp);
         }
+    }
+
+    private void registerUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("login/register.jsp").forward(req, resp);
+    }
+
+    private void forgotPassword(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("login/forgotPassword.jsp").forward(req, resp);
     }
 
     private void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -62,16 +76,13 @@ public class LoginController extends HttpServlet {
         }
     }
 
-
-
-
     private void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String fullName = req.getParameter("fullName");
         String userName = req.getParameter("userName");
         String email = req.getParameter("email");
         String password = req.getParameter("confirmPassword");
         userService.register(fullName, userName, email, password);
-        req.getRequestDispatcher("login/login.jsp").forward(req, resp);
+        resp.sendRedirect("/login");
 
     }
 
@@ -81,8 +92,6 @@ public class LoginController extends HttpServlet {
         if(userService.login(userName, password)){
             String userRole = userService.getUserByUserName(userName).getRole().getRoleName();
             HttpSession session = req.getSession();
-
-            session.setAttribute("userName", userName);
             session.setAttribute("user", userService.getUserByUserName(userName));
             switch (userRole) {
                 case "Admin" -> {
@@ -92,11 +101,10 @@ public class LoginController extends HttpServlet {
                     resp.sendRedirect("/shopping?message= Login Success");
                 }
                 case "Staff" -> {
-                    req.getRequestDispatcher("user/staff/staff.jsp").forward(req, resp);
+                    resp.sendRedirect("/order?message= Login Success");
                 }
             }
-        }
-        else resp.sendRedirect("/login?message=Password or username is invalid");
+        } else resp.sendRedirect("/login?message=Password or username is invalid");
     }
 
     @Override

@@ -66,7 +66,7 @@
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="/login">Forgot Password?</a>
+                            <a class="small" href="/login?action=forgotPassword">Forgot Password?</a>
                         </div>
                         <div class="text-center">
                             <a class="small" href="/login">Already have an account? Login!</a>
