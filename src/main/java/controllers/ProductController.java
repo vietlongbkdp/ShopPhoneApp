@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 @WebServlet(name = "productController", urlPatterns = "/product")
 public class ProductController extends HttpServlet {
@@ -112,7 +113,7 @@ public class ProductController extends HttpServlet {
         String idBranch = req.getParameter("branch");
         Branch branch = new Branch(Integer.parseInt(idBranch));
         String image = req.getParameter("image");
-        String price = req.getParameter("price");
+        BigDecimal price = BigDecimal.valueOf(Double.parseDouble(req.getParameter("price")));
         String quantity = req.getParameter("quantity");
         String warrantyPeriod = req.getParameter("warrantyPeriod");
         String ram = req.getParameter("ram");

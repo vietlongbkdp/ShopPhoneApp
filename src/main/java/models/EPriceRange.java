@@ -1,0 +1,5 @@
+package models;
+
+public enum EPriceRange {
+    UNDER_100_USD,RANGE_100_299_USD,RANGE_300_499_USD,RANGE_500_699_USD,RANGE_700_999_USD,OVER_999_USD
+}

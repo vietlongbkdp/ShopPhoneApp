@@ -1,11 +1,13 @@
 package models;
 
+import java.math.BigDecimal;
+
 public class Product {
     private int id;
     private String productName;
     private Branch branch;
     private String image;
-    private String price;
+    private BigDecimal price;
     private String quantity;
     private String warrantyPeriod;
     private String ram;
@@ -14,11 +16,43 @@ public class Product {
     private String camera;
     private String operatingSystem;
     private String pin;
+    private EPriceRange ePriceRange;
+
+    public EPriceRange getePriceRange() {
+        return ePriceRange;
+    }
+
+    private boolean getCompare(double price) {
+        boolean result = false;
+        if (this.price.compareTo(BigDecimal.valueOf(price)) == -1) {
+            result = false;
+        } else if (this.price.compareTo(BigDecimal.valueOf(price)) == 1) {
+            result = true;
+        }
+        return result;
+    }
+
+    public void setPriceRange(Product product) {
+
+        if (!product.getCompare(100)) {
+            this.ePriceRange = EPriceRange.UNDER_100_USD;
+        } else if (!product.getCompare(300) && product.getCompare(99)) {
+            this.ePriceRange = EPriceRange.RANGE_100_299_USD;
+        } else if (product.getCompare(299) && !product.getCompare(500)) {
+            this.ePriceRange = EPriceRange.RANGE_300_499_USD;
+        } else if (product.getCompare(499) && product.getCompare(700)) {
+            this.ePriceRange = EPriceRange.RANGE_500_699_USD;
+        } else if (product.getCompare(699) && product.getCompare(1000)) {
+            this.ePriceRange = EPriceRange.RANGE_700_999_USD;
+        } else if (product.getCompare(999)) {
+            this.ePriceRange = EPriceRange.OVER_999_USD;
+        }
+    }
 
     public Product() {
     }
 
-    public Product(String productName, Branch branch, String image, String price, String quantity, String warrantyPeriod, String ram, String size, String color, String camera, String operatingSystem, String pin) {
+    public Product(String productName, Branch branch, String image, BigDecimal price, String quantity, String warrantyPeriod, String ram, String size, String color, String camera, String operatingSystem, String pin) {
         this.productName = productName;
         this.branch = branch;
         this.image = image;
@@ -70,11 +104,11 @@ public class Product {
         this.image = image;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -142,7 +176,7 @@ public class Product {
         this.pin = pin;
     }
 
-    public Product(int id, String productName, Branch branch, String image, String price, String quantity, String warrantyPeriod, String ram, String size, String color, String camera, String operatingSystem, String pin) {
+    public Product(int id, String productName, Branch branch, String image, BigDecimal price, String quantity, String warrantyPeriod, String ram, String size, String color, String camera, String operatingSystem, String pin) {
         this.id = id;
         this.productName = productName;
         this.branch = branch;
