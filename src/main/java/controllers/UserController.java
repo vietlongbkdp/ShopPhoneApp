@@ -34,6 +34,8 @@ public class  UserController extends HttpServlet {
             case "delete":
                 delete(req, resp);
                 break;
+            default:
+                showListUser(req, resp);
         }
     }
 

@@ -77,24 +77,20 @@ public class LoginController extends HttpServlet {
         if(userService.login(userName, password)){
             String userRole = userService.getUserByUserName(userName).getRole().getRoleName();
             HttpSession session = req.getSession();
-            session.setAttribute("userName", userName);
+            session.setAttribute("user", userService.getUserByUserName(userName));
             switch (userRole) {
                 case "Admin" -> {
-                    req.setAttribute("users", userService.getAllUser());
-                    session.setAttribute("user", userService.getUserByUserName(userName));
-                    req.getRequestDispatcher("user/admin/managerTotal.jsp").forward(req, resp);
+                    resp.sendRedirect("/admin?message= Login Succes!");
                 }
                 case "Client" -> {
-                    resp.sendRedirect("/shop");
-                    session.setAttribute("user", userService.getUserByUserName(userName));
+                    resp.sendRedirect("/shopping?message= Login Succes!");
                 }
                 case "Staff" -> {
-                    req.getRequestDispatcher("user/staff/staff.jsp").forward(req, resp);
-                    session.setAttribute("user", userService.getUserByUserName(userName));
+                    resp.sendRedirect("/oder?message= Login Succes!");
                 }
             }
         }
-        else req.getRequestDispatcher("login/login.jsp").forward(req, resp);
+        else resp.sendRedirect("/login?message=Password or username is invalid");
     }
 
     @Override

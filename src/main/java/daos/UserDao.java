@@ -14,7 +14,7 @@ public class UserDao extends DatabaseConnection{
     RoleDao roleDao = new RoleDao();
     public List<User> getAllUser(){
         List<User> userList = new ArrayList<>();
-        String SELECT_ALL_USER = "SELECT * FROM `user`";
+        String SELECT_ALL_USER = "SELECT * FROM `users`";
         try {
             Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USER);
@@ -48,7 +48,7 @@ public class UserDao extends DatabaseConnection{
         return userList;
     }
     public User getUserById(int id){
-        String SELECT_USER_BY_ID = "SELECT * FROM `user` WHERE id = ?";
+        String SELECT_USER_BY_ID = "SELECT * FROM `users` WHERE id = ?";
         try {
             Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_ID);
@@ -82,7 +82,7 @@ public class UserDao extends DatabaseConnection{
         return null;
     }
     public void register(String fullName, String userName, String email, String password) {
-        String REGISTER_CLIENT = "INSERT INTO `user` (`username`, `password`, `fullname`, `email`, `role_id`) VALUES (?, ?, ?, ?, ?)";
+        String REGISTER_CLIENT = "INSERT INTO `users` (`username`, `password`, `fullname`, `email`, `role_id`) VALUES (?, ?, ?, ?, ?)";
         try {
             Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(REGISTER_CLIENT);
@@ -97,7 +97,7 @@ public class UserDao extends DatabaseConnection{
         }
     }
     public void deleteUserById(int id){
-        String DELETE_USER_BY_ID = "DELETE FROM `user` WHERE (`id` = ?)";
+        String DELETE_USER_BY_ID = "DELETE FROM `users` WHERE (`id` = ?)";
 
         try {
             Connection connection = getConnection();

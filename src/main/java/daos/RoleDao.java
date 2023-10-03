@@ -12,7 +12,7 @@ import java.util.List;
 public class RoleDao extends DatabaseConnection{
     public List<Role> getAllRole(){
         List<Role> roleList = new ArrayList<>();
-        String SELECT_ALL_ROLE = "SELECT * FROM `role`";
+        String SELECT_ALL_ROLE = "SELECT * FROM `roles`";
 
         try {
             Connection connection = getConnection();
@@ -27,7 +27,7 @@ public class RoleDao extends DatabaseConnection{
         return roleList;
     }
     public Role getRoleById(int id){
-        String SELECT_ROLE_BY_ID = "SELECT * FROM `role` WHERE id= ?";
+        String SELECT_ROLE_BY_ID = "SELECT * FROM `roles` WHERE id= ?";
         try {
             Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ROLE_BY_ID);
@@ -42,7 +42,7 @@ public class RoleDao extends DatabaseConnection{
         return null;
     }
     public Role getRoleByRoleName(String nameRole){
-        String SELECT_ROLE_BY_ROLENAME = "SELECT * FROM `role` WHERE role_name = ? ";
+        String SELECT_ROLE_BY_ROLENAME = "SELECT * FROM `roles` WHERE role_name = ? ";
         try {
             Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ROLE_BY_ROLENAME);
