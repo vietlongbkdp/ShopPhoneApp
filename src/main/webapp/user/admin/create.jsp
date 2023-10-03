@@ -143,11 +143,65 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-
-                <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-
-                <!-- DataTales Example -->
+                <form class="user" action="/user?action=create" method="post">
+                    <div class="col-sm-6 mb-3 mb-sm-3">User Name
+                        <input type="text" class="form-control form-control-user" id="userName"  placeholder="User Name" name="userName" required>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-3"> Full Name
+                        <input type="text" class="form-control form-control-user" id="fullName"  placeholder="Full Name" name="fullName" required>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-3"> Email
+                        <input type="email" class="form-control form-control-user" id="email"  placeholder="Email" name="email" required>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-3"> Address
+                        <input type="text" class="form-control form-control-user" id="address"  placeholder="Address" name="address" required>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-3"> Phone
+                        <input type="text" class="form-control form-control-user" id="phone"  placeholder="Phone" name="phone" required>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-3"> Date of Birth
+                        <input type="date" class="form-control form-control-user" id="dob"  placeholder="Date of Birth" name="dob" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="branch" class="form-label">Branch</label>
+                        <select class="form-control" name="branch" id="branch">
+                            <c:forEach var="branch" items="${branchs}">
+                                <option value="${branch.id}"
+                                    ${branch.id == product.branch.id ?'selected' : ' ' }>
+                                        ${branch.name}
+                                </option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-3">Gender
+                            <select class="form-select" aria-label="Default select example" id="gender" name="gender">
+                                <c:forEach var="gender" items="${genders}">
+                                    <option value="${gender}"${gender == user.gender ?'selected' : ' ' }>
+                                            ${branch.name}
+                                    </option>
+                                </c:forEach>
+                            <option selected>-- Select gender --</option>
+                            <option value="MALE">MALE</option>
+                            <option value="FEMALE">FEMALE</option>
+                            <option value="OTHER">OTHER</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-3">Role
+                        <select class="form-select" aria-label="Default select example" id="role" name="role">
+                            <option selected>-- Select Role --</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Staff">Staff</option>
+                            <option value="Client">Client</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-3">Password
+                        <input type="password" class="form-control form-control-user" id="password" placeholder="Password" name="password" required>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-3">Confirm Password
+                        <input type="password" class="form-control form-control-user" id="re_password" placeholder="Confirm Password" name="re_password" required>
+                    </div>
+                    <input type="submit" value="Submit" class="btn btn-primary">
+                </form>
             </div>
             <!-- /.container-fluid -->
 

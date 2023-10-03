@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "UserController", value = "/user")
+@WebServlet(name = "UserController", value = "/admin")
 public class  UserController extends HttpServlet {
     private UserService userService;
     private RoleService roleService;
@@ -46,7 +46,7 @@ public class  UserController extends HttpServlet {
 
     private void showCreate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("roles", roleService.getAllRole());
-        req.setAttribute("gender", EGender.values());
+        req.setAttribute("genders", EGender.values());
         req.getRequestDispatcher("user/admin/create.jsp").forward(req, resp);
     }
 

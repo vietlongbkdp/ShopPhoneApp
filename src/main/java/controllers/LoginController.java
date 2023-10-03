@@ -85,7 +85,7 @@ public class LoginController extends HttpServlet {
                     req.getRequestDispatcher("user/admin/managerTotal.jsp").forward(req, resp);
                 }
                 case "Client" -> {
-                    req.getRequestDispatcher("user/client/client.jsp").forward(req, resp);
+                    resp.sendRedirect("/shop");
                     session.setAttribute("user", userService.getUserByUserName(userName));
                 }
                 case "Staff" -> {
