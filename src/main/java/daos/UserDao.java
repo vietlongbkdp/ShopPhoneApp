@@ -109,6 +109,47 @@ public class UserDao extends DatabaseConnection{
             throw new RuntimeException(e);
         }
     }
+    public void createUser(User user){
+        String CREATE_NEW_USER = "INSERT INTO `datacasemd3`.`users` (`username`, `password`, `fullname`, `email`, `address`, `phone`, `gender`, `dob`, `role_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(CREATE_NEW_USER);
+            preparedStatement.setString(1, user.getUserName());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getFullName());
+            preparedStatement.setString(4, user.getEmail());
+            preparedStatement.setString(5, user.getAddress());
+            preparedStatement.setString(6, user.getPhone());
+            preparedStatement.setString(7, user.getGender().name());
+            preparedStatement.setDate(8, user.getDob());
+            preparedStatement.setInt(9, user.getRole().getId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void editUser(User user, int id) {
+        String EDIT_USER_BY_ID = "UPDATE `users` SET `username` = ?, `password` = ?, `fullname` = ?, `email` = ?, `address` = ?, `phone` = ?, `gender` = ?, `dob` = ?, `role_id` = ? WHERE (`id` = ?)";
+
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(EDIT_USER_BY_ID);
+            preparedStatement.setString(1, user.getUserName());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getFullName());
+            preparedStatement.setString(4, user.getEmail());
+            preparedStatement.setString(5, user.getAddress());
+            preparedStatement.setString(6, user.getPhone());
+            preparedStatement.setString(7, user.getGender().name());
+            preparedStatement.setDate(8, user.getDob());
+            preparedStatement.setInt(9, user.getRole().getId());
+            preparedStatement.setInt(10, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 //    public static void main(String[] args) {
 //        UserDao userDao = new UserDao();

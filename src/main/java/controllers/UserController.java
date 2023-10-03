@@ -34,9 +34,19 @@ public class UserController extends HttpServlet {
             case "delete":
                 delete(req, resp);
                 break;
+            case "edit":
+                showEdit(req, resp);
+                break;
             default:
                 showListUser(req, resp);
         }
+    }
+
+    private void showEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("userEdit", userService.getUserById(Integer.parseInt(req.getParameter("id"))));
+        req.setAttribute("roles", roleService.getAllRole());
+        req.setAttribute("genders", EGender.values());
+        req.getRequestDispatcher("user/admin/edit.jsp").forward(req, resp);
     }
 
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -67,14 +77,30 @@ public class UserController extends HttpServlet {
             case "create":
                 create(req, resp);
                 break;
+            case "edit":
+                edit(req, resp);
+                break;
             default:
                 showListUser(req, resp);
         }
     }
 
-    private void create(HttpServletRequest req, HttpServletResponse resp) {
-        String userName = req.getParameter("userName");
-        String fullName = req.getParameter("fullName");
+    private void edit(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String password = req.getParameter("password");
+        String re_password = req.getParameter("re_password");
+        if(password.equals(re_password)){
+            userService.edit(req);
+            resp.sendRedirect("/admin?action=userManager?message=Edit Success");
+        }else resp.sendRedirect("/admin?action=userManager?message=Edit Fail");
+    }
+
+    private void create(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String password = req.getParameter("password");
+        String re_password = req.getParameter("re_password");
+        if(password.equals(re_password)){
+            userService.createUser(req);
+            resp.sendRedirect("/admin?action=userManager?message=Create Success");
+        }else resp.sendRedirect("/admin?action=userManager?message=Create Fail");
     }
 
     @Override

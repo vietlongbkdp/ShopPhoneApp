@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Create User</title>
     <link href="/user/admin/assets/all.min.css" rel="stylesheet" type="text/css">
     <link href="/user/admin/assets/sb-admin-2.min.css" rel="stylesheet">
     <link href="/user/admin/assets/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -143,7 +143,7 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <form class="user" action="/user?action=create" method="post">
+                <form class="user" action="/admin?action=create" method="post">
                     <div class="sidebar-brand-text mx-5 mb-3 font-weight-bold">CREATE USER</div>
                     <div class="col-sm-6 mb-3 mb-sm-3">User Name
                         <input type="text" class="form-control form-control-user" id="userName"  placeholder="User Name" name="userName" required>
