@@ -27,4 +27,12 @@ public class UserService {
         }
         return false;
     }
+
+    public void register(String fullName, String userName, String email, String password) {
+        userDao.register(fullName, userName, email, password);
+    }
+
+    public void deleteUserById(int id) {
+        userDao.deleteUserById(id);
+    }
 }
