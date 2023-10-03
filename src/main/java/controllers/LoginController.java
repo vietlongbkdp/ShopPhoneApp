@@ -28,12 +28,18 @@ public class LoginController extends HttpServlet {
             action = "";
         }
         switch (action){
-//            case "create":
-//                showCreate(req, resp);
-//                break;
+            case "logout":
+                logout(req, resp);
+                break;
             default:
                 showLogin(req, resp);
         }
+    }
+
+    private void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        session.invalidate();
+        req.getRequestDispatcher("login/login.jsp").forward(req, resp);
     }
 
     private void showLogin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -56,8 +62,13 @@ public class LoginController extends HttpServlet {
         }
     }
 
-    private void register(HttpServletRequest req, HttpServletResponse resp) {
-        r
+    private void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String fullName = req.getParameter("fullName");
+        String userName = req.getParameter("userName");
+        String email = req.getParameter("email");
+        String password = req.getParameter("confirmPassword");
+        userService.register(fullName, userName, email, password);
+        req.getRequestDispatcher("login/login.jsp").forward(req, resp);
     }
 
     private void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -66,22 +77,20 @@ public class LoginController extends HttpServlet {
         if(userService.login(userName, password)){
             String userRole = userService.getUserByUserName(userName).getRole().getRoleName();
             HttpSession session = req.getSession();
-            session.setAttribute("userName", userName);
+            session.setAttribute("user", userService.getUserByUserName(userName));
             switch (userRole) {
                 case "Admin" -> {
-                    req.getRequestDispatcher("user/admin/admin.jsp").forward(req, resp);
-                    session.setAttribute("user", userService.getUserByUserName(userName));
+                    resp.sendRedirect("/admin?message= Login Succes!");
                 }
                 case "Client" -> {
-                    req.getRequestDispatcher("user/client/client.jsp").forward(req, resp);
-                    session.setAttribute("user", userService.getUserByUserName(userName));
+                    resp.sendRedirect("/shopping?message= Login Succes!");
                 }
                 case "Staff" -> {
-                    req.getRequestDispatcher("user/staff/staff.jsp").forward(req, resp);
-                    session.setAttribute("user", userService.getUserByUserName(userName));
+                    resp.sendRedirect("/oder?message= Login Succes!");
                 }
             }
         }
+        else resp.sendRedirect("/login?message=Password or username is invalid");
     }
 
     @Override
