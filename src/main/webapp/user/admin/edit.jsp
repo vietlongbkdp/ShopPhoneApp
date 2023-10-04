@@ -34,7 +34,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="/user?action=userManager">
+            <a class="nav-link" href="/admin?action=userManager">
                 <i class="fas fa-users-cog"></i>
                 <span>User Management</span></a>
         </li>
@@ -49,7 +49,7 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/user?action=userManager" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/admin?action=product" aria-expanded="true" >
                 <i class="fas fa-fw fa-table"></i>
                 <span>Product</span>
             </a>
@@ -57,7 +57,7 @@
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/user?action=userManager" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/admin?action=order" aria-expanded="true" >
                 <i class="fas fa-file-invoice"></i>
                 <span>Order</span>
             </a>
@@ -171,14 +171,16 @@
                                 </c:forEach>
                         </select>
                     </div>
-                    <div class="col-sm-6 mb-3 mb-sm-3">
-                        <label for="role" class="form-label">Role</label>
-                        <select class="form-control" id="role" name="role">
-                            <c:forEach var="role" items="${roles}">
-                                <option value="${role.roleName}">${role.roleName}</option>
-                            </c:forEach>
-                        </select>
-                    </div>
+                   <c:if test="${userEdit.role.roleName != 'Client'}">
+                       <div class="col-sm-6 mb-3 mb-sm-3" >
+                           <label for="role" class="form-label">Role</label>
+                           <select class="form-control" id="role" name="role">
+                               <c:forEach var="role" items="${roles}">
+                                   <option value="${role.roleName}" ${role.roleName == "Client" ? 'hidden' : ''}>${role.roleName}</option>
+                               </c:forEach>
+                           </select>
+                       </div>
+                   </c:if>
                     <div class="col-sm-6 mb-3 mb-sm-3">Password
                         <input type="password" class="form-control form-control-user" id="password" placeholder="Password" name="password" required>
                     </div>

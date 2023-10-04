@@ -49,7 +49,7 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/admin?action=userManager" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/admin?action=product" aria-expanded="true" >
                 <i class="fas fa-fw fa-table"></i>
                 <span>Product</span>
             </a>
@@ -57,12 +57,15 @@
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/admin?action=userManager" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/admin?action=order" aria-expanded="true" >
                 <i class="fas fa-file-invoice"></i>
                 <span>Order</span>
             </a>
         </li>
-
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
     </ul>
     <!-- End of Sidebar -->
 

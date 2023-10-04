@@ -31,6 +31,12 @@ public class UserController extends HttpServlet {
             case "userManager":
                 showListUser(req, resp);
                 break;
+            case "product":
+                showListProduct(req, resp);
+                break;
+            case "order":
+                showListOrder(req, resp);
+                break;
             case "delete":
                 delete(req, resp);
                 break;
@@ -38,8 +44,20 @@ public class UserController extends HttpServlet {
                 showEdit(req, resp);
                 break;
             default:
-                showListUser(req, resp);
+                showTotal(req, resp);
         }
+    }
+
+    private void showListOrder(HttpServletRequest req, HttpServletResponse resp) {
+    }
+
+    private void showListProduct(HttpServletRequest req, HttpServletResponse resp) {
+        
+    }
+
+    private void showTotal(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("users", userService.getAllUser());
+        req.getRequestDispatcher("user/admin/managerTotal.jsp").forward(req,resp);
     }
 
     private void showEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

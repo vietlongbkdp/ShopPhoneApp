@@ -34,7 +34,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="/user?action=userManager">
+            <a class="nav-link" href="/admin?action=userManager">
                 <i class="fas fa-users-cog"></i>
                 <span>User Management</span></a>
         </li>
@@ -49,7 +49,7 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/user?action=userManager" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/admin?action=product" aria-expanded="true" >
                 <i class="fas fa-fw fa-table"></i>
                 <span>Product</span>
             </a>
@@ -57,12 +57,15 @@
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/user?action=userManager" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/admin?action=order" aria-expanded="true" >
                 <i class="fas fa-file-invoice"></i>
                 <span>Order</span>
             </a>
         </li>
-
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
     </ul>
     <!-- End of Sidebar -->
 
@@ -132,7 +135,6 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-/////////
                 <!-- Page Heading -->
                 <h1 class="h3 mb-2 text-gray-800">Tables</h1>
 
@@ -143,42 +145,6 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Full Name</th>
-                                    <th>User Name</th>
-                                    <th>Email</th>
-                                    <th>Address</th>
-                                    <th>Phone</th>
-                                    <th>Date of Birth</th>
-                                    <th>Gender</th>
-                                    <th>Role</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach var="user" items="${users}">
-                                    <tr>
-                                        <td>${user.id}</td>
-                                        <td>${user.fullName}</td>
-                                        <td>${user.userName}</td>
-                                        <td>${user.email}</td>
-                                        <td>${user.address}</td>
-                                        <td>${user.phone}</td>
-                                        <td>${user.dob}</td>
-                                        <td>${user.gender}</td>
-                                        <td>${user.role.roleName}</td>
-                                        <td>
-                                            <a href="/product?action=update&id=${product.id}" class="btn btn-primary ">Update</a>
-                                            <a onclick="showConfirm(${product.id})"
-                                               class="btn btn-primary ">Delete</a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
