@@ -12,11 +12,14 @@ import java.util.ArrayList;
 
 public class CartDao extends DatabaseConnection {
     public Cart findByUserId(int id) {
+
         String SELECT_BY_USER_ID = "SELECT c.*, cd.id AS cd_id, cd.product_id AS p_id, cd.quantity, cd.total_amount AS cd_total_amount" +
                 " (SELECT SUM(total_amount) FROM cart_details WHERE cart_id = c.id) AS c_total_amount" +
                 "FROM bandienthoai.carts c" +
                 "JOIN cart_details cd ON c.id = cd.cart_id" +
                 "WHERE c.user_id = ?";
+
+
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_USER_ID)) {
             System.out.println(preparedStatement);
@@ -26,7 +29,7 @@ public class CartDao extends DatabaseConnection {
             var cartDetails = new ArrayList<CartDetail>();
             while (rs.next()) {
                 cart.setId(rs.getInt("id"));
-                cart.setTotalAmount(rs.getBigDecimal("total_amount"));
+                cart.setTotalAmount(rs.getBigDecimal("c_total_amount"));
                 cart.setUser(new User(rs.getInt("user_id")));
                 var cartDetail = new CartDetail();
                 cartDetail.setId(rs.getInt("cd_id"));
@@ -53,6 +56,7 @@ public class CartDao extends DatabaseConnection {
             System.out.println(e.getMessage());
         }
     }
+
     public void createCartDetail(int cartId, int productId){
         String CREATE="INSERT INTO `bandienthoai`.`cart_details` (`cart_id`, `product_id`, `quantity`) VALUES (?, ?, '1');";
         try (Connection connection=getConnection();
@@ -65,6 +69,5 @@ public class CartDao extends DatabaseConnection {
         }
     }
     public void updateCartDetail(int cartId,int quantity){
-
     }
 }

@@ -2,6 +2,7 @@ package controllers;
 
 import models.User;
 import services.ProductService;
+import utils.AuthUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +20,7 @@ public class ClientController extends HttpServlet {
     @Override
     public void init() throws ServletException {
         productService = new ProductService();
+
     }
 
     @Override
@@ -28,8 +30,13 @@ public class ClientController extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "add"-> add(req,resp);
             default -> showlist(req, resp);
         }
+    }
+
+    private void add(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
     }
 
     private void showlist(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -41,8 +48,7 @@ public class ClientController extends HttpServlet {
         if (pageString == null) {
             pageString = "1";
         }
-        HttpSession session= req.getSession();
-        User user=(User) session.getAttribute("user");
+        User user= AuthUtils.getUser();
         req.setAttribute("user",user);
         req.setAttribute("page", productService.getProducts(Integer.parseInt(pageString), isShowRestore, req.getParameter("search")));
         req.setAttribute("message", req.getParameter("message"));
