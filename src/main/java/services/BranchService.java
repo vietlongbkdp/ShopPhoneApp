@@ -18,4 +18,16 @@ public class BranchService {
     public Branch getBranch(int id){
         return branchDAO.findById(id);
     }
+
+    public void createBranch(int id, String nameBranch) {
+        branchDAO.create(id, nameBranch);
+    }
+
+    public void deleteBranch(int id) {
+        branchDAO.delete(id);
+    }
+
+    public void editBrach(int id, String nameBranch) {
+        branchDAO.edit(id, nameBranch);
+    }
 }

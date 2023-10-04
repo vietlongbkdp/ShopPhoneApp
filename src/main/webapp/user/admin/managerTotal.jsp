@@ -49,7 +49,7 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/admin?action=product" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/product" aria-expanded="true" >
                 <i class="fas fa-fw fa-table"></i>
                 <span>Product</span>
             </a>
@@ -57,15 +57,15 @@
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/admin?action=order" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/shopping" aria-expanded="true" >
                 <i class="fas fa-file-invoice"></i>
                 <span>Order</span>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/admin?action=order" aria-expanded="true" >
-                <i class="fas fa-file-invoice"></i>
+            <a class="nav-link collapsed" href="/branch" aria-expanded="true" >
+                <i class="fas fa-mobile"></i>
                 <span>Branch</span>
             </a>
         </li>
@@ -84,8 +84,6 @@
 
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                <!-- Sidebar Toggle (Topbar) --
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -143,15 +141,94 @@
             <!-- Begin Page Content -->
             <div class="container-fluid">
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+                <h1 class="h3 mb-2 text-gray-800">WELCOM BACK ADMIN!!</h1>
 
                 <!-- DataTales Example -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">User Management</h6>
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">List Management</h1>
+                </div>
+
+                <!-- Content Row -->
+                <div class="row">
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            <a href="/admin?action=userManager">TOTAL USER</a>
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">${totalUser}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-users-cog fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            <a href="/product">TOTAL PRODUCT</a>
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">${totalProduct}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-tablet-alt fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            <a href="/shopping">TOTAL ORDER</a>
+                                        </div>
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${totalOrder}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pending Requests Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            <a href="/branch">TOTAL BRANCH</a>
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">${totalBranch}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-mobile fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -39,6 +39,9 @@ public class LoginController extends HttpServlet {
             case "forgotPassword":
                 forgotPassword(req, resp);
                 break;
+            case "resetPassword":
+                resetPassword(req, resp);
+                break;
             default:
                 showLogin(req, resp);
         }
@@ -92,16 +95,18 @@ public class LoginController extends HttpServlet {
             userService.updatePassword(id, password);
             resp.sendRedirect("/login?message=Restore Password success!");
         }else{
-            req.setAttribute("user", userService.getUserById(id));
-            req.setAttribute("message", "Password invalid!");
-            req.getRequestDispatcher("/login/resetPassword.jsp").forward(req, resp);
-//            resp.sendRedirect("/login?action=resetPassword&message=Password invalid!");
+//            req.setAttribute("user", userService.getUserById(id));
+//            req.setAttribute("message", "Password invalid!");
+//            req.getRequestDispatcher("/login/resetPassword.jsp").forward(req, resp);
+            resp.sendRedirect("/login?action=resetPassword&id="+id+"&message=Password invalid!");
         }
     }
 
     private void resetPassword(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String email = req.getParameter("email");
-        req.setAttribute("message", req.getParameter("message"));
+        String email ="";
+        if(req.getParameter("id")==null){
+            email = req.getParameter("email");
+        }else email = userService.getEmailById(Integer.parseInt(req.getParameter("id")));
         req.setAttribute("user", userService.getUserByEmail(email));
         req.getRequestDispatcher("/login/resetPassword.jsp").forward(req, resp);
     }

@@ -87,4 +87,10 @@ public class UserService {
     public void updatePassword(int id, String password) {
         userDao.updatePassword(id, password);
     }
+    public String getEmailById(int id) {
+        User user = userDao.getAllUser().stream().filter(u -> u.getId() == id).findFirst().orElse(null);
+        if(user!=null) {
+            return user.getEmail();
+        }else return null;
+    }
 }

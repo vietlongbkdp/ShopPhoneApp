@@ -8,6 +8,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/product/create.jsp" value="file://$PROJECT_DIR$/src/main/webapp/product" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/user/admin/admin3.jsp" value="file://$PROJECT_DIR$/src/main/webapp/user/admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/user/admin/edit.jsp" value="file://$PROJECT_DIR$/src/main/webapp/user/admin" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/user/admin/managerTotal.jsp" value="file://$PROJECT_DIR$/src/main/webapp/user/admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/user/admin/managerUser.jsp" value="file://$PROJECT_DIR$/src/main/webapp/user/admin" />
       </map>
     </option>
