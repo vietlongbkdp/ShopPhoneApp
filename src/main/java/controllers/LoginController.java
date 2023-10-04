@@ -3,6 +3,7 @@ package controllers;
 import filter.AdminFilter;
 import filter.ClientFilter;
 import filter.StaffFilter;
+import models.User;
 import services.RoleService;
 import services.UserService;
 import utils.AuthUtils;
@@ -73,10 +74,37 @@ public class LoginController extends HttpServlet {
                 break;
             case "register":
                 register(req, resp);
+            case "resetPassword":
+                resetPassword(req, resp);
+                break;
+            case "restorePassword":
+                restorePassword(req, resp);
                 break;
         }
     }
 
+    private void restorePassword(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        String password = req.getParameter("password");
+        String re_password = req.getParameter("re_password");
+        int id = Integer.parseInt(req.getParameter("id"));
+        String pinCode = req.getParameter("pinCode");
+        if((password.equals(re_password)) && pinCode.equals("111")){
+            userService.updatePassword(id, password);
+            resp.sendRedirect("/login?message=Restore Password success!");
+        }else{
+            req.setAttribute("user", userService.getUserById(id));
+            req.setAttribute("message", "Password invalid!");
+            req.getRequestDispatcher("/login/resetPassword.jsp").forward(req, resp);
+//            resp.sendRedirect("/login?action=resetPassword&message=Password invalid!");
+        }
+    }
+
+    private void resetPassword(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String email = req.getParameter("email");
+        req.setAttribute("message", req.getParameter("message"));
+        req.setAttribute("user", userService.getUserByEmail(email));
+        req.getRequestDispatcher("/login/resetPassword.jsp").forward(req, resp);
+    }
     private void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String fullName = req.getParameter("fullName");
         String userName = req.getParameter("userName");

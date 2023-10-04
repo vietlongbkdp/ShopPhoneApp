@@ -151,6 +151,40 @@ public class UserDao extends DatabaseConnection{
         }
     }
 
+    public void updateProfile(String userName, String fullName, String email, String address, String phone, String gender, String dob, int id){
+        String UPDATE_PROFILE_BY_ID = "UPDATE `users` SET `username` = ?, `fullname` = ?, `email` = ?, `address` = ?, `phone` = ?, `gender` = ?, `dob` = ? WHERE (`id` = ?)";
+        Connection connection = getConnection();
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(UPDATE_PROFILE_BY_ID);
+            preparedStatement.setString(1, userName);
+            preparedStatement.setString(2, fullName);
+            preparedStatement.setString(3, email);
+            preparedStatement.setString(4, address);
+            preparedStatement.setString(5, phone);
+            preparedStatement.setString(6, gender);
+            preparedStatement.setDate(7, Date.valueOf(dob));
+            preparedStatement.setInt(8, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updatePassword(int id, String password) {
+        String UPDATE_PASSWORD = "UPDATE `users` SET `password` = ? WHERE (`id` = ?)";
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_PASSWORD);
+            preparedStatement.setString(1, password);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 //    public static void main(String[] args) {
 //        UserDao userDao = new UserDao();
 //        System.out.println(userDao.getUserById(7).getUserName());

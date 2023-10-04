@@ -31,21 +31,23 @@
                         <div class="col-lg-6">
                             <div class="p-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-2">Forgot Your Password?</h1>
-                                    <p class="mb-4">We get it, stuff happens. Just enter your email address below
-                                        and we'll send you a link to reset your password!</p>
+                                    <h1 class="h4 text-gray-900 mb-2">Hi ${user.fullName}</h1>
+                                    <p class="mb-4">Please input new password and PIN code from your email to restore your account!</p>
                                 </div>
-                                <form class="user" action="/login?action=resetPassword" method="post">
+                                <form class="user" action="/login?action=restorePassword&id=${user.id}" method="post">
                                     <div class="form-group">
-                                        <input type="email" class="form-control form-control-user"
-                                               id="email" name="email" aria-describedby="emailHelp"
-                                               placeholder="Enter Email Address...">
+                                        <input style="margin-bottom: 10px" type="password" class="form-control form-control-user"
+                                               id="password" name="password" aria-describedby="emailHelp"
+                                               placeholder="Enter new password...">
+                                        <input style="margin-bottom: 10px" type="password" class="form-control form-control-user"
+                                               id="re_password" name="re_password" aria-describedby="emailHelp"
+                                               placeholder="Confirm password...">
+                                        <input type="text" class="form-control form-control-user"
+                                               id="pinCode" name="pinCode" aria-describedby="emailHelp"
+                                               placeholder="PIN code from your email...">
                                     </div>
-<%--                                    <a  href="#" class="btn btn-primary btn-user btn-block" type="submit">--%>
-<%--                                        Reset Password--%>
-<%--                                    </a>--%>
                                     <button class="btn btn-primary btn-user btn-block" type="submit">
-                                        Reset Password
+                                        Restore Account
                                     </button>
                                 </form>
                                 <hr>

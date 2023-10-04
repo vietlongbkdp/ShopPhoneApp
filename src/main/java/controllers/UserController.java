@@ -3,6 +3,7 @@ package controllers;
 import daos.RoleDao;
 import daos.UserDao;
 import models.EGender;
+import models.User;
 import services.RoleService;
 import services.UserService;
 
@@ -11,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "UserController", value = "/admin")
@@ -46,6 +48,13 @@ public class UserController extends HttpServlet {
             default:
                 showTotal(req, resp);
         }
+    }
+
+    private void showProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        User userLogin = (User) session.getAttribute("user");
+        req.setAttribute("user", userLogin);
+        req.getRequestDispatcher("/user/client/editProfile.jsp").forward(req, resp);
     }
 
     private void showListOrder(HttpServletRequest req, HttpServletResponse resp) {

@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Edit User</title>
+    <title>Edit Profile</title>
     <link href="/user/admin/assets/all.min.css" rel="stylesheet" type="text/css">
     <link href="/user/admin/assets/sb-admin-2.min.css" rel="stylesheet">
     <link href="/user/admin/assets/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -124,7 +124,7 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="/shopping?action=profile">
+                            <a class="dropdown-item" href="#">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
@@ -143,59 +143,33 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <form class="user" action="/admin?action=edit&id=${userEdit.id}" method="post">
-                    <div class="sidebar-brand-text mx-5 mb-3 font-weight-bold">EDIT USER</div>
+                <form class="user" action="/shopping?action=editProfile&id=${user.id}" method="post">
+                    <div class="sidebar-brand-text mx-5 mb-3 font-weight-bold">EDIT PROFILE</div>
                     <div class="col-sm-6 mb-3 mb-sm-3">User Name
-                        <input type="text" class="form-control form-control-user" id="userName"  placeholder="User Name" name="userName" required value="${userEdit.userName}">
+                        <input type="text" class="form-control form-control-user" id="userName"  placeholder="User Name" name="userName" required value="${user.userName}">
                     </div>
                     <div class="col-sm-6 mb-3 mb-sm-3"> Full Name
-                        <input type="text" class="form-control form-control-user" id="fullName"  placeholder="Full Name" name="fullName" required value="${userEdit.fullName}">
+                        <input type="text" class="form-control form-control-user" id="fullName"  placeholder="Full Name" name="fullName" required value="${user.fullName}">
                     </div>
                     <div class="col-sm-6 mb-3 mb-sm-3"> Email
-                        <input type="email" class="form-control form-control-user" id="email"  placeholder="Email" name="email" required value="${userEdit.email}">
+                        <input type="email" class="form-control form-control-user" id="email"  placeholder="Email" name="email" required value="${user.email}">
                     </div>
                     <div class="col-sm-6 mb-3 mb-sm-3"> Address
-                        <input type="text" class="form-control form-control-user" id="address"  placeholder="Address" name="address" required value="${userEdit.address}">
+                        <input type="text" class="form-control form-control-user" id="address"  placeholder="Address" name="address" required value="${user.address}">
                     </div>
                     <div class="col-sm-6 mb-3 mb-sm-3"> Phone
-                        <input type="text" class="form-control form-control-user" id="phone"  placeholder="Phone" name="phone" required value="${userEdit.phone}">
+                        <input type="text" class="form-control form-control-user" id="phone"  placeholder="Phone" name="phone" required value="${user.phone}">
                     </div>
                     <div class="col-sm-6 mb-3 mb-sm-3"> Date of Birth
-                        <input type="date" class="form-control form-control-user" id="dob"  placeholder="Date of Birth" name="dob" required value="${userEdit.dob}">
+                        <input type="date" class="form-control form-control-user" id="dob"  placeholder="Date of Birth" name="dob" required value="${user.dob}">
                     </div>
                     <div class="col-sm-6 mb-3 mb-sm-3">
                         <label for="gender" class="form-label">Gender</label>
-                            <select class="form-control" id="gender" name="gender">
-                                <c:forEach var="gender" items="${genders}">
-                                    <option value="${gender}">${gender}</option>
-                                </c:forEach>
+                        <select class="form-control" id="gender" name="gender">
+                            <c:forEach var="gender" items="${genders}">
+                                <option value="${gender}" ${gender == user.gender ? 'selected' : ''} >${gender}</option>
+                            </c:forEach>
                         </select>
-                    </div>
-                   <c:if test="${userEdit.role.roleName != 'Client'}">
-                       <div class="col-sm-6 mb-3 mb-sm-3" >
-                           <label for="role1" class="form-label">Role</label>
-                           <select class="form-control" id="role1" name="role">
-                               <c:forEach var="role" items="${roles}">
-                                   <option value="${role.roleName}" selected ${role.roleName == "Client" ? 'hidden' : ''}>${role.roleName}</option>
-                               </c:forEach>
-                           </select>
-                       </div>
-                   </c:if>
-                    <c:if test="${userEdit.role.roleName == 'Client'}">
-                        <div class="col-sm-6 mb-3 mb-sm-3" >
-                            <label for="role2" class="form-label">Role</label>
-                            <select class="form-control" id="role2" name="role">
-                                <c:forEach var="role" items="${roles}">
-                                    <option value="${role.roleName}" selected ${role.roleName != "Client" ? 'hidden' : ''}>${role.roleName}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                    </c:if>
-                    <div class="col-sm-6 mb-3 mb-sm-3">Password
-                        <input type="password" class="form-control form-control-user" id="password" placeholder="Password" name="password" required>
-                    </div>
-                    <div class="col-sm-6 mb-3 mb-sm-3">Confirm Password
-                        <input type="password" class="form-control form-control-user" id="re_password" placeholder="Confirm Password" name="re_password" required>
                     </div>
                     <input type="submit" value="Submit" class="btn btn-primary">
                 </form>
