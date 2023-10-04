@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Admin Page</title>
+    <title>Edit User</title>
     <link href="/user/admin/assets/all.min.css" rel="stylesheet" type="text/css">
     <link href="/user/admin/assets/sb-admin-2.min.css" rel="stylesheet">
     <link href="/user/admin/assets/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -62,10 +62,13 @@
                 <span>Order</span>
             </a>
         </li>
+
+
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
+
     </ul>
     <!-- End of Sidebar -->
 
@@ -78,7 +81,12 @@
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                <!-- Sidebar Toggle (Topbar) --
+                <!-- Sidebar Toggle (Topbar) -->
+                <form class="form-inline">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </form>
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -109,7 +117,7 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Welcome ${user.userName}</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">Welcome ${user.userName}!</span>
                             <img class="img-profile rounded-circle"
                                  src="/user/admin/assets/undraw_profile_2.svg">
                         </a>
@@ -135,20 +143,52 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-
-                <!-- DataTales Example -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">User Management</h6>
+                <form class="user" action="/admin?action=edit&id=${userEdit.id}" method="post">
+                    <div class="sidebar-brand-text mx-5 mb-3 font-weight-bold">EDIT USER</div>
+                    <div class="col-sm-6 mb-3 mb-sm-3">User Name
+                        <input type="text" class="form-control form-control-user" id="userName"  placeholder="User Name" name="userName" required value="${userEdit.userName}">
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                        </div>
+                    <div class="col-sm-6 mb-3 mb-sm-3"> Full Name
+                        <input type="text" class="form-control form-control-user" id="fullName"  placeholder="Full Name" name="fullName" required value="${userEdit.fullName}">
                     </div>
-                </div>
-
+                    <div class="col-sm-6 mb-3 mb-sm-3"> Email
+                        <input type="email" class="form-control form-control-user" id="email"  placeholder="Email" name="email" required value="${userEdit.email}">
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-3"> Address
+                        <input type="text" class="form-control form-control-user" id="address"  placeholder="Address" name="address" required value="${userEdit.address}">
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-3"> Phone
+                        <input type="text" class="form-control form-control-user" id="phone"  placeholder="Phone" name="phone" required value="${userEdit.phone}">
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-3"> Date of Birth
+                        <input type="date" class="form-control form-control-user" id="dob"  placeholder="Date of Birth" name="dob" required value="${userEdit.dob}">
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-3">
+                        <label for="gender" class="form-label">Gender</label>
+                            <select class="form-control" id="gender" name="gender">
+                                <c:forEach var="gender" items="${genders}">
+                                    <option value="${gender}">${gender}</option>
+                                </c:forEach>
+                        </select>
+                    </div>
+                   <c:if test="${userEdit.role.roleName != 'Client'}">
+                       <div class="col-sm-6 mb-3 mb-sm-3" >
+                           <label for="role" class="form-label">Role</label>
+                           <select class="form-control" id="role" name="role">
+                               <c:forEach var="role" items="${roles}">
+                                   <option value="${role.roleName}" ${role.roleName == "Client" ? 'hidden' : ''}>${role.roleName}</option>
+                               </c:forEach>
+                           </select>
+                       </div>
+                   </c:if>
+                    <div class="col-sm-6 mb-3 mb-sm-3">Password
+                        <input type="password" class="form-control form-control-user" id="password" placeholder="Password" name="password" required>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-3">Confirm Password
+                        <input type="password" class="form-control form-control-user" id="re_password" placeholder="Confirm Password" name="re_password" required>
+                    </div>
+                    <input type="submit" value="Submit" class="btn btn-primary">
+                </form>
             </div>
             <!-- /.container-fluid -->
 
@@ -205,3 +245,4 @@
 <script src="/user/admin/assets/datatables-demo.js"></script>
 </body>
 </html>
+

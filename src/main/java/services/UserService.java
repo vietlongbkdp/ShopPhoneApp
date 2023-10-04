@@ -2,8 +2,11 @@ package services;
 
 import daos.RoleDao;
 import daos.UserDao;
+import models.EGender;
 import models.User;
 
+import javax.servlet.http.HttpServletRequest;
+import java.sql.Date;
 import java.util.List;
 
 public class UserService {
@@ -34,5 +37,34 @@ public class UserService {
 
     public void deleteUserById(int id) {
         userDao.deleteUserById(id);
+    }
+
+    public void createUser(HttpServletRequest req) {
+        User user = new User();
+        user.setUserName(req.getParameter("userName"));
+        user.setFullName(req.getParameter("fullName"));
+        user.setEmail(req.getParameter("email"));
+        user.setAddress(req.getParameter("address"));
+        user.setPhone(req.getParameter("phone"));
+        user.setDob(Date.valueOf(req.getParameter("dob")));
+        user.setGender(EGender.valueOf(req.getParameter("gender")));
+        user.setRole(roleDao.getRoleByRoleName(req.getParameter("role")));
+        user.setPassword(req.getParameter("password"));
+        userDao.createUser(user);
+    }
+
+    public void edit(HttpServletRequest req) {
+        User user = new User();
+        int id = Integer.parseInt(req.getParameter("id"));
+        user.setUserName(req.getParameter("userName"));
+        user.setFullName(req.getParameter("fullName"));
+        user.setEmail(req.getParameter("email"));
+        user.setAddress(req.getParameter("address"));
+        user.setPhone(req.getParameter("phone"));
+        user.setDob(Date.valueOf(req.getParameter("dob")));
+        user.setGender(EGender.valueOf(req.getParameter("gender")));
+        user.setRole(roleDao.getRoleByRoleName(req.getParameter("role")));
+        user.setPassword(req.getParameter("password"));
+        userDao.editUser(user, id);
     }
 }
