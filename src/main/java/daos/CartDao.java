@@ -12,8 +12,11 @@ import java.util.ArrayList;
 
 public class CartDao extends DatabaseConnection {
     public Cart findByUserId(int id) {
-        String SELECT_BY_USER_ID = "SELECT c.* ,cd.id cd_id, cd.product_id p_id, cd.quantity,cd.total_amount cd_total_amount " +
-                "FROM bandienthoai.carts c JOIN cart_details cd on c.id=cd.cart_id WHERE c.user_id = ?";
+        String SELECT_BY_USER_ID = "SELECT c.*, cd.id AS cd_id, cd.product_id AS p_id, cd.quantity, cd.total_amount AS cd_total_amount," +
+                "  (SELECT SUM(total_amount) FROM cart_details WHERE cart_id = c.id) AS c_total_amount" +
+                "FROM bandienthoai.carts " +
+                "JOIN cart_details cd ON c.id = cd.cart_id" +
+                "WHERE c.user_id = 7";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_USER_ID)) {
             System.out.println(preparedStatement);
@@ -23,7 +26,7 @@ public class CartDao extends DatabaseConnection {
             var cartDetails = new ArrayList<CartDetail>();
             while (rs.next()) {
                 cart.setId(rs.getInt("id"));
-                cart.setTotalAmount(rs.getBigDecimal("total_amount"));
+                cart.setTotalAmount(rs.getBigDecimal("c_total_amount"));
                 cart.setUser(new User(rs.getInt("user_id")));
                 var cartDetail = new CartDetail();
                 cartDetail.setId(rs.getInt("cd_id"));
@@ -49,6 +52,10 @@ public class CartDao extends DatabaseConnection {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+    public void createCartDetail(CartDetail cartDetail ){
+
+
     }
 
 }
