@@ -3,8 +3,10 @@ package controllers;
 import models.EGender;
 import models.User;
 import services.ProductService;
+import services.ShoppingService;
 import services.RoleService;
 import services.UserService;
+
 import utils.AuthUtils;
 
 import javax.servlet.ServletException;
@@ -18,12 +20,17 @@ import java.io.IOException;
 @WebServlet(name = "ClientController", value = "/shopping")
 public class ClientController extends HttpServlet {
     private ProductService productService;
+
+    private ShoppingService shoppingService;
+
     private UserService userService;
     private RoleService roleService;
+
 
     @Override
     public void init() throws ServletException {
         productService = new ProductService();
+        shoppingService = new ShoppingService();
         userService = new UserService();
         roleService = new RoleService();
     }
@@ -47,6 +54,7 @@ public class ClientController extends HttpServlet {
 
     }
 
+
     private void showlist(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         showTable(req, false, "user/client/client.jsp", resp);
     }
@@ -56,13 +64,21 @@ public class ClientController extends HttpServlet {
         if (pageString == null) {
             pageString = "1";
         }
-        User user= AuthUtils.getUser();
-        req.setAttribute("user",user);
-        req.setAttribute("page", productService.getProducts(Integer.parseInt(pageString), isShowRestore, req.getParameter("search")));
-        req.setAttribute("message", req.getParameter("message"));
-        req.setAttribute("isShowRestore", isShowRestore);
-        req.setAttribute("search", req.getParameter("search"));
-        req.getRequestDispatcher(href).forward(req, resp);
+        if (AuthUtils.getUser() == null) {
+            req.setAttribute("page", productService.getProducts(Integer.parseInt(pageString), isShowRestore, req.getParameter("search")));
+            req.setAttribute("message", req.getParameter("message"));
+            req.setAttribute("isShowRestore", isShowRestore);
+            req.setAttribute("search", req.getParameter("search"));
+            req.getRequestDispatcher(href).forward(req, resp);
+        } else if (AuthUtils.getUser() != null) {
+            User user = AuthUtils.getUser();
+            req.setAttribute("user", user);
+            req.setAttribute("page", productService.getProducts(Integer.parseInt(pageString), isShowRestore, req.getParameter("search")));
+            req.setAttribute("message", req.getParameter("message"));
+            req.setAttribute("isShowRestore", isShowRestore);
+            req.setAttribute("search", req.getParameter("search"));
+            req.getRequestDispatcher(href).forward(req, resp);
+        }
     }
 
     @Override
@@ -81,10 +97,6 @@ public class ClientController extends HttpServlet {
         resp.sendRedirect("/shopping?action=profile");
     }
 
-//    private void updateProfile(HttpServletRequest req, HttpServletResponse resp) {
-//        userService.editProfile(req);
-//        resp.sendRedirect();
-//    }
 
     private void showProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
@@ -98,6 +110,5 @@ public class ClientController extends HttpServlet {
         req.setAttribute("genders", EGender.values());
         req.getRequestDispatcher("user/client/editProfile.jsp").forward(req, resp);
     }
-
 
 }
