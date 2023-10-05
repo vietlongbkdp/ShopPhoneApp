@@ -1,17 +1,19 @@
 package controllers;
 
 import models.Cart;
+import models.EGender;
 import models.User;
 import services.ProductService;
 import services.ShoppingService;
 import services.UserService;
-import utils.AuthUtils;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "CartController", value = "/cart")
@@ -34,11 +36,25 @@ public class CartController extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "profile" -> showProfile(req, resp);
+            case "editProfile"-> editProfile(req,resp);
             case "deleteCD" -> deleteCD(req, resp);
             case "showCart" -> showCart(req, resp);
             case "cart" -> cart(req, resp);
             default -> showlist(req, resp);
         }
+    }
+    private void showProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        req.setAttribute("user", userService.getUserById(user.getId()));
+        req.getRequestDispatcher("/user/client/profileUser.jsp").forward(req, resp);
+    }
+
+    private void editProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("userEdit", userService.getUserById(Integer.parseInt(req.getParameter("id"))));
+        req.setAttribute("genders", EGender.values());
+        req.getRequestDispatcher("user/client/editProfile.jsp").forward(req, resp);
     }
 
     private void showlist(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -58,13 +74,14 @@ public class CartController extends HttpServlet {
     }
 
     private void cart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = (User) AuthUtils.getUser();
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
         int cartid= shoppingService.findCartIdByUserId(user);
         int id = Integer.parseInt(req.getParameter("id"));
         if (shoppingService.checkProductInCart(cartid, id)) {
             shoppingService.updateCartDetail(shoppingService.findByUserId(user.getId()), id);
         } else {
-            shoppingService.createCartDetail(AuthUtils.getUser(), req);
+            shoppingService.createCartDetail(user, req);
         }
         resp.sendRedirect("/shopping");
 
@@ -80,7 +97,13 @@ public class CartController extends HttpServlet {
             case "delete" -> delete(req, resp);
             case "buy" -> buy(req, resp);
             case "updateCart" -> updateCart(req, resp);
+            case "editProfile"-> updateProfile(req,resp);
+
         }
+    }
+    private void updateProfile(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        userService.updateProfile(req);
+        resp.sendRedirect("/shopping?action=profile");
     }
 
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -90,9 +113,11 @@ public class CartController extends HttpServlet {
     }
 
     private void updateCart(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
         String[] cDetailIDS = req.getParameterValues("cDetailID");
         if (cDetailIDS !=null) {
-            shoppingService.updateCartDetails(shoppingService.findByUserId(AuthUtils.getUser().getId()), req);
+            shoppingService.updateCartDetails(shoppingService.findByUserId(user.getId()), req);
         }
         resp.sendRedirect("/shopping");
     }
