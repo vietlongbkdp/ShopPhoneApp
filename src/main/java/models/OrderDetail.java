@@ -49,8 +49,7 @@ public class OrderDetail {
         this.order = order;
     }
 
-    public OrderDetail(int id, int quantity, BigDecimal totalAmount, Product product, Order order) {
-        this.id = id;
+    public OrderDetail(int quantity, BigDecimal totalAmount, Product product, Order order) {
         this.quantity = quantity;
         this.totalAmount = totalAmount;
         this.product = product;
