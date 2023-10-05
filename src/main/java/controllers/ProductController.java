@@ -41,8 +41,13 @@ public class ProductController extends HttpServlet {
             case "edit" -> showEdit(req, resp);
             case "restore" -> showRestore(req, resp);
             case "delete" -> delete(req, resp);
-            default -> showList(req, resp);
+            case "showList" -> showList(req, resp);
+            default -> showTotal(req, resp);
         }
+    }
+
+    private void showTotal(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/user/staff/productTotal.jsp").forward(req, resp);
     }
 
     private void showList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -34,10 +34,14 @@ public class ClientController extends HttpServlet {
             action = "";
         }
         switch (action) {
+            case "shopping" -> showShopping(req, resp);
             default -> showlist(req, resp);
         }
     }
 
+    private void showShopping(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/user/cliented/shopping.jsp").forward(req, resp);
+    }
 
 
     private void showlist(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -132,7 +132,7 @@ public class LoginController extends HttpServlet {
                 resp.sendRedirect("/admin?message= Login Success");
                 }
                 case "Client" -> {
-                    resp.sendRedirect("/shopping?message= Login Success");
+                    resp.sendRedirect("/shopping?action=shopping&message= Login Success");
                 }
                 case "Staff" -> {
                     resp.sendRedirect("/product?message= Login Success");

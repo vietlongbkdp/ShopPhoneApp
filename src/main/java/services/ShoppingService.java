@@ -46,8 +46,10 @@ public class ShoppingService {
                 .map(Integer::parseInt).toList();
         List<Integer> quantities = Arrays.stream(req.getParameterValues("quantities"))
                 .map(Integer::parseInt).toList();
+        List<Integer> checkeds=Arrays.stream(req.getParameterValues("cartChecked"))
+                .map(Integer::parseInt).toList();
         for (int i = 0; i < cDetailIDS.size(); i++) {
-            cartDao.updateCartDetail(cDetailIDS.get(i), quantities.get(i));
+            cartDao.updateCartDetailChecked(cDetailIDS.get(i), quantities.get(i),checkeds.get(i));
         }
     }
 
