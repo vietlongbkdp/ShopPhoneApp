@@ -61,10 +61,8 @@ public class Order {
         this.orderDetails = orderDetails;
     }
 
-    public Order(int id, Date orderDate, EStatus status, User user, BigDecimal totalAmount, List<OrderDetail> orderDetails) {
-        this.id = id;
+    public Order(Date orderDate, User user, BigDecimal totalAmount, List<OrderDetail> orderDetails) {
         this.orderDate = orderDate;
-        this.status = status;
         this.user = user;
         this.totalAmount = totalAmount;
         this.orderDetails = orderDetails;
