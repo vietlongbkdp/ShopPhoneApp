@@ -81,8 +81,9 @@
                         <%--                    <td>${product.operatingSystem}</td>--%>
                         <%--                    <td>${product.pin}</td>--%>
                     <td>
-                        <a href="/product?action=addcart&id=${product.id}" class="btn btn-primary ">Add to cart</a>
-                        <a href="/product?action=detail&id=${product.id}" class="btn btn-primary ">ShowDetail</a>
+                        <a href="/product?action=update&id=${product.id}" class="btn btn-primary ">Update</a>
+                        <a onclick="showConfirm(${product.id})"
+                           class="btn btn-primary ">Delete</a>
                     </td>
                 </tr>
                 <c:set var="hasProducts" value="true"/>
@@ -117,6 +118,19 @@
                 </ul>
             </nav>
         </c:if>
+        <div>
+            <a href="/product?action=create" class="btn btn-primary ">Create</a>
+            <a href="/product?action=showRestore" class="btn btn-primary ">Restore</a>
+        </div>
+        <div id="confirmDialog" class="modal">
+            <div class="modal-content">
+                <p>Are you sure to delete?</p>
+                <div class="button-container">
+                    <button id="deleteButton">Yes</button>
+                    <button onclick="hideConfirmDialog()">No</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -126,6 +140,22 @@
     const message = document.getElementById('message');
     if (message !== null && message.innerHTML) {
         toastr.success(message.innerHTML);
+    }
+
+    function showConfirm(id) {
+        document.getElementById("confirmDialog").style.display = "block";
+        var buttonDelete = document.getElementById("deleteButton");
+        buttonDelete.addEventListener("click", function () {
+            deleteItem(id);
+        })
+    }
+
+    function hideConfirmDialog() {
+        document.getElementById("confirmDialog").style.display = "none";
+    }
+
+    function deleteItem(id) {
+        window.location.href = "product?action=delete&id=" + id;
     }
 </script>
 </body>
