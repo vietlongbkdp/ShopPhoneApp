@@ -49,7 +49,7 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/admin?action=product" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/product" aria-expanded="true" >
                 <i class="fas fa-fw fa-table"></i>
                 <span>Product</span>
             </a>
@@ -57,12 +57,17 @@
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/admin?action=order" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/shopping" aria-expanded="true" >
                 <i class="fas fa-file-invoice"></i>
                 <span>Order</span>
             </a>
         </li>
-
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/branch" aria-expanded="true" >
+                <i class="fas fa-mobile"></i>
+                <span>Branch</span>
+            </a>
+        </li>
 
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
@@ -143,7 +148,7 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <form class="user" action="/shopping?action=editProfile&id=${user.id}" method="post">
+                <form class="user" action="/cart?action=editProfile&id=${user.id}" method="post">
                     <div class="sidebar-brand-text mx-5 mb-3 font-weight-bold">EDIT PROFILE</div>
                     <div class="col-sm-6 mb-3 mb-sm-3">User Name
                         <input type="text" class="form-control form-control-user" id="userName"  placeholder="User Name" name="userName" required value="${user.userName}">

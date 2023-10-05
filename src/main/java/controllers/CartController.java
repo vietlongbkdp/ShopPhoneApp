@@ -41,6 +41,7 @@ public class CartController extends HttpServlet {
             case "deleteCD" -> deleteCD(req, resp);
             case "showCart" -> showCart(req, resp);
             case "cart" -> cart(req, resp);
+            case "showDefault" -> cart(req, resp);
             default -> showlist(req, resp);
         }
     }
@@ -103,7 +104,7 @@ public class CartController extends HttpServlet {
     }
     private void updateProfile(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         userService.updateProfile(req);
-        resp.sendRedirect("/shopping?action=profile");
+        resp.sendRedirect("/cart?action=profile");
     }
 
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {

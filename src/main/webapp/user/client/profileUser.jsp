@@ -49,7 +49,7 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/admin?action=product" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/product" aria-expanded="true" >
                 <i class="fas fa-fw fa-table"></i>
                 <span>Product</span>
             </a>
@@ -57,13 +57,18 @@
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/admin?action=order" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/shopping" aria-expanded="true" >
                 <i class="fas fa-file-invoice"></i>
                 <span>Order</span>
             </a>
         </li>
 
-
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/branch" aria-expanded="true" >
+                <i class="fas fa-mobile"></i>
+                <span>Branch</span>
+            </a>
+        </li>
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -152,7 +157,7 @@
                     <div class="col-sm-6 mb-3 mb-sm-3"> Date of Birth : ${user.dob}</div>
                     <div class="col-sm-6 mb-3 mb-sm-3"> Gender : ${user.gender}</div>
                     <div class="col-sm-6 mb-3 mb-sm-3"> Role : ${user.role.roleName}</div>
-                    <a href="/shopping?action=editProfile&id=${user.id}" type="button" class="btn btn-warning">Edit profile</a>
+                    <a href="/cart?action=editProfile&id=${user.id}" type="button" class="btn btn-warning">Edit profile</a>
             </div>
             <!-- /.container-fluid -->
 
