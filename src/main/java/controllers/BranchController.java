@@ -77,9 +77,8 @@ public class BranchController extends HttpServlet {
     }
 
     private void create(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        int id =Integer.parseInt(req.getParameter("id"));
         String nameBranch = req.getParameter("branchName");
-        branchService.createBranch(id, nameBranch);
+        branchService.createBranch(nameBranch);
         resp.sendRedirect("/branch?message=Create Success!");
     }
 

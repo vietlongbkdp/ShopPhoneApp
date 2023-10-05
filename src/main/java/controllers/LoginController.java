@@ -136,7 +136,7 @@ public class LoginController extends HttpServlet {
                     resp.sendRedirect("/shopping?message= Login Success");
                 }
                 case "Staff" -> {
-                    resp.sendRedirect("/order?message= Login Success");
+                    resp.sendRedirect("/product?message= Login Success");
                 }
             }
         } else resp.sendRedirect("/login?message=Password or username is invalid");
