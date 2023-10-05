@@ -17,7 +17,7 @@
 <div class="container">
     <div class="card container px-6" style="height: 100vh">
         <h3 class="text-center">Create Product</h3>
-        <form action="/product?action=create" method="post">
+        <form action="/product?action=create" method="post" enctype="multipart/form-data">
             <label for="productName" class="form-label">Product Name</label>
             <input type="text" class="form-control" id="productName" name="productName" value="${product.productName}">
             <div class="mb-3">
