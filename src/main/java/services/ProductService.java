@@ -39,6 +39,8 @@ public class ProductService {
         productDAO.delete(id);
     }
 
-
+    public List<Product> fillAll() {
+        return productDAO.findAll();
+    }
 }
 

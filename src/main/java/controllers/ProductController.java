@@ -20,9 +20,7 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 
 @WebServlet(name = "productController", urlPatterns = "/product")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-        maxFileSize = 1024 * 1024 * 10,      // 10MB
-        maxRequestSize = 1024 * 1024 * 50)   //
+@MultipartConfig(maxFileSize = 16177215)
 public class ProductController extends HttpServlet {
     private ProductService productService;
     private BranchService branchService;
@@ -138,7 +136,7 @@ public class ProductController extends HttpServlet {
 
             if (!fileName.isEmpty()) {
                 fileName = new File(fileName).getName();
-                image = fileName;
+                image = "/"+fileName;
 
                 if (part.getContentType().equals("image/jpeg")) {
 
@@ -159,11 +157,9 @@ public class ProductController extends HttpServlet {
 
         if (!imageUploaded) {
             req.setAttribute("errorImage", "File ảnh không được để trống hoặc không hợp lệ!");
-        } else {
-            Product product = new Product(productName, branch, image, price, quantity, warrantyPeriod, ram, size, color, camera, operatingSystem, pin);
-            productService.create(product);
         }
-
+        Product product = new Product(productName, branch, image, price, quantity, warrantyPeriod, ram, size, color, camera, operatingSystem, pin);
+        productService.create(product);
         resp.sendRedirect("/product?message=Created");
     }
 
