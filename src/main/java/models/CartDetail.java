@@ -9,6 +9,7 @@ public class CartDetail {
     private BigDecimal totalAmount;
     private  Cart cart;
     private  Product product;
+    private int checked;
     
 
     public CartDetail(int id, int quantity, BigDecimal totalAmount, Cart cart, Product product) {
@@ -64,5 +65,13 @@ public class CartDetail {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public int getChecked() {
+        return checked;
+    }
+
+    public void setChecked(int checked) {
+        this.checked = checked;
     }
 }
