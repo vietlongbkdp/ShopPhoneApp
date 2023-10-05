@@ -7,7 +7,7 @@ import services.ShoppingService;
 import services.RoleService;
 import services.UserService;
 
-import utils.AuthUtils;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,18 +21,10 @@ import java.io.IOException;
 public class ClientController extends HttpServlet {
     private ProductService productService;
 
-    private ShoppingService shoppingService;
-
-    private UserService userService;
-    private RoleService roleService;
-
 
     @Override
     public void init() throws ServletException {
         productService = new ProductService();
-        shoppingService = new ShoppingService();
-        userService = new UserService();
-        roleService = new RoleService();
     }
 
     @Override
@@ -42,17 +34,10 @@ public class ClientController extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "add"-> add(req,resp);
-            case "profile" -> showProfile(req, resp);
-            case "editProfile"-> editProfile(req,resp);
             default -> showlist(req, resp);
         }
     }
 
-
-    private void add(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    }
 
 
     private void showlist(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -60,18 +45,19 @@ public class ClientController extends HttpServlet {
     }
 
     private void showTable(HttpServletRequest req, boolean isShowRestore, String href, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
         String pageString = req.getParameter("page");
         if (pageString == null) {
             pageString = "1";
         }
-        if (AuthUtils.getUser() == null) {
+        if (user == null) {
             req.setAttribute("page", productService.getProducts(Integer.parseInt(pageString), isShowRestore, req.getParameter("search")));
             req.setAttribute("message", req.getParameter("message"));
             req.setAttribute("isShowRestore", isShowRestore);
             req.setAttribute("search", req.getParameter("search"));
             req.getRequestDispatcher(href).forward(req, resp);
-        } else if (AuthUtils.getUser() != null) {
-            User user = AuthUtils.getUser();
+        } else if (user != null) {
             req.setAttribute("user", user);
             req.setAttribute("page", productService.getProducts(Integer.parseInt(pageString), isShowRestore, req.getParameter("search")));
             req.setAttribute("message", req.getParameter("message"));
@@ -83,32 +69,6 @@ public class ClientController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
-        switch (action) {
-            case "editProfile"-> updateProfile(req,resp);
-        }
+        super.doPost(req, resp);
     }
-
-    private void updateProfile(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        userService.updateProfile(req);
-        resp.sendRedirect("/shopping?action=profile");
-    }
-
-
-    private void showProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        User user = (User) session.getAttribute("user");
-        req.setAttribute("user", userService.getUserById(user.getId()));
-        req.getRequestDispatcher("/user/client/profileUser.jsp").forward(req, resp);
-    }
-
-    private void editProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("userEdit", userService.getUserById(Integer.parseInt(req.getParameter("id"))));
-        req.setAttribute("genders", EGender.values());
-        req.getRequestDispatcher("user/client/editProfile.jsp").forward(req, resp);
-    }
-
 }

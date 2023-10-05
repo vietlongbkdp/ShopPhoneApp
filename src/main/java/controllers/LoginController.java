@@ -6,7 +6,7 @@ import filter.StaffFilter;
 import models.User;
 import services.RoleService;
 import services.UserService;
-import utils.AuthUtils;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -127,7 +127,6 @@ public class LoginController extends HttpServlet {
             String userRole = userService.getUserByUserName(userName).getRole().getRoleName();
             HttpSession session = req.getSession();
             session.setAttribute("user", userService.getUserByUserName(userName));
-            AuthUtils.init(req);
             switch (userRole) {
                 case "Admin" -> {
                 resp.sendRedirect("/admin?message= Login Success");
