@@ -21,10 +21,6 @@
             <label for="productName" class="form-label">Product Name</label>
             <input type="text" class="form-control" id="productName" name="productName" value="${product.productName}">
             <div class="mb-3">
-                <label for="image" class="form-label">Image</label>
-                <input type="text" class="form-control" id="image" name="image" value="${product.image}">
-            </div>
-            <div class="mb-3">
                 <label for="price" class="form-label">Price</label>
                 <input type="number" class="form-control" name="price" id="price" value="${product.price}">
             </div>
@@ -72,6 +68,10 @@
                         </option>
                     </c:forEach>
                 </select>
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Image</label>
+                <input type="file" accept="image/*" class="form-control" id="image" name="image" value="${product.image}">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
             <a href="/product" class="btn btn-primary ">Cancel</a>

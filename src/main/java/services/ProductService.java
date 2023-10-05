@@ -3,6 +3,8 @@ package services;
 import daos.ProductDAO;
 import models.Product;
 
+import java.util.List;
+
 public class ProductService {
     private final ProductDAO productDAO;
 
@@ -36,5 +38,7 @@ public class ProductService {
     public void delete(int id) {
         productDAO.delete(id);
     }
+
+
 }
 

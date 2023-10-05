@@ -70,7 +70,7 @@
                     <td>${product.id}</td>
                     <td>${product.productName}</td>
                     <td>${product.branch.name}</td>
-                    <td>${product.image}</td>
+                    <td><img src="../images${product.image}" alt="" style="width: 100px;height: 100px"></td>
                     <td>${product.price}</td>
                     <td>${product.quantity}</td>
                         <%--                    <td>${product.warrantyPeriod}</td>--%>
