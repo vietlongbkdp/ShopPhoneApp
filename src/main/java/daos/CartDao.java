@@ -19,7 +19,7 @@ public class CartDao extends DatabaseConnection {
     }
     public Cart findByUserId(int id) {
 
-        String SELECT_BY_USER_ID = "SELECT c.*, cd.id AS cd_id, cd.product_id AS p_id, cd.quantity, cd.total_amount AS cd_total_amount," +
+        String SELECT_BY_USER_ID = "SELECT c.*, cd.id AS cd_id, cd.product_id AS p_id, cd.quantity, cd.total_amount AS cd_total_amount, cd.checked as cd_checked , " +
                 "(SELECT SUM(total_amount) FROM cart_details WHERE cart_id = c.id) AS c_total_amount " +
                 "FROM bandienthoai.carts c JOIN cart_details cd ON c.id = cd.cart_id WHERE c.user_id = ?";
         try (Connection connection = getConnection();
@@ -38,6 +38,7 @@ public class CartDao extends DatabaseConnection {
                 cartDetail.setProduct((Product)productDAO.findById(rs.getInt("p_id")));
                 cartDetail.setQuantity(rs.getInt("quantity"));
                 cartDetail.setTotalAmount(rs.getBigDecimal("cd_total_amount"));
+                cartDetail.setChecked(rs.getInt("cd_checked"));
                 cartDetails.add(cartDetail);
             }
             cart.setCartDetails(cartDetails);
@@ -123,6 +124,18 @@ public class CartDao extends DatabaseConnection {
              PreparedStatement preparedStatement=connection.prepareStatement(UPDATE)){
             preparedStatement.setInt(1,quantity);
             preparedStatement.setInt(2,cartDetailId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void updateCartDetailChecked(int cartDetailId,int quantity, int checked){
+        String UPDATE="UPDATE `bandienthoai`.`cart_details` SET `quantity` = ?, `checked` = ? WHERE (`id` = ?);";
+        try (Connection connection=getConnection();
+             PreparedStatement preparedStatement=connection.prepareStatement(UPDATE)){
+            preparedStatement.setInt(1,quantity);
+            preparedStatement.setInt(2,checked);
+            preparedStatement.setInt(3,cartDetailId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

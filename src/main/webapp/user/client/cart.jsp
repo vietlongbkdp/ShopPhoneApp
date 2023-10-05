@@ -28,6 +28,7 @@
             <table class="table table-striped">
                 <tr>
                     <th></th>
+                    <th></th>
                     <th>Product</th>
                     <th></th>
                     <th></th>
@@ -41,6 +42,7 @@
                     <tr>
                         <td><input type="checkbox" name="cartDetailID" value="${cartDetail.id}" class="myCheckBox">
                         </td>
+                        <td><input type="hidden" name="cartChecked" value="${cartDetail.checked}"></td>
                         <td>${cartDetail.product.productName}</td>
                         <td><input type="hidden" value="${cartDetail.id}"name="cDetailID"></td>
                         <td>${cartDetail.product.image}</td>
@@ -52,7 +54,7 @@
                         ></td>
                         <td id="totalAmount_${cartDetail.id}">${cartDetail.totalAmount}</td>
                         <td>
-                            <a href="/cart?action=deleteCD&id=${cartDetail.id}" class="btn btn-primary ">Delete</a>
+                            <a href="/cart?action=deleteCD&id=${cartDetail.id}&idu=${user.id}" class="btn btn-primary ">Delete</a>
                         </td>
                     </tr>
                     <c:set var="hasCartDetail" value="true"/>
@@ -66,12 +68,13 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td id="total_amount_chosen"></td>
                         <td></td>
                     </tr>
                 </c:if>
             </table>
             <div>
-                <a class="btn btn-primary" onclick="setAction('/cart?action=delete',${user.id})">Delete</a>
+                <a class="btn btn-primary" onclick="setAction('/cart?action=delete&id=${user.id}',${user.id})">Delete</a>
                 <a class="btn btn-primary" onclick="setAction('/cart?action=buy')">Buy product</a>
                 <a onclick="setActionCancel('/cart?action=updateCart')" class="btn btn-primary">Cancel</a>
             </div>
@@ -132,6 +135,84 @@
         var totalAmount = price * quantity;
         totalAmountElement.innerText = totalAmount;
     }
+    /////
+    // Lắng nghe sự kiện khi các checkbox được chọn hoặc bỏ chọn
+    document.querySelectorAll('.myCheckBox').forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            updateTotalAmountChosen();
+        });
+    });
+
+    // Lắng nghe sự kiện khi giá trị số lượng thay đổi
+    document.querySelectorAll('input[name="quantities"]').forEach(function(quantityInput) {
+        quantityInput.addEventListener('change', function() {
+            updateTotalAmountChosen();
+        });
+    });
+
+    document.getElementById('selectAllCheckbox').addEventListener('click', function() {
+        var selectAllCheckbox = document.getElementById('selectAllCheckbox');
+        var isChecked = selectAllCheckbox.checked;
+        document.querySelectorAll('.myCheckBox').forEach(function(checkbox) {
+            checkbox.checked = isChecked;
+        });
+        updateTotalAmountChosen();
+    });
+
+    // Hàm cập nhật giá trị tổng
+    function updateTotalAmountChosen() {
+        var totalAmount = 0;
+        var checkboxes = document.querySelectorAll('.myCheckBox');
+        var selectAllCheckbox = document.getElementById('selectAllCheckbox');
+        var isChecked = selectAllCheckbox.checked;
+
+        checkboxes.forEach(function(checkbox) {
+            var row = checkbox.closest('tr');
+            var priceElement = row.querySelector('td:nth-child(6)');
+            var quantityInput = row.querySelector('input[name="quantities"]');
+            var price = parseFloat(priceElement.textContent);
+            var quantity = parseFloat(quantityInput.value);
+
+            // Kiểm tra tính hợp lệ của giá trị price và quantity
+            if (!isNaN(price) && !isNaN(quantity)) {
+                if (checkbox.checked || isChecked) {
+                    totalAmount += price * quantity;
+                }
+            }
+        });
+
+        // Kiểm tra nếu totalAmount là NaN và không hợp lệ, thì gán giá trị mặc định
+        if (isNaN(totalAmount) || !isFinite(totalAmount)) {
+            totalAmount = 0;
+        }
+
+        document.getElementById('total_amount_chosen').textContent = totalAmount;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        updateTotalAmountChosen();
+    });
+    document.querySelectorAll('.myCheckBox').forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            var hiddenInput = this.parentNode.nextElementSibling.querySelector('input[name="cartChecked"]');
+            hiddenInput.value = this.checked ? '1' : '0';
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        // Lặp qua tất cả các checkbox và input ẩn
+        document.querySelectorAll('.myCheckBox').forEach(function(checkbox) {
+            var hiddenInput = checkbox.parentNode.nextElementSibling.querySelector('input[name="cartChecked"]');
+
+            // Kiểm tra giá trị ban đầu của input ẩn
+            if (hiddenInput.value === '1') {
+                checkbox.checked = true; // Đặt trạng thái checked cho checkbox
+            }
+        });
+    });
+    window.onload = function() {
+        updateTotalAmountChosen();
+    };
+
 </script>
 </body>
 </html>

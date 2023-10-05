@@ -64,7 +64,8 @@ public class CartController extends HttpServlet {
 
     private void deleteCD(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         shoppingService.deleteCartDetail(Integer.parseInt(req.getParameter("id")));
-        resp.sendRedirect("/cart?action=showCart");
+        String idu =req.getParameter("idu");
+        resp.sendRedirect("/cart?action=showCart&id="+idu);
     }
 
     private void showCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -109,7 +110,9 @@ public class CartController extends HttpServlet {
 
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         shoppingService.deleteCartDetails(req.getParameterValues("cartDetailID"));
-        resp.sendRedirect("/cart?action=showCart");
+        String id =req.getParameter("id");
+        String url = "/cart?action=showCart&id="+id;
+        resp.sendRedirect(url);
 
     }
 
