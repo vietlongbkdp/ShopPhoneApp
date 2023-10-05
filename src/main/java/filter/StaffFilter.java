@@ -18,7 +18,7 @@ public class StaffFilter implements Filter {
             ((HttpServletResponse)response).sendRedirect("/login?message=You_need_Login");
             return;
         }
-        if((!user.getRole().getRoleName().equalsIgnoreCase("Staff"))||(!user.getRole().getRoleName().equalsIgnoreCase("Admin"))){
+        if((!user.getRole().getRoleName().equalsIgnoreCase("Staff"))&&(!user.getRole().getRoleName().equalsIgnoreCase("Admin"))){
             ((HttpServletResponse)response).sendRedirect("/login?message=You_need_Login");
             return;
         }
