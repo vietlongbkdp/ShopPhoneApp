@@ -14,13 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-        maxFileSize = 1024 * 1024 * 10,      // 10MB
-        maxRequestSize = 1024 * 1024 * 50)  // 50MB
 
 @WebServlet(name = "productController", urlPatterns = "/product")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 10,      // 10MB
+        maxRequestSize = 1024 * 1024 * 50)   //
 public class ProductController extends HttpServlet {
     private ProductService productService;
     private BranchService branchService;
@@ -41,8 +43,13 @@ public class ProductController extends HttpServlet {
             case "edit" -> showEdit(req, resp);
             case "restore" -> showRestore(req, resp);
             case "delete" -> delete(req, resp);
-            default -> showList(req, resp);
+            case "showList" -> showList(req, resp);
+            default -> showTotal(req, resp);
         }
+    }
+
+    private void showTotal(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/user/staff/productTotal.jsp").forward(req, resp);
     }
 
     private void showList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -106,14 +113,13 @@ public class ProductController extends HttpServlet {
     private void showCreate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("product", new Product());
         req.setAttribute("branchs", branchService.getBranchs());
-        req.getRequestDispatcher("product/create.jsp").forward(req,resp);
+        req.getRequestDispatcher("product/create.jsp").forward(req, resp);
     }
 
     private void create(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String productName = req.getParameter("productName");
         String idBranch = req.getParameter("branch");
         Branch branch = new Branch(Integer.parseInt(idBranch));
-        String image = req.getParameter("image");
         BigDecimal price = BigDecimal.valueOf(Double.parseDouble(req.getParameter("price")));
         String quantity = req.getParameter("quantity");
         String warrantyPeriod = req.getParameter("warrantyPeriod");
@@ -123,32 +129,46 @@ public class ProductController extends HttpServlet {
         String camera = req.getParameter("camera");
         String operatingSystem = req.getParameter("operatingSystem");
         String pin = req.getParameter("pin");
-        Product product = new Product(productName, branch, image, price, quantity, warrantyPeriod, ram, size, color, camera, operatingSystem, pin);
+        String image = null;
+
         String pathServerImage = getServletContext().getRealPath("/") + "images";
-        String pathProjectImage  = "F:\\ShopPhoneApp\\src\\main\\webapp\\images";
+        String pathProjectImage = "F:\\ShopPhoneApp\\src\\main\\webapp\\images";
 
         String dbImageUrl = null;
+
+        boolean imageUploaded = false;
 
         for (Part part : req.getParts()) {
             String fileName = extractFileName(part);
 
-            if(!fileName.isEmpty()){
+            if (!fileName.isEmpty()) {
                 fileName = new File(fileName).getName();
+                image = fileName;
 
-                if(part.getContentType().equals("image/jpeg")){
-                    part.write(pathProjectImage + File.separator + fileName);
-                    dbImageUrl = File.separator + fileName;
-                    dbImageUrl = dbImageUrl.replace("\\","/");
-                    part.write(pathServerImage + File.separator + fileName);
+                if (part.getContentType().equals("image/jpeg")) {
+
+                    String imagePath = "images" + File.separator + fileName;
+
+//                    part.write(pathProjectImage + File.separator + fileName);
+//                    part.write(getServletContext().getRealPath("/") + imagePath);
+
+                    writeImage(pathProjectImage + File.separator + fileName, part);
+                    writeImage(getServletContext().getRealPath("/") + imagePath, part);
+                    dbImageUrl = imagePath;
+                    imageUploaded = true;
+                } else {
+                    req.setAttribute("errorImage", "File ảnh không hợp lệ!");
                 }
             }
         }
-        if (dbImageUrl == null) {
-            req.setAttribute("errorImage", "File ảnh không được để trống!");
+
+        if (!imageUploaded) {
+            req.setAttribute("errorImage", "File ảnh không được để trống hoặc không hợp lệ!");
         } else {
-            product.setImage(dbImageUrl);
+            Product product = new Product(productName, branch, image, price, quantity, warrantyPeriod, ram, size, color, camera, operatingSystem, pin);
+            productService.create(product);
         }
-        productService.create(product);
+
         resp.sendRedirect("/product?message=Created");
     }
 
@@ -169,6 +189,17 @@ public class ProductController extends HttpServlet {
         return new Product(productName, branch, image, price, quantity, warrantyPeriod, ram, size, color, camera, operatingSystem, pin);
     }
 
+    public void writeImage(String des, Part part) throws IOException {
+        InputStream inputStream = part.getInputStream();
+
+        FileOutputStream fileOutputStream = new FileOutputStream(des);
+        int bbyte = -1;
+        while ((bbyte = inputStream.read()) != -1) {
+            fileOutputStream.write(bbyte);
+        }
+        fileOutputStream.close();
+        inputStream.close();
+    }
     private String extractFileName(Part part) {
         String contentDisposition = part.getHeader("content-disposition");
         String[] items = contentDisposition.split(";");

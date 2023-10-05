@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Edit User</title>
+    <title>Admin Page</title>
     <link href="/user/admin/assets/all.min.css" rel="stylesheet" type="text/css">
     <link href="/user/admin/assets/sb-admin-2.min.css" rel="stylesheet">
     <link href="/user/admin/assets/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -49,7 +49,7 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/product" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/product?action=showList" aria-expanded="true" >
                 <i class="fas fa-fw fa-table"></i>
                 <span>Product</span>
             </a>
@@ -57,24 +57,22 @@
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/shopping" aria-expanded="true" >
+            <a class="nav-link collapsed" href="" aria-expanded="true" >
                 <i class="fas fa-file-invoice"></i>
                 <span>Order</span>
             </a>
         </li>
+
         <li class="nav-item">
             <a class="nav-link collapsed" href="/branch" aria-expanded="true" >
                 <i class="fas fa-mobile"></i>
                 <span>Branch</span>
             </a>
         </li>
-
-
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
-
     </ul>
     <!-- End of Sidebar -->
 
@@ -86,13 +84,6 @@
 
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                <!-- Sidebar Toggle (Topbar) -->
-                <form class="form-inline">
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                </form>
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -149,16 +140,95 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <form class="user" action="/branch?action=edit&id=${branch.id}" method="post">
-                    <div class="sidebar-brand-text mx-5 mb-3 font-weight-bold">EDIT USER</div>
-                    <div class="col-sm-6 mb-3 mb-sm-3">ID
-                        <input type="number" class="form-control form-control-user" id="id"  placeholder="Input ID" name="id" value="${branch.id}" disabled>
+
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">List Management</h1>
+                </div>
+
+                <!-- Content Row -->
+                <div class="row">
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            <a href="/admin?action=userManager">TOTAL USER</a>
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">${totalUser}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-users-cog fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm-6 mb-3 mb-sm-3"> BRANCH NAME
-                        <input type="text" class="form-control form-control-user" id="branchName"  placeholder="Input branchName" name="branchName" required value="${branch.name}">
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            <a href="/product?action=showList">TOTAL PRODUCT</a>
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">${totalProduct}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-tablet-alt fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <input type="submit" value="Submit" class="btn btn-primary">
-                </form>
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            <a href="/shopping">TOTAL ORDER</a>
+                                        </div>
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${totalOrder}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pending Requests Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            <a href="/branch">TOTAL BRANCH</a>
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">${totalBranch}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-mobile fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <!-- /.container-fluid -->
 
@@ -215,4 +285,3 @@
 <script src="/user/admin/assets/datatables-demo.js"></script>
 </body>
 </html>
-
