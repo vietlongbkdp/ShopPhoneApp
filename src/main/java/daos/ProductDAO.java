@@ -130,8 +130,8 @@ public class ProductDAO extends DatabaseConnection {
 
     public void create(Product product) {
         String CREATE = "INSERT INTO `testcase`.`products` (`productName`, `branch`, `image`, `price`, `quantity`, " +
-                "`warrantyPeriod`, `ram`, `size`, `color`, `camera`, `operatingSystem`, `pin` ,`price_range` ) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "`warrantyPeriod`, `ram`, `size`, `color`, `camera`, `operatingSystem`, `pin`  ) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE)) {
             preparedStatement.setString(1, product.getProductName());
@@ -146,7 +146,6 @@ public class ProductDAO extends DatabaseConnection {
             preparedStatement.setString(10, product.getCamera());
             preparedStatement.setString(11, product.getOperatingSystem());
             preparedStatement.setString(12, product.getPin());
-            preparedStatement.setString(13,product.getePriceRange().toString());
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
