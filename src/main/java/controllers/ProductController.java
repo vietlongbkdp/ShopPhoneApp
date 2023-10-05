@@ -20,9 +20,7 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 
 @WebServlet(name = "productController", urlPatterns = "/product")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-        maxFileSize = 1024 * 1024 * 10,      // 10MB
-        maxRequestSize = 1024 * 1024 * 50)   //
+@MultipartConfig(maxFileSize = 16177215)
 public class ProductController extends HttpServlet {
     private ProductService productService;
     private BranchService branchService;
@@ -54,7 +52,6 @@ public class ProductController extends HttpServlet {
 
     private void showList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         showTable(req, false, resp);
-
     }
 
     private void showRestore(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -132,7 +129,7 @@ public class ProductController extends HttpServlet {
         String image = null;
 
         String pathServerImage = getServletContext().getRealPath("/") + "images";
-        String pathProjectImage = "F:\\ShopPhoneApp\\src\\main\\webapp\\images";
+        String pathProjectImage = "D:\\CodeGym\\C0623G1\\Modul 3\\CASESTUDY_MD3\\ShopPhoneApp\\src\\main\\webapp\\images";
 
         String dbImageUrl = null;
 
@@ -143,7 +140,7 @@ public class ProductController extends HttpServlet {
 
             if (!fileName.isEmpty()) {
                 fileName = new File(fileName).getName();
-                image = fileName;
+                image = "/"+fileName;
 
                 if (part.getContentType().equals("image/jpeg")) {
 
@@ -164,11 +161,9 @@ public class ProductController extends HttpServlet {
 
         if (!imageUploaded) {
             req.setAttribute("errorImage", "File ảnh không được để trống hoặc không hợp lệ!");
-        } else {
-            Product product = new Product(productName, branch, image, price, quantity, warrantyPeriod, ram, size, color, camera, operatingSystem, pin);
-            productService.create(product);
         }
-
+        Product product = new Product(productName, branch, image, price, quantity, warrantyPeriod, ram, size, color, camera, operatingSystem, pin);
+        productService.create(product);
         resp.sendRedirect("/product?message=Created");
     }
 

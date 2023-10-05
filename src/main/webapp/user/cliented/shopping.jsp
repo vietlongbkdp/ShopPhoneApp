@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <!-- basic -->
@@ -126,10 +127,18 @@
                                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                 <span class="padding_10">Cart</span></a>
                             </li>
-                            <li><a href="#">
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                <span class="padding_10">Cart</span></a>
-                            </li>
+                            <c:if test="${user != null}">
+                                <li><a href="#">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span class="padding_10">${user.fullName}</span></a>
+                                </li>
+                            </c:if>
+                            <c:if test="${user == null}">
+                                <li><a href="/login">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span class="padding_10">Login/Register</span></a>
+                                </li>
+                            </c:if>
                         </ul>
                     </div>
                 </div>

@@ -14,9 +14,9 @@ import java.util.List;
 
 public class ProductImportDAO extends  DatabaseConnection{
     public int create(ProductImport productImport) {
-        String CREATE = "INSERT INTO `testcase`.`product_imports` (`code`, `import_date`, `total_amount`) " +
+        String CREATE = "INSERT INTO `bandienthoai`.`product_imports` (`code`, `import_date`, `total_amount`) " +
                 "VALUES (?, ?, ?)";
-        String SELECT_MAX_ID = "SELECT MAX(id) as max_id FROM `c0623g1`.`product_imports`";
+        String SELECT_MAX_ID = "SELECT MAX(id) as max_id FROM `bandienthoai`.`product_imports`";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE)) {
             preparedStatement.setString(1, productImport.getCode());
@@ -37,7 +37,7 @@ public class ProductImportDAO extends  DatabaseConnection{
 
     public void createImportDetail(int productImportId, int productId, int quantity, BigDecimal amount) {
 
-        String CREATE = "INSERT INTO `testcase`.`product_import_details` (`quantity`, `amount`, `product_id`, `product_import_id`) VALUES (?, ?, ?, ?)";
+        String CREATE = "INSERT INTO `bandienthoai`.`product_import_details` (`quantity`, `price_import`, `product_id`, `product_import_id`) VALUES (?, ?, ?, ?)";
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE)) {

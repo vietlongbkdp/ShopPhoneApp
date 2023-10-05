@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDAO extends DatabaseConnection {
     public Object findById(int id) {
@@ -85,8 +86,27 @@ public class ProductDAO extends DatabaseConnection {
         return result;
     }
 
+    public List<Product> findAll(){
+        var content = new ArrayList<Product>();
+        var SELECT_ALL = "SELECT p.*, b.name AS branch_name " +
+                "FROM products p " +
+                "JOIN branchs b ON b.id = p.branch_id ";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL)) {
+//            preparedStatement.setInt(1, 0);
+            System.out.println(preparedStatement);
+            var rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                content.add(getProductByResultSet(rs));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return content;
+    }
+
     public void update(Product product) {
-        String UPDATE = "UPDATE `testcase`.`products` " + "SET `productName` = ?, `branch_id` = ?, `image` = ?, `price` = ?, `quantity` = ?, `warrantyPeriod` = ?, `ram` = ?, `size` = ?, `color` = ?, `camera` = ?, `operatingSystem` = ?, `pin` = ? ,`price_range`= ? " + "WHERE (`id` = ?)";
+        String UPDATE = "UPDATE `bandienthoai`.`products` " + "SET `productName` = ?, `branch_id` = ?, `image` = ?, `price` = ?, `quantity` = ?, `warrantyPeriod` = ?, `ram` = ?, `size` = ?, `color` = ?, `camera` = ?, `operatingSystem` = ?, `pin` = ? ,`price_range`= ? " + "WHERE (`id` = ?)";
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
             preparedStatement.setString(1, product.getProductName());
             preparedStatement.setInt(2, product.getBranch().getId());
@@ -109,7 +129,7 @@ public class ProductDAO extends DatabaseConnection {
     }
 
     public void restore(int id) {
-        String DELETE = "UPDATE `testcase`.`products` " + "SET `deleted` = '0' " + "WHERE (`id` = ?)";
+        String DELETE = "UPDATE `bandienthoai`.`products` " + "SET `deleted` = '0' " + "WHERE (`id` = ?)";
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
@@ -119,7 +139,7 @@ public class ProductDAO extends DatabaseConnection {
     }
 
     public void delete(int id) {
-        String DELETE = "UPDATE `testcase`.`products` " + "SET `deleted` = '1' " + "WHERE (`id` = ?)";
+        String DELETE = "UPDATE `bandienthoai`.`products` " + "SET `deleted` = '1' " + "WHERE (`id` = ?)";
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
@@ -129,7 +149,7 @@ public class ProductDAO extends DatabaseConnection {
     }
 
     public void create(Product product) {
-        String CREATE = "INSERT INTO `testcase`.`products` (`productName`, `branch`, `image`, `price`, `quantity`, " +
+        String CREATE = "INSERT INTO `bandienthoai`.`products` (`productName`, `branch_id`, `image`, `price`, `quantity`, " +
                 "`warrantyPeriod`, `ram`, `size`, `color`, `camera`, `operatingSystem`, `pin`  ) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
         try (Connection connection = getConnection();
