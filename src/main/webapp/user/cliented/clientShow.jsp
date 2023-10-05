@@ -19,10 +19,10 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="width: 10%" >
+    <ul style="background-color: #e3b53d; background-image: none " class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="width: 10%" >
 
         <!-- Sidebar - Brand -->
-        <a style="background-color: #e3b53d; background-image: none" class="sidebar-brand d-flex align-items-center justify-content-center" href="/shopping?action=shopping">
+        <a style="color: #1b1e21" class="sidebar-brand d-flex align-items-center justify-content-center" href="/shopping?action=shopping">
             <div class="sidebar-brand-icon">
                 <i class="fas fa-home"></i>
             </div>
@@ -30,24 +30,24 @@
         </a>
 
         <!-- Divider -->
-        <hr class="sidebar-divider my-0">
+        <hr  class="sidebar-divider my-0" style="color: #1b1e21">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-            <a class="nav-link" href="/admin?action=userManager">
-                <i class="fas fa-users-cog"></i>
-                <span>Order Management</span></a>
+        <li  class="nav-item">
+            <a class="nav-link"  style="color: #1b1e21" href="/admin?action=userManager">
+                <i class="fas fa-users-cog"  style="color: #1b1e21"></i>
+                <span  style="color: #1b1e21">Order Management</span></a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="/product" aria-expanded="true" >
-                <i class="fas fa-fw fa-table"></i>
-                <span>Cart Management</span>
+        <li  class="nav-item" >
+            <a class="nav-link collapsed" style="color: #1b1e21" href="/product" aria-expanded="true" >
+                <i class="fas fa-fw fa-table" style="color: #1b1e21"></i>
+                <span style="color: #1b1e21">Cart Management</span>
             </a>
         </li>
         <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        <div  class="text-center d-none d-md-inline" >
+            <button class="rounded-circle border-0" style="color: #1b1e21"  id="sidebarToggle"></button>
         </div>
     </ul>
     <!-- End of Sidebar -->
@@ -118,13 +118,13 @@
             <div class="container-fluid">
 
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+                <h1 class="h3 mb-2 text-gray-800">WELCOM TO SHOP</h1>
 
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3" style="display: flex; justify-content: space-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Welcom to my Shop</h6>
-                        <a href="/admin?action=create" class="btn btn-primary ">Create new User</a>
+<%--                        <h6 class="m-0 font-weight-bold text-primary">Welcom to my Shop</h6>--%>
+<%--                        <a href="/admin?action=create" class="btn btn-primary ">Create new User</a>--%>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
