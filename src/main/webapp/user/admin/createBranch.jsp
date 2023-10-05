@@ -164,9 +164,6 @@
             <div class="container-fluid">
                 <form class="user" action="/branch?action=create" method="post">
                     <div class="sidebar-brand-text mx-5 mb-3 font-weight-bold">CREATE BRANCH</div>
-                    <div class="col-sm-6 mb-3 mb-sm-3">ID
-                        <input type="number" class="form-control form-control-user" id="id"  placeholder="Input ID" name="id" required>
-                    </div>
                     <div class="col-sm-6 mb-3 mb-sm-3"> BRANCH NAME
                         <input type="text" class="form-control form-control-user" id="branchName"  placeholder="Input Branch name" name="branchName" required>
                     </div>
