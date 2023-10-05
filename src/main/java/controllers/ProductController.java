@@ -54,7 +54,6 @@ public class ProductController extends HttpServlet {
 
     private void showList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         showTable(req, false, resp);
-
     }
 
     private void showRestore(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -132,7 +131,7 @@ public class ProductController extends HttpServlet {
         String image = null;
 
         String pathServerImage = getServletContext().getRealPath("/") + "images";
-        String pathProjectImage = "F:\\ShopPhoneApp\\src\\main\\webapp\\images";
+        String pathProjectImage = "D:\\CodeGym\\C0623G1\\Modul 3\\CASESTUDY_MD3\\ShopPhoneApp\\src\\main\\webapp\\images";
 
         String dbImageUrl = null;
 
