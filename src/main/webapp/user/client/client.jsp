@@ -24,7 +24,7 @@
         <c:if test="${message != null}">
             <h6 class="d-none" id="message">${message}</h6>
         </c:if>
-        <form action="/shopping">
+        <form action="/cart">
             <div style="display: flex; align-items: center;">
                 <div style="margin-right: 20px;">
                     <input type="text" id="searchProduct" name="search" class="form-control" placeholder="Search product">
@@ -35,7 +35,7 @@
             </div>
         </form>
         <div>
-            <a href="/shopping?action=cart&id=${user.id}" class="btn btn-primary ">Cart</a>
+            <a href="/cart?action=showCart&id=${user.id}" class="btn btn-primary ">Cart</a>
         </div>
         
         <table class="table table-striped">
@@ -69,7 +69,7 @@
                             <%--            <a class="btn btn-danger" onclick="return confirm('Do you want remove ${product.name} ?')" href="/product?action=delete&id=${product.id}">--%>
                             <%--              Delete--%>
                             <%--            </a>--%>
-                        <a href="/shopping?action=add&id=${product.id}" class="btn btn-primary ">Add to Cart</a>
+                        <a href="/cart?action=cart&id=${product.id}" class="btn btn-primary ">Add to Cart</a>
 
                     </td>
                 </tr>
