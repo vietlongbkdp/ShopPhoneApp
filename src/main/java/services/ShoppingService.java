@@ -83,4 +83,14 @@ public class ShoppingService {
     public void deleteCartDetail(int id) {
         cartDao.deleteCartDetail(id);
     }
+
+//    public void createCartDetail(User user, HttpServletRequest req) {
+//        CartDetail cartDetail = new CartDetail();
+//        cartDetail.setCart(findByUserId(user.getId()));
+//        cartDetail.setProduct(new Product(Integer.parseInt(req.getParameter("id"))));
+//        cartDetail.setQuantity(1);
+//        cartDetail.setTotalAmount(cartDetail.getProduct().getPrice().multiply(BigDecimal.valueOf(cartDetail.getQuantity())));
+//        cartDao.createCartDetail(cartDetail);
+//    }
+
 }

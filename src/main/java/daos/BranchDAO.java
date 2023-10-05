@@ -41,4 +41,42 @@ public class BranchDAO extends DatabaseConnection {
         return null;
     }
 
+    public void create(int id, String nameBranch) {
+        String CREATE_BRANCH = "INSERT INTO `branchs` (`id`, `name`) VALUES (?, ?)";
+
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(CREATE_BRANCH);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, nameBranch);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void delete(int id) {
+        String DELETE_BRANCH = "DELETE FROM `branchs` WHERE (`id` = ?)";
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BRANCH);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void edit(int id, String nameBranch) {
+        String EDIT_BRANCH = "UPDATE `branchs` SET `name` = ? WHERE (`id` = ?);";
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(EDIT_BRANCH);
+            preparedStatement.setString(1, nameBranch);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

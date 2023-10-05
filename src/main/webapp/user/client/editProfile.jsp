@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Edit Profile</title>
     <link href="/user/admin/assets/all.min.css" rel="stylesheet" type="text/css">
     <link href="/user/admin/assets/sb-admin-2.min.css" rel="stylesheet">
     <link href="/user/admin/assets/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -19,7 +19,7 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="width: 10%" >
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
@@ -49,7 +49,7 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/product" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/admin?action=product" aria-expanded="true" >
                 <i class="fas fa-fw fa-table"></i>
                 <span>Product</span>
             </a>
@@ -57,21 +57,18 @@
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/shopping" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/admin?action=order" aria-expanded="true" >
                 <i class="fas fa-file-invoice"></i>
                 <span>Order</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="/branch" aria-expanded="true" >
-                <i class="fas fa-mobile"></i>
-                <span>Branch</span>
-            </a>
-        </li>
+
+
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
+
     </ul>
     <!-- End of Sidebar -->
 
@@ -83,6 +80,13 @@
 
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                <!-- Sidebar Toggle (Topbar) -->
+                <form class="form-inline">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </form>
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -120,7 +124,7 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="/shopping?action=profile">
+                            <a class="dropdown-item" href="#">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
@@ -139,65 +143,43 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-
-                <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-
-                <!-- DataTales Example -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3" style="display: flex; justify-content: space-between">
-                        <h6 class="m-0 font-weight-bold text-primary">User Management</h6>
-                        <a href="/admin?action=create" class="btn btn-primary ">Create new User</a>
+                <form class="user" action="/shopping?action=editProfile&id=${user.id}" method="post">
+                    <div class="sidebar-brand-text mx-5 mb-3 font-weight-bold">EDIT PROFILE</div>
+                    <div class="col-sm-6 mb-3 mb-sm-3">User Name
+                        <input type="text" class="form-control form-control-user" id="userName"  placeholder="User Name" name="userName" required value="${user.userName}">
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Full Name</th>
-                                    <th>User Name</th>
-                                    <th>Email</th>
-                                    <th>Address</th>
-                                    <th>Phone</th>
-                                    <th>Date of Birth</th>
-                                    <th>Gender</th>
-                                    <th>Role</th>
-                                    <th>Action</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach var="user" items="${users}">
-                                    <tr>
-                                        <td>${user.id}</td>
-                                        <td>${user.fullName}</td>
-                                        <td>${user.userName}</td>
-                                        <td>${user.email}</td>
-                                        <td>${user.address}</td>
-                                        <td>${user.phone}</td>
-                                        <td>${user.dob}</td>
-                                        <td>${user.gender}</td>
-                                        <td>${user.role.roleName}</td>
-                                        <td>
-                                            <a href="/admin?action=edit&id=${user.id}" class="btn btn-warning ">Edit</a>
-                                        </td>
-                                        <td>
-                                            <a href="/admin?action=delete&id=${user.id}" class="btn btn-danger ">Delete</a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="col-sm-6 mb-3 mb-sm-3"> Full Name
+                        <input type="text" class="form-control form-control-user" id="fullName"  placeholder="Full Name" name="fullName" required value="${user.fullName}">
                     </div>
-                </div>
-
+                    <div class="col-sm-6 mb-3 mb-sm-3"> Email
+                        <input type="email" class="form-control form-control-user" id="email"  placeholder="Email" name="email" required value="${user.email}">
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-3"> Address
+                        <input type="text" class="form-control form-control-user" id="address"  placeholder="Address" name="address" required value="${user.address}">
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-3"> Phone
+                        <input type="text" class="form-control form-control-user" id="phone"  placeholder="Phone" name="phone" required value="${user.phone}">
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-3"> Date of Birth
+                        <input type="date" class="form-control form-control-user" id="dob"  placeholder="Date of Birth" name="dob" required value="${user.dob}">
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-3">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select class="form-control" id="gender" name="gender">
+                            <c:forEach var="gender" items="${genders}">
+                                <option value="${gender}" ${gender == user.gender ? 'selected' : ''} >${gender}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <input type="submit" value="Submit" class="btn btn-primary">
+                </form>
             </div>
             <!-- /.container-fluid -->
 
         </div>
+        <!-- End of Main Content -->
 
+        <!-- Footer -->
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
@@ -247,3 +229,4 @@
 <script src="/user/admin/assets/datatables-demo.js"></script>
 </body>
 </html>
+

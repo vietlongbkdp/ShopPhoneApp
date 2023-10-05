@@ -3,6 +3,8 @@ package controllers;
 import daos.RoleDao;
 import daos.UserDao;
 import models.EGender;
+import models.User;
+import services.BranchService;
 import services.RoleService;
 import services.UserService;
 
@@ -11,12 +13,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "UserController", value = "/admin")
 public class UserController extends HttpServlet {
     private UserService userService;
     private RoleService roleService;
+    private BranchService branchService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -48,6 +52,13 @@ public class UserController extends HttpServlet {
         }
     }
 
+    private void showProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        User userLogin = (User) session.getAttribute("user");
+        req.setAttribute("user", userLogin);
+        req.getRequestDispatcher("/user/client/editProfile.jsp").forward(req, resp);
+    }
+
     private void showListOrder(HttpServletRequest req, HttpServletResponse resp) {
     }
 
@@ -57,6 +68,10 @@ public class UserController extends HttpServlet {
 
     private void showTotal(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("users", userService.getAllUser());
+        req.setAttribute("totalUser", userService.getAllUser().size());
+//        req.setAttribute("totalProduct", productService.getAlProduct().size());
+//        req.setAttribute("totalOrder",orderService.getAllOrder().size());
+        req.setAttribute("totalBranch", branchService.getBranchs().size());
         req.getRequestDispatcher("user/admin/managerTotal.jsp").forward(req,resp);
     }
 
@@ -125,5 +140,6 @@ public class UserController extends HttpServlet {
     public void init() throws ServletException {
         roleService = new RoleService();
         userService = new UserService();
+        branchService = new BranchService();
     }
 }

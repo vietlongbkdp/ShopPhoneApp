@@ -146,8 +146,8 @@
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3" style="display: flex; justify-content: space-between">
-                        <h6 class="m-0 font-weight-bold text-primary">User Management</h6>
-                        <a href="/admin?action=create" class="btn btn-primary ">Create new User</a>
+                        <h6 class="m-0 font-weight-bold text-primary">Branch Management</h6>
+                        <a href="/branch?action=create" class="btn btn-primary ">Create new Branch</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -155,35 +155,18 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Full Name</th>
-                                    <th>User Name</th>
-                                    <th>Email</th>
-                                    <th>Address</th>
-                                    <th>Phone</th>
-                                    <th>Date of Birth</th>
-                                    <th>Gender</th>
-                                    <th>Role</th>
-                                    <th>Action</th>
+                                    <th>Branch Name</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="user" items="${users}">
+                                <c:forEach var="branch" items="${branchs}">
                                     <tr>
-                                        <td>${user.id}</td>
-                                        <td>${user.fullName}</td>
-                                        <td>${user.userName}</td>
-                                        <td>${user.email}</td>
-                                        <td>${user.address}</td>
-                                        <td>${user.phone}</td>
-                                        <td>${user.dob}</td>
-                                        <td>${user.gender}</td>
-                                        <td>${user.role.roleName}</td>
+                                        <td>${branch.id}</td>
+                                        <td>${branch.name}</td>
                                         <td>
-                                            <a href="/admin?action=edit&id=${user.id}" class="btn btn-warning ">Edit</a>
-                                        </td>
-                                        <td>
-                                            <a href="/admin?action=delete&id=${user.id}" class="btn btn-danger ">Delete</a>
+                                            <a href="/branch?action=edit&id=${branch.id}" class="btn btn-warning ">Edit</a>
+                                            <a href="/branch?action=delete&id=${branch.id}" class="btn btn-danger ">Delete</a>
                                         </td>
                                     </tr>
                                 </c:forEach>
