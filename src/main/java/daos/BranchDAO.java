@@ -41,14 +41,13 @@ public class BranchDAO extends DatabaseConnection {
         return null;
     }
 
-    public void create(int id, String nameBranch) {
-        String CREATE_BRANCH = "INSERT INTO `branchs` (`id`, `name`) VALUES (?, ?)";
+    public void create(String nameBranch) {
+        String CREATE_BRANCH = "INSERT INTO `branchs` (`name`) VALUES (?)";
 
         try {
             Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_BRANCH);
-            preparedStatement.setInt(1, id);
-            preparedStatement.setString(2, nameBranch);
+            preparedStatement.setString(1, nameBranch);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

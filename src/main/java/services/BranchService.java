@@ -19,8 +19,8 @@ public class BranchService {
         return branchDAO.findById(id);
     }
 
-    public void createBranch(int id, String nameBranch) {
-        branchDAO.create(id, nameBranch);
+    public void createBranch(String nameBranch) {
+        branchDAO.create(nameBranch);
     }
 
     public void deleteBranch(int id) {

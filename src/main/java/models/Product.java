@@ -45,7 +45,7 @@ public class Product {
         this.pin = pin;
     }
 
-    public Product(int pId) {
+    public Product(int id) {
         this.id = id;
     }
 

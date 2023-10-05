@@ -18,6 +18,7 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
+
 <div class="container">
     <div class="card container px-6" style="height: 100vh">
         <h3 class="text-center">Mobile Store</h3>
