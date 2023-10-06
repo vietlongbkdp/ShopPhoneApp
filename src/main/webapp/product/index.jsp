@@ -54,7 +54,6 @@
                 <th>Branch</th>
                 <th>Image</th>
                 <th>Price</th>
-                <th>Quantity</th>
                 <%--                <th>Warranty Period</th>--%>
                 <%--                <th>RAM</th>--%>
                 <%--                <th>Size</th>--%>
@@ -72,7 +71,6 @@
                     <td>${product.branch.name}</td>
                     <td><img src="../images${product.image}" alt="" style="width: 100px;height: 100px"></td>
                     <td>${product.price}</td>
-                    <td>${product.quantity}</td>
                         <%--                    <td>${product.warrantyPeriod}</td>--%>
                         <%--                    <td>${product.ram}</td>--%>
                         <%--                    <td>${product.size}</td>--%>
