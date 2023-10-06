@@ -19,7 +19,7 @@ public class UserFilter implements Filter {
             ((HttpServletResponse)response).sendRedirect("/login?message=You_need_Login");
             return;
         }
-        if((!user.getRole().getRoleName().equalsIgnoreCase("Staff"))){
+        if((!user.getRole().getRoleName().equalsIgnoreCase("Client"))){
             ((HttpServletResponse)response).sendRedirect("/login?message=You_need_Login");
             return;
         }

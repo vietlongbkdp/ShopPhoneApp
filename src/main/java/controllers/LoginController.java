@@ -127,7 +127,9 @@ public class LoginController extends HttpServlet {
             String userRole = userService.getUserByUserName(userName).getRole().getRoleName();
             HttpSession session = req.getSession();
             session.setAttribute("user", userService.getUserByUserName(userName));
-            req.getRequestDispatcher("/user/client/totalAdmin.jsp").forward(req, resp);
+            if(userService.getUserByUserName(userName).getRole().getRoleName().equalsIgnoreCase("Client")){
+                req.getRequestDispatcher("/user/client/totalAdmin.jsp").forward(req, resp);
+            }else req.getRequestDispatcher("/user/client/totalAdmin.jsp").forward(req, resp);
         } else resp.sendRedirect("/login?message=Password or username is invalid");
     }
     @Override
