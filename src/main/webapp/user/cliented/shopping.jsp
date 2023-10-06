@@ -129,8 +129,18 @@
                             </li>
                             <c:if test="${user != null}">
                                 <li><a href="#">
-                                    <i class="fa fa-user" aria-hidden="true"></i>
-                                    <span class="padding_10">${user.fullName}</span></a>
+                                    <span class="padding_10"></span></a>
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                                ${user.fullName}
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a style="color: #1b1e21" class="dropdown-item" href="">Profile</a>
+                                            <a style="color: #1b1e21" class="dropdown-item" href="/cart?action=showDefault">Order Management</a>
+                                            <a style="color: #1b1e21" class="dropdown-item" href="/login?action=logout&message=Logout Success!">Logout</a>
+                                        </div>
+                                    </div>
                                 </li>
                             </c:if>
                             <c:if test="${user == null}">
