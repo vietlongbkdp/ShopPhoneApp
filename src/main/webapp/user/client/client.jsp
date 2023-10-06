@@ -35,7 +35,7 @@
             </div>
         </form>
         <div>
-            <a href="/cart?action=showCart&id=${user.id}" class="btn btn-primary ">Cart</a>
+            <a href="/cart?action=showCart" class="btn btn-primary ">Cart</a>
         </div>
         
         <table class="table table-striped">
