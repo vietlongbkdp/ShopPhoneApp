@@ -42,5 +42,12 @@ public class ProductService {
     public List<Product> fillAll() {
         return productDAO.findAll();
     }
+    public boolean checkAvaibleProduct(int productID){
+        var result = true;
+        Product product =(Product) productDAO.findById(productID);
+        if (product.getQuantity()==0){
+
+        }
+    }
 }
 

@@ -12,25 +12,29 @@ import java.util.List;
 public class UserService {
     RoleDao roleDao = new RoleDao();
     UserDao userDao = new UserDao();
-    public List<User> getAllUser(){
+
+    public List<User> getAllUser() {
         return userDao.getAllUser();
     }
-    public User getUserById(int id){
+
+    public User getUserById(int id) {
         return userDao.getUserById(id);
     }
-    public User getUserByUserName(String userName){
+
+    public User getUserByUserName(String userName) {
         List<User> userList = getAllUser();
         return userList.stream().filter(user -> user.getUserName().equalsIgnoreCase(userName)).findFirst().orElse(null);
     }
-    public User getUserByEmail(String email){
+
+    public User getUserByEmail(String email) {
         List<User> userList = getAllUser();
         return userList.stream().filter(user -> user.getEmail().equalsIgnoreCase(email)).findFirst().orElse(null);
     }
 
     public boolean login(String userName, String password) {
         List<User> userList = getAllUser();
-        for (User u:userList) {
-            if(u.getUserName().equalsIgnoreCase(userName) && u.getPassword().equals(password)) return true;
+        for (User u : userList) {
+            if (u.getUserName().equalsIgnoreCase(userName) && u.getPassword().equals(password)) return true;
         }
         return false;
     }
@@ -87,10 +91,20 @@ public class UserService {
     public void updatePassword(int id, String password) {
         userDao.updatePassword(id, password);
     }
+
     public String getEmailById(int id) {
         User user = userDao.getAllUser().stream().filter(u -> u.getId() == id).findFirst().orElse(null);
-        if(user!=null) {
+        if (user != null) {
             return user.getEmail();
-        }else return null;
+        } else return null;
+    }
+
+    public boolean checkProfileUser(int id) {
+        var check = true;
+        User user = userDao.getUserById(id);
+        if (user.getAddress() == null || user.getPhone() == null) {
+            check = false;
+        }
+        return check;
     }
 }
