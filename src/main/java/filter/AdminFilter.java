@@ -8,7 +8,8 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-@WebFilter(urlPatterns = {"/admin/*", "/product/*", "/branch/*", "/product-import/*"})
+
+@WebFilter("/admin/*")
 public class AdminFilter implements Filter {
 
     @Override

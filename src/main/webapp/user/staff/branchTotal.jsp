@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Edit User</title>
+    <title>Admin Page</title>
     <link href="/user/admin/assets/all.min.css" rel="stylesheet" type="text/css">
     <link href="/user/admin/assets/sb-admin-2.min.css" rel="stylesheet">
     <link href="/user/admin/assets/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -75,13 +75,6 @@
 
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                <!-- Sidebar Toggle (Topbar) -->
-                <form class="form-inline">
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                </form>
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -138,109 +131,81 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <form class="user" action="/admin?action=edit&id=${userEdit.id}" method="post">
-                    <div class="sidebar-brand-text mx-5 mb-3 font-weight-bold">EDIT USER</div>
-                    <div class="col-sm-6 mb-3 mb-sm-3">User Name
-                        <input type="text" class="form-control form-control-user" id="userName"  placeholder="User Name" name="userName" required value="${userEdit.userName}">
-                    </div>
-                    <div class="col-sm-6 mb-3 mb-sm-3"> Full Name
-                        <input type="text" class="form-control form-control-user" id="fullName"  placeholder="Full Name" name="fullName" required value="${userEdit.fullName}">
-                    </div>
-                    <div class="col-sm-6 mb-3 mb-sm-3"> Email
-                        <input type="email" class="form-control form-control-user" id="email"  placeholder="Email" name="email" required value="${userEdit.email}">
-                    </div>
-                    <div class="col-sm-6 mb-3 mb-sm-3"> Address
-                        <input type="text" class="form-control form-control-user" id="address"  placeholder="Address" name="address" required value="${userEdit.address}">
-                    </div>
-                    <div class="col-sm-6 mb-3 mb-sm-3"> Phone
-                        <input type="text" class="form-control form-control-user" id="phone"  placeholder="Phone" name="phone" required value="${userEdit.phone}">
-                    </div>
-                    <div class="col-sm-6 mb-3 mb-sm-3"> Date of Birth
-                        <input type="date" class="form-control form-control-user" id="dob"  placeholder="Date of Birth" name="dob" required value="${userEdit.dob}">
-                    </div>
-                    <div class="col-sm-6 mb-3 mb-sm-3">
-                        <label for="gender" class="form-label">Gender</label>
-                            <select class="form-control" id="gender" name="gender">
-                                <c:forEach var="gender" items="${genders}">
-                                    <option value="${gender}">${gender}</option>
-                                </c:forEach>
-                        </select>
-                    </div>
-                   <c:if test="${userEdit.role.roleName != 'Client'}">
-                       <div class="col-sm-6 mb-3 mb-sm-3" >
-                           <label for="role1" class="form-label">Role</label>
-                           <select class="form-control" id="role1" name="role">
-                               <c:forEach var="role" items="${roles}">
-                                   <option value="${role.roleName}" selected ${role.roleName == "Client" ? 'hidden' : ''}>${role.roleName}</option>
-                               </c:forEach>
-                           </select>
-                       </div>
-                   </c:if>
-                    <c:if test="${userEdit.role.roleName == 'Client'}">
-                        <div class="col-sm-6 mb-3 mb-sm-3" >
-                            <label for="role2" class="form-label">Role</label>
-                            <select class="form-control" id="role2" name="role">
-                                <c:forEach var="role" items="${roles}">
-                                    <option value="${role.roleName}" selected ${role.roleName != "Client" ? 'hidden' : ''}>${role.roleName}</option>
-                                </c:forEach>
-                            </select>
+
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Branch Management</h1>
+                </div>
+
+                <!-- Content Row -->
+                <div class="row">
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            <a href="/branch">BRANCH QUANTITY</a>
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-users-cog fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </c:if>
-                    <div class="col-sm-6 mb-3 mb-sm-3">Password
-                        <input type="password" class="form-control form-control-user" id="password" placeholder="Password" name="password" required>
                     </div>
-                    <div class="col-sm-6 mb-3 mb-sm-3">Confirm Password
-                        <input type="password" class="form-control form-control-user" id="re_password" placeholder="Confirm Password" name="re_password" required>
-                    </div>
-                    <input type="submit" value="Submit" class="btn btn-primary">
-                </form>
+
+                    <!-- Earnings (Monthly) Card Example -->
+                </div>
+                <!-- /.container-fluid -->
+
             </div>
-            <!-- /.container-fluid -->
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>---------  Website Design by Huy - Long - Thắng Team  ---------</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
 
         </div>
-        <!-- End of Main Content -->
+        <!-- End of Content Wrapper -->
 
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>---------  Website Design by Huy - Long - Thắng Team  ---------</span>
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="/login?action=logout">Logout</a>
                 </div>
             </div>
-        </footer>
-        <!-- End of Footer -->
-
-    </div>
-    <!-- End of Content Wrapper -->
-
-</div>
-<!-- End of Page Wrapper -->
-
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="/login?action=logout">Logout</a>
-            </div>
         </div>
     </div>
 </div>
-
 <script src="/user/admin/assets/jquery.min.js"></script>
 <script src="/user/admin/assets/bootstrap.bundle.min.js"></script>
 <script src="/user/admin/assets/jquery.easing.min.js"></script>
@@ -250,4 +215,3 @@
 <script src="/user/admin/assets/datatables-demo.js"></script>
 </body>
 </html>
-
