@@ -2,6 +2,7 @@ package controllers;
 
 import models.Cart;
 import models.EGender;
+import models.Product;
 import models.User;
 import services.ProductService;
 import services.ShoppingService;
@@ -83,6 +84,7 @@ public class CartController extends HttpServlet {
         User user = (User) session.getAttribute("user");
         req.setAttribute("user", user);
         req.setAttribute("cart", shoppingService.findByUserId(user.getId()));
+        req.setAttribute("message", req.getAttribute("message"));
         req.getRequestDispatcher("user/client/cart.jsp").forward(req, resp);
     }
 
@@ -118,9 +120,9 @@ public class CartController extends HttpServlet {
     private void payment(HttpServletRequest req, HttpServletResponse resp) {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        if (userService.checkProfileUser(user.getId())){
+        if (userService.checkProfileUser(user.getId())) {
 
-        }else {
+        } else {
 
         }
     }
@@ -133,9 +135,7 @@ public class CartController extends HttpServlet {
 
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         shoppingService.deleteCartDetails(req.getParameterValues("cartDetailID"));
-        String id = req.getParameter("id");
-        String url = "/cart?action=showCart&id=" + id;
-        resp.sendRedirect(url);
+        resp.sendRedirect("/cart?action=showCart");
 
     }
 
@@ -161,15 +161,17 @@ public class CartController extends HttpServlet {
             var listCartDetailChoosen = shoppingService.cartDetails(shoppingService.findByUserId(user.getId()).getId(), 1);
             for (var cartDetail : listCartDetailChoosen) {
                 if (!productService.checkAvaibleProduct(cartDetail.getProduct().getId())) {
-                    String product = cartDetail.getProduct().getProductName();
-                    String url = "/cart?action=showCart&message=" + product + "is out of stock";
-                    resp.sendRedirect("url");
-                } else {
-                    req.setAttribute("cartDetails", shoppingService.cartDetails(cart.getId(), 1));
-                    req.getRequestDispatcher("user/client/cart.jsp").forward(req, resp);
+                    Product product=(Product) productService.findById(cartDetail.getProduct().getId());
+                    String productName = product.getProductName();
+                    String url = "/cart?action=showCart&message=" + productName + " is out of stock";
+                    resp.sendRedirect(url);
+                    return;
                 }
             }
+            req.setAttribute("cartDetails", shoppingService.cartDetails(cart.getId(), 1));
+            req.getRequestDispatcher("user/client/createOrder.jsp").forward(req, resp);
         }
     }
 }
+
 
