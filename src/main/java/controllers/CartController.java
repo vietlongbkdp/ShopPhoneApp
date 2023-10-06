@@ -131,7 +131,8 @@ public class CartController extends HttpServlet {
         resp.sendRedirect("/shopping");
     }
 
-    private void buy(HttpServletRequest req, HttpServletResponse resp) {
+    private void buy(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+
 
     }
 }
