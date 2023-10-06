@@ -1,11 +1,13 @@
 package daos;
 
+import Utils.StringUtil;
 import com.mysql.cj.xdevapi.PreparableStatement;
 import models.EStatus;
 import models.Order;
 import models.OrderDetail;
 import models.Product;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -32,7 +34,7 @@ public class OrderDao extends DatabaseConnection {
             var orderDetails = new ArrayList<OrderDetail>();
             while (rs.next()) {
                 order.setId(rs.getInt("id"));
-                order.setOrderDate(rs.getDate("order_Date"));
+                order.setOrderDate(StringUtil.convertDateTimeFormat(rs.getString("order_Date")));
                 order.setTotalAmount(rs.getBigDecimal("total_amount"));
                 order.setStatus(EStatus.valueOf(rs.getString("status")));
                 order.setUser(userDao.getUserById(rs.getInt("id_customer")));
@@ -48,6 +50,9 @@ public class OrderDao extends DatabaseConnection {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public void createOrder(BigDecimal total_amount){
+
     }
 
 
