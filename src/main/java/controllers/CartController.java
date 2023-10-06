@@ -41,10 +41,15 @@ public class CartController extends HttpServlet {
             case "deleteCD" -> deleteCD(req, resp);
             case "showCart" -> showCart(req, resp);
             case "cart" -> cart(req, resp);
-            case "showDefault" -> cart(req, resp);
+            case "showDefault" -> showDefault(req, resp);
             default -> showlist(req, resp);
         }
     }
+
+    private void showDefault(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/user/cliented/clientShow.jsp").forward(req, resp);
+    }
+
     private void showProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
