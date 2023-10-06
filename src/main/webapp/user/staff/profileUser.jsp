@@ -157,7 +157,7 @@
                     <div class="col-sm-6 mb-3 mb-sm-3"> Date of Birth : ${user.dob}</div>
                     <div class="col-sm-6 mb-3 mb-sm-3"> Gender : ${user.gender}</div>
                     <div class="col-sm-6 mb-3 mb-sm-3"> Role : ${user.role.roleName}</div>
-                    <a href="/cart?action=editProfile&id=${user.id}" type="button" class="btn btn-warning">Edit profile</a>
+                    <a href="/cart?action=editProfile" type="button" class="btn btn-warning">Edit profile</a>
             </div>
             <!-- /.container-fluid -->
 

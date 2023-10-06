@@ -106,22 +106,21 @@ public class ProductDAO extends DatabaseConnection {
     }
 
     public void update(Product product) {
-        String UPDATE = "UPDATE `bandienthoai`.`products` " + "SET `productName` = ?, `branch_id` = ?, `image` = ?, `price` = ?, `quantity` = ?, `warrantyPeriod` = ?, `ram` = ?, `size` = ?, `color` = ?, `camera` = ?, `operatingSystem` = ?, `pin` = ? ,`price_range`= ? " + "WHERE (`id` = ?)";
+        String UPDATE = "UPDATE `bandienthoai`.`products` " + "SET `productName` = ?, `branch_id` = ?, `image` = ?, `price` = ?, `warrantyPeriod` = ?, `ram` = ?, `size` = ?, `color` = ?, `camera` = ?, `operatingSystem` = ?, `pin` = ? ,`price_range`= ? " + "WHERE (`id` = ?)";
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
             preparedStatement.setString(1, product.getProductName());
             preparedStatement.setInt(2, product.getBranch().getId());
             preparedStatement.setString(3, product.getImage());
             preparedStatement.setBigDecimal(4, product.getPrice());
-            preparedStatement.setString(5, product.getQuantity());
-            preparedStatement.setString(6, product.getWarrantyPeriod());
-            preparedStatement.setString(7, product.getRam());
-            preparedStatement.setString(8, product.getSize());
-            preparedStatement.setString(9, product.getColor());
-            preparedStatement.setString(10, product.getCamera());
-            preparedStatement.setString(11, product.getOperatingSystem());
-            preparedStatement.setString(12, product.getPin());
-            preparedStatement.setString(13, product.getePriceRange().toString());
-            preparedStatement.setInt(14,product.getId());
+            preparedStatement.setString(5, product.getWarrantyPeriod());
+            preparedStatement.setString(6, product.getRam());
+            preparedStatement.setString(7, product.getSize());
+            preparedStatement.setString(8, product.getColor());
+            preparedStatement.setString(9, product.getCamera());
+            preparedStatement.setString(10, product.getOperatingSystem());
+            preparedStatement.setString(11, product.getPin());
+            preparedStatement.setString(12, product.getePriceRange().toString());
+            preparedStatement.setInt(13,product.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -149,23 +148,22 @@ public class ProductDAO extends DatabaseConnection {
     }
 
     public void create(Product product) {
-        String CREATE = "INSERT INTO `bandienthoai`.`products` (`productName`, `branch_id`, `image`, `price`, `quantity`, " +
+        String CREATE = "INSERT INTO `bandienthoai`.`products` (`productName`, `branch_id`, `image`, `price`, " +
                 "`warrantyPeriod`, `ram`, `size`, `color`, `camera`, `operatingSystem`, `pin`  ) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE)) {
             preparedStatement.setString(1, product.getProductName());
             preparedStatement.setInt(2, product.getBranch().getId());
             preparedStatement.setString(3, product.getImage());
             preparedStatement.setBigDecimal(4, product.getPrice());
-            preparedStatement.setString(5, product.getQuantity());
-            preparedStatement.setString(6, product.getWarrantyPeriod());
-            preparedStatement.setString(7, product.getRam());
-            preparedStatement.setString(8, product.getSize());
-            preparedStatement.setString(9, product.getColor());
-            preparedStatement.setString(10, product.getCamera());
-            preparedStatement.setString(11, product.getOperatingSystem());
-            preparedStatement.setString(12, product.getPin());
+            preparedStatement.setString(5, product.getWarrantyPeriod());
+            preparedStatement.setString(6, product.getRam());
+            preparedStatement.setString(7, product.getSize());
+            preparedStatement.setString(8, product.getColor());
+            preparedStatement.setString(9, product.getCamera());
+            preparedStatement.setString(10, product.getOperatingSystem());
+            preparedStatement.setString(11, product.getPin());
             System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -180,7 +178,7 @@ public class ProductDAO extends DatabaseConnection {
         product.setBranch(new Branch(rs.getInt("branch_id"), rs.getString("branch_name")));
         product.setImage(rs.getString("image"));
         product.setPrice(rs.getBigDecimal("price"));
-        product.setQuantity(rs.getString("quantity"));
+        product.setQuantity(rs.getInt("quantity"));
         product.setWarrantyPeriod(rs.getString("warrantyPeriod"));
         product.setRam(rs.getString("ram"));
         product.setSize(rs.getString("size"));
@@ -191,4 +189,5 @@ public class ProductDAO extends DatabaseConnection {
         product.setePriceRange(EPriceRange.valueOf(rs.getString("price_range")));
         return product;
     }
+
 }

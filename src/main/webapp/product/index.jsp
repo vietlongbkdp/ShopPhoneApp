@@ -39,9 +39,9 @@
                     <button type="submit" class="btn btn-primary mb-2">Restore All</button>
                 </div>
                 </c:if>
-                <form action="/product?page=${page.currentPage}">
+                <form action="/product?page=${page.currentPage}" >
                     <input type="text" id="searchBook" value="${search}" name="search" class="form-control d-flex"
-                           style="width: 85%" placeholder="Search Product Name">
+                           style="width: 85%" placeholder="Search Product">
                     <button id="searchButton" class="btn btn-primary">Search</button>
                 </form>
                 <div class="col-6"></div>
@@ -54,7 +54,6 @@
                 <th>Branch</th>
                 <th>Image</th>
                 <th>Price</th>
-                <th>Quantity</th>
                 <%--                <th>Warranty Period</th>--%>
                 <%--                <th>RAM</th>--%>
                 <%--                <th>Size</th>--%>
@@ -72,7 +71,6 @@
                     <td>${product.branch.name}</td>
                     <td><img src="../images${product.image}" alt="" style="width: 100px;height: 100px"></td>
                     <td>${product.price}</td>
-                    <td>${product.quantity}</td>
                         <%--                    <td>${product.warrantyPeriod}</td>--%>
                         <%--                    <td>${product.ram}</td>--%>
                         <%--                    <td>${product.size}</td>--%>
@@ -81,7 +79,7 @@
                         <%--                    <td>${product.operatingSystem}</td>--%>
                         <%--                    <td>${product.pin}</td>--%>
                     <td>
-                        <a href="/product?action=update&id=${product.id}" class="btn btn-primary ">Update</a>
+                        <a href="/product?action=edit&id=${product.id}" class="btn btn-primary ">Edit</a>
                         <a onclick="showConfirm(${product.id})"
                            class="btn btn-primary ">Delete</a>
                     </td>

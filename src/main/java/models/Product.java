@@ -8,7 +8,7 @@ public class Product {
     private Branch branch;
     private String image;
     private BigDecimal price;
-    private String quantity;
+    private int quantity;
     private String warrantyPeriod;
     private String ram;
     private String size;
@@ -30,7 +30,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String productName, Branch branch, String image, BigDecimal price, String quantity, String warrantyPeriod, String ram, String size, String color, String camera, String operatingSystem, String pin) {
+    public Product(String productName, Branch branch, String image, BigDecimal price, int quantity, String warrantyPeriod, String ram, String size, String color, String camera, String operatingSystem, String pin) {
         this.productName = productName;
         this.branch = branch;
         this.image = image;
@@ -90,11 +90,11 @@ public class Product {
         this.price = price;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
@@ -154,13 +154,27 @@ public class Product {
         this.pin = pin;
     }
 
-    public Product(int id, String productName, Branch branch, String image, BigDecimal price, String quantity, String warrantyPeriod, String ram, String size, String color, String camera, String operatingSystem, String pin) {
+    public Product(int id, String productName, Branch branch, String image, BigDecimal price, int quantity, String warrantyPeriod, String ram, String size, String color, String camera, String operatingSystem, String pin) {
         this.id = id;
         this.productName = productName;
         this.branch = branch;
         this.image = image;
         this.price = price;
         this.quantity = quantity;
+        this.warrantyPeriod = warrantyPeriod;
+        this.ram = ram;
+        this.size = size;
+        this.color = color;
+        this.camera = camera;
+        this.operatingSystem = operatingSystem;
+        this.pin = pin;
+    }
+
+    public Product(String productName, Branch branch, String image, BigDecimal price, String warrantyPeriod, String ram, String size, String color, String camera, String operatingSystem, String pin) {
+        this.productName = productName;
+        this.branch = branch;
+        this.image = image;
+        this.price = price;
         this.warrantyPeriod = warrantyPeriod;
         this.ram = ram;
         this.size = size;

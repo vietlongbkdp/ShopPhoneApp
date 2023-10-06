@@ -14,10 +14,14 @@
     <link href="/user/admin/assets/sb-admin-2.min.css" rel="stylesheet">
     <link href="/user/admin/assets/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" rel="stylesheet">
 </head>
 <body id="page-top">
 <div id="wrapper">
-
+    <c:if test="${message != null}">
+        <h6 class="d-none" id="message">${message}</h6>
+    </c:if>
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -148,7 +152,8 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <form class="user" action="/cart?action=editProfile&id=${user.id}" method="post">
+                <form class="user" action="/cart?action=editProfile" method="post">
+                    <input type="hidden" name="url" id="urlInput">
                     <div class="sidebar-brand-text mx-5 mb-3 font-weight-bold">EDIT PROFILE</div>
                     <div class="col-sm-6 mb-3 mb-sm-3">User Name
                         <input type="text" class="form-control form-control-user" id="userName"  placeholder="User Name" name="userName" required value="${user.userName}">
@@ -224,7 +229,13 @@
         </div>
     </div>
 </div>
-
+<script>
+    const message = document.getElementById('message');
+    if (message !== null && message.innerHTML) {
+        toastr.success(message.innerHTML);
+    }
+    var checkboxes = document.querySelectorAll('.myCheckBox');
+</script>
 <script src="/user/admin/assets/jquery.min.js"></script>
 <script src="/user/admin/assets/bootstrap.bundle.min.js"></script>
 <script src="/user/admin/assets/jquery.easing.min.js"></script>

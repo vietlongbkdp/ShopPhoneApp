@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @WebServlet(name = "CartController", value = "/cart")
 public class CartController extends HttpServlet {
@@ -24,7 +27,7 @@ public class CartController extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        userService= new UserService();
+        userService = new UserService();
         productService = new ProductService();
         shoppingService = new ShoppingService();
     }
@@ -37,7 +40,7 @@ public class CartController extends HttpServlet {
         }
         switch (action) {
             case "profile" -> showProfile(req, resp);
-            case "editProfile"-> editProfile(req,resp);
+            case "editProfile" -> editProfile(req, resp);
             case "deleteCD" -> deleteCD(req, resp);
             case "showCart" -> showCart(req, resp);
             case "cart" -> cart(req, resp);
@@ -53,12 +56,14 @@ public class CartController extends HttpServlet {
     private void showProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        req.setAttribute("user", userService.getUserById(user.getId()));
+        req.setAttribute("user", user);
         req.getRequestDispatcher("/user/client/profileUser.jsp").forward(req, resp);
     }
 
     private void editProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("userEdit", userService.getUserById(Integer.parseInt(req.getParameter("id"))));
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        req.setAttribute("userEdit", user);
         req.setAttribute("genders", EGender.values());
         req.getRequestDispatcher("user/client/editProfile.jsp").forward(req, resp);
     }
@@ -69,21 +74,22 @@ public class CartController extends HttpServlet {
 
     private void deleteCD(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         shoppingService.deleteCartDetail(Integer.parseInt(req.getParameter("id")));
-        String idu =req.getParameter("idu");
-        resp.sendRedirect("/cart?action=showCart&id="+idu);
+        String idu = req.getParameter("idu");
+        resp.sendRedirect("/cart?action=showCart&id=" + idu);
     }
 
     private void showCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id =Integer.parseInt(req.getParameter("id"));
-        req.setAttribute("user",userService.getUserById(id));
-        req.setAttribute("cart", shoppingService.findByUserId(id));
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        req.setAttribute("user", user);
+        req.setAttribute("cart", shoppingService.findByUserId(user.getId()));
         req.getRequestDispatcher("user/client/cart.jsp").forward(req, resp);
     }
 
     private void cart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        int cartid= shoppingService.findCartIdByUserId(user);
+        int cartid = shoppingService.findCartIdByUserId(user);
         int id = Integer.parseInt(req.getParameter("id"));
         if (shoppingService.checkProductInCart(cartid, id)) {
             shoppingService.updateCartDetail(shoppingService.findByUserId(user.getId()), id);
@@ -104,19 +110,31 @@ public class CartController extends HttpServlet {
             case "delete" -> delete(req, resp);
             case "buy" -> buy(req, resp);
             case "updateCart" -> updateCart(req, resp);
-            case "editProfile"-> updateProfile(req,resp);
+            case "editProfile" -> updateProfile(req, resp);
+            case "payment" -> payment(req, resp);
+        }
+    }
+
+    private void payment(HttpServletRequest req, HttpServletResponse resp) {
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        if (userService.checkProfileUser(user.getId())){
+
+        }else {
 
         }
     }
+
     private void updateProfile(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String url = req.getParameter("url");
         userService.updateProfile(req);
-        resp.sendRedirect("/cart?action=profile");
+        resp.sendRedirect(url);
     }
 
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         shoppingService.deleteCartDetails(req.getParameterValues("cartDetailID"));
-        String id =req.getParameter("id");
-        String url = "/cart?action=showCart&id="+id;
+        String id = req.getParameter("id");
+        String url = "/cart?action=showCart&id=" + id;
         resp.sendRedirect(url);
 
     }
@@ -125,14 +143,33 @@ public class CartController extends HttpServlet {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         String[] cDetailIDS = req.getParameterValues("cDetailID");
-        if (cDetailIDS !=null) {
+        if (cDetailIDS != null) {
             shoppingService.updateCartDetails(shoppingService.findByUserId(user.getId()), req);
         }
         resp.sendRedirect("/shopping");
     }
 
-    private void buy(HttpServletRequest req, HttpServletResponse resp) {
-
+    private void buy(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        String[] cDetailIDS = req.getParameterValues("cDetailID");
+        Cart cart = shoppingService.findByUserId(user.getId());
+        if (cDetailIDS == null) {
+            resp.sendRedirect("/shopping&message=Please choose product");
+        } else if (cDetailIDS != null) {
+            shoppingService.updateCartDetails(cart, req);
+            var listCartDetailChoosen = shoppingService.cartDetails(shoppingService.findByUserId(user.getId()).getId(), 1);
+            for (var cartDetail : listCartDetailChoosen) {
+                if (!productService.checkAvaibleProduct(cartDetail.getProduct().getId())) {
+                    String product = cartDetail.getProduct().getProductName();
+                    String url = "/cart?action=showCart&message=" + product + "is out of stock";
+                    resp.sendRedirect("url");
+                } else {
+                    req.setAttribute("cartDetails", shoppingService.cartDetails(cart.getId(), 1));
+                    req.getRequestDispatcher("user/client/cart.jsp").forward(req, resp);
+                }
+            }
+        }
     }
 }
 
