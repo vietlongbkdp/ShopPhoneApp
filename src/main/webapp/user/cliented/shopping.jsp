@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <!-- basic -->
@@ -126,10 +127,28 @@
                                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                 <span class="padding_10">Cart</span></a>
                             </li>
-                            <li><a href="#">
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                <span class="padding_10">Cart</span></a>
-                            </li>
+                            <c:if test="${user != null}">
+                                <li><a href="#">
+                                    <span class="padding_10"></span></a>
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                                ${user.fullName}
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a style="color: #1b1e21" class="dropdown-item" href="">Profile</a>
+                                            <a style="color: #1b1e21" class="dropdown-item" href="/cart?action=showDefault">Order Management</a>
+                                            <a style="color: #1b1e21" class="dropdown-item" href="/login?action=logout&message=Logout Success!">Logout</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </c:if>
+                            <c:if test="${user == null}">
+                                <li><a href="/login">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <span class="padding_10">Login/Register</span></a>
+                                </li>
+                            </c:if>
                         </ul>
                     </div>
                 </div>

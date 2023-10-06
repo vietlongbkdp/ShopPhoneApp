@@ -6,12 +6,13 @@ import java.util.List;
 
 public class Order {
     private   int id;
-    private  Date orderDate;
+    private  String orderDate;
     private  EStatus status;
     private  User user;
     private  BigDecimal totalAmount;
 
     private  List<OrderDetail>orderDetails;
+    private String shippingCode;
 
     public int getId() {
         return id;
@@ -21,11 +22,11 @@ public class Order {
         this.id = id;
     }
 
-    public Date getOrderDate() {
+    public String getOrderDate() {
         return orderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(String orderDate) {
         this.orderDate = orderDate;
     }
 
@@ -61,10 +62,8 @@ public class Order {
         this.orderDetails = orderDetails;
     }
 
-    public Order(int id, Date orderDate, EStatus status, User user, BigDecimal totalAmount, List<OrderDetail> orderDetails) {
-        this.id = id;
+    public Order(String orderDate, User user, BigDecimal totalAmount, List<OrderDetail> orderDetails) {
         this.orderDate = orderDate;
-        this.status = status;
         this.user = user;
         this.totalAmount = totalAmount;
         this.orderDetails = orderDetails;
@@ -75,5 +74,13 @@ public class Order {
 
     public Order(int id) {
         this.id = id;
+    }
+
+    public String getShippingCode() {
+        return shippingCode;
+    }
+
+    public void setShippingCode(String shippingCode) {
+        this.shippingCode = shippingCode;
     }
 }
