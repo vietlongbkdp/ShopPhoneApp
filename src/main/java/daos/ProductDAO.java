@@ -113,14 +113,14 @@ public class ProductDAO extends DatabaseConnection {
             preparedStatement.setString(3, product.getImage());
             preparedStatement.setBigDecimal(4, product.getPrice());
             preparedStatement.setString(5, product.getWarrantyPeriod());
-            preparedStatement.setString(7, product.getRam());
-            preparedStatement.setString(8, product.getSize());
-            preparedStatement.setString(9, product.getColor());
-            preparedStatement.setString(10, product.getCamera());
-            preparedStatement.setString(11, product.getOperatingSystem());
-            preparedStatement.setString(12, product.getPin());
-            preparedStatement.setString(13, product.getePriceRange().toString());
-            preparedStatement.setInt(14,product.getId());
+            preparedStatement.setString(6, product.getRam());
+            preparedStatement.setString(7, product.getSize());
+            preparedStatement.setString(8, product.getColor());
+            preparedStatement.setString(9, product.getCamera());
+            preparedStatement.setString(10, product.getOperatingSystem());
+            preparedStatement.setString(11, product.getPin());
+            preparedStatement.setString(12, product.getePriceRange().toString());
+            preparedStatement.setInt(13,product.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

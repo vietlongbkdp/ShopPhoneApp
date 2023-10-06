@@ -41,15 +41,11 @@ public class ProductController extends HttpServlet {
             case "edit" -> showEdit(req, resp);
             case "restore" -> showRestore(req, resp);
             case "delete" -> delete(req, resp);
-            case "showList" -> showList(req, resp);
-            default -> showTotal(req, resp);
+            default -> showList(req, resp);
         }
     }
 
 
-    private void showTotal(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/user/staff/productTotal.jsp").forward(req, resp);
-    }
 
     private void showList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         showTable(req, false, resp);
@@ -98,7 +94,7 @@ public class ProductController extends HttpServlet {
 
 
     private void showEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("product", productService.findById(Integer.parseInt(req.getParameter("id"))));
+        req.setAttribute("product",(Product) productService.findById(Integer.parseInt(req.getParameter("id"))));
         req.setAttribute("branchs", branchService.getBranchs());
         req.getRequestDispatcher("product/create.jsp").forward(req, resp);
     }
@@ -129,7 +125,7 @@ public class ProductController extends HttpServlet {
         String image = null;
 
         String pathServerImage = getServletContext().getRealPath("/") + "images";
-        String pathProjectImage = "D:\\CodeGym\\C0623G1\\Modul 3\\CASESTUDY_MD3\\ShopPhoneApp\\src\\main\\webapp\\images";
+        String pathProjectImage = "F:\\ShopPhoneApp\\src\\main\\webapp\\images";
 
         String dbImageUrl = null;
 

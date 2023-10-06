@@ -39,9 +39,9 @@
                     <button type="submit" class="btn btn-primary mb-2">Restore All</button>
                 </div>
                 </c:if>
-                <form action="/product?page=${page.currentPage}">
+                <form action="/product?page=${page.currentPage}" >
                     <input type="text" id="searchBook" value="${search}" name="search" class="form-control d-flex"
-                           style="width: 85%" placeholder="Search Product Name">
+                           style="width: 85%" placeholder="Search Product">
                     <button id="searchButton" class="btn btn-primary">Search</button>
                 </form>
                 <div class="col-6"></div>
@@ -79,7 +79,7 @@
                         <%--                    <td>${product.operatingSystem}</td>--%>
                         <%--                    <td>${product.pin}</td>--%>
                     <td>
-                        <a href="/product?action=update&id=${product.id}" class="btn btn-primary ">Update</a>
+                        <a href="/product?action=edit&id=${product.id}" class="btn btn-primary ">Edit</a>
                         <a onclick="showConfirm(${product.id})"
                            class="btn btn-primary ">Delete</a>
                     </td>

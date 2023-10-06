@@ -25,10 +25,6 @@
                 <input type="number" class="form-control" name="price" id="price" value="${product.price}">
             </div>
             <div class="mb-3">
-                <label for="quantity" class="form-label">Quantity</label>
-                <input type="text" class="form-control" name="quantity" id="quantity" value="${product.quantity}">
-            </div>
-            <div class="mb-3">
                 <label for="warrantyPeriod" class="form-label">Warranty Period</label>
                 <input type="text" class="form-control" name="warrantyPeriod" id="warrantyPeriod"
                        value="${product.warrantyPeriod}">
