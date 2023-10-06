@@ -46,6 +46,7 @@ public class ProductController extends HttpServlet {
         }
     }
 
+
     private void showTotal(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/user/staff/productTotal.jsp").forward(req, resp);
     }
@@ -118,7 +119,6 @@ public class ProductController extends HttpServlet {
         String idBranch = req.getParameter("branch");
         Branch branch = new Branch(Integer.parseInt(idBranch));
         BigDecimal price = BigDecimal.valueOf(Double.parseDouble(req.getParameter("price")));
-        String quantity = req.getParameter("quantity");
         String warrantyPeriod = req.getParameter("warrantyPeriod");
         String ram = req.getParameter("ram");
         String size = req.getParameter("size");
@@ -162,7 +162,7 @@ public class ProductController extends HttpServlet {
         if (!imageUploaded) {
             req.setAttribute("errorImage", "File ảnh không được để trống hoặc không hợp lệ!");
         }
-        Product product = new Product(productName, branch, image, price, quantity, warrantyPeriod, ram, size, color, camera, operatingSystem, pin);
+        Product product = new Product(productName, branch, image, price, warrantyPeriod, ram, size, color, camera, operatingSystem, pin);
         productService.create(product);
         resp.sendRedirect("/product?message=Created");
     }
@@ -173,7 +173,6 @@ public class ProductController extends HttpServlet {
         Branch branch = new Branch(Integer.parseInt(idBranch));
         String image = req.getParameter("image");
         BigDecimal price = BigDecimal.valueOf(Double.parseDouble(req.getParameter("price")));
-        String quantity = req.getParameter("quantity");
         String warrantyPeriod = req.getParameter("warrantyPeriod");
         String ram = req.getParameter("ram");
         String size = req.getParameter("size");
@@ -181,7 +180,7 @@ public class ProductController extends HttpServlet {
         String camera = req.getParameter("camera");
         String operatingSystem = req.getParameter("operatingSystem");
         String pin = req.getParameter("pin");
-        return new Product(productName, branch, image, price, quantity, warrantyPeriod, ram, size, color, camera, operatingSystem, pin);
+        return new Product(productName, branch, image, price, warrantyPeriod, ram, size, color, camera, operatingSystem, pin);
     }
 
     public void writeImage(String des, Part part) throws IOException {
