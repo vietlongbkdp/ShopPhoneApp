@@ -43,7 +43,7 @@ public class ClientController extends HttpServlet {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         req.setAttribute("user", user);
-        req.getRequestDispatcher("/user/cliented/shopping.jsp").forward(req, resp);
+        req.getRequestDispatcher("/user/client/shopping.jsp").forward(req, resp);
     }
     private void showlist(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         showTable(req, false, "user/client/client.jsp", resp);

@@ -26,7 +26,7 @@
             <div class="sidebar-brand-icon">
                 <i class="fas fa-home"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">HOME</div>
+            <div class="sidebar-brand-text mx-3">SHOPPING</div>
         </a>
 
         <!-- Divider -->
@@ -34,46 +34,36 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="/admin?action=userManager">
+            <a class="nav-link" href="/total?action=user">
                 <i class="fas fa-users-cog"></i>
                 <span>User Management</span></a>
         </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Sales
-        </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/product" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/total?action=product" aria-expanded="true" >
                 <i class="fas fa-fw fa-table"></i>
-                <span>Product</span>
+                <span>Product Management</span>
             </a>
         </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/shopping" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/total?action=order" aria-expanded="true" >
                 <i class="fas fa-file-invoice"></i>
-                <span>Order</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="/branch" aria-expanded="true" >
-                <i class="fas fa-mobile"></i>
-                <span>Branch</span>
+                <span>Order Management</span>
             </a>
         </li>
 
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/total?action=brach" aria-expanded="true" >
+                <i class="fas fa-mobile"></i>
+                <span>Branch Management</span>
+            </a>
+        </li>
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
-
     </ul>
     <!-- End of Sidebar -->
 

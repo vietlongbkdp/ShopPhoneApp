@@ -110,7 +110,7 @@ public class UserDao extends DatabaseConnection{
         }
     }
     public void createUser(User user){
-        String CREATE_NEW_USER = "INSERT INTO `datacasemd3`.`users` (`username`, `password`, `fullname`, `email`, `address`, `phone`, `gender`, `dob`, `role_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String CREATE_NEW_USER = "INSERT INTO `users` (`username`, `password`, `fullname`, `email`, `address`, `phone`, `gender`, `dob`, `role_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_NEW_USER);
@@ -184,9 +184,4 @@ public class UserDao extends DatabaseConnection{
         }
 
     }
-
-//    public static void main(String[] args) {
-//        UserDao userDao = new UserDao();
-//        System.out.println(userDao.getUserById(7).getUserName());
-//    }
 }

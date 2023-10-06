@@ -32,11 +32,11 @@ public class UserController extends HttpServlet {
             case "create":
                 showCreate(req, resp);
                 break;
-            case "userManager":
-                showListUser(req, resp);
-                break;
             case "product":
                 showListProduct(req, resp);
+                break;
+            case "branch":
+                showBranch(req, resp);
                 break;
             case "order":
                 showListOrder(req, resp);
@@ -48,8 +48,17 @@ public class UserController extends HttpServlet {
                 showEdit(req, resp);
                 break;
             default:
-                showTotal(req, resp);
+                showListUser(req, resp);
         }
+    }
+
+    private void showListUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("users", userService.getAllUser());
+        req.getRequestDispatcher("user/admin/managerUser.jsp").forward(req,resp);
+    }
+
+    private void showBranch(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        resp.sendRedirect("/branch");
     }
 
     private void showProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -59,21 +68,22 @@ public class UserController extends HttpServlet {
         req.getRequestDispatcher("/user/client/editProfile.jsp").forward(req, resp);
     }
 
-    private void showListOrder(HttpServletRequest req, HttpServletResponse resp) {
+    private void showListOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/user/staff/orderTotal.jsp").forward(req, resp);
     }
 
-    private void showListProduct(HttpServletRequest req, HttpServletResponse resp) {
-        
+    private void showListProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/user/staff/productTotal.jsp").forward(req, resp);
     }
 
-    private void showTotal(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("users", userService.getAllUser());
-        req.setAttribute("totalUser", userService.getAllUser().size());
-//        req.setAttribute("totalProduct", productService.getAlProduct().size());
-//        req.setAttribute("totalOrder",orderService.getAllOrder().size());
-        req.setAttribute("totalBranch", branchService.getBranchs().size());
-        req.getRequestDispatcher("user/admin/managerTotal.jsp").forward(req,resp);
-    }
+//    private void showTotal(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        req.setAttribute("users", userService.getAllUser());
+//        req.setAttribute("totalUser", userService.getAllUser().size());
+////        req.setAttribute("totalProduct", productService.getAlProduct().size());
+////        req.setAttribute("totalOrder",orderService.getAllOrder().size());
+//        req.setAttribute("totalBranch", branchService.getBranchs().size());
+//        req.getRequestDispatcher("user/admin/managerTotal.jsp").forward(req,resp);
+//    }
 
     private void showEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("userEdit", userService.getUserById(Integer.parseInt(req.getParameter("id"))));
@@ -95,10 +105,10 @@ public class UserController extends HttpServlet {
         req.getRequestDispatcher("user/admin/create.jsp").forward(req, resp);
     }
 
-    private void showListUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("users", userService.getAllUser());
-        req.getRequestDispatcher("user/admin/managerUser.jsp").forward(req,resp);
-    }
+//    private void showListUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        req.setAttribute("users", userService.getAllUser());
+//        req.getRequestDispatcher("user/admin/managerUser.jsp").forward(req,resp);
+//    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

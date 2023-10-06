@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-@WebFilter(urlPatterns = {"/product/*", "/branch/*"})
+@WebFilter(urlPatterns = {"/product/*", "/branch/*", "/product-import/*"})
 public class StaffFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -18,7 +18,7 @@ public class StaffFilter implements Filter {
             ((HttpServletResponse)response).sendRedirect("/login?message=You_need_Login");
             return;
         }
-        if((!user.getRole().getRoleName().equalsIgnoreCase("Staff"))&&(!user.getRole().getRoleName().equalsIgnoreCase("Admin"))){
+        if(!user.getRole().getRoleName().equalsIgnoreCase("Staff")){
             ((HttpServletResponse)response).sendRedirect("/login?message=You_need_Login");
             return;
         }
