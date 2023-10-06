@@ -1,10 +1,6 @@
 package controllers;
 
-import filter.AdminFilter;
-import filter.ClientFilter;
-import filter.StaffFilter;
 import models.User;
-import services.RoleService;
 import services.UserService;
 
 
@@ -128,8 +124,8 @@ public class LoginController extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("user", userService.getUserByUserName(userName));
             if(userService.getUserByUserName(userName).getRole().getRoleName().equalsIgnoreCase("Client")){
-                req.getRequestDispatcher("/user/client/totalAdmin.jsp").forward(req, resp);
-            }else req.getRequestDispatcher("/user/client/totalAdmin.jsp").forward(req, resp);
+                req.getRequestDispatcher("/user/client_undefine/shopping.jsp").forward(req, resp);
+            }else  req.getRequestDispatcher("/user/client/totalAdmin.jsp").forward(req, resp);
         } else resp.sendRedirect("/login?message=Password or username is invalid");
     }
     @Override

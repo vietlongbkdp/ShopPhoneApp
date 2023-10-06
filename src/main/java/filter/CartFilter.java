@@ -8,8 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-//@WebFilter("/shopping/*")
-public class ClientFilter implements Filter {
+
+@WebFilter("/cart/*")
+public class CartFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpSession session = ((HttpServletRequest)request).getSession();
@@ -18,7 +19,7 @@ public class ClientFilter implements Filter {
             ((HttpServletResponse)response).sendRedirect("/login?message=You_need_Login");
             return;
         }
-        if(!user.getRole().getRoleName().equalsIgnoreCase("Client")){
+        if((!user.getRole().getRoleName().equalsIgnoreCase("Client"))){
             ((HttpServletResponse)response).sendRedirect("/login?message=You_need_Login");
             return;
         }

@@ -55,7 +55,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/total?action=brach" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/total?action=branch" aria-expanded="true" >
                 <i class="fas fa-mobile"></i>
                 <span>Branch Management</span>
             </a>

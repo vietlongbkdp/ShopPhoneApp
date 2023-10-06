@@ -55,7 +55,7 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/total?action=brach" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/total?action=branch" aria-expanded="true" >
                 <i class="fas fa-mobile"></i>
                 <span>Branch Management</span>
             </a>
@@ -137,7 +137,7 @@
                 <!-- DataTales Example -->
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">List Management</h1>
+                    <h1 class="h3 mb-0 text-gray-800">User Management</h1>
                 </div>
 
                 <!-- Content Row -->

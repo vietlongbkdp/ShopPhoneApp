@@ -40,11 +40,11 @@ public class TotalAdminController extends HttpServlet {
     }
 
     private void showOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/user/client/cart.jsp").forward(req, resp);
+        req.getRequestDispatcher("/user/client/cart.jsp").forward(req, resp); // getRequestDispatcher đến cartTotal
     }
 
     private void showBranch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/user/staff/branch.jsp").forward(req, resp);
+        req.getRequestDispatcher("/user/staff/branchTotal.jsp").forward(req, resp);
     }
 
     private void showListProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

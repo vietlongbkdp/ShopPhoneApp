@@ -35,7 +35,7 @@ public class BranchController extends HttpServlet {
 
     private void showEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
             req.setAttribute("branch", branchService.getBranch(Integer.parseInt(req.getParameter("id"))));
-            req.getRequestDispatcher("/user/admin/editBranch.jsp").forward(req, resp);
+            req.getRequestDispatcher("/user/staff/editBranch.jsp").forward(req, resp);
     }
 
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -45,7 +45,7 @@ public class BranchController extends HttpServlet {
     }
 
     private void showCreate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/user/admin/createBranch.jsp").forward(req, resp);
+        req.getRequestDispatcher("/user/staff/createBranch.jsp").forward(req, resp);
     }
 
     private void showListBranch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
