@@ -136,8 +136,13 @@
                                                 ${user.fullName}
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a style="color: #1b1e21" class="dropdown-item" href="">Profile</a>
-                                            <a style="color: #1b1e21" class="dropdown-item" href="/cart?action=showDefault">Order Management</a>
+                                            <a style="color: #1b1e21" class="dropdown-item" href="/shopping?action=profile">Profile</a>
+                                            <c:if test="${user.role.roleName != 'Admin'&&user.role.roleName != 'Staff'}">
+                                                <a style="color: #1b1e21" class="dropdown-item" href="/cart?action=showDefault">Order Management</a>
+                                            </c:if>
+                                            <c:if test="${user.role.roleName == 'Admin'||user.role.roleName == 'Staff'}">
+                                                <a style="color: #1b1e21" class="dropdown-item" href="/total">Go to management page</a>
+                                            </c:if>
                                             <a style="color: #1b1e21" class="dropdown-item" href="/login?action=logout&message=Logout Success!">Logout</a>
                                         </div>
                                     </div>

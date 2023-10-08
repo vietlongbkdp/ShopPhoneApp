@@ -33,11 +33,13 @@
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-            <a class="nav-link" href="/total?action=user">
-                <i class="fas fa-users-cog"></i>
-                <span>User Management</span></a>
-        </li>
+        <c:if test="${user.role.roleName == 'Admin'}">
+            <li class="nav-item">
+                <a class="nav-link" href="/total?action=user">
+                    <i class="fas fa-users-cog"></i>
+                    <span>User Management</span></a>
+            </li>
+        </c:if>
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="/total?action=product" aria-expanded="true" >
@@ -119,7 +121,7 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="/cart?action=profile">
+                            <a class="dropdown-item" href="/shopping?action=profile">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>

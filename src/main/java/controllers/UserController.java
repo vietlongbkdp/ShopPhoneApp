@@ -61,12 +61,12 @@ public class UserController extends HttpServlet {
         resp.sendRedirect("/branch");
     }
 
-    private void showProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        User userLogin = (User) session.getAttribute("user");
-        req.setAttribute("user", userLogin);
-        req.getRequestDispatcher("/user/client/editProfile.jsp").forward(req, resp);
-    }
+//    private void showProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        HttpSession session = req.getSession();
+//        User userLogin = (User) session.getAttribute("user");
+//        req.setAttribute("user", userLogin);
+//        req.getRequestDispatcher("/user/client/editProfile.jsp").forward(req, resp);
+//    }
 
     private void showListOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/user/staff/orderTotal.jsp").forward(req, resp);

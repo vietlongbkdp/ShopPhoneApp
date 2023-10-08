@@ -36,7 +36,7 @@ public class TotalAdminController extends HttpServlet {
     }
 
     private void showTotal(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/user/client/userTotal.jsp").forward(req, resp);
+        req.getRequestDispatcher("/user/client/totalAdmin.jsp").forward(req, resp);
     }
 
     private void showOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

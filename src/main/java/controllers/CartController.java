@@ -39,8 +39,6 @@ public class CartController extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "profile" -> showProfile(req, resp);
-            case "editProfile" -> editProfile(req, resp);
             case "deleteCD" -> deleteCD(req, resp);
             case "showCart" -> showCart(req, resp);
             case "cart" -> cart(req, resp);
@@ -50,22 +48,7 @@ public class CartController extends HttpServlet {
     }
 
     private void showDefault(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/user/cliented/clientShow.jsp").forward(req, resp);
-    }
-
-    private void showProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        User user = (User) session.getAttribute("user");
-        req.setAttribute("user", user);
-        req.getRequestDispatcher("/user/client/profileUser.jsp").forward(req, resp);
-    }
-
-    private void editProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        User user = (User) session.getAttribute("user");
-        req.setAttribute("userEdit", user);
-        req.setAttribute("genders", EGender.values());
-        req.getRequestDispatcher("user/client/editProfile.jsp").forward(req, resp);
+        req.getRequestDispatcher("/user/client/showClient.jsp").forward(req, resp);
     }
 
     private void showlist(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -110,7 +93,6 @@ public class CartController extends HttpServlet {
             case "delete" -> delete(req, resp);
             case "buy" -> buy(req, resp);
             case "updateCart" -> updateCart(req, resp);
-            case "editProfile" -> updateProfile(req, resp);
             case "payment" -> payment(req, resp);
         }
     }
@@ -124,13 +106,6 @@ public class CartController extends HttpServlet {
 
         }
     }
-
-    private void updateProfile(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String url = req.getParameter("url");
-        userService.updateProfile(req);
-        resp.sendRedirect(url);
-    }
-
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         shoppingService.deleteCartDetails(req.getParameterValues("cartDetailID"));
         String id = req.getParameter("id");

@@ -76,6 +76,7 @@ public class LoginController extends HttpServlet {
                 break;
             case "register":
                 register(req, resp);
+                break;
             case "resetPassword":
                 resetPassword(req, resp);
                 break;
@@ -110,7 +111,7 @@ public class LoginController extends HttpServlet {
         String fullName = req.getParameter("fullName");
         String userName = req.getParameter("userName");
         String email = req.getParameter("email");
-        String password = req.getParameter("confirmPassword");
+        String password = req.getParameter("password");
         userService.register(fullName, userName, email, password);
         resp.sendRedirect("/login");
 

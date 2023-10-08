@@ -20,11 +20,13 @@ import java.io.IOException;
 @WebServlet(name = "ClientController", value = "/shopping")
 public class ClientController extends HttpServlet {
     private ProductService productService;
+    private UserService userService;
 
 
     @Override
     public void init() throws ServletException {
         productService = new ProductService();
+        userService = new UserService();
     }
 
     @Override
@@ -35,15 +37,29 @@ public class ClientController extends HttpServlet {
         }
         switch (action) {
             case "shopping" -> showShopping(req, resp);
+            case "profile" -> showProfile(req, resp);
+            case "editProfile" -> editProfile(req, resp);
             default -> showlist(req, resp);
         }
     }
-
+    private void editProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        req.setAttribute("userEdit", user);
+        req.setAttribute("genders", EGender.values());
+        req.getRequestDispatcher("user/client/editProfile.jsp").forward(req, resp);
+    }
+    private void showProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        req.setAttribute("user", user);
+        req.getRequestDispatcher("/user/client/showProfile.jsp").forward(req, resp);
+    }
     private void showShopping(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         req.setAttribute("user", user);
-        req.getRequestDispatcher("/user/client/shopping.jsp").forward(req, resp);
+        req.getRequestDispatcher("/user/client_undefine/shopping.jsp").forward(req, resp);
     }
     private void showlist(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         showTable(req, false, "user/client/client.jsp", resp);
@@ -74,6 +90,18 @@ public class ClientController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        String action = req.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+        switch (action) {
+            case "editProfile" -> updateProfile(req, resp);
+        }
     }
+    private void updateProfile(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        String url = req.getParameter("url");
+        userService.updateProfile(req);
+        resp.sendRedirect(url);
+    }
+
 }
