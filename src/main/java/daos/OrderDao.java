@@ -1,14 +1,12 @@
 package daos;
 
-import Utils.StringUtil;
-import com.mysql.cj.xdevapi.PreparableStatement;
+import utils.StringUtil;
 import models.EStatus;
 import models.Order;
 import models.OrderDetail;
 import models.Product;
 import services.dto.Page;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebFilter("/cart/*")
-public class UserFilter implements Filter {
+public class CartFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpSession session = ((HttpServletRequest)request).getSession();
@@ -19,7 +19,7 @@ public class UserFilter implements Filter {
             ((HttpServletResponse)response).sendRedirect("/login?message=You_need_Login");
             return;
         }
-        if((!user.getRole().getRoleName().equalsIgnoreCase("Staff"))&&(!user.getRole().getRoleName().equalsIgnoreCase("Admin"))&&(!user.getRole().getRoleName().equalsIgnoreCase("Client"))){
+        if((!user.getRole().getRoleName().equalsIgnoreCase("Client"))){
             ((HttpServletResponse)response).sendRedirect("/login?message=You_need_Login");
             return;
         }

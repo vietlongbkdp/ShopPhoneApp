@@ -1,10 +1,6 @@
 package controllers;
 
-import filter.AdminFilter;
-import filter.ClientFilter;
-import filter.StaffFilter;
 import models.User;
-import services.RoleService;
 import services.UserService;
 
 
@@ -19,10 +15,6 @@ import java.io.IOException;
 @WebServlet(name ="LoginController", value = "/login")
 public class LoginController extends HttpServlet {
     private UserService userService;
-    private RoleService roleService;
-//    private AdminFilter adminFilter;
-//    private ClientFilter clientFilter;
-//    private StaffFilter staffFilter;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
@@ -62,9 +54,16 @@ public class LoginController extends HttpServlet {
     }
 
     private void showLogin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("login/login.jsp").forward(req, resp);
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        if(user !=null){
+            if(user.getRole().getRoleName().equalsIgnoreCase("Admin")){
+                resp.sendRedirect("/admin?action=userManager");
+            }else if(user.getRole().getRoleName().equalsIgnoreCase("Staff")){
+                req.getRequestDispatcher("/user/staff/productTotal.jsp").forward(req, resp);
+            }else req.getRequestDispatcher("/user/client_undefine/shopping.jsp").forward(req,resp);
+        }else req.getRequestDispatcher("login/login.jsp").forward(req, resp);
     }
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
@@ -77,6 +76,7 @@ public class LoginController extends HttpServlet {
                 break;
             case "register":
                 register(req, resp);
+                break;
             case "resetPassword":
                 resetPassword(req, resp);
                 break;
@@ -95,9 +95,6 @@ public class LoginController extends HttpServlet {
             userService.updatePassword(id, password);
             resp.sendRedirect("/login?message=Restore Password success!");
         }else{
-//            req.setAttribute("user", userService.getUserById(id));
-//            req.setAttribute("message", "Password invalid!");
-//            req.getRequestDispatcher("/login/resetPassword.jsp").forward(req, resp);
             resp.sendRedirect("/login?action=resetPassword&id="+id+"&message=Password invalid!");
         }
     }
@@ -114,7 +111,7 @@ public class LoginController extends HttpServlet {
         String fullName = req.getParameter("fullName");
         String userName = req.getParameter("userName");
         String email = req.getParameter("email");
-        String password = req.getParameter("confirmPassword");
+        String password = req.getParameter("password");
         userService.register(fullName, userName, email, password);
         resp.sendRedirect("/login");
 
@@ -127,23 +124,13 @@ public class LoginController extends HttpServlet {
             String userRole = userService.getUserByUserName(userName).getRole().getRoleName();
             HttpSession session = req.getSession();
             session.setAttribute("user", userService.getUserByUserName(userName));
-            switch (userRole) {
-                case "Admin" -> {
-                resp.sendRedirect("/admin?message= Login Success");
-                }
-                case "Client" -> {
-                    resp.sendRedirect("/shopping?action=shopping&message= Login Success");
-                }
-                case "Staff" -> {
-                    resp.sendRedirect("/product?message= Login Success");
-                }
-            }
+            if(userService.getUserByUserName(userName).getRole().getRoleName().equalsIgnoreCase("Client")){
+                req.getRequestDispatcher("/user/client_undefine/shopping.jsp").forward(req, resp);
+            }else  req.getRequestDispatcher("/user/client/totalAdmin.jsp").forward(req, resp);
         } else resp.sendRedirect("/login?message=Password or username is invalid");
     }
-
     @Override
     public void init() throws ServletException {
         userService = new UserService();
-        roleService = new RoleService();
     }
 }

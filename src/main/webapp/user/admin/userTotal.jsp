@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Admin Page</title>
     <link href="/user/admin/assets/all.min.css" rel="stylesheet" type="text/css">
     <link href="/user/admin/assets/sb-admin-2.min.css" rel="stylesheet">
     <link href="/user/admin/assets/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -19,35 +19,50 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul style="background-color: #e3b53d; background-image: none " class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="width: 10%" >
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a style="color: #1b1e21" class="sidebar-brand d-flex align-items-center justify-content-center" href="/shopping?action=shopping">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/shopping?action=shopping">
             <div class="sidebar-brand-icon">
                 <i class="fas fa-home"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">HOME</div>
+            <div class="sidebar-brand-text mx-3">SHOPPING</div>
         </a>
 
         <!-- Divider -->
-        <hr  class="sidebar-divider my-0" style="color: #1b1e21">
+        <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
-        <li  class="nav-item">
-            <a class="nav-link"  style="color: #1b1e21" href="/admin?action=userManager">
-                <i class="fas fa-users-cog"  style="color: #1b1e21"></i>
-                <span  style="color: #1b1e21">Order Management</span></a>
+        <li class="nav-item">
+            <a class="nav-link" href="/total?action=user">
+                <i class="fas fa-users-cog"></i>
+                <span>User Management</span></a>
         </li>
 
-        <li  class="nav-item" >
-            <a class="nav-link collapsed" style="color: #1b1e21" href="/product" aria-expanded="true" >
-                <i class="fas fa-fw fa-table" style="color: #1b1e21"></i>
-                <span style="color: #1b1e21">Cart Management</span>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/total?action=product" aria-expanded="true" >
+                <i class="fas fa-fw fa-table"></i>
+                <span>Product Management</span>
+            </a>
+        </li>
+
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/total?action=order" aria-expanded="true" >
+                <i class="fas fa-file-invoice"></i>
+                <span>Order Management</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="/total?action=branch" aria-expanded="true" >
+                <i class="fas fa-mobile"></i>
+                <span>Branch Management</span>
             </a>
         </li>
         <!-- Sidebar Toggler (Sidebar) -->
-        <div  class="text-center d-none d-md-inline" >
-            <button class="rounded-circle border-0" style="color: #1b1e21"  id="sidebarToggle"></button>
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
     </ul>
     <!-- End of Sidebar -->
@@ -97,7 +112,7 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="/cart?action=profile">
+                            <a class="dropdown-item" href="/shopping?action=profile">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
@@ -116,56 +131,94 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-
                 <!-- Page Heading -->
-                <h1 class="h3 mb-2 text-gray-800">WELCOM TO SHOP</h1>
+                <h1 class="h3 mb-2 text-gray-800">WELCOM BACK ADMIN!!</h1>
 
                 <!-- DataTales Example -->
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3" style="display: flex; justify-content: space-between">
-<%--                        <h6 class="m-0 font-weight-bold text-primary">Welcom to my Shop</h6>--%>
-<%--                        <a href="/admin?action=create" class="btn btn-primary ">Create new User</a>--%>
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">User Management</h1>
+                </div>
+
+                <!-- Content Row -->
+                <div class="row">
+
+                    <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                <a href="/admin">LIST USER</a>
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${totalUser}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-users-cog fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            <a href="#">Admin</a>
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">${totalProduct}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-tablet-alt fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-<%--                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">--%>
-<%--                                <thead>--%>
-<%--                                <tr>--%>
-<%--                                    <th>ID</th>--%>
-<%--                                    <th>Full Name</th>--%>
-<%--                                    <th>User Name</th>--%>
-<%--                                    <th>Email</th>--%>
-<%--                                    <th>Address</th>--%>
-<%--                                    <th>Phone</th>--%>
-<%--                                    <th>Date of Birth</th>--%>
-<%--                                    <th>Gender</th>--%>
-<%--                                    <th>Role</th>--%>
-<%--                                    <th>Action</th>--%>
-<%--                                    <th>Action</th>--%>
-<%--                                </tr>--%>
-<%--                                </thead>--%>
-<%--                                <tbody>--%>
-<%--                                <c:forEach var="user" items="${users}">--%>
-<%--                                    <tr>--%>
-<%--                                        <td>${user.id}</td>--%>
-<%--                                        <td>${user.fullName}</td>--%>
-<%--                                        <td>${user.userName}</td>--%>
-<%--                                        <td>${user.email}</td>--%>
-<%--                                        <td>${user.address}</td>--%>
-<%--                                        <td>${user.phone}</td>--%>
-<%--                                        <td>${user.dob}</td>--%>
-<%--                                        <td>${user.gender}</td>--%>
-<%--                                        <td>${user.role.roleName}</td>--%>
-<%--                                        <td>--%>
-<%--                                            <a href="/admin?action=edit&id=${user.id}" class="btn btn-warning ">Edit</a>--%>
-<%--                                        </td>--%>
-<%--                                        <td>--%>
-<%--                                            <a href="/admin?action=delete&id=${user.id}" class="btn btn-danger ">Delete</a>--%>
-<%--                                        </td>--%>
-<%--                                    </tr>--%>
-<%--                                </c:forEach>--%>
-<%--                                </tbody>--%>
-<%--                            </table>--%>
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            <a href="#">Staff</a>
+                                        </div>
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${totalOrder}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pending Requests Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            <a href="#">Client</a>
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">${totalBranch}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-mobile fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -174,7 +227,9 @@
             <!-- /.container-fluid -->
 
         </div>
+        <!-- End of Main Content -->
 
+        <!-- Footer -->
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">

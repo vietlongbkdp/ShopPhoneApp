@@ -26,47 +26,40 @@
             <div class="sidebar-brand-icon">
                 <i class="fas fa-home"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">HOME</div>
+            <div class="sidebar-brand-text mx-3">SHOPPING</div>
         </a>
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
+        <c:if test="${user.role.roleName == 'Admin'}">
+            <li class="nav-item">
+                <a class="nav-link" href="/total?action=user">
+                    <i class="fas fa-users-cog"></i>
+                    <span>User Management</span></a>
+            </li>
+        </c:if>
+
         <li class="nav-item">
-            <a class="nav-link" href="/admin?action=userManager">
-                <i class="fas fa-users-cog"></i>
-                <span>User Management</span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Sales
-        </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="/product?action=showList" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/total?action=product" aria-expanded="true" >
                 <i class="fas fa-fw fa-table"></i>
-                <span>Product</span>
+                <span>Product Management</span>
             </a>
         </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/total?action=order" aria-expanded="true" >
                 <i class="fas fa-file-invoice"></i>
-                <span>Order</span>
+                <span>Order Management</span>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/branch" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/total?action=branch" aria-expanded="true" >
                 <i class="fas fa-mobile"></i>
-                <span>Branch</span>
+                <span>Branch Management</span>
             </a>
         </li>
         <!-- Sidebar Toggler (Sidebar) -->
@@ -121,7 +114,7 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="/cart?action=profile">
+                            <a class="dropdown-item" href="/shopping?action=profile">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
@@ -142,7 +135,7 @@
             <div class="container-fluid">
 
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">List Management</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Product Management</h1>
                 </div>
 
                 <!-- Content Row -->
@@ -155,7 +148,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            <a href="/product?action=showList">PRODUCT MANAGEMENT</a>
+                                            <a href="/product">PRODUCT MANAGEMENT</a>
                                         </div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">${totalUser}</div>
                                     </div>
@@ -174,7 +167,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            <a href="/product-import?action=create">PRODUCT IMPORT MANAGEMENT</a>
+                                            <a href="/product-import">PRODUCT IMPORT MANAGEMENT</a>
                                         </div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">${totalProduct}</div>
                                     </div>

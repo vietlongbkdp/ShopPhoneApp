@@ -1,14 +1,12 @@
 package daos;
 
+import utils.PasswordUltis;
 import models.EGender;
-import models.Role;
 import models.User;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 public class UserDao extends DatabaseConnection{
     RoleDao roleDao = new RoleDao();
@@ -88,7 +86,7 @@ public class UserDao extends DatabaseConnection{
             Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(REGISTER_CLIENT);
             preparedStatement.setString(1,userName);
-            preparedStatement.setString(2,password);
+            preparedStatement.setString(2, PasswordUltis.encryptPassword(password));
             preparedStatement.setString(3,fullName);
             preparedStatement.setString(4,email);
             preparedStatement.setInt(5,roleDao.getRoleByRoleName("Client").getId());
@@ -110,7 +108,7 @@ public class UserDao extends DatabaseConnection{
         }
     }
     public void createUser(User user){
-        String CREATE_NEW_USER = "INSERT INTO `datacasemd3`.`users` (`username`, `password`, `fullname`, `email`, `address`, `phone`, `gender`, `dob`, `role_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String CREATE_NEW_USER = "INSERT INTO `users` (`username`, `password`, `fullname`, `email`, `address`, `phone`, `gender`, `dob`, `role_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_NEW_USER);
@@ -184,9 +182,4 @@ public class UserDao extends DatabaseConnection{
         }
 
     }
-
-//    public static void main(String[] args) {
-//        UserDao userDao = new UserDao();
-//        System.out.println(userDao.getUserById(7).getUserName());
-//    }
 }

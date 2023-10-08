@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Edit Profile</title>
+    <title>Edit User</title>
     <link href="/user/admin/assets/all.min.css" rel="stylesheet" type="text/css">
     <link href="/user/admin/assets/sb-admin-2.min.css" rel="stylesheet">
     <link href="/user/admin/assets/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -26,54 +26,46 @@
             <div class="sidebar-brand-icon">
                 <i class="fas fa-home"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">HOME</div>
+            <div class="sidebar-brand-text mx-3">SHOPPING</div>
         </a>
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
+        <c:if test="${user.role.roleName == 'Admin'}">
+            <li class="nav-item">
+                <a class="nav-link" href="/total?action=user">
+                    <i class="fas fa-users-cog"></i>
+                    <span>User Management</span></a>
+            </li>
+        </c:if>
+
         <li class="nav-item">
-            <a class="nav-link" href="/admin?action=userManager">
-                <i class="fas fa-users-cog"></i>
-                <span>User Management</span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Sales
-        </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="/product" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/total?action=product" aria-expanded="true" >
                 <i class="fas fa-fw fa-table"></i>
-                <span>Product</span>
+                <span>Product Management</span>
             </a>
         </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/shopping" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/total?action=order" aria-expanded="true" >
                 <i class="fas fa-file-invoice"></i>
-                <span>Order</span>
+                <span>Order Management</span>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/branch" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/total?action=branch" aria-expanded="true" >
                 <i class="fas fa-mobile"></i>
-                <span>Branch</span>
+                <span>Branch Management</span>
             </a>
         </li>
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
-
     </ul>
     <!-- End of Sidebar -->
 
@@ -129,7 +121,7 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="/shopping?action=profile">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
@@ -148,16 +140,16 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                    <div class="sidebar-brand-text mx-5 mb-3 font-weight-bold">PROFILE USER</div>
-                    <div class="col-sm-6 mb-3 mb-sm-3">User Name : ${user.userName}</div>
-                    <div class="col-sm-6 mb-3 mb-sm-3"> Full Name: ${user.fullName}</div>
-                    <div class="col-sm-6 mb-3 mb-sm-3"> Email: ${user.email}</div>
-                    <div class="col-sm-6 mb-3 mb-sm-3"> Address: ${user.address}</div>
-                    <div class="col-sm-6 mb-3 mb-sm-3"> Phone Number : ${user.phone}</div>
-                    <div class="col-sm-6 mb-3 mb-sm-3"> Date of Birth : ${user.dob}</div>
-                    <div class="col-sm-6 mb-3 mb-sm-3"> Gender : ${user.gender}</div>
-                    <div class="col-sm-6 mb-3 mb-sm-3"> Role : ${user.role.roleName}</div>
-                    <a href="/cart?action=editProfile&id=${user.id}" type="button" class="btn btn-warning">Edit profile</a>
+                <form class="user" action="/branch?action=edit&id=${branch.id}" method="post">
+                    <div class="sidebar-brand-text mx-5 mb-3 font-weight-bold">EDIT USER</div>
+                    <div class="col-sm-6 mb-3 mb-sm-3">ID
+                        <input type="number" class="form-control form-control-user" id="id"  placeholder="Input ID" name="id" value="${branch.id}" disabled>
+                    </div>
+                    <div class="col-sm-6 mb-3 mb-sm-3"> BRANCH NAME
+                        <input type="text" class="form-control form-control-user" id="branchName"  placeholder="Input branchName" name="branchName" required value="${branch.name}">
+                    </div>
+                    <input type="submit" value="Submit" class="btn btn-primary">
+                </form>
             </div>
             <!-- /.container-fluid -->
 

@@ -19,53 +19,46 @@
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="width: 10%" >
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/shopping?action=shopping">
             <div class="sidebar-brand-icon">
                 <i class="fas fa-home"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">HOME</div>
+            <div class="sidebar-brand-text mx-3">SHOPPING</div>
         </a>
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
+
         <li class="nav-item">
-            <a class="nav-link" href="/admin?action=userManager">
+            <a class="nav-link" href="/total?action=user">
                 <i class="fas fa-users-cog"></i>
                 <span>User Management</span></a>
         </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Sales
-        </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/product" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/total?action=product" aria-expanded="true" >
                 <i class="fas fa-fw fa-table"></i>
-                <span>Product</span>
+                <span>Product Management</span>
             </a>
         </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/shopping" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/total?action=order" aria-expanded="true" >
                 <i class="fas fa-file-invoice"></i>
-                <span>Order</span>
+                <span>Order Management</span>
             </a>
         </li>
+
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/branch" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/total?action=branch" aria-expanded="true" >
                 <i class="fas fa-mobile"></i>
-                <span>Branch</span>
+                <span>Branch Management</span>
             </a>
         </li>
         <!-- Sidebar Toggler (Sidebar) -->
@@ -120,7 +113,7 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="/cart?action=profile">
+                            <a class="dropdown-item" href="/shopping?action=profile">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>

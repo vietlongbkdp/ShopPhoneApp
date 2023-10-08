@@ -32,7 +32,8 @@ public class ShoppingService {
     public void createCartDetail(User user, HttpServletRequest req) {
         cartDao.createCartDetail(cartDao.findCartId(user.getId()), Integer.parseInt(req.getParameter("id")));
     }
-    public int findCartIdByUserId(User user){
+
+    public int findCartIdByUserId(User user) {
         return cartDao.findCartId(user.getId());
     }
 
@@ -46,10 +47,10 @@ public class ShoppingService {
                 .map(Integer::parseInt).toList();
         List<Integer> quantities = Arrays.stream(req.getParameterValues("quantities"))
                 .map(Integer::parseInt).toList();
-        List<Integer> checkeds=Arrays.stream(req.getParameterValues("cartChecked"))
+        List<Integer> checkeds = Arrays.stream(req.getParameterValues("cartChecked"))
                 .map(Integer::parseInt).toList();
         for (int i = 0; i < cDetailIDS.size(); i++) {
-            cartDao.updateCartDetailChecked(cDetailIDS.get(i), quantities.get(i),checkeds.get(i));
+            cartDao.updateCartDetailChecked(cDetailIDS.get(i), quantities.get(i), checkeds.get(i));
         }
     }
 
@@ -58,26 +59,28 @@ public class ShoppingService {
             cartDao.deleteCartDetail(Integer.parseInt(id));
         }
     }
-    public boolean checkProductInCart(int cartId,int idProduct ){
+
+    public boolean checkProductInCart(int cartId, int idProduct) {
         boolean check = false;
-        List<CartDetail>cartDetails= cartDao.findListCartDetailByCartID(cartId);
-        if (cartDetails.isEmpty()){
+        List<CartDetail> cartDetails = cartDao.findListCartDetailByCartID(cartId);
+        if (cartDetails.isEmpty()) {
             return check;
         }
-        for(var cartDetail:cartDetails){
-            if(cartDetail.getProduct().getId()==idProduct){
-                check=true;
+        for (var cartDetail : cartDetails) {
+            if (cartDetail.getProduct().getId() == idProduct) {
+                check = true;
                 break;
             }
         }
-        return  check;
+        return check;
     }
-    public void updateCartDetail(Cart cart, int idProduct){
-        List<CartDetail>cartDetails= cart.getCartDetails();
-        for(var cartDetail:cartDetails){
-            if(cartDetail.getProduct().getId()==idProduct){
-              cartDetail.setQuantity(cartDetail.getQuantity()+1);
-              cartDao.updateCartDetail(cart.getId(),idProduct,cartDetail.getQuantity());
+
+    public void updateCartDetail(Cart cart, int idProduct) {
+        List<CartDetail> cartDetails = cart.getCartDetails();
+        for (var cartDetail : cartDetails) {
+            if (cartDetail.getProduct().getId() == idProduct) {
+                cartDetail.setQuantity(cartDetail.getQuantity() + 1);
+                cartDao.updateCartDetail(cart.getId(), idProduct, cartDetail.getQuantity());
             }
         }
     }
@@ -86,7 +89,7 @@ public class ShoppingService {
         cartDao.deleteCartDetail(id);
     }
 
-//    public void createCartDetail(User user, HttpServletRequest req) {
+    //    public void createCartDetail(User user, HttpServletRequest req) {
 //        CartDetail cartDetail = new CartDetail();
 //        cartDetail.setCart(findByUserId(user.getId()));
 //        cartDetail.setProduct(new Product(Integer.parseInt(req.getParameter("id"))));
@@ -94,5 +97,7 @@ public class ShoppingService {
 //        cartDetail.setTotalAmount(cartDetail.getProduct().getPrice().multiply(BigDecimal.valueOf(cartDetail.getQuantity())));
 //        cartDao.createCartDetail(cartDetail);
 //    }
-
+    public List<CartDetail> cartDetails(int cartId, int checked) {
+        return  cartDao.findCartByCartIdChecked(cartId,checked);
+    }
 }

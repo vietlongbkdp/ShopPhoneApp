@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Edit User</title>
+    <title>Title</title>
     <link href="/user/admin/assets/all.min.css" rel="stylesheet" type="text/css">
     <link href="/user/admin/assets/sb-admin-2.min.css" rel="stylesheet">
     <link href="/user/admin/assets/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -26,55 +26,46 @@
             <div class="sidebar-brand-icon">
                 <i class="fas fa-home"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">HOME</div>
+            <div class="sidebar-brand-text mx-3">SHOPPING</div>
         </a>
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
 
         <!-- Nav Item - Dashboard -->
+        <c:if test="${user.role.roleName == 'Admin'}">
+            <li class="nav-item">
+                <a class="nav-link" href="/total?action=user">
+                    <i class="fas fa-users-cog"></i>
+                    <span>User Management</span></a>
+            </li>
+        </c:if>
+
         <li class="nav-item">
-            <a class="nav-link" href="/admin?action=userManager">
-                <i class="fas fa-users-cog"></i>
-                <span>User Management</span></a>
-        </li>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Sales
-        </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="/product" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/total?action=product" aria-expanded="true" >
                 <i class="fas fa-fw fa-table"></i>
-                <span>Product</span>
+                <span>Product Management</span>
             </a>
         </li>
 
         <!-- Nav Item - Utilities Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/shopping" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/total?action=order" aria-expanded="true" >
                 <i class="fas fa-file-invoice"></i>
-                <span>Order</span>
+                <span>Order Management</span>
             </a>
         </li>
+
         <li class="nav-item">
-            <a class="nav-link collapsed" href="/branch" aria-expanded="true" >
+            <a class="nav-link collapsed" href="/total?action=branch" aria-expanded="true" >
                 <i class="fas fa-mobile"></i>
-                <span>Branch</span>
+                <span>Branch Management</span>
             </a>
         </li>
-
-
         <!-- Sidebar Toggler (Sidebar) -->
         <div class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
-
     </ul>
     <!-- End of Sidebar -->
 
@@ -86,13 +77,6 @@
 
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                <!-- Sidebar Toggle (Topbar) -->
-                <form class="form-inline">
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                </form>
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -130,7 +114,7 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="/cart?action=profile">
+                            <a class="dropdown-item" href="/shopping?action=profile">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
@@ -149,23 +133,48 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <form class="user" action="/branch?action=edit&id=${branch.id}" method="post">
-                    <div class="sidebar-brand-text mx-5 mb-3 font-weight-bold">EDIT USER</div>
-                    <div class="col-sm-6 mb-3 mb-sm-3">ID
-                        <input type="number" class="form-control form-control-user" id="id"  placeholder="Input ID" name="id" value="${branch.id}" disabled>
+
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">Tables</h1>
+
+                <!-- DataTales Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3" style="display: flex; justify-content: space-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Branch Management</h6>
+                        <a href="/branch?action=create" class="btn btn-primary ">Create new Branch</a>
                     </div>
-                    <div class="col-sm-6 mb-3 mb-sm-3"> BRANCH NAME
-                        <input type="text" class="form-control form-control-user" id="branchName"  placeholder="Input branchName" name="branchName" required value="${branch.name}">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Branch Name</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="branch" items="${branchs}">
+                                    <tr>
+                                        <td>${branch.id}</td>
+                                        <td>${branch.name}</td>
+                                        <td>
+                                            <a href="/branch?action=edit&id=${branch.id}" class="btn btn-warning ">Edit</a>
+                                            <a href="/branch?action=delete&id=${branch.id}" class="btn btn-danger ">Delete</a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                    <input type="submit" value="Submit" class="btn btn-primary">
-                </form>
+                </div>
+
             </div>
             <!-- /.container-fluid -->
 
         </div>
-        <!-- End of Main Content -->
 
-        <!-- Footer -->
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">
                 <div class="copyright text-center my-auto">
@@ -215,4 +224,3 @@
 <script src="/user/admin/assets/datatables-demo.js"></script>
 </body>
 </html>
-

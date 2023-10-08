@@ -29,13 +29,13 @@ public class BranchController extends HttpServlet {
                 showEdit(req, resp);
                 break;
             default:
-                showListBrand(req, resp);
+                showListBranch(req, resp);
         }
     }
 
     private void showEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
             req.setAttribute("branch", branchService.getBranch(Integer.parseInt(req.getParameter("id"))));
-            req.getRequestDispatcher("/user/admin/editBranch.jsp").forward(req, resp);
+            req.getRequestDispatcher("/user/staff/editBranch.jsp").forward(req, resp);
     }
 
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -45,12 +45,12 @@ public class BranchController extends HttpServlet {
     }
 
     private void showCreate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/user/admin/createBranch.jsp").forward(req, resp);
+        req.getRequestDispatcher("/user/staff/createBranch.jsp").forward(req, resp);
     }
 
-    private void showListBrand(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    private void showListBranch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("branchs", branchService.getBranchs());
-        req.getRequestDispatcher("/user/admin/branch.jsp").forward(req, resp);
+        req.getRequestDispatcher("/user/staff/branch.jsp").forward(req, resp);
     }
 
     @Override

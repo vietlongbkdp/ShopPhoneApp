@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Edit User</title>
+    <title>Admin Page</title>
     <link href="/user/admin/assets/all.min.css" rel="stylesheet" type="text/css">
     <link href="/user/admin/assets/sb-admin-2.min.css" rel="stylesheet">
     <link href="/user/admin/assets/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -31,13 +31,15 @@
 
         <!-- Divider -->
         <hr class="sidebar-divider my-0">
-
+        <c:if test="${user.role.roleName == 'Admin'}">
+            <li class="nav-item">
+                <a class="nav-link" href="/total?action=user">
+                    <i class="fas fa-users-cog"></i>
+                    <span>User Management</span></a>
+            </li>
+        </c:if>
         <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-            <a class="nav-link" href="/total?action=user">
-                <i class="fas fa-users-cog"></i>
-                <span>User Management</span></a>
-        </li>
+
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="/total?action=product" aria-expanded="true" >
@@ -75,13 +77,6 @@
 
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                <!-- Sidebar Toggle (Topbar) -->
-                <form class="form-inline">
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                </form>
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -119,8 +114,8 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="/cart?action=profile">
-                                <a class="dropdown-item" href="/shopping?action=profile">
+                            <a class="dropdown-item" href="/shopping?action=profile">
+                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
                             <div class="dropdown-divider"></div>
@@ -138,62 +133,100 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <form class="user" action="/admin?action=edit&id=${userEdit.id}" method="post">
-                    <div class="sidebar-brand-text mx-5 mb-3 font-weight-bold">EDIT USER</div>
-                    <div class="col-sm-6 mb-3 mb-sm-3">User Name
-                        <input type="text" class="form-control form-control-user" id="userName"  placeholder="User Name" name="userName" required value="${userEdit.userName}">
-                    </div>
-                    <div class="col-sm-6 mb-3 mb-sm-3"> Full Name
-                        <input type="text" class="form-control form-control-user" id="fullName"  placeholder="Full Name" name="fullName" required value="${userEdit.fullName}">
-                    </div>
-                    <div class="col-sm-6 mb-3 mb-sm-3"> Email
-                        <input type="email" class="form-control form-control-user" id="email"  placeholder="Email" name="email" required value="${userEdit.email}">
-                    </div>
-                    <div class="col-sm-6 mb-3 mb-sm-3"> Address
-                        <input type="text" class="form-control form-control-user" id="address"  placeholder="Address" name="address" required value="${userEdit.address}">
-                    </div>
-                    <div class="col-sm-6 mb-3 mb-sm-3"> Phone
-                        <input type="text" class="form-control form-control-user" id="phone"  placeholder="Phone" name="phone" required value="${userEdit.phone}">
-                    </div>
-                    <div class="col-sm-6 mb-3 mb-sm-3"> Date of Birth
-                        <input type="date" class="form-control form-control-user" id="dob"  placeholder="Date of Birth" name="dob" required value="${userEdit.dob}">
-                    </div>
-                    <div class="col-sm-6 mb-3 mb-sm-3">
-                        <label for="gender" class="form-label">Gender</label>
-                            <select class="form-control" id="gender" name="gender">
-                                <c:forEach var="gender" items="${genders}">
-                                    <option value="${gender}">${gender}</option>
-                                </c:forEach>
-                        </select>
-                    </div>
-                   <c:if test="${userEdit.role.roleName != 'Client'}">
-                       <div class="col-sm-6 mb-3 mb-sm-3" >
-                           <label for="role1" class="form-label">Role</label>
-                           <select class="form-control" id="role1" name="role">
-                               <c:forEach var="role" items="${roles}">
-                                   <option value="${role.roleName}" selected ${role.roleName == "Client" ? 'hidden' : ''}>${role.roleName}</option>
-                               </c:forEach>
-                           </select>
-                       </div>
-                   </c:if>
-                    <c:if test="${userEdit.role.roleName == 'Client'}">
-                        <div class="col-sm-6 mb-3 mb-sm-3" >
-                            <label for="role2" class="form-label">Role</label>
-                            <select class="form-control" id="role2" name="role">
-                                <c:forEach var="role" items="${roles}">
-                                    <option value="${role.roleName}" selected ${role.roleName != "Client" ? 'hidden' : ''}>${role.roleName}</option>
-                                </c:forEach>
-                            </select>
+                <!-- Page Heading -->
+                <h1 class="h3 mb-2 text-gray-800">WELCOM TO MY SHOP!!</h1>
+
+                <!-- DataTales Example -->
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">List Management</h1>
+                </div>
+
+                <!-- Content Row -->
+                <div class="row">
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <c:if test="${user.role.roleName == 'Admin'}">
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                <a href="/total?action=user">TOTAL USER</a>
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${totalUser}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-users-cog fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </c:if>
-                    <div class="col-sm-6 mb-3 mb-sm-3">Password
-                        <input type="password" class="form-control form-control-user" id="password" placeholder="Password" name="password" required>
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                            <a href="/total?action=product">TOTAL PRODUCT</a>
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">${totalProduct}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-tablet-alt fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm-6 mb-3 mb-sm-3">Confirm Password
-                        <input type="password" class="form-control form-control-user" id="re_password" placeholder="Confirm Password" name="re_password" required>
+
+                    <!-- Earnings (Monthly) Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            <a href="/total?action=order">TOTAL ORDER</a>
+                                        </div>
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${totalOrder}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <input type="submit" value="Submit" class="btn btn-primary">
-                </form>
+
+                    <!-- Pending Requests Card Example -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            <a href="/total?action=branch">TOTAL BRANCH</a>
+                                        </div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">${totalBranch}</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-mobile fa-2x text-gray-300"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <!-- /.container-fluid -->
 
@@ -250,4 +283,3 @@
 <script src="/user/admin/assets/datatables-demo.js"></script>
 </body>
 </html>
-

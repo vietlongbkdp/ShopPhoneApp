@@ -419,46 +419,50 @@
                         </div>
                         <div class="profile-info col-md-9">
                             <div class="panel">
-                                <div class="container-fluid">
-                                    <form class="user" action="/shopping?action=editProfile" method="post">
-                                        <input type="hidden" name="url" id="urlInput">
-                                        <div class="sidebar-brand-text mx-5 mb-3 font-weight-bold">EDIT PROFILE</div>
-                                        <div class="col-sm-12 mb-3 mb-sm-3">User Name : ${user.userName}</div>
-                                        <div  hidden class="col-sm-12 mb-3 mb-sm-3">User Name
-                                            <input  type="text" class="form-control form-control-user" id="userName"  placeholder="User Name" name="userName" required value="${user.userName}">
+                                <div class="panel-body bio-graph-info">
+                                    <h1>My Profile</h1>
+                                    <div class="row">
+                                        <div class="bio-row">
+                                            <p><span>Full Name </span>: ${user.fullName}</p>
                                         </div>
-                                        <div class="col-sm-12 mb-3 mb-sm-3"> Full Name
-                                            <input type="text" class="form-control form-control-user" id="fullName"  placeholder="Full Name" name="fullName" required value="${user.fullName}">
+                                        <div class="bio-row">
+                                            <p><span>Username </span>: ${user.userName}</p>
                                         </div>
-                                        <div class="col-sm-12 mb-3 mb-sm-3"> Email
-                                            <input type="email" class="form-control form-control-user" id="email"  placeholder="Email" name="email" required value="${user.email}">
+                                        <div class="bio-row">
+                                            <p><span>Address </span>: ${user.address}</p>
                                         </div>
-                                        <div class="col-sm-12 mb-3 mb-sm-3"> Address
-                                            <input type="text" class="form-control form-control-user" id="address"  placeholder="Address" name="address" required value="${user.address}">
+                                        <div class="bio-row">
+                                            <p><span>Birthday</span>: ${user.dob}</p>
                                         </div>
-                                        <div class="col-sm-12 mb-3 mb-sm-3"> Phone
-                                            <input type="text" class="form-control form-control-user" id="phone"  placeholder="Phone" name="phone" required value="${user.phone}">
+                                        <div class="bio-row">
+                                            <p><span>Gender </span>: ${user.gender}</p>
                                         </div>
-                                        <div class="col-sm-12 mb-3 mb-sm-3"> Date of Birth
-                                            <input type="date" class="form-control form-control-user" id="dob"  placeholder="Date of Birth" name="dob" required value="${user.dob}">
+                                        <div class="bio-row">
+                                            <p><span>Email </span>: ${user.email}</p>
                                         </div>
-                                        <div class="col-sm-12 mb-3 mb-sm-3">
-                                            <label for="gender" class="form-label">Gender</label>
-                                            <select class="form-control" id="gender" name="gender">
-                                                <c:forEach var="gender" items="${genders}">
-                                                    <option value="${gender}" ${gender == user.gender ? 'selected' : ''} >${gender}</option>
-                                                </c:forEach>
-                                            </select>
+                                        <div class="bio-row">
+                                            <p><span>Mobile </span>: ${user.phone}</p>
                                         </div>
-                                        <input type="submit" value="Submit" class="btn btn-primary">
-                                        <c:if test="${user.role.roleName == 'Client'}">
-                                            <a href="/shopping?action=shopping" class="btn btn-warning">Back to Shopping</a>
-                                        </c:if>
-                                        <c:if test="${user.role.roleName == 'Admin' || user.role.roleName == 'Staff'}">
-                                            <a href="/total" class="btn btn-warning">Back to Management page</a>
-                                        </c:if>
-                                    </form>
+                                        <div class="bio-row">
+                                            <p><span>Role </span>: ${user.role.roleName}</p>
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
+                            <div class="row">
+                                    <div class="col-md-6 text-center">
+                                        <a href="/shopping?action=editProfile" class="btn btn-info">Edit Proflie</a>
+                                    </div>
+                                <c:if test="${user.role.roleName == 'Client'}">
+                                    <div class="col-md-6 text-center">
+                                        <a href="/shopping?action=shopping" class="btn btn-warning">Back to Shopping</a>
+                                    </div>
+                                </c:if>
+                                <c:if test="${user.role.roleName == 'Admin' || user.role.roleName == 'Staff'}">
+                                    <div class="col-md-6 text-center">
+                                        <a href="/total" class="btn btn-warning">Back to Management page</a>
+                                    </div>
+                                </c:if>
                             </div>
                         </div>
                     </div>
