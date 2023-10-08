@@ -3,6 +3,7 @@ package daos;
 import models.Product;
 import models.ProductImport;
 import models.ProductImportDetail;
+import services.dto.Page;
 import services.dto.ProductImportListResponse;
 
 import java.math.BigDecimal;
@@ -35,14 +36,14 @@ public class ProductImportDAO extends  DatabaseConnection{
         return -1;
     }
 
-    public void createImportDetail(int productImportId, int productId, int quantity, BigDecimal amount) {
+    public void createImportDetail(int productImportId, int productId, int quantity, BigDecimal totalAmount) {
 
         String CREATE = "INSERT INTO `bandienthoai`.`product_import_details` (`quantity`, `price_import`, `product_id`, `product_import_id`) VALUES (?, ?, ?, ?)";
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE)) {
             preparedStatement.setInt(1, quantity);
-            preparedStatement.setBigDecimal(2, amount);
+            preparedStatement.setBigDecimal(2, totalAmount);
             preparedStatement.setInt(3, productId);
             preparedStatement.setInt(4, productImportId);
             preparedStatement.executeUpdate();
@@ -53,25 +54,55 @@ public class ProductImportDAO extends  DatabaseConnection{
         }
     }
 
-    public List<ProductImportListResponse> findAll() {
-        var result = new ArrayList<ProductImportListResponse>();
-        String SELECT_ALL = "SELECT pi.id, pi.`code`, pi.import_date, GROUP_CONCAT(p.`name`) products, pi.total_amount FROM " +
-                "product_imports pi " +
-                "        LEFT JOIN product_import_details pid on pi.id = pid.product_import_id " +
-                "LEFT JOIN products p on p.id = pid.product_id GROUP BY pi.id";
+    public Page<ProductImportListResponse> findAll(int page, String search) {
+        var result = new Page<ProductImportListResponse>();
+        final int TOTAL_ELEMENT = 5;
+        result.setCurrentPage(page);
+        var content = new ArrayList<ProductImportListResponse>();
+        if (search == null) {
+            search = "";
+        }
+        search = "%" + search.toLowerCase() + "%";
+        String SELECT_ALL = "SELECT pi.id, pi.code, pi.import_date, GROUP_CONCAT(p.productName) AS products, pi.total_amount\n" +
+                " FROM product_imports pi\n" +
+                " LEFT JOIN product_import_details pid ON pi.id = pid.product_import_id  \n" +
+                " LEFT JOIN products p ON p.id = pid.product_id\n" +
+                " WHERE pi.deleted = 0  AND (  LOWER(p.productName) LIKE ?  OR LOWER(pi.code) LIKE ?) \n" +
+                " GROUP BY pi.id  limit ? offset ? ;";
+        String SELECT_COUNT = "SELECT COUNT(*) AS cnt\n" +
+                "FROM (\n" +
+                "    SELECT pi.id, pi.code, pi.import_date, GROUP_CONCAT(p.productName) AS products, pi.total_amount\n" +
+                "    FROM product_imports pi\n" +
+                "    LEFT JOIN product_import_details pid ON pi.id = pid.product_import_id  \n" +
+                "    LEFT JOIN products p ON p.id = pid.product_id\n" +
+                "    WHERE pi.deleted = 0 AND (LOWER(p.productName) LIKE ? OR LOWER(pi.code) LIKE ?)  \n" +
+                "    GROUP BY pi.id, pi.code, pi.import_date, pi.total_amount\n" +
+                ") AS subquery;";
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL)) {
             System.out.println(preparedStatement);
+            preparedStatement.setString(1, search);
+            preparedStatement.setString(2, search);
+            preparedStatement.setInt(3, TOTAL_ELEMENT);
+            preparedStatement.setInt(4, (page - 1) * TOTAL_ELEMENT);
             var rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                result.add(new ProductImportListResponse(
+                content.add(new ProductImportListResponse(
                         rs.getInt("id"),
                         rs.getString("code"),
                         rs.getDate("import_date"),
                         rs.getString("products"),
                         rs.getBigDecimal("total_amount")
                 ));
+            }
+            result.setContent(content);
+            var preparedStatementCount = connection.prepareStatement(SELECT_COUNT);
+            preparedStatementCount.setString(1, search);
+            preparedStatementCount.setString(2, search);
+            var rsCount = preparedStatementCount.executeQuery();
+            if (rsCount.next()) {
+                result.setTotalPage((int) Math.ceil((double) rsCount.getInt("cnt") / TOTAL_ELEMENT));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -112,7 +143,7 @@ public class ProductImportDAO extends  DatabaseConnection{
     }
     public void deleteImportDetail(int productImportId) {
 
-        String DELETE_IMPORT_DETAIL = "DELETE FROM `testcase`.`product_import_details` WHERE (`product_import_id` = ?);";
+        String DELETE_IMPORT_DETAIL = "DELETE FROM `bandienthoai`.`product_import_details` WHERE (`product_import_id` = ?);";
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_IMPORT_DETAIL)) {
@@ -124,8 +155,9 @@ public class ProductImportDAO extends  DatabaseConnection{
         }
     }
 
+
     public void updateProductImport(ProductImport productImport){
-        String CREATE = "UPDATE `testcase`.`product_imports` SET `code` = ?, `import_date` = ?, `total_amount` = ? WHERE (`id` = ?);";
+        String CREATE = "UPDATE `candycake`.`product_imports` SET `code` = ?, `import_date` = ?, `total_amount` = ? WHERE (`id` = ?);";
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE)) {
@@ -133,11 +165,28 @@ public class ProductImportDAO extends  DatabaseConnection{
             preparedStatement.setDate(2, productImport.getImportDate());
             preparedStatement.setBigDecimal(3, productImport.getTotalAmount());
             preparedStatement.setInt(4, productImport.getId());
+            System.out.println(productImport);
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+    public ProductImportDetail getQuantityByIdProduct(int id) {
+        var result = new ProductImportDetail();
+        result.setId(id);
+        String GET_PRODUCT_QUANTITY ="SELECT * FROM bandienthoai.product_import_details where id=?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(GET_PRODUCT_QUANTITY)) {
+            preparedStatement.setInt(1, id);
+            var rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                result.setQuantity(rs.getInt("quantity"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
     }
 
 }
