@@ -3,6 +3,7 @@ package services;
 import daos.ProductImportDAO;
 import models.Product;
 import models.ProductImport;
+import models.ProductImportDetail;
 import services.dto.Page;
 import services.dto.ProductImportListResponse;
 
@@ -19,12 +20,10 @@ public class ProductImportService {
         productImportDAO = new ProductImportDAO();
     }
 
-    public Page<ProductImportListResponse> findAll(){
-        return (Page<ProductImportListResponse>) productImportDAO.findAll();
-    }
 
 
     public void delete(int id) {
+        productImportDAO.deleteImportDetail(id);
         productImportDAO.deleteImportDetail(id);
     }
     public ProductImport findById(int id){
@@ -54,12 +53,15 @@ public class ProductImportService {
             productImportDAO.createImportDetail(productImport.getId(), productIds.get(i), quantities.get(i), amounts.get(i));
         }
     }
+    public Page<ProductImportListResponse> findAll(int page, String search){
+        return productImportDAO.findAll(page,search);
+    }
+
+    public ProductImportDetail getQuantityByIdProduct(int id) {
+        return productImportDAO.getQuantityByIdProduct(id);
+    }
 
     public void update(HttpServletRequest req) {
-        // lay id product import
-        // xoa het product import detail cua thang pi
-        // cap nha product import
-        // them moi product import detail ma nguoi dung gui len
         int idProductImport = Integer.parseInt(req.getParameter("id"));
         productImportDAO.deleteImportDetail(idProductImport);
         Date importDate = Date.valueOf(req.getParameter("importDate"));
@@ -69,7 +71,7 @@ public class ProductImportService {
 
         List<Integer> quantities = Arrays.stream(req.getParameterValues("quantities"))
                 .map(Integer::parseInt).toList();
-        List<BigDecimal> amounts = Arrays.stream(req.getParameterValues("amounts"))
+        List<BigDecimal> amounts = Arrays.stream(req.getParameterValues("totalAmount"))
                 .map(BigDecimal::new).toList();
 
         BigDecimal totalAmount = BigDecimal.ZERO;
@@ -83,6 +85,5 @@ public class ProductImportService {
         for (int i = 0; i < quantities.size(); i++) {
             productImportDAO.createImportDetail(productImport.getId(), productIds.get(i), quantities.get(i), amounts.get(i));
         }
-
     }
 }

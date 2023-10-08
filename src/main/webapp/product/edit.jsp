@@ -16,8 +16,8 @@
 <body>
 <div class="container">
     <div class="card container px-6" style="height: 100vh">
-        <h3 class="text-center">Create Product</h3>
-        <form action="/product?action=create" method="post" enctype="multipart/form-data">
+        <h3 class="text-center">Edit Product</h3>
+        <form action="/product?action=edit&id=${product.id}" method="post" enctype="multipart/form-data">
             <label for="productName" class="form-label">Product Name</label>
             <input type="text" class="form-control" id="productName" name="productName" value="${product.productName}">
             <div class="mb-3">
@@ -58,18 +58,18 @@
                 <label for="branch" class="form-label">Branch</label>
                 <select class="form-control" name="branch" id="branch">
                     <c:forEach var="branch" items="${branchs}">
-                        <option value="${branch.id}">
+                        <option value="${branch.id}"
+                            ${branch.id == product.branch.id ?'selected' : ' ' }>
                                 ${branch.name}
                         </option>
                     </c:forEach>
                 </select>
             </div>
             <div class="mb-3">
-                <label for="file-input" class="form-label">Image</label>
-                <img id="img-preview" style=" width: 100%;
+                <label for="image" class="form-label">Image</label>
+                <img id="img-preview"  style=" width: 100%;
     max-width: 350px;"/>
-                <input type="file" accept="image/*" class="form-control" id="file-input" name="image"
-                       value="${product.image}">
+                <input type="file" accept="image/*" class="form-control" id="image" name="image" value="${product.image}">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
             <a href="/product" class="btn btn-primary ">Cancel</a>
@@ -95,5 +95,6 @@
         }
     });
 </script>
+
 </body>
 </html>

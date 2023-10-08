@@ -29,24 +29,36 @@ public class ProductImportController extends HttpServlet {
         if (action == null) {
             action = "";
         }
-        if (action.equals("delete")) {
-            delete(req, resp);
-            return;
+        switch (action) {
+            case "create":
+                showCreate(req, resp);
+                break;
+            case "update":
+                showUpdate(req, resp);
+                break;
+            case "delete":
+                delete(req, resp);
+                break;
+            default:
+                showList(req, resp);
         }
-        if (action.equals("edit")) {
-            showEdit(req, resp);
-            return;
-        }
-       if (action.equals("create")) {
-           showCreate(req, resp);
-            return;
-        }
-        showList(req, resp);
-    }
-
-    private void showList(HttpServletRequest req, HttpServletResponse resp) {
 
     }
+
+
+    private void showList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String pageString = req.getParameter("page");
+        if (pageString == null) {
+            pageString = "1";
+        }
+        req.setAttribute("page", productImportService.findAll(Integer.parseInt(pageString), req.getParameter("search")));
+//        req.setAttribute("productImports", productImportService.findAll());
+        req.setAttribute("search", req.getParameter("search"));
+        req.setAttribute("message", req.getParameter("message"));
+        req.getRequestDispatcher("product-import/index.jsp").forward(req, resp);
+    }
+
 
     private void showCreate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         var products = productService.fillAll();
@@ -55,13 +67,13 @@ public class ProductImportController extends HttpServlet {
         req.getRequestDispatcher("product-import/create.jsp").forward(req, resp);
     }
 
-    private void showEdit(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    private void showUpdate(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         req.setAttribute("productImport", productImportService
                 .findById(Integer.parseInt(req.getParameter("id"))));
         var products = productService.fillAll();
         req.setAttribute("products", products);
         req.setAttribute("productsJSON", new ObjectMapper().writeValueAsString(products));
-        req.getRequestDispatcher("product-import/edit.jsp").forward(req,resp);
+        req.getRequestDispatcher("product-import/edit.jsp").forward(req, resp);
     }
 
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -69,22 +81,27 @@ public class ProductImportController extends HttpServlet {
         resp.sendRedirect("/product-import?message=Deleted");
     }
 
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-        if("edit".equals(action)){
-            edit(req, resp);
-            return;
+        if (action == null) {
+            action = "";
         }
-        if("create".equals(action)){
-            create(req, resp);
-            return;
+        switch (action) {
+            case "create":
+                create(req, resp);
+                break;
+            case "update":
+                update(req, resp);
+                break;
+
         }
     }
 
-    private void edit(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private void update(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         productImportService.update(req);
-        resp.sendRedirect("/product-import?message=Update Successlly!!");
+        resp.sendRedirect("/product-import?message=Updated Successfully");
     }
+
 
     private void create(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         productImportService.create(req);

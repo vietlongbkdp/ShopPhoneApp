@@ -25,25 +25,16 @@
         <c:if test="${message != null}">
             <h6 class="d-none" id="message">${message}</h6>
         </c:if>
+        <form action="/product?page=${page.currentPage}">
+            <input type="text" id="searchBook" value="${search}" name="search"
+                   class="form-control d-flex"  placeholder="Search product">
+            <button id="searchButton" class="btn btn-primary">Search</button>
+        </form>
         <div class="d-flex justify-content-between">
-            <c:if test="${!isShowRestore}">
                 <div>
                     <a href="/product?action=create" class="btn btn-primary mb-2">Create</a>
-                    <a href="/product?action=restore" class="btn btn-primary mb-2">Restore</a>
+                    <a href="/product?action=restore" class="btn btn-prim   ary mb-2">Restore</a>
                 </div>
-            </c:if>
-            <c:if test="${isShowRestore}">
-            <form action="/product?action=restore" method="post">
-                <div>
-                    <a href="/product" class="btn btn-primary mb-2">Home</a>
-                    <button type="submit" class="btn btn-primary mb-2">Restore All</button>
-                </div>
-                </c:if>
-                <form action="/product?page=${page.currentPage}" >
-                    <input type="text" id="searchBook" value="${search}" name="search" class="form-control d-flex"
-                           style="width: 85%" placeholder="Search Product">
-                    <button id="searchButton" class="btn btn-primary">Search</button>
-                </form>
                 <div class="col-6"></div>
         </div>
 
@@ -79,7 +70,7 @@
                         <%--                    <td>${product.operatingSystem}</td>--%>
                         <%--                    <td>${product.pin}</td>--%>
                     <td>
-                        <a href="/product?action=edit&id=${product.id}" class="btn btn-primary ">Edit</a>
+                        <a href="/product?action=edit&id=${product.id}" class="btn btn-primary ">Update</a>
                         <a onclick="showConfirm(${product.id})"
                            class="btn btn-primary ">Delete</a>
                     </td>
@@ -116,10 +107,7 @@
                 </ul>
             </nav>
         </c:if>
-        <div>
-            <a href="/product?action=create" class="btn btn-primary ">Create</a>
-            <a href="/product?action=showRestore" class="btn btn-primary ">Restore</a>
-        </div>
+
         <div id="confirmDialog" class="modal">
             <div class="modal-content">
                 <p>Are you sure to delete?</p>
