@@ -193,10 +193,11 @@ public class CartDao extends DatabaseConnection {
     }
 
     private CartDetail getCartDetailByRs(ResultSet rs) throws SQLException {
+        Product product = (Product) productDAO.findById(rs.getInt("product_id"));
         var cartDetail = new CartDetail();
         cartDetail.setId(rs.getInt("id"));
         cartDetail.setCart(new Cart(rs.getInt("cart_id")));
-        cartDetail.setProduct(new Product(rs.getInt("product_id")));
+        cartDetail.setProduct(product);
         cartDetail.setQuantity(rs.getInt("quantity"));
         cartDetail.setTotalAmount(rs.getBigDecimal("total_amount"));
         cartDetail.setChecked(rs.getInt("checked"));

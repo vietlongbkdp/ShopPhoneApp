@@ -20,7 +20,7 @@
 <body>
 <div class="container">
     <div>
-        <button href="/shopping">Home</button>
+        <a href="/shopping" class="btn btn-primary ">Home</a>
     </div>
     <form method="post" id="cartForm" action="/cart?action=payment">
         <div class="card container px-6" style="height: 100vh">
@@ -35,27 +35,22 @@
                     <th></th>
                     <th></th>
                     <th>Price</th>
-                    <th></th>
                     <th>Quantity</th>
                     <th>Total value</th>
                 </tr>
                 <c:forEach var="cartDetail" items="${cartDetails}">
                     <tr>
                         <td><input type="hidden" name="cartChecked" value="${cartDetail.checked}"></td>
-                        <td>${cartDetail.product.productName}</td>
+                        <td name="productIds" value="${cartDetail.product.id}">${cartDetail.product.productName}</td>
                         <td><input type="hidden" value="${cartDetail.id}" name="cDetailID"></td>
                         <td>${cartDetail.product.image}</td>
                         <td>${cartDetail.product.price}</td>
-                        <td disabled><input type="number" value="${cartDetail.quantity}" min="1"
-                                            max="${cartDetail.product.quantity}"
-                                            id="myInput" onblur="adjustValue()" name="quantities"
-                                            oninput="updateTotalAmount(${cartDetail.product.price}, this.value,${cartDetail.id})"
-                        ></td>
-                        <td>${cartDetail.quantity}</td>
-                        <td id="totalAmount_${cartDetail.id}">${cartDetail.totalAmount}</td>
+                        <td name="quantities" value="${cartDetail.quantity}">${cartDetail.quantity}</td>
+                        <td id="totalAmount_${cartDetail.id}" class="total_detail" >${cartDetail.totalAmount}</td>
                     </tr>
                 </c:forEach>
                 <tr>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -68,10 +63,12 @@
                     <td></td>
                     <td></td>
                     <td></td>
+                    <td></td>
                     <td>VAT 10%</td>
                     <td id ="VAT"></td>
                 </tr>
                 <tr>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -94,151 +91,26 @@
     if (message !== null && message.innerHTML) {
         toastr.success(message.innerHTML);
     }
-    var checkboxes = document.querySelectorAll('.myCheckBox');
-
-    function setAction(action, link) {
-        var checkedIds = [];
-        var url = link;
-        for (var i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i].checked) {
-                checkedIds.push(checkboxes[i].id);
-            }
-        }
-        if (checkedIds.length === 0) {
-            window.location.href = "/cart?action=showCart&id=" + url;
-        } else {
-            document.getElementById('cartForm').action = action;
-            document.getElementById('cartForm').submit();
-        }
-    }
-
-    function setActionCancel(action) {
-        document.getElementById('cartForm').action = action;
-        document.getElementById('cartForm').submit();
-    }
-
-    const selectAllCheckbox = document.getElementById('selectAllCheckbox');
-    const checkedboxes = document.getElementsByName('cartDetailID');
-
-    selectAllCheckbox.addEventListener('change', function () {
-        checkedboxes.forEach(function (checkbox) {
-            checkbox.checked = selectAllCheckbox.checked;
-        });
-    });
-
-    function adjustValue() {
-        var inputElement = document.getElementById("myInput");
-        var value = parseInt(inputElement.value);
-        var min = parseInt(inputElement.getAttribute("min"));
-        var max = parseInt(inputElement.getAttribute("max"));
-
-        if (isNaN(value) || value < min) {
-            inputElement.value = min;
-        } else if (value > max) {
-            inputElement.value = max;
-        }
-    }
-
-    function updateTotalAmount(price, quantity, link) {
-        var totalAmountElement = document.getElementById("totalAmount_" + link);
-        var totalAmount = price * quantity;
-        totalAmountElement.innerText = totalAmount;
-    }
-
-    /////
-    // Lắng nghe sự kiện khi các checkbox được chọn hoặc bỏ chọn
-    document.querySelectorAll('.myCheckBox').forEach(function (checkbox) {
-        checkbox.addEventListener('change', function () {
-            updateTotalAmountChosen();
-        });
-    });
-
-    // Lắng nghe sự kiện khi giá trị số lượng thay đổi
-    document.querySelectorAll('input[name="quantities"]').forEach(function (quantityInput) {
-        quantityInput.addEventListener('change', function () {
-            updateTotalAmountChosen();
-        });
-    });
-
-    document.getElementById('selectAllCheckbox').addEventListener('click', function () {
-        var selectAllCheckbox = document.getElementById('selectAllCheckbox');
-        var isChecked = selectAllCheckbox.checked;
-        document.querySelectorAll('.myCheckBox').forEach(function (checkbox) {
-            checkbox.checked = isChecked;
-        });
-        updateTotalAmountChosen();
-    });
-
-    // Hàm cập nhật giá trị tổng
-    function updateTotalAmountChosen() {
+    window.addEventListener('DOMContentLoaded', function() {
+        var totalAmountChosen = document.getElementById('total_amount_chosen');
+        var vatElement = document.getElementById('VAT');
+        var totalCostVATElement = document.getElementById('total_cost_VAT');
+        // Lấy danh sách các thẻ có class "total_detail"
+        var totalDetailElements = document.getElementsByClassName('total_detail');
+        // Tính tổng giá trị từ các thẻ "total_detail"
         var totalAmount = 0;
-        var checkboxes = document.querySelectorAll('.myCheckBox');
-        var selectAllCheckbox = document.getElementById('selectAllCheckbox');
-        var isChecked = selectAllCheckbox.checked;
-
-        checkboxes.forEach(function (checkbox) {
-            var row = checkbox.closest('tr');
-            var priceElement = row.querySelector('td:nth-child(6)');
-            var quantityInput = row.querySelector('input[name="quantities"]');
-            var price = parseFloat(priceElement.textContent);
-            var quantity = parseFloat(quantityInput.value);
-
-            // Kiểm tra tính hợp lệ của giá trị price và quantity
-            if (!isNaN(price) && !isNaN(quantity)) {
-                if (checkbox.checked || isChecked) {
-                    totalAmount += price * quantity;
-                }
-            }
-        });
-
-        // Kiểm tra nếu totalAmount là NaN và không hợp lệ, thì gán giá trị mặc định
-        if (isNaN(totalAmount) || !isFinite(totalAmount)) {
-            totalAmount = 0;
+        for (var i = 0; i < totalDetailElements.length; i++) {
+            totalAmount += parseFloat(totalDetailElements[i].innerText);
         }
-
-        document.getElementById('total_amount_chosen').textContent = totalAmount;
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        updateTotalAmountChosen();
+        // Tính giá trị VAT
+        var vat = totalAmount * 0.1;
+        // Tính tổng giá trị bao gồm VAT
+        var totalCostVAT = totalAmount + vat;
+        // Chèn giá trị vào các thẻ tương ứng
+        totalAmountChosen.innerText = totalAmount.toFixed(1);
+        vatElement.innerText = vat.toFixed(1);
+        totalCostVATElement.innerText = totalCostVAT.toFixed(1);
     });
-    document.querySelectorAll('.myCheckBox').forEach(function (checkbox) {
-        checkbox.addEventListener('change', function () {
-            var hiddenInput = this.parentNode.nextElementSibling.querySelector('input[name="cartChecked"]');
-            hiddenInput.value = this.checked ? '1' : '0';
-        });
-    });
-    document.addEventListener('DOMContentLoaded', function () {
-        // Lặp qua tất cả các checkbox và input ẩn
-        document.querySelectorAll('.myCheckBox').forEach(function (checkbox) {
-            var hiddenInput = checkbox.parentNode.nextElementSibling.querySelector('input[name="cartChecked"]');
-
-            // Kiểm tra giá trị ban đầu của input ẩn
-            if (hiddenInput.value === '1') {
-                checkbox.checked = true; // Đặt trạng thái checked cho checkbox
-            }
-        });
-    });
-    window.onload = function () {
-        updateTotalAmountChosen();
-    };
-    var totalAmountChosen = document.getElementById('total_amount_chosen');
-    var vatElement = document.getElementById('VAT');
-    var totalCostVATElement = document.getElementById('total_cost_VAT');
-
-    // Lấy giá trị từ totalAmountChosen
-    var totalAmount = parseFloat(totalAmountChosen.innerText);
-
-    // Tính giá trị VAT
-    var vat = totalAmount * 0.1;
-
-    // Tính tổng giá trị bao gồm VAT
-    var totalCostVAT = totalAmount + vat;
-
-    // Chèn giá trị vào các thẻ tương ứng
-    vatElement.innerText = vat.toFixed(2); // Chèn giá trị VAT với 2 chữ số thập phân
-    totalCostVATElement.innerText = totalCostVAT.toFixed(2); // Chèn tổng giá trị bao gồm VAT với 2 chữ số thập phân
-
 </script>
 </body>
 </html>

@@ -2,6 +2,7 @@ package controllers;
 
 import models.User;
 import services.UserService;
+import utils.EmailUltis;
 
 
 import javax.servlet.ServletException;
@@ -91,7 +92,7 @@ public class LoginController extends HttpServlet {
         String re_password = req.getParameter("re_password");
         int id = Integer.parseInt(req.getParameter("id"));
         String pinCode = req.getParameter("pinCode");
-        if((password.equals(re_password)) && pinCode.equals("111")){
+        if((password.equals(re_password)) && pinCode.equals("4869")){
             userService.updatePassword(id, password);
             resp.sendRedirect("/login?message=Restore Password success!");
         }else{
@@ -105,6 +106,7 @@ public class LoginController extends HttpServlet {
             email = req.getParameter("email");
         }else email = userService.getEmailById(Integer.parseInt(req.getParameter("id")));
         req.setAttribute("user", userService.getUserByEmail(email));
+        EmailUltis.sendEmail(userService.getUserByEmail(email).getEmail(), "EMAIL RESTORE PASSWORD:", "Please confirm this code to restore your Password : 4869" );
         req.getRequestDispatcher("/login/resetPassword.jsp").forward(req, resp);
     }
     private void register(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
