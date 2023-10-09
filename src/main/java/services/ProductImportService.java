@@ -21,10 +21,9 @@ public class ProductImportService {
     }
 
 
-
     public void delete(int id) {
         productImportDAO.deleteImportDetail(id);
-        productImportDAO.deleteImportDetail(id);
+        productImportDAO.deleteImport(id);
     }
     public ProductImport findById(int id){
         return productImportDAO.findById(id);
@@ -61,7 +60,7 @@ public class ProductImportService {
         return productImportDAO.getQuantityByIdProduct(id);
     }
 
-    public void update(HttpServletRequest req) {
+    public void edit(HttpServletRequest req) {
         int idProductImport = Integer.parseInt(req.getParameter("id"));
         productImportDAO.deleteImportDetail(idProductImport);
         Date importDate = Date.valueOf(req.getParameter("importDate"));
@@ -71,7 +70,7 @@ public class ProductImportService {
 
         List<Integer> quantities = Arrays.stream(req.getParameterValues("quantities"))
                 .map(Integer::parseInt).toList();
-        List<BigDecimal> amounts = Arrays.stream(req.getParameterValues("totalAmount"))
+        List<BigDecimal> amounts = Arrays.stream(req.getParameterValues("amounts"))
                 .map(BigDecimal::new).toList();
 
         BigDecimal totalAmount = BigDecimal.ZERO;

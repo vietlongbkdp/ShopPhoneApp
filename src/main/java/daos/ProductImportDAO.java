@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductImportDAO extends  DatabaseConnection{
+public class ProductImportDAO extends DatabaseConnection {
     public int create(ProductImport productImport) {
         String CREATE = "INSERT INTO `bandienthoai`.`product_imports` (`code`, `import_date`, `total_amount`) " +
                 "VALUES (?, ?, ?)";
@@ -111,8 +111,10 @@ public class ProductImportDAO extends  DatabaseConnection{
     }
 
     public ProductImport findById(int id) {
-        String FIND_BY_ID = "SELECT pi.*, pid.id pid_id, pid.product_id p_id, pid.amount, pid.quantity  FROM product_imports as pi " +
-                "JOIN product_import_details pid on pid.product_import_id = pi.id WHERE pi.id = ?";
+        String FIND_BY_ID = "SELECT pi.*, pid.id pid_id, pid.product_id p_id, pid.quantity ,pid.price_import, p.productName as name  FROM product_imports as pi \n" +
+                "JOIN product_import_details pid on pid.product_import_id = pi.id \n" +
+                "join products p on pid.product_id = p.id\n" +
+                "WHERE pi.id = ?;";
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(FIND_BY_ID)) {
@@ -129,7 +131,7 @@ public class ProductImportDAO extends  DatabaseConnection{
                 var productImportDetail = new ProductImportDetail();
                 productImportDetail.setId(rs.getInt("p_id"));
                 productImportDetail.setProduct(new Product(rs.getInt("p_id")));
-                productImportDetail.setAmount(rs.getBigDecimal("amount"));
+                productImportDetail.setAmount(rs.getBigDecimal("price_import"));
                 productImportDetail.setQuantity(rs.getInt("quantity"));
                 productImportDetails.add(productImportDetail);
 
@@ -141,9 +143,10 @@ public class ProductImportDAO extends  DatabaseConnection{
         }
         return null;
     }
+
     public void deleteImportDetail(int productImportId) {
 
-        String DELETE_IMPORT_DETAIL = "DELETE FROM `bandienthoai`.`product_import_details` WHERE (`product_import_id` = ?);";
+        String DELETE_IMPORT_DETAIL = "DELETE FROM `product_import_details` WHERE (`product_import_id` = ?);";
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(DELETE_IMPORT_DETAIL)) {
@@ -156,8 +159,8 @@ public class ProductImportDAO extends  DatabaseConnection{
     }
 
 
-    public void updateProductImport(ProductImport productImport){
-        String CREATE = "UPDATE `candycake`.`product_imports` SET `code` = ?, `import_date` = ?, `total_amount` = ? WHERE (`id` = ?);";
+    public void updateProductImport(ProductImport productImport) {
+        String CREATE = "UPDATE `product_imports` SET `code` = ?, `import_date` = ?, `total_amount` = ? WHERE (`id` = ?);";
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE)) {
@@ -172,10 +175,11 @@ public class ProductImportDAO extends  DatabaseConnection{
             System.out.println(e.getMessage());
         }
     }
+
     public ProductImportDetail getQuantityByIdProduct(int id) {
         var result = new ProductImportDetail();
         result.setId(id);
-        String GET_PRODUCT_QUANTITY ="SELECT * FROM bandienthoai.product_import_details where id=?";
+        String GET_PRODUCT_QUANTITY = "SELECT * FROM bandienthoai.product_import_details where id=?";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(GET_PRODUCT_QUANTITY)) {
             preparedStatement.setInt(1, id);
@@ -189,4 +193,17 @@ public class ProductImportDAO extends  DatabaseConnection{
         return result;
     }
 
+    public void deleteImport(int id) {
+        String DELETE = "DELETE FROM `bandienthoai`.`product_imports` WHERE (`id` = ?)";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
+            preparedStatement.setInt(1, id);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            ;
+        }
+    }
 }

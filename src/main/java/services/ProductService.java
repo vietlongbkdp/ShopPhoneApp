@@ -39,7 +39,7 @@ public class ProductService {
         productDAO.delete(id);
     }
 
-    public List<Product> fillAll() {
+    public List<Product> findAll() {
         return productDAO.findAll();
     }
 

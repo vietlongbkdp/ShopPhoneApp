@@ -99,6 +99,7 @@
             <td>${productImport.totalAmount}</td>
             <td>
               <a class="btn btn-info" href="/product-import?action=edit&id=${productImport.id}">Edit</a>
+              <a class="btn btn-info" href="/product-import?action=detail&id=${productImport.id}">Detail</a>
               <a class="btn btn-danger" onclick="return confirm('Do you want remove ${productImport.code} ?')" href="/product-import?action=delete&id=${productImport.id}">Delete</a>
             </td>
           </tr>

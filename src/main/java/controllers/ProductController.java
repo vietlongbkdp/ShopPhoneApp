@@ -53,7 +53,7 @@ public class ProductController extends HttpServlet {
     }
 
     private void showRestore(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        showTable(req, true,"product/restore.jsp", resp);
+        showTable(req, true,"product/s.jsp", resp);
     }
 
     private void showTable(HttpServletRequest req, boolean isShowRestore, String href, HttpServletResponse resp) throws ServletException, IOException {
@@ -86,12 +86,8 @@ public class ProductController extends HttpServlet {
     }
 
     private void restore(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String[] check = req.getParameterValues("ids");
-        System.out.println(Arrays.toString(check));
-        if (check != null) {
-            productService.restore(check);
-        }
-        resp.sendRedirect("/product?message=Restored");
+        productService.restore(req.getParameterValues("restoredProduct"));
+        resp.sendRedirect("/product?action=restore&message=Restored");
     }
 
 
