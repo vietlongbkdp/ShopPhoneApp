@@ -12,7 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-blue-200">
+<nav class="navbar navbar-expand-lg bg-blue-200 mt-3 bg-gradient-primary">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,31 +49,7 @@
     </div>
 </nav>
 <div class="container">
-    <div class="container text-center" style="border-radius: 5px">
-        <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item align-content-center active" data-bs-interval="5000">
-                    <img src="/user/client_undefine/img/slide_img/p2.jpg" class="d-block h-75" alt="Picturte 2">
-                </div>
-                <div class="carousel-item align-content-center" data-bs-interval="5000">
-                    <img src="/user/client_undefine/img/slide_img/p3.jpg" class="d-block h-75" alt="Picturte 3">
-                </div>
-                <div class="carousel-item align-content-center" data-bs-interval="5000">
-                    <img src="/user/client_undefine/img/slide_img/p4.jpg" class="d-block h-75" alt="Picturte 4">
-                </div>
-                <div class="carousel-item align-content-center" data-bs-interval="5000">
-                    <img src="/user/client_undefine/img/slide_img/p5.jpg" class="d-block h-75" alt="Picturte 5">
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
+    <div class="container text-center">
         <div class="row">
             <div class="col-3" >
                 <ul class="list-group">
@@ -85,7 +61,36 @@
                 </ul>
             </div>
             <div class="col-9 bg-danger">
-                Column
+                <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner align-content-center">
+                        <div class="carousel-item align-content-center active" data-bs-interval="5000">
+                            <img src="/user/client_undefine/img/slide_img/pc1.jpg" class="d-block w-90" alt="Picturte 1">
+                        </div>
+                        <div class="carousel-item align-content-center" data-bs-interval="5000">
+                            <img src="/user/client_undefine/img/slide_img/pc2.jpg" class="d-block w-90" alt="Picturte 2">
+                        </div>
+                        <div class="carousel-item align-content-center" data-bs-interval="5000">
+                            <img src="/user/client_undefine/img/slide_img/pc3.jpg" class="d-block w-90" alt="Picturte 3">
+                        </div>
+                        <div class="carousel-item align-content-center" data-bs-interval="5000">
+                            <img src="/user/client_undefine/img/slide_img/pc4.jpg" class="d-block w-90" alt="Picturte 4">
+                        </div>
+                        <div class="carousel-item align-content-center" data-bs-interval="5000">
+                            <img src="/user/client_undefine/img/slide_img/pc5.jpg" class="d-block w-90" alt="Picturte 5">
+                        </div>
+                        <div class="carousel-item align-content-center" data-bs-interval="5000">
+                            <img src="/user/client_undefine/img/slide_img/pc6.jpg" class="d-block w-90" alt="Picturte 6">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

@@ -34,17 +34,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <!-- Tweaks for older IEs-->
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
     <!-- fonts -->
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
     <!-- font awesome -->
-    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!--  -->
     <!-- owl stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Poppins:400,700&display=swap&subset=latin-ext" rel="stylesheet">
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesoeet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
 <body>
 <!-- banner bg main start -->
@@ -55,12 +54,12 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="custom_menu">
-                        <ul>
-                            <li><a href="#">Best Sellers</a></li>
-                            <li><a href="#">Gift Ideas</a></li>
-                            <li><a href="#">New Releases</a></li>
-                            <li><a href="#">Today's Deals</a></li>
-                            <li><a href="#">Customer Service</a></li>
+                        <ul style="display: flex; justify-content: center ">
+                            <li style="padding-left: 5%"><a href="#">Best Sellers</a></li>
+                            <li style="padding-left: 5%"><a href="#">Gift Ideas</a></li>
+                            <li style="padding-left: 5%"><a href="#">New Releases</a></li>
+                            <li style="padding-left: 5%"><a href="#">Today's Deals</a></li>
+                            <li style="padding-left: 5%"><a href="#">Customer Service</a></li>
                         </ul>
                     </div>
                 </div>
@@ -153,469 +152,266 @@
             </div>
         </div>
     </div>
-    <!-- header section end -->
-    <!-- banner section start -->
+
     <div class="container">
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
-            <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+        <div id="carouselExampleInterval1" class="carousel slide" style="text-align: center; margin: 2rem" data-bs-ride="carousel">
+            <div class="carousel-inner align-content-center">
+                <div class="carousel-item align-content-center active" data-bs-interval="5000">
+                    <img src="/user/client_undefine/img/slide_img/pc1.jpg" class=" w-90" alt="Picturte 1">
+                </div>
+                <div class="carousel-item align-content-center" data-bs-interval="5000">
+                    <img src="/user/client_undefine/img/slide_img/pc2.jpg" class=" w-90" alt="Picturte 2">
+                </div>
+                <div class="carousel-item align-content-center" data-bs-interval="5000">
+                    <img src="/user/client_undefine/img/slide_img/pc3.jpg" class=" w-90" alt="Picturte 3">
+                </div>
+                <div class="carousel-item align-content-center" data-bs-interval="5000">
+                    <img src="/user/client_undefine/img/slide_img/pc4.jpg" class=" w-90" alt="Picturte 4">
+                </div>
+                <div class="carousel-item align-content-center" data-bs-interval="5000">
+                    <img src="/user/client_undefine/img/slide_img/pc5.jpg" class=" w-90" alt="Picturte 5">
+                </div>
+                <div class="carousel-item align-content-center" data-bs-interval="5000">
+                    <img src="/user/client_undefine/img/slide_img/pc6.jpg" class=" w-90" alt="Picturte 6">
+                </div>
             </div>
-             <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="/user/client_undefine/img/slide_img/p1.jpg" class="d-block w-70" alt="Picture 1">
-            </div>
-            <div class="carousel-item">
-                <img src="/user/client_undefine/img/slide_img/p2.jpg" class="d-block w-70" alt="Picture 2">
-            </div>
-            <div class="carousel-item">
-                <img src="/user/client_undefine/img/slide_img/p3.jpg" class="d-block w-70" alt="Picture 3">
-            </div>
-            <div class="carousel-item">
-                <img src="/user/client_undefine/img/slide_img/p4.jpg" class="d-block w-70" alt="Picture 4">
-            </div>
-            <div class="carousel-item">
-                <img src="/user/client_undefine/img/slide_img/p5.jpg" class="d-block w-70" alt="Picture 5">
-            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval1" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval1" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
-    </div>
-    <!-- banner section end -->
-</div>
-<!-- banner bg main end -->
-<!-- fashion section start -->
-<div class="fashion_section">
-    <div id="main_slider" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="container">
-                    <h1 class="fashion_taital">Man & Woman Fashion</h1>
-                    <div class="fashion_section_2">
-                        <div class="row">
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Man T -shirt</h4>
-                                    <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                    <div class="tshirt_img"><img src="images/tshirt-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Man -shirt</h4>
-                                    <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                    <div class="tshirt_img"><img src="images/dress-shirt-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Woman Scart</h4>
-                                    <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                    <div class="tshirt_img"><img src="images/women-clothes-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
+    <div style="background-color: #1c606a" class="container">
+        PHẦN NÀY ĐỂ BỎ SẢN PHẨM BÁN CHẠY
+        <div id="carouselExampleInterval2" class="carousel slide" style="text-align: center; margin: 2rem" data-bs-ride="carousel">
+            <div class="carousel-inner align-content-center">
+                <div class="carousel-item align-content-center" data-bs-interval="5000">
+                    <div class="card" style="width: 15rem; border-radius: 8px">
+                        <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
+                        <div class="card-body text-center" >
+                            <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
+                            <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
+                            <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item align-content-center" data-bs-interval="5000">
+                    <div class="card" style="width: 15rem; border-radius: 8px">
+                        <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
+                        <div class="card-body text-center" >
+                            <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
+                            <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
+                            <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-item align-content-center" data-bs-interval="5000">
+                    <div class="card" style="width: 15rem; border-radius: 8px">
+                        <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
+                        <div class="card-body text-center" >
+                            <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
+                            <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
+                            <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="carousel-item">
-                <div class="container">
-                    <h1 class="fashion_taital">Man & Woman Fashion</h1>
-                    <div class="fashion_section_2">
-                        <div class="row">
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Man T -shirt</h4>
-                                    <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                    <div class="tshirt_img"><img src="images/tshirt-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Man -shirt</h4>
-                                    <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                    <div class="tshirt_img"><img src="images/dress-shirt-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Woman Scart</h4>
-                                    <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                    <div class="tshirt_img"><img src="images/women-clothes-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="container">
-                    <h1 class="fashion_taital">Man & Woman Fashion</h1>
-                    <div class="fashion_section_2">
-                        <div class="row">
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Man T -shirt</h4>
-                                    <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                    <div class="tshirt_img"><img src="images/tshirt-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Man -shirt</h4>
-                                    <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                    <div class="tshirt_img"><img src="images/dress-shirt-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Woman Scart</h4>
-                                    <p class="price_text">Price  <span style="color: #262626;">$ 30</span></p>
-                                    <div class="tshirt_img"><img src="images/women-clothes-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval2" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval2" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-        <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
-            <i class="fa fa-angle-left"></i>
-        </a>
-        <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
-            <i class="fa fa-angle-right"></i>
-        </a>
     </div>
-</div>
-<!-- fashion section end -->
-<!-- electronic section start -->
-<div class="fashion_section">
-    <div id="electronic_main_slider" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="container">
-                    <h1 class="fashion_taital">Electronic</h1>
-                    <div class="fashion_section_2">
-                        <div class="row">
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Laptop</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="electronic_img"><img src="images/laptop-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Mobile</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="electronic_img"><img src="images/mobile-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Computers</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="electronic_img"><img src="images/computer-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+    <div class="container">
+        <div class="row row-cols-4 row-cols-md-5 g-4">
+
+            <div class="col">
+                <div class="card" style="width: 15rem; border-radius: 8px">
+                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
+                    <div class="card-body text-center" >
+                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
+                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
+                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="carousel-item">
-                <div class="container">
-                    <h1 class="fashion_taital">Electronic</h1>
-                    <div class="fashion_section_2">
-                        <div class="row">
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Laptop</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="electronic_img"><img src="images/laptop-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Mobile</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="electronic_img"><img src="images/mobile-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Computers</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="electronic_img"><img src="images/computer-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+            <div class="col">
+                <div class="card" style="width: 15rem; border-radius: 8px">
+                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
+                    <div class="card-body text-center" >
+                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
+                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
+                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="carousel-item">
-                <div class="container">
-                    <h1 class="fashion_taital">Electronic</h1>
-                    <div class="fashion_section_2">
-                        <div class="row">
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Laptop</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="electronic_img"><img src="images/laptop-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Mobile</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="electronic_img"><img src="images/mobile-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Computers</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="electronic_img"><img src="images/computer-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
+            <div class="col">
+                <div class="card" style="width: 15rem; border-radius: 8px">
+                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
+                    <div class="card-body text-center" >
+                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
+                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
+                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card" style="width: 15rem; border-radius: 8px">
+                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
+                    <div class="card-body text-center" >
+                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
+                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
+                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card" style="width: 15rem; border-radius: 8px">
+                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
+                    <div class="card-body text-center" >
+                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
+                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
+                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card" style="width: 15rem; border-radius: 8px">
+                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
+                    <div class="card-body text-center" >
+                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
+                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
+                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card" style="width: 15rem; border-radius: 8px">
+                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
+                    <div class="card-body text-center" >
+                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
+                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
+                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card" style="width: 15rem; border-radius: 8px">
+                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
+                    <div class="card-body text-center" >
+                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
+                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
+                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card" style="width: 15rem; border-radius: 8px">
+                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
+                    <div class="card-body text-center" >
+                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
+                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
+                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card" style="width: 15rem; border-radius: 8px">
+                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
+                    <div class="card-body text-center" >
+                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
+                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
+                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card" style="width: 15rem; border-radius: 8px">
+                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
+                    <div class="card-body text-center" >
+                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
+                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
+                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card" style="width: 15rem; border-radius: 8px">
+                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
+                    <div class="card-body text-center" >
+                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
+                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
+                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card" style="width: 15rem; border-radius: 8px">
+                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
+                    <div class="card-body text-center" >
+                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
+                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
+                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card" style="width: 15rem; border-radius: 8px">
+                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
+                    <div class="card-body text-center" >
+                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
+                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
+                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card" style="width: 15rem; border-radius: 8px">
+                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
+                    <div class="card-body text-center" >
+                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
+                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
+                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
                     </div>
                 </div>
             </div>
         </div>
-        <a class="carousel-control-prev" href="#electronic_main_slider" role="button" data-slide="prev">
-            <i class="fa fa-angle-left"></i>
-        </a>
-        <a class="carousel-control-next" href="#electronic_main_slider" role="button" data-slide="next">
-            <i class="fa fa-angle-right"></i>
-        </a>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
     </div>
-</div>
-<!-- electronic section end -->
-<!-- jewellery  section start -->
-<div class="jewellery_section">
-    <div id="jewellery_main_slider" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="container">
-                    <h1 class="fashion_taital">Jewellery Accessories</h1>
-                    <div class="fashion_section_2">
-                        <div class="row">
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Jumkas</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="jewellery_img"><img src="images/jhumka-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Necklaces</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="jewellery_img"><img src="images/neklesh-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Kangans</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="jewellery_img"><img src="images/kangan-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="container">
-                    <h1 class="fashion_taital">Jewellery Accessories</h1>
-                    <div class="fashion_section_2">
-                        <div class="row">
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Jumkas</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="jewellery_img"><img src="images/jhumka-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Necklaces</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="jewellery_img"><img src="images/neklesh-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Kangans</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="jewellery_img"><img src="images/kangan-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="container">
-                    <h1 class="fashion_taital">Jewellery Accessories</h1>
-                    <div class="fashion_section_2">
-                        <div class="row">
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Jumkas</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="jewellery_img"><img src="images/jhumka-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Necklaces</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="jewellery_img"><img src="images/neklesh-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-sm-4">
-                                <div class="box_main">
-                                    <h4 class="shirt_text">Kangans</h4>
-                                    <p class="price_text">Start Price  <span style="color: #262626;">$ 100</span></p>
-                                    <div class="jewellery_img"><img src="images/kangan-img.png"></div>
-                                    <div class="btn_main">
-                                        <div class="buy_bt"><a href="#">Buy Now</a></div>
-                                        <div class="seemore_bt"><a href="#">See More</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#jewellery_main_slider" role="button" data-slide="prev">
-            <i class="fa fa-angle-left"></i>
-        </a>
-        <a class="carousel-control-next" href="#jewellery_main_slider" role="button" data-slide="next">
-            <i class="fa fa-angle-right"></i>
-        </a>
-        <div class="loader_main">
-            <div class="loader"></div>
-        </div>
-    </div>
-</div>
 <!-- jewellery  section end -->
 <!-- footer section start -->
 <div class="footer_section layout_padding">
@@ -643,6 +439,7 @@
     <div class="container">
         <p class="copyright_text">© 2020 All Rights Reserved. Design by <a href="https://html.design">Free html  Templates</a></p>
     </div>
+</div>
 </div>
 <!-- copyright section end -->
 <!-- Javascript files-->
