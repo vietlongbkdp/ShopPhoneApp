@@ -62,22 +62,18 @@ public class ProductDAO extends DatabaseConnection {
                 "    AND ( " +
                 "        LOWER(p.productName) LIKE ?  " +
                 "        OR LOWER(b.name) LIKE ?  " +
-                "        OR LOWER(p.ram) LIKE ?  " +
-                "        OR LOWER(p.operatingSystem) LIKE ? " +
                 "    ) " +
                 "LIMIT ? OFFSET ?;";
         var SELECT_COUNT = "SELECT COUNT(1) cnt FROM products p " +
                 "JOIN branchs b on b.id = p.branch_id WHERE p.deleted = ? And " +
-                "(Lower(p.productName) like ? or lower(b.name) like ? or lower(p.ram) like ? or lower(p.operatingSystem) like ?) ";
+                "(Lower(p.productName) like ? or lower(b.name) like ?) ";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL)) {
             preparedStatement.setInt(1, DELETED);
             preparedStatement.setString(2, search);
             preparedStatement.setString(3, search);
-            preparedStatement.setString(4, search);
-            preparedStatement.setString(5, search);
-            preparedStatement.setInt(6, TOTAL_ELEMENT);
-            preparedStatement.setInt(7, (page - 1) * TOTAL_ELEMENT);
+            preparedStatement.setInt(4, TOTAL_ELEMENT);
+            preparedStatement.setInt(5, (page - 1) * TOTAL_ELEMENT);
             System.out.println(preparedStatement);
             var rs = preparedStatement.executeQuery();
             while (rs.next()) {
@@ -88,8 +84,6 @@ public class ProductDAO extends DatabaseConnection {
             preparedStatementCount.setInt(1, DELETED);
             preparedStatementCount.setString(2, search);
             preparedStatementCount.setString(3, search);
-            preparedStatementCount.setString(4, search);
-            preparedStatementCount.setString(5, search);
             var rsCount = preparedStatementCount.executeQuery();
             if (rsCount.next()) {
                 result.setTotalPage((int) Math.ceil((double) rsCount.getInt("cnt") / TOTAL_ELEMENT));
@@ -121,7 +115,7 @@ public class ProductDAO extends DatabaseConnection {
     }
 
     public void update(Product product) {
-        String UPDATE = "UPDATE `bandienthoai`.`products` " + "SET `productName` = ?, `branch_id` = ?, `image` = ?, `price` = ?, `warrantyPeriod` = ?, `ram` = ?, `size` = ?, `color` = ?, `camera` = ?, `operatingSystem` = ?, `pin` = ? ,`price_range`= ? " + "WHERE (`id` = ?)";
+        String UPDATE = "UPDATE `bandienthoai`.`products` " + "SET `productName` = ?, `branch_id` = ?, `image` = ?, `price` = ?, `warrantyPeriod` = ?, `ram` = ?, `size` = ?, `color` = ?, `camera` = ?, `operatingSystem` = ?, `pin` = ? " + "WHERE (`id` = ?)";
         try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(UPDATE)) {
             preparedStatement.setString(1, product.getProductName());
             preparedStatement.setInt(2, product.getBranch().getId());
@@ -134,8 +128,7 @@ public class ProductDAO extends DatabaseConnection {
             preparedStatement.setString(9, product.getCamera());
             preparedStatement.setString(10, product.getOperatingSystem());
             preparedStatement.setString(11, product.getPin());
-            preparedStatement.setString(12, product.getePriceRange().toString());
-            preparedStatement.setInt(13,product.getId());
+            preparedStatement.setInt(12,product.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

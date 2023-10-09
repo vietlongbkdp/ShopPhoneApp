@@ -18,6 +18,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 @WebServlet(name = "productController", urlPatterns = "/product")
 @MultipartConfig(maxFileSize = 16177215)
@@ -48,14 +49,14 @@ public class ProductController extends HttpServlet {
 
 
     private void showList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        showTable(req, false, resp);
+        showTable(req, false,"product/index.jsp", resp);
     }
 
     private void showRestore(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        showTable(req, true, resp);
+        showTable(req, true,"product/restore.jsp", resp);
     }
 
-    private void showTable(HttpServletRequest req, boolean isShowRestore, HttpServletResponse resp) throws ServletException, IOException {
+    private void showTable(HttpServletRequest req, boolean isShowRestore, String href, HttpServletResponse resp) throws ServletException, IOException {
         String pageString = req.getParameter("page");
         if (pageString == null) {
             pageString = "1";
@@ -64,7 +65,7 @@ public class ProductController extends HttpServlet {
         req.setAttribute("message", req.getParameter("message"));
         req.setAttribute("isShowRestore", isShowRestore);
         req.setAttribute("search", req.getParameter("search"));
-        req.getRequestDispatcher("product/index.jsp").forward(req, resp);
+        req.getRequestDispatcher(href).forward(req, resp);
     }
 
     private void delete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -85,7 +86,8 @@ public class ProductController extends HttpServlet {
     }
 
     private void restore(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String[] check = req.getParameterValues("restore");
+        String[] check = req.getParameterValues("ids");
+        System.out.println(Arrays.toString(check));
         if (check != null) {
             productService.restore(check);
         }
@@ -96,7 +98,7 @@ public class ProductController extends HttpServlet {
     private void showEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("product",(Product) productService.findById(Integer.parseInt(req.getParameter("id"))));
         req.setAttribute("branchs", branchService.getBranchs());
-        req.getRequestDispatcher("product/create.jsp").forward(req, resp);
+        req.getRequestDispatcher("product/edit.jsp").forward(req, resp);
     }
 
     private void edit(HttpServletRequest req, HttpServletResponse resp) throws IOException {

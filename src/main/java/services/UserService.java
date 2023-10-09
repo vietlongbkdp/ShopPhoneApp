@@ -1,11 +1,13 @@
 package services;
 
+import utils.PasswordUltis;
 import daos.RoleDao;
 import daos.UserDao;
 import models.EGender;
 import models.User;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.util.List;
 
@@ -34,7 +36,7 @@ public class UserService {
     public boolean login(String userName, String password) {
         List<User> userList = getAllUser();
         for (User u : userList) {
-            if (u.getUserName().equalsIgnoreCase(userName) && u.getPassword().equals(password)) return true;
+            if (u.getUserName().equalsIgnoreCase(userName) && PasswordUltis.checkPassword(password, u.getPassword())) return true;
         }
         return false;
     }
@@ -57,7 +59,7 @@ public class UserService {
         user.setDob(Date.valueOf(req.getParameter("dob")));
         user.setGender(EGender.valueOf(req.getParameter("gender")));
         user.setRole(roleDao.getRoleByRoleName(req.getParameter("role")));
-        user.setPassword(req.getParameter("password"));
+        user.setPassword(PasswordUltis.encryptPassword(req.getParameter("password")));
         userDao.createUser(user);
     }
 
@@ -72,7 +74,7 @@ public class UserService {
         user.setDob(Date.valueOf(req.getParameter("dob")));
         user.setGender(EGender.valueOf(req.getParameter("gender")));
         user.setRole(roleDao.getRoleByRoleName(req.getParameter("role")));
-        user.setPassword(req.getParameter("password"));
+        user.setPassword(PasswordUltis.encryptPassword(req.getParameter("password")));
         userDao.editUser(user, id);
     }
 
@@ -84,12 +86,13 @@ public class UserService {
         String phone = req.getParameter("phone");
         String gender = req.getParameter("gender");
         String dob = req.getParameter("dob");
-        int id = Integer.parseInt(req.getParameter("id"));
-        userDao.updateProfile(userName, fullName, email, address, phone, gender, dob, id);
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        userDao.updateProfile(userName, fullName, email, address, phone, gender, dob, user.getId());
     }
 
     public void updatePassword(int id, String password) {
-        userDao.updatePassword(id, password);
+        userDao.updatePassword(id, PasswordUltis.encryptPassword(password));
     }
 
     public String getEmailById(int id) {
