@@ -1,11 +1,10 @@
 package services;
 
 import daos.CartDao;
+import daos.OrderDao;
 import daos.ProductDAO;
-import models.Cart;
-import models.CartDetail;
-import models.Product;
-import models.User;
+import models.*;
+import services.dto.Page;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
@@ -15,10 +14,12 @@ import java.util.List;
 public class ShoppingService {
     private final ProductDAO productDAO;
     private final CartDao cartDao;
+    private final OrderDao orderDao;
 
     public ShoppingService() {
         productDAO = new ProductDAO();
         cartDao = new CartDao();
+        orderDao = new OrderDao();
     }
 
     public Cart findByUserId(int id) {
@@ -98,6 +99,34 @@ public class ShoppingService {
 //        cartDao.createCartDetail(cartDetail);
 //    }
     public List<CartDetail> cartDetails(int cartId, int checked) {
-        return  cartDao.findCartByCartIdChecked(cartId,checked);
+        return cartDao.findCartByCartIdChecked(cartId, checked);
     }
+
+    public int createOrder(int idUser) {
+       return orderDao.createOrder(idUser);
+    }
+
+    public void createOrderDetails(List<Integer> quantities, List<Integer> productIds, int orderId) {
+        for (int i = 0; i< quantities.size();i++) {
+       orderDao.createOrderDetail(quantities.get(i),productIds.get(i),orderId);
+        }
+    }
+    public List<OrderDetail> findAllOD(int idOrder) {
+        return orderDao.findAllOD(idOrder);
+    }
+    public List<Order> findAllByUser(String status, int idUser){
+      return orderDao.findAllByUser( status,  idUser);
+    }
+     public Page<Order> findAll(int page, String status){
+        return  orderDao.findAll( page,  status);
+     }
+     public Page<Order>findAllByUserID(int page, String status, int idUser){
+        return orderDao.findAllByUserID(page,status,idUser);
+     }
+     public List<Order>findAllByStatus(String status){
+        return orderDao.findAllByStatus(status);
+     }
+     public void updateOrderStatus (String status, int idOrder){
+        orderDao.updateStatusOrder(status,idOrder);
+     }
 }

@@ -50,6 +50,8 @@ public class ProductService {
             result = false;
         }
         return result;
+    }public Product findByIdProduct(int id ){
+        return  productDAO.findByIdProduct(id);
     }
 }
 

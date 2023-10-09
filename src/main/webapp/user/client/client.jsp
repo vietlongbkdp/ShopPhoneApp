@@ -65,12 +65,8 @@
                     <td>${product.price}</td>
                     <td>${product.quantity}</td>
                     <td>
-                        <a href="/shopping?action=detail&id=${product.id}" class="btn btn-primary ">Product Detail</a>
-                            <%--            <a class="btn btn-danger" onclick="return confirm('Do you want remove ${product.name} ?')" href="/product?action=delete&id=${product.id}">--%>
-                            <%--              Delete--%>
-                            <%--            </a>--%>
-                        <a href="/cart?action=cart&id=${product.id}" class="btn btn-primary ">Add to Cart</a>
-
+                        <a href="/shopping?action=detail&id=${product.id}" class="btn btn-primary">Product Detail</a>
+                        <a href="/cart?action=cart&id=${product.id}" class="btn btn-primary addToCartBtn">Add to Cart</a>
                     </td>
                 </tr>
                 <c:set var="hasProducts" value="true" />
@@ -115,6 +111,19 @@
     if (message !== null && message.innerHTML) {
         toastr.success(message.innerHTML);
     }
+    document.addEventListener('DOMContentLoaded', function() {
+        var addToCartButtons = document.getElementsByClassName('addToCartBtn');
+
+        for (var i = 0; i < addToCartButtons.length; i++) {
+            var quantityCell = addToCartButtons[i].parentNode.previousElementSibling;
+            var quantity = parseInt(quantityCell.innerText);
+
+            if (quantity === 0) {
+                addToCartButtons[i].classList.add('disabled');
+                addToCartButtons[i].removeAttribute('href');
+            }
+        }
+    });
 </script>
 </body>
 </html>

@@ -2,11 +2,12 @@ package models;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Order {
     private   int id;
-    private  String orderDate;
+    private String orderDate;
     private  EStatus status;
     private  User user;
     private  BigDecimal totalAmount;
