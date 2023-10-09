@@ -40,7 +40,7 @@ public class TotalAdminController extends HttpServlet {
     }
 
     private void showOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/user/client/cart.jsp").forward(req, resp); // getRequestDispatcher đến cartTotal
+        resp.sendRedirect("/order"); // getRequestDispatcher đến cartTotal
     }
 
     private void showBranch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
