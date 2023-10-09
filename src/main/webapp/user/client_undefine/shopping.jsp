@@ -31,6 +31,8 @@
     <link rel="icon" href="images/fevicon.png" type="image/gif" />
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
     <!-- Tweaks for older IEs-->
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
     <!-- fonts -->
@@ -81,14 +83,14 @@
     <div class="header_section">
         <div class="container">
             <div class="containt_main">
-                <div id="mySidenav" class="sidenav">
-                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                    <a href="index.html">Home</a>
-                    <a href="fashion.html">Fashion</a>
-                    <a href="electronic.html">Electronic</a>
-                    <a href="jewellery.html">Jewellery</a>
-                </div>
-                <span class="toggle_icon" onclick="openNav()"><img src="images/toggle-icon.png"></span>
+<%--                <div id="mySidenav" class="sidenav">--%>
+<%--                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>--%>
+<%--                    <a href="index.html">Home</a>--%>
+<%--                    <a href="fashion.html">Fashion</a>--%>
+<%--                    <a href="electronic.html">Electronic</a>--%>
+<%--                    <a href="jewellery.html">Jewellery</a>--%>
+<%--                </div>--%>
+<%--                <span class="toggle_icon" onclick="openNav()"><img src="images/toggle-icon.png"></span>--%>
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category
                     </button>
@@ -110,23 +112,14 @@
                     </div>
                 </div>
                 <div class="header_box">
-                    <div class="lang_box ">
-                        <a href="#" title="Language" class="nav-link" data-toggle="dropdown" aria-expanded="true">
-                            <img src="images/flag-uk.png" alt="flag" class="mr-2 " title="United Kingdom"> English <i class="fa fa-angle-down ml-2" aria-hidden="true"></i>
-                        </a>
-                        <div class="dropdown-menu ">
-                            <a href="#" class="dropdown-item">
-                                <img src="images/flag-france.png" class="mr-2" alt="flag">
-                                French
-                            </a>
-                        </div>
-                    </div>
                     <div class="login_menu">
                         <ul>
-                            <li><a href="#">
-                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                <span class="padding_10">Cart</span></a>
-                            </li>
+                            <c:if test="${user.role.roleName != 'Admin'&&user.role.roleName != 'Staff'}">
+                                <li><a href="#">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                    <span class="padding_10">Cart</span></a>
+                                </li>
+                            </c:if>
                             <c:if test="${user != null}">
                                 <li><a href="#">
                                     <span class="padding_10"></span></a>
@@ -162,43 +155,41 @@
     </div>
     <!-- header section end -->
     <!-- banner section start -->
-    <div class="banner_section layout_padding">
-        <div class="container">
-            <div id="my_slider" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
-                                <div class="buynow_bt"><a href="#">Buy Now</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
-                                <div class="buynow_bt"><a href="#">Buy Now</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h1 class="banner_taital">Get Start <br>Your favriot shoping</h1>
-                                <div class="buynow_bt"><a href="#">Buy Now</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <a class="carousel-control-prev" href="#my_slider" role="button" data-slide="prev">
-                    <i class="fa fa-angle-left"></i>
-                </a>
-                <a class="carousel-control-next" href="#my_slider" role="button" data-slide="next">
-                    <i class="fa fa-angle-right"></i>
-                </a>
+    <div class="container">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+            <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+            </div>
+             <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/user/client_undefine/img/slide_img/p1.jpg" class="d-block w-70" alt="Picture 1">
+            </div>
+            <div class="carousel-item">
+                <img src="/user/client_undefine/img/slide_img/p2.jpg" class="d-block w-70" alt="Picture 2">
+            </div>
+            <div class="carousel-item">
+                <img src="/user/client_undefine/img/slide_img/p3.jpg" class="d-block w-70" alt="Picture 3">
+            </div>
+            <div class="carousel-item">
+                <img src="/user/client_undefine/img/slide_img/p4.jpg" class="d-block w-70" alt="Picture 4">
+            </div>
+            <div class="carousel-item">
+                <img src="/user/client_undefine/img/slide_img/p5.jpg" class="d-block w-70" alt="Picture 5">
             </div>
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
     </div>
     <!-- banner section end -->
 </div>
@@ -671,6 +662,9 @@
     function closeNav() {
         document.getElementById("mySidenav").style.width = "0";
     }
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossOrigin="anonymous"></script>
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
 </body>
 </html>

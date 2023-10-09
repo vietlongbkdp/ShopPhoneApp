@@ -28,7 +28,6 @@ public class ClientController extends HttpServlet {
         productService = new ProductService();
         userService = new UserService();
     }
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
