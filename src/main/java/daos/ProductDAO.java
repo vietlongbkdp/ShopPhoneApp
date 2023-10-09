@@ -28,6 +28,21 @@ public class ProductDAO extends DatabaseConnection {
         }
         return null;
     }
+    public Product findByIdProduct(int id) {
+        var SELECT_BY_ID = "SELECT p.*, b.name branch_name " + "FROM products p JOIN branchs b on " + "b.id = p.branch_id " + "WHERE p.id = ? and p.deleted = '0'";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID)) {
+            preparedStatement.setInt(1, id);
+            System.out.println(preparedStatement);
+            var rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                return getProductByResultSet(rs);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 
     public Object findAll(int page, boolean isShowRestore, String search) {
         var result = new Page<Product>();

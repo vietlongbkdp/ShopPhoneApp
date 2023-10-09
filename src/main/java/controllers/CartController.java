@@ -46,8 +46,13 @@ public class CartController extends HttpServlet {
             case "showCart" -> showCart(req, resp);
             case "cart" -> cart(req, resp);
             case "showDefault" -> showDefault(req, resp);
+            case "reBuy" -> reBuy(req, resp);
             default -> showlist(req, resp);
         }
+    }
+
+    private void reBuy(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("user/client/createOrder.jsp").forward(req, resp);
     }
 
     private void showDefault(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -117,13 +122,20 @@ public class CartController extends HttpServlet {
         }
     }
 
-    private void payment(HttpServletRequest req, HttpServletResponse resp) {
+    private void payment(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        if (userService.checkProfileUser(user.getId())) {
-
+        if (!userService.checkProfileUser(user.getId())) {
+            resp.sendRedirect("/cart?action=editProfile");
+            return;
         } else {
-
+            List<Integer> quantities = Arrays.stream(req.getParameterValues("quantities"))
+                    .map(Integer::parseInt).toList();
+            List<Integer> productIds = Arrays.stream(req.getParameterValues("productIds"))
+                    .map(Integer::parseInt).toList();
+            int id = shoppingService.createOrder(user.getId());
+            shoppingService.createOrderDetails(quantities, productIds, id);
+            resp.sendRedirect("/order-client?action=orderConfirming");
         }
     }
 
@@ -161,7 +173,7 @@ public class CartController extends HttpServlet {
             var listCartDetailChoosen = shoppingService.cartDetails(shoppingService.findByUserId(user.getId()).getId(), 1);
             for (var cartDetail : listCartDetailChoosen) {
                 if (!productService.checkAvaibleProduct(cartDetail.getProduct().getId())) {
-                    Product product=(Product) productService.findById(cartDetail.getProduct().getId());
+                    Product product = (Product) productService.findById(cartDetail.getProduct().getId());
                     String productName = product.getProductName();
                     String url = "/cart?action=showCart&message=" + productName + " is out of stock";
                     resp.sendRedirect(url);
