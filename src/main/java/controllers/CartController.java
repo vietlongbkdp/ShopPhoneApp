@@ -154,8 +154,8 @@ public class CartController extends HttpServlet {
         User user = (User) session.getAttribute("user");
         String DetailIDS = req.getParameter("DetailIDS");
         String OrderDTs = req.getParameter("OrderDTs");
-//        String quantityB=req.getParameter("quantityB");
-//        String idProduct=req.getParameter("idProduct");
+        String quantityB=req.getParameter("quantityB");
+        String idProduct=req.getParameter("idProduct");
         if (!userService.checkProfileUser(user.getId())) {
             if (DetailIDS != null) {
                 resp.sendRedirect("/shopping?action=editProfile&DetailIDS=" + DetailIDS);
@@ -163,9 +163,9 @@ public class CartController extends HttpServlet {
             } else if (OrderDTs != null) {
                 resp.sendRedirect("/shopping?action=editProfile&OrderDTs=" + OrderDTs);
                 return;
-//            }else if(quantityB!=null&&idProduct!=null){
-//                resp.sendRedirect("/shopping?action=editProfile&quantity=" +quantityB+"&idProduct="+idProduct);
-//                return;
+            }else if(quantityB!=null&&idProduct!=null){
+                resp.sendRedirect("/shopping?action=editProfile&quantityB=" +quantityB+"&idProduct="+idProduct);
+                return;
             }
         }
         List<Integer> quantities = Arrays.stream(req.getParameterValues("quantities"))
