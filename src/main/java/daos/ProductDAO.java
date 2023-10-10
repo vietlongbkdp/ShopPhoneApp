@@ -370,4 +370,25 @@ public class ProductDAO extends DatabaseConnection {
         branch.setName(rs.getString("name"));
         return branch;
     }
+    public List<Product> findProductBestSeller( int limit ){
+        var content = new ArrayList<Product>();
+        String SELECT ="SELECT products.*, SUM(product_import_details.quantity) - products.quantity AS sold_quantity\n" +
+                "FROM product_import_details\n" +
+                "JOIN products ON products.id = product_import_details.product_id\n" +
+                "GROUP BY products.id\n" +
+                "ORDER BY sold_quantity DESC\n," +
+                "limit ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT)) {
+            preparedStatement.setInt(1, limit);
+            System.out.println(preparedStatement);
+            var rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                content.add(getProductByResultSet(rs));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return content;
+    }
 }

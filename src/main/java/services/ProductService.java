@@ -67,5 +67,8 @@ return  productDAO.findAllProduct(page,isShowRestore,search,ePriceRange,branchNa
     public List<Branch> findAllBranch(){
         return  productDAO.findAllBranch();
     }
+    public List<Product> findAllProductBestSeller(int limit ){
+      return   productDAO.findProductBestSeller(limit);
+    }
 }
 
