@@ -134,114 +134,130 @@
                 </ul>
 
             </nav>
-        </div>
-    <!-- Sidebar End -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3" style="display: flex; justify-content: space-between">
+                    <h6 class="m-0 font-weight-bold text-primary"> Product Import Detail </h6>
+                    <a href="/product-import" class="btn btn-primary ">Home</a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Code</th>
+                                <th>Date Import</th>
+                                <th>Total</th>
+                            </tr>
+                            </thead>
+                                <tr>
+                                    <td>${productImport.id}</td>
+                                    <td>${productImport.code}</td>
+                                    <td>${productImport.importDate}</td>
+                                    <td>${productImport.totalAmount}</td>
+                                </tr>
 
 
-    <!-- Content Start -->
-    <div class="content">
-        <div class="container">
-            <div class="card container px-6" style="height: 100vh">
-                <h3 class="text-center">Edit Product Import</h3>
-                <form action="/product-import?action=edit&id=${productImport.id}" method="post">
+                            <thead>
 
-
-                    <div class="mb-3">
-                        <label for="code" class="form-label">Import Code</label>
-                        <input type="text" class="form-control" id="code" name="code" required value="${productImport.code}">
+                            <tr>
+                                <th></th>
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>Price Import</th>
+                            </tr>
+                            </thead>
+                            <c:forEach var="pid" items="${productImport.productImportDetails}">
+                                <tr>
+                                    <td></td>
+                                    <td>${pid.product.productName}</td>
+                                    <td>${pid.quantity}</td>
+                                    <td>${pid.amount}</td>
+                                    <td>${product.price}</td>
+                                </tr>
+                                <c:set var="hasProducts" value="true"/>
+                            </c:forEach>
+                        </table>
                     </div>
-                    <div class="mb-3">
-                        <label for="importDate" class="form-label">Import Date</label>
-                        <input type="date" class="form-control" id="importDate" name="importDate" required value="${productImport.importDate}">
-                    </div>
-                    <%--        <div class="mb-3">--%>
-                    <%--            <label for="totalAmount" class="form-label">Tổng giá trị</label>--%>
-                    <%--            <input type="number" class="form-control" id="totalAmount" name="totalAmount" required>--%>
-                    <%--        </div>--%>
-                    <div class="row mb-3">
-                        <div class="col-4">
-                            Product
-                        </div>
-                        <div class="col-3">
-                            Quantity
-                        </div>
-                        <div class="col-3">
-                            Amount
-                        </div>
-                        <div class="col-2 d-flex justify-content-end">
-                            <button type="button" class="btn btn-info" onclick="addMore()">Add More</button>
-                        </div>
-                    </div>
-                    <div id="product-import-detail">
-                        <c:forEach var="piDetail" varStatus="status" items="${productImport.productImportDetails}">
-
-
-                            <div class="row mb-3" id="product-import-${status.index + 1}">
-                                <div class="col-4">
-                                    <select class="form-control" onchange="onChangeSelect(this)" name="productIds" id="product" required>
-                                        <option value="">---Please Choose---</option>
-                                        <c:forEach var="product" items="${products}">
-                                            <option value="${product.id}" ${product.id == piDetail.product.id ? 'selected' : ''}>
-                                                    ${product.productName}
-                                            </option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="col-3">
-                                    <input type="number" class="form-control" name="quantities" value="${piDetail.quantity}" required>
-                                </div>
-                                <div class="col-3">
-                                    <input type="number" class="form-control" name="amounts" value="${piDetail.amount}" required>
-                                </div>
-                                <div class="col-2 d-flex justify-content-end">
-                                    <button type="button" class="btn btn-danger" onclick="deleteRow(${status.index + 1})">Delete</button>
-                                </div>
-                            </div>
-                        </c:forEach>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Edit import</button>
-                    <a href="/product-import" class="btn btn-dark ">Cancel</a>
-                </form>
-            </div>
-
-        </div>
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>---------  Website Design by Huy - Long - Thắng Team  ---------</span>
                 </div>
             </div>
-        </footer>
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>---------  Website Design by Huy - Long - Thắng Team  ---------</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
     </div>
-    </div>
-    <!-- Content End -->
-
-
-    <!-- Back to Top -->
-    <%--  <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>--%>
 </div>
-
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 
+
 <!-- Template Javascript -->
+<%--    <script src="../js/main.js"></script>--%>
 <!-- Code injected by live-server -->
 <script>
+    var codeInput = document.getElementById('code');
+    var codeError = document.getElementById('code-error');
 
+    codeInput.addEventListener('blur', function () {
+        var codeValue = codeInput.value;
+        if (codeValue.length < 6) {
+            codeInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            codeError.textContent = 'Code phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+        } else {
+            codeInput.classList.remove('is-invalid'); // Xóa lớp CSS 'is-invalid'
+            codeError.textContent = ''; // Xóa thông báo lỗi
+        }
+    })
+
+    document.querySelector('form').addEventListener('submit', function (event) {
+
+        var codeValue = codeInput.value;
+        if (codeValue.length < 6) {
+            event.preventDefault(); // Ngăn chặn gửi form đi
+
+            codeInput.classList.add('is-invalid'); // Thêm lớp CSS 'is-invalid' để hiển thị viền đỏ
+            codeError.textContent = 'Password phải có ít nhất 6 kí tự'; // Hiển thị thông báo lỗi
+
+            codeInput.focus(); // Tập trung vào trường password không hợp lệ
+        }
+
+
+    });
+
+    var importDateInput = document.getElementById('importDate');
+    var importDateError = document.getElementById('importDate-error');
+
+    importDateInput.addEventListener("blur", function () {
+            var importDateValue = new Date(importDateInput.value).getTime();
+            var currentDate = new Date().getTime();
+
+            if (importDateValue > currentDate) {
+                importDateInput.classList.add("is-invalid");
+                importDateError.textContent = "Ngày không hợp lệ, không phải là ngày tương lai";
+            } else {
+                importDateInput.classList.remove("is-invalid");
+                importDateError.textContent = "";
+            }
+        }
+    )
 
     const productId = document.getElementById('product');
     const productImportDetail = document.getElementById('product-import-detail');
     const eSelect = document.getElementsByName('productIds');
-    const productss = ${productsJSON};
-
-    let rowProductImport = ${productImport.productImportDetails.size()};
+    const products = ${productsJSON};
+    let rowProductImport = 1;
     let rowCount = rowProductImport;
-    function addMore() {
-        if(rowCount === productss.length) return
+
+    function addMore2() {
+        if (rowCount === products.length) return
         rowCount++;
         let selectStr = '<select class="form-control" onchange="onChangeSelect(this)" name="productIds" id="product" required><option value="">---Please Choose---</option>';
-        for (const product of productss) {
+        for (const product of products) {
             selectStr += `<option value="\${product.id}">\${product.productName}</option>`;
         }
 
@@ -254,38 +270,48 @@
                 <input type="number" class="form-control"  name="quantities" required>
             </div>
             <div class="col-3">
-                <input type="number" class="form-control"  name="amounts" required>
+                <input type="number" class="form-control"  name="amounts" value="\${product.price}" required>
             </div>
             <div class="col-2 d-flex justify-content-end">
                 <button class="btn btn-danger" onclick="deleteRow(\${rowProductImport})">Delete</button>
             </div>
-        </div>`
+
+            </div>`
         document.querySelector('#product-import-detail').innerHTML += strRow;
     }
 
+    const message = document.getElementById('message');
+    if (message !== null && message.innerHTML) {
+        toastr.success(message.innerHTML);
+    }
+
+
     function deleteRow(number) {
+        if (rowCount === 1) {
+            toastr.warn('At least 1 product');
+            return;
+        }
         rowCount--;
         const row = document.getElementById('product-import-' + number);
         productImportDetail.removeChild(row);
     }
+
     let productsSelected = Array.from(eSelect).map(e => e.value);
-    function onChangeSelect(e){
-        if(productsSelected.find(id => +id === +e.value)){
+
+    function onChangeSelect(e) {
+        if (productsSelected.find(id => +id === +e.value)) {
             e.value = '';
-            toastr.warn('Product has been selected');
         }
         productsSelected = Array.from(eSelect).map(e => e.value);
     }
-    // ]]>
 </script>
-    <script src="/user/admin/assets/jquery.min.js"></script>
-    <script src="/user/admin/assets/bootstrap.bundle.min.js"></script>
-    <script src="/user/admin/assets/jquery.easing.min.js"></script>
-    <script src="/user/admin/assets/sb-admin-2.min.js"></script>
-    <script src="/user/admin/assets/jquery.dataTables.min.js"></script>
-    <script src="/user/admin/assets/dataTables.bootstrap4.min.js"></script>
-    <script src="/user/admin/assets/datatables-demo.js"></script>
 
-
+<script src="/user/admin/assets/jquery.min.js"></script>
+<script src="/user/admin/assets/bootstrap.bundle.min.js"></script>
+<script src="/user/admin/assets/jquery.easing.min.js"></script>
+<script src="/user/admin/assets/sb-admin-2.min.js"></script>
+<%--<script src="/user/admin/assets/jquery.dataTables.min.js"></script>--%>
+<script src="/user/admin/assets/dataTables.bootstrap4.min.js"></script>
+<script src="/user/admin/assets/datatables-demo.js"></script>
 </body>
 </html>

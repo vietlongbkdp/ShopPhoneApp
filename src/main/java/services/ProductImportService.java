@@ -25,7 +25,8 @@ public class ProductImportService {
         productImportDAO.deleteImportDetail(id);
         productImportDAO.deleteImport(id);
     }
-    public ProductImport findById(int id){
+
+    public ProductImport findById(int id) {
         return productImportDAO.findById(id);
     }
 
@@ -45,15 +46,12 @@ public class ProductImportService {
             // totalAmount += quantity * amount;
             totalAmount = totalAmount.add(amounts.get(i).multiply(BigDecimal.valueOf(quantities.get(i))));
         }
-        ProductImport productImport = new ProductImport(0, code,importDate,totalAmount);
+        ProductImport productImport = new ProductImport(0, code, importDate, totalAmount);
         productImport.setId(productImportDAO.create(productImport));
 
         for (int i = 0; i < quantities.size(); i++) {
             productImportDAO.createImportDetail(productImport.getId(), productIds.get(i), quantities.get(i), amounts.get(i));
         }
-    }
-    public Page<ProductImportListResponse> findAll(int page, String search){
-        return productImportDAO.findAll(page,search);
     }
 
     public ProductImportDetail getQuantityByIdProduct(int id) {
@@ -75,14 +73,22 @@ public class ProductImportService {
 
         BigDecimal totalAmount = BigDecimal.ZERO;
         for (int i = 0; i < quantities.size(); i++) {
-            // totalAmount += quantity * amount;
             totalAmount = totalAmount.add(amounts.get(i).multiply(BigDecimal.valueOf(quantities.get(i))));
         }
-        ProductImport productImport = new ProductImport(idProductImport, code,importDate,totalAmount);
+        ProductImport productImport = new ProductImport(idProductImport, code, importDate, totalAmount);
         productImportDAO.updateProductImport(productImport);
 
         for (int i = 0; i < quantities.size(); i++) {
             productImportDAO.createImportDetail(productImport.getId(), productIds.get(i), quantities.get(i), amounts.get(i));
         }
+    }
+
+    public List<ProductImportListResponse> findAllProductImport() {
+        return productImportDAO.findAllP();
+    }
+
+
+    public List<ProductImportDetail> findAllProductImportDetail(int id) {
+        return productImportDAO.findAll(id);
     }
 }
