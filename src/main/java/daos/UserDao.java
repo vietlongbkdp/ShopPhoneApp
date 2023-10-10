@@ -182,4 +182,19 @@ public class UserDao extends DatabaseConnection{
         }
 
     }
+
+    public int getQuantitytUserByRole(int role_id) {
+        String QUANTITY_BY_ROLE = "Select count(1) as quantity from users where role_id =?";
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(QUANTITY_BY_ROLE);
+            preparedStatement.setInt(1, role_id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                return resultSet.getInt("quantity");
+            } else return 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

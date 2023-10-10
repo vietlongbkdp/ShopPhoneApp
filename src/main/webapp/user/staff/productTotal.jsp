@@ -22,7 +22,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/shopping?action=shopping">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/main?action=shopping">
             <div class="sidebar-brand-icon">
                 <i class="fas fa-home"></i>
             </div>
@@ -153,7 +153,7 @@
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">${totalUser}</div>
                                     </div>
                                     <div class="col-auto">
-                                        <i class="fas fa-users-cog fa-2x text-gray-300"></i>
+                                        <i class="fas fa-tablet-alt fa-2x text-gray-300"></i>
                                     </div>
                                 </div>
                             </div>

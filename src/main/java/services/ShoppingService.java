@@ -8,6 +8,7 @@ import services.dto.Page;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,8 +31,8 @@ public class ShoppingService {
         cartDao.createCart(id);
     }
 
-    public void createCartDetail(User user, HttpServletRequest req) {
-        cartDao.createCartDetail(cartDao.findCartId(user.getId()), Integer.parseInt(req.getParameter("id")));
+    public void createCartDetail(User user, int id,int quantity) {
+        cartDao.createCartDetail(cartDao.findCartId(user.getId()), id,quantity);
     }
 
     public int findCartIdByUserId(User user) {
@@ -76,11 +77,11 @@ public class ShoppingService {
         return check;
     }
 
-    public void updateCartDetail(Cart cart, int idProduct) {
+    public void updateCartDetail(Cart cart, int idProduct,int quantity) {
         List<CartDetail> cartDetails = cart.getCartDetails();
         for (var cartDetail : cartDetails) {
             if (cartDetail.getProduct().getId() == idProduct) {
-                cartDetail.setQuantity(cartDetail.getQuantity() + 1);
+                cartDetail.setQuantity(cartDetail.getQuantity() + quantity);
                 cartDao.updateCartDetail(cart.getId(), idProduct, cartDetail.getQuantity());
             }
         }
@@ -128,5 +129,14 @@ public class ShoppingService {
      }
      public void updateOrderStatus (String status, int idOrder){
         orderDao.updateStatusOrder(status,idOrder);
+     }
+     public CartDetail findCartDetail(int id){
+        return cartDao.findCartDetailByCartDetailID(id);
+     }
+     public List<CartDetail> findListCartDetail(List<Integer> cartDetails){
+        List<CartDetail> cartDetails1 = new ArrayList<>();
+        for (var cartDetail :cartDetails ){
+            cartDetails1.add(findCartDetail(cartDetail));
+        }return cartDetails1;
      }
 }

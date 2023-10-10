@@ -22,7 +22,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/shopping?action=shopping">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/main?action=shopping">
             <div class="sidebar-brand-icon">
                 <i class="fas fa-home"></i>
             </div>
@@ -152,7 +152,7 @@
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 <a href="/admin">LIST USER</a>
                                             </div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${totalUser}</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${num_User_total}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-users-cog fa-2x text-gray-300"></i>
@@ -170,7 +170,7 @@
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                             <a href="#">Admin</a>
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">${totalProduct}</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">${num_Admin}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-tablet-alt fa-2x text-gray-300"></i>
@@ -191,7 +191,7 @@
                                         </div>
                                         <div class="row no-gutters align-items-center">
                                             <div class="col-auto">
-                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${totalOrder}</div>
+                                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">${num_Staff}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -212,7 +212,7 @@
                                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                             <a href="#">Client</a>
                                         </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">${totalBranch}</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">${num_Client}</div>
                                     </div>
                                     <div class="col-auto">
                                         <i class="fas fa-mobile fa-2x text-gray-300"></i>

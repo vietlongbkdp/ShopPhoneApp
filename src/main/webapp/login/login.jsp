@@ -36,11 +36,11 @@
                                 <form class="user" action="/login?action=login" method="post">
                                     <div class="form-group">
                                         <input type="text" class="form-control form-control-user"
-                                               id="userName" aria-describedby="emailHelp"
+                                               id="userName" aria-describedby="emailHelp" value="thang123"
                                                placeholder="Enter User Name" name="userName" required>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control form-control-user"
+                                        <input type="password" class="form-control form-control-user" value="123"
                                                id="exampleInputPassword" placeholder="Password" name="password" required>
                                     </div>
                                     <input type="submit" value="Login" class="btn btn-primary btn-user btn-block">

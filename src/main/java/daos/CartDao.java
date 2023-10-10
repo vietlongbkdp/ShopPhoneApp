@@ -79,12 +79,13 @@ public class CartDao extends DatabaseConnection {
         }
     }
 
-    public void createCartDetail(int cartId, int productId) {
-        String CREATE = "INSERT INTO `bandienthoai`.`cart_details` (`cart_id`, `product_id`, `quantity`) VALUES (?, ?, '1');";
+    public void createCartDetail(int cartId, int productId, int quantity) {
+        String CREATE = "INSERT INTO `bandienthoai`.`cart_details` (`cart_id`, `product_id`, `quantity`) VALUES (?, ?, ?);";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE)) {
             preparedStatement.setInt(1, cartId);
             preparedStatement.setInt(2, productId);
+            preparedStatement.setInt(3, quantity);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -149,6 +150,21 @@ public class CartDao extends DatabaseConnection {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+    public CartDetail findCartDetailByCartDetailID(int id ){
+        String SELECT = "SELECT * FROM bandienthoai.cart_details where id = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT)) {
+            System.out.println(preparedStatement);
+            preparedStatement.setInt(1, id);
+            var rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                return getCartDetailByRs(rs);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 
     public List<CartDetail> findListCartDetailByCartID(int cartId) {

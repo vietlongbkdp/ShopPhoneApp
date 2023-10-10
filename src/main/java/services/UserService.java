@@ -9,6 +9,7 @@ import models.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Date;
+import java.util.Collection;
 import java.util.List;
 
 public class UserService {
@@ -105,9 +106,19 @@ public class UserService {
     public boolean checkProfileUser(int id) {
         var check = true;
         User user = userDao.getUserById(id);
-        if (user.getAddress() == null || user.getPhone() == null) {
+        if (user.getAddress() ==null|| user.getPhone()==null||user.getAddress().isEmpty()||user.getPhone().isEmpty() ) {
             check = false;
         }
         return check;
+    }
+
+    public int getQuantityAdmin() {
+        return userDao.getQuantitytUserByRole(1);
+    }
+    public int getQuantityStaff() {
+        return userDao.getQuantitytUserByRole(2);
+    }
+    public int getQuantityClient() {
+        return userDao.getQuantitytUserByRole(3);
     }
 }

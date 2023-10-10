@@ -22,7 +22,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/shopping?action=shopping">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/main?action=shopping">
             <div class="sidebar-brand-icon">
                 <i class="fas fa-home"></i>
             </div>
@@ -185,7 +185,6 @@
             <!-- End of Main Content -->
             <div class="card-header py-3" style="display: flex; justify-content: space-between">
                 <h6 class="m-0 font-weight-bold text-primary">Order Detail</h6>
-                <button class="btn btn-primary" onclick="goBack()">Back</button>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

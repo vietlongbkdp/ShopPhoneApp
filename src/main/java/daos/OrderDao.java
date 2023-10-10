@@ -86,8 +86,9 @@ public class OrderDao extends DatabaseConnection {
         String CREATE = "INSERT INTO `bandienthoai`.`order_details` (`quantity`, `product_id`, `order_id`) VALUES (?, ?, ?);";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE)) {
-            preparedStatement.setInt(1, productId);
-            preparedStatement.setInt(2, orderId);
+            preparedStatement.setInt(1, quantity);
+            preparedStatement.setInt(2, productId);
+            preparedStatement.setInt(3, orderId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

@@ -13,8 +13,9 @@ public class DatabaseConnection {
     private final String JDBC_USERNAME = "root";
     //                            password của mình
 
+    
+    private final String JDBC_PASSWORD = "Long1234@@";
 
-    private final String JDBC_PASSWORD = "11061999";
 
 
 
