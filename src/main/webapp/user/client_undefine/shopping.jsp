@@ -204,9 +204,9 @@
             <c:forEach var="i" begin="1" end="3">
                 <div class="col d-flex justify-content-center">
                     <div class="card" style="width: 17rem; border-radius: 8px">
-                        <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
+                        <a href="/user/client_undefine/productDetailShow.jsp"><img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14"></a>
                         <div class="card-body text-center" >
-                            <h5 class="card-title">Iphone 14 ProMax</h5>
+                            <a href="/user/client_undefine/productDetailShow.jsp"><h5 class="card-title">Iphone 14 ProMax</h5></a>
                             <div class="row">
                                 <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-memory"></i> 8GB</div>
                                 <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-database"></i> 128GB</div>
@@ -237,34 +237,34 @@
     <div class="container">
         <div class="row row-cols-4 row-cols-md-4 g-4">
             <c:forEach var="i" begin="1" end="12">
-            <div class="col d-flex justify-content-center">
-            <div class="card" style="width: 17rem; border-radius: 8px">
-                <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
-                <div class="card-body text-center" >
-                    <h5 class="card-title">Iphone 14 ProMax</h5>
-                    <div class="row">
-                        <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-memory"></i> 8GB</div>
-                        <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-database"></i> 128GB</div>
-                    </div>
-                    <div class="row">
-                        <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-camera"></i> 12MP</div>
-                        <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-battery-three-quarters"></i> 5000mA</div>
-                    </div>
-                    <p style="color:red; font-weight: bold" class="card-text">570 USD</p>
-                    <c:if test="${user.role.roleName != 'Admin'&& user.role.roleName != 'Staff'}">
-                        <div>
-                            <a href="#addToCart" class="btn btn-warning"> <i class="fas fa-cart-plus"></i>AddCart</a>
-                            <a href="#buyNow" class="btn btn-primary"><i class="fas fa-credit-card"></i> BuyNow</a>
+                <div class="col d-flex justify-content-center">
+                    <div class="card" style="width: 17rem; border-radius: 8px">
+                        <a href="/user/client_undefine/productDetailShow.jsp"><img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14"></a>
+                        <div class="card-body text-center" >
+                            <a href="/user/client_undefine/productDetailShow.jsp"><h5 class="card-title">Iphone 14 ProMax</h5></a>
+                            <div class="row">
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-memory"></i> 8GB</div>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-database"></i> 128GB</div>
+                            </div>
+                            <div class="row">
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-camera"></i> 12MP</div>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-battery-three-quarters"></i> 5000mA</div>
+                            </div>
+                            <p style="color:red; font-weight: bold" class="card-text">570 USD</p>
+                            <c:if test="${user.role.roleName != 'Admin'&& user.role.roleName != 'Staff'}">
+                                <div>
+                                    <a href="#addToCart" class="btn btn-warning"> <i class="fas fa-cart-plus"></i>AddCart</a>
+                                    <a href="/user/client_undefine/productDetailShow.jsp" class="btn btn-primary"><i class="fas fa-credit-card"></i> BuyNow</a>
+                                </div>
+                            </c:if>
+                            <c:if test="${user.role.roleName == 'Admin'|| user.role.roleName == 'Staff'}">
+                                <div>
+                                    <a href="#buyNow" class="btn btn-primary"><i class="fas fa-info"></i>  Detail</a>
+                                </div>
+                            </c:if>
                         </div>
-                    </c:if>
-                    <c:if test="${user.role.roleName == 'Admin'|| user.role.roleName == 'Staff'}">
-                        <div>
-                            <a href="#buyNow" class="btn btn-primary"><i class="fas fa-info"></i>  Detail</a>
-                        </div>
-                    </c:if>
+                    </div>
                 </div>
-            </div>
-        </div>
             </c:forEach>
         </div>
         <nav aria-label="Page navigation example">
