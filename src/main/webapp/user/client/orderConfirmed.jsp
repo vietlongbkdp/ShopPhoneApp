@@ -22,7 +22,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/shopping?action=shopping">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/main?action=shopping">
             <div class="sidebar-brand-icon">
                 <i class="fas fa-home"></i>
             </div>
@@ -97,7 +97,7 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="/cart?action=profile">
+                            <a class="dropdown-item" href="/shopping?action=profile">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
@@ -188,16 +188,14 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <a> Vui lòng thanh toán qua mã QR sau</a>
-                    <%--                   <img src="">--%>
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
                             <th>Order Code</th>
                             <th>Order Date</th>
                             <th>Total Amount</th>
-                            <th>Action</th>
-                            <th>Action</th>
+                            <th >Action</th>
+                            <th >Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -210,7 +208,7 @@
                                     <a href="/order-client?action=detail&id=${od.id}" class="btn btn-danger ">Detail</a>
                                 </td>
                                 <td>
-                                    <a href="/order-client?action=detail&id=${od.id}" class="btn btn-danger ">ReBuy</a>
+                                    <a href="/cart?action=reBuy&id=${od.id}&url=Confirmed" class="btn btn-danger ">ReBuy</a>
                                 </td>
                             </tr>
                         </c:forEach>

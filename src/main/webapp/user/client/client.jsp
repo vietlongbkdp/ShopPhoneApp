@@ -65,7 +65,7 @@
                     <td>${product.price}</td>
                     <td>${product.quantity}</td>
                     <td>
-                        <a href="/shopping?action=detail&id=${product.id}" class="btn btn-primary">Product Detail</a>
+                        <a href="/main?action=detail&id=${product.id}" class="btn btn-primary">Product Detail</a>
                         <a href="/cart?action=cart&id=${product.id}" class="btn btn-primary addToCartBtn">Add to Cart</a>
                     </td>
                 </tr>

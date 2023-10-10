@@ -105,7 +105,7 @@ public class UserService {
     public boolean checkProfileUser(int id) {
         var check = true;
         User user = userDao.getUserById(id);
-        if (user.getAddress() == null || user.getPhone() == null) {
+        if (user.getAddress().isEmpty() || user.getPhone().isEmpty()) {
             check = false;
         }
         return check;

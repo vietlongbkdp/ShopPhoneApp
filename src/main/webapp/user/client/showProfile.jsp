@@ -455,7 +455,7 @@
                                     </div>
                                 <c:if test="${user.role.roleName == 'Client'}">
                                     <div class="col-md-6 text-center">
-                                        <a href="/shopping?action=shopping" class="btn btn-warning">Back to Shopping</a>
+                                        <a href="/main?action=shopping" class="btn btn-warning">Back to Shopping</a>
                                     </div>
                                 </c:if>
                                 <c:if test="${user.role.roleName == 'Admin' || user.role.roleName == 'Staff'}">

@@ -46,6 +46,9 @@ public class OrderController extends HttpServlet {
     }
 
     private void showDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("orderCM", shoppingService.findAllByStatus("CONFIRMING"));
+        req.setAttribute("orderCD", shoppingService.findAllByStatus("CONFIRMED"));
+        req.setAttribute("orderC", shoppingService.findAllByStatus("CANCELED"));
         int idOrder = Integer.parseInt(req.getParameter("id"));
         req.setAttribute("orderDetails",shoppingService.findAllOD(idOrder));
         req.getRequestDispatcher("/user/admin/orderDetail.jsp").forward(req, resp);

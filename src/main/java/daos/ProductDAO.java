@@ -28,6 +28,7 @@ public class ProductDAO extends DatabaseConnection {
         }
         return null;
     }
+
     public Product findByIdProduct(int id) {
         var SELECT_BY_ID = "SELECT p.*, b.name branch_name " + "FROM products p JOIN branchs b on " + "b.id = p.branch_id " + "WHERE p.id = ? and p.deleted = '0'";
         try (Connection connection = getConnection();
@@ -77,7 +78,7 @@ public class ProductDAO extends DatabaseConnection {
             System.out.println(preparedStatement);
             var rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                content.add(getProductByResultSet(rs));
+                content.add(getProductByRs(rs));
             }
             result.setContent(content);
             var preparedStatementCount = connection.prepareStatement(SELECT_COUNT);
@@ -95,7 +96,7 @@ public class ProductDAO extends DatabaseConnection {
         return result;
     }
 
-    public List<Product> findAll(){
+    public List<Product> findAll() {
         var content = new ArrayList<Product>();
         var SELECT_ALL = "SELECT p.*, b.name AS branch_name " +
                 "FROM products p " +
@@ -128,7 +129,7 @@ public class ProductDAO extends DatabaseConnection {
             preparedStatement.setString(9, product.getCamera());
             preparedStatement.setString(10, product.getOperatingSystem());
             preparedStatement.setString(11, product.getPin());
-            preparedStatement.setInt(12,product.getId());
+            preparedStatement.setInt(12, product.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -198,4 +199,153 @@ public class ProductDAO extends DatabaseConnection {
         return product;
     }
 
+    public Page<Product> findAllProduct(int page, boolean isShowRestore, String search, String ePriceRange, String branchName) {
+        var result = new Page<Product>();
+        final int TOTAL_ELEMENT = 6;
+        result.setCurrentPage(page);
+        var content = new ArrayList<Product>();
+        if (search == null) {
+            search = "";
+        }
+        if (ePriceRange == null) {
+            ePriceRange = "%%";
+        }
+        if (branchName == null) {
+            branchName = "%%";
+        }
+
+        search = "%" + search.toLowerCase() + "%";
+        final var DELETED = isShowRestore ? 1 : 0;
+        var SELECT = "SELECT p.*, b.name AS branch_name\n" +
+                "FROM products p\n" +
+                "JOIN branchs b ON b.id = p.branch_id\n" +
+                "WHERE p.deleted = ?\n" +
+                "  AND b.name = ?\n" +
+                "  AND (\n" +
+                "    LOWER(p.productName) LIKE ?\n" +
+                "    OR LOWER(b.name) LIKE ?\n" +
+                "  ) AND p.price_range = ?  "+
+                " LIMIT ? OFFSET ?";
+
+        var SELECT_COUNT = "SELECT COUNT(1) cnt " +  "FROM products p\n" +
+                "JOIN branchs b ON b.id = p.branch_id\n" +
+                "WHERE p.deleted = ?\n" +
+                "  AND b.name = ?\n" +
+                "  AND (\n" +
+                "    LOWER(p.productName) LIKE ?\n" +
+                "    OR LOWER(b.name) LIKE ?\n" +
+                "  ) AND p.price_range = ?  ";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT)) {
+            preparedStatement.setInt(1, DELETED);
+            preparedStatement.setString(2, branchName);
+            preparedStatement.setString(3, search);
+            preparedStatement.setString(3, search);
+            preparedStatement.setString(5, ePriceRange);
+            preparedStatement.setInt(6, TOTAL_ELEMENT);
+            preparedStatement.setInt(7, (page - 1) * TOTAL_ELEMENT);
+            System.out.println(preparedStatement);
+            var rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                content.add(getProductByRs(rs));
+                result.setContent(content);
+                var preparedStatementCount = connection.prepareStatement(SELECT_COUNT);
+                preparedStatement.setInt(1, DELETED);
+                preparedStatement.setString(2, branchName);
+                preparedStatement.setString(3, search);
+                preparedStatement.setString(3, search);
+                preparedStatement.setString(5, ePriceRange);
+                var rsCount = preparedStatementCount.executeQuery();
+                if (rsCount.next()) {
+                    result.setTotalPage((int) Math.ceil((double) rsCount.getInt("cnt") / TOTAL_ELEMENT));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+    public Page<Product> findAllProductIfNULL(int page, boolean isShowRestore, String search, String ePriceRange, String branchName) {
+        var result = new Page<Product>();
+        final int TOTAL_ELEMENT = 6;
+        result.setCurrentPage(page);
+        var content = new ArrayList<Product>();
+        if (search == null) {
+            search = "";
+        }
+        if (ePriceRange == null) {
+            ePriceRange = "%%";
+        }
+        if (branchName == null) {
+            branchName = "%%";
+        }
+
+        search = "%" + search.toLowerCase() + "%";
+        final var DELETED = isShowRestore ? 1 : 0;
+        var SELECT = "SELECT p.*, b.name AS branch_name\n" +
+                "FROM products p\n" +
+                "JOIN branchs b ON b.id = p.branch_id\n" +
+                "WHERE p.deleted = ?\n" +
+                "  AND b.name = ?\n" +
+                "  AND (\n" +
+                "    LOWER(p.productName) LIKE ?\n" +
+                "    OR LOWER(b.name) LIKE ?\n" +
+                "  ) OR p.price_range = ? "+
+                " LIMIT ? OFFSET ?";
+        var SELECT_COUNT = "SELECT COUNT(1) cnt " + "FROM products p\n" +
+                "JOIN branchs b ON b.id = p.branch_id\n" +
+                "WHERE p.deleted = ?\n" +
+                "  AND b.name = ?\n" +
+                "  AND (\n" +
+                "    LOWER(p.productName) LIKE ?\n" +
+                "    OR LOWER(b.name) LIKE ?\n" +
+                "  ) OR p.price_range = ? ";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT)) {
+            preparedStatement.setInt(1, DELETED);
+            preparedStatement.setString(2, branchName);
+            preparedStatement.setString(3, search);
+            preparedStatement.setString(3, search);
+            preparedStatement.setString(5, ePriceRange);
+            preparedStatement.setInt(6, TOTAL_ELEMENT);
+            preparedStatement.setInt(7, (page - 1) * TOTAL_ELEMENT);
+            System.out.println(preparedStatement);
+            var rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                content.add(getProductByRs(rs));
+                result.setContent(content);
+                var preparedStatementCount = connection.prepareStatement(SELECT_COUNT);
+                preparedStatement.setInt(1, DELETED);
+                preparedStatement.setString(2, branchName);
+                preparedStatement.setString(3, search);
+                preparedStatement.setString(3, search);
+                preparedStatement.setString(5, ePriceRange);
+                var rsCount = preparedStatementCount.executeQuery();
+                if (rsCount.next()) {
+                    result.setTotalPage((int) Math.ceil((double) rsCount.getInt("cnt") / TOTAL_ELEMENT));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+    private Product getProductByRs(ResultSet rs) throws SQLException {
+        var product = new Product();
+        product.setId(rs.getInt("id"));
+        product.setProductName(rs.getString("productName"));
+        product.setBranch(new Branch(rs.getInt("branch_id"), rs.getString("branch_name")));
+        product.setImage(rs.getString("image"));
+        product.setPrice(rs.getBigDecimal("price"));
+        product.setQuantity(rs.getInt("quantity"));
+        product.setWarrantyPeriod(rs.getString("warrantyPeriod"));
+        product.setRam(rs.getString("ram"));
+        product.setSize(rs.getString("size"));
+        product.setColor(rs.getString("color"));
+        product.setCamera(rs.getString("camera"));
+        product.setOperatingSystem(rs.getString("operatingSystem"));
+        product.setPin(rs.getString("pin"));
+        product.setePriceRange(EPriceRange.valueOf(rs.getString("price_range")));
+        return product;
+    }
 }

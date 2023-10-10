@@ -22,7 +22,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/shopping?action=shopping">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/main?action=shopping">
             <div class="sidebar-brand-icon">
                 <i class="fas fa-home"></i>
             </div>
@@ -112,7 +112,7 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="/cart?action=profile">
+                            <a class="dropdown-item" href="/shopping?action=profile">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
@@ -199,7 +199,7 @@
             </div>
             <!-- End of Main Content -->
             <div class="card-header py-3" style="display: flex; justify-content: space-between">
-                <h6 class="m-0 font-weight-bold text-primary">Order Confiming</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Order Confirmed</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -210,8 +210,9 @@
                             <th>Order date</th>
                             <th>Customer username</th>
                             <th>Total Amount</th>
-                            <th>Action</th>
-                            <th>Action</th>
+                            <th >Action</th>
+                            <th >Action</th>
+                            <th >Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -221,12 +222,15 @@
                                 <td>${od.orderDate}</td>
                                 <td>${od.user.userName}</td>
                                 <td>${od.totalAmount}</td>
-                                <td>
-                                    <a href="/order?action=confirm&id=${od.id}" class="btn btn-warning ">Confirm</a>
-                                </td>
-                                <td>
-                                    <a href="/order?action=cancel&id=${od.id}" class="btn btn-danger ">Cancel</a>
-                                </td>
+                                    <td>
+                                        <a href="/order?action=detail&id=${od.id}" class="btn btn-warning ">Detail</a>
+                                    </td>
+                                    <td>
+                                        <a href="/order?action=confirm&id=${od.id}" class="btn btn-warning ">Confirm</a>
+                                    </td>
+                                    <td>
+                                        <a href="/order?action=cancel&id=${od.id}" class="btn btn-danger ">Cancel</a>
+                                    </td>
                             </tr>
                         </c:forEach>
                         </tbody>
@@ -284,3 +288,12 @@
 <script src="/user/admin/assets/datatables-demo.js"></script>
 </body>
 </html>
+<%--<td>--%>
+<%--    <a href="/order?action=detail&id=${od.id}" class="btn btn-warning ">Detail</a>--%>
+<%--</td>--%>
+<%--<td>--%>
+<%--    <a href="/order?action=confirm&id=${od.id}" class="btn btn-warning ">Confirm</a>--%>
+<%--</td>--%>
+<%--<td>--%>
+<%--    <a href="/order?action=cancel&id=${od.id}" class="btn btn-danger ">Cancel</a>--%>
+<%--</td>--%>

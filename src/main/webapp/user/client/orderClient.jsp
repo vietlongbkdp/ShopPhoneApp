@@ -22,7 +22,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/shopping?action=shopping">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/main?action=shopping">
             <div class="sidebar-brand-icon">
                 <i class="fas fa-home"></i>
             </div>
@@ -97,7 +97,7 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="/cart?action=profile">
+                            <a class="dropdown-item" href="/shopping?action=profile">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
                             </a>
