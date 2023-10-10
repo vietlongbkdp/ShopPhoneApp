@@ -1,6 +1,7 @@
 package services;
 
 import daos.ProductDAO;
+import models.Branch;
 import models.Product;
 import services.dto.Page;
 
@@ -62,6 +63,9 @@ return  productDAO.findAllProduct(page,isShowRestore,search,ePriceRange,branchNa
         return result;
     }public Product findByIdProduct(int id ){
         return  productDAO.findByIdProduct(id);
+    }
+    public List<Branch> findAllBranch(){
+        return  productDAO.findAllBranch();
     }
 }
 

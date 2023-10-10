@@ -79,12 +79,13 @@ public class CartDao extends DatabaseConnection {
         }
     }
 
-    public void createCartDetail(int cartId, int productId) {
-        String CREATE = "INSERT INTO `bandienthoai`.`cart_details` (`cart_id`, `product_id`, `quantity`) VALUES (?, ?, '1');";
+    public void createCartDetail(int cartId, int productId, int quantity) {
+        String CREATE = "INSERT INTO `bandienthoai`.`cart_details` (`cart_id`, `product_id`, `quantity`) VALUES (?, ?, ?);";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(CREATE)) {
             preparedStatement.setInt(1, cartId);
             preparedStatement.setInt(2, productId);
+            preparedStatement.setInt(3, quantity);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

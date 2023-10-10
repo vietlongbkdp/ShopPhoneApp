@@ -1,5 +1,6 @@
 package controllers;
 
+import models.EPriceRange;
 import models.Product;
 import models.User;
 import services.ProductService;
@@ -34,11 +35,11 @@ public class MainController extends HttpServlet {
         }
     }
 
-    private void showDetail(HttpServletRequest req, HttpServletResponse resp) {
+    private void showDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id =Integer.parseInt(req.getParameter("id"));
         Product product=productService.findByIdProduct(id);
         req.setAttribute("product",product);
-        req.getRequestDispatcher("");
+        req.getRequestDispatcher("/user/client/shoppingDetail.jsp").forward(req,resp);
     }
 
     private void showlist(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -101,6 +102,8 @@ public class MainController extends HttpServlet {
                 req.setAttribute("page", productService.findAll(Integer.parseInt(pageString), isShowRestore, req.getParameter("search")));
                 req.setAttribute("branch", branch);
                 req.setAttribute("ePriceRange", ePriceRange);
+                req.setAttribute("branchs",productService.findAllBranch());
+                req.setAttribute("PriceRange", EPriceRange.values());
                 req.setAttribute("message", req.getParameter("message"));
                 req.setAttribute("isShowRestore", isShowRestore);
                 req.setAttribute("search", req.getParameter("search"));
@@ -112,6 +115,8 @@ public class MainController extends HttpServlet {
                 req.setAttribute("message", req.getParameter("message"));
                 req.setAttribute("isShowRestore", isShowRestore);
                 req.setAttribute("search", req.getParameter("search"));
+                req.setAttribute("branchs",productService.findAllBranch());
+                req.setAttribute("PriceRange", EPriceRange.values());
                 req.getRequestDispatcher(href).forward(req, resp);
             }else if(ePriceRange!=null&&branch!=null){
                 req.setAttribute("page", productService.findAllProductIfNull(Integer.parseInt(pageString), isShowRestore, req.getParameter("search"),ePriceRange,branch));
@@ -120,6 +125,8 @@ public class MainController extends HttpServlet {
                 req.setAttribute("message", req.getParameter("message"));
                 req.setAttribute("isShowRestore", isShowRestore);
                 req.setAttribute("search", req.getParameter("search"));
+                req.setAttribute("branchs",productService.findAllBranch());
+                req.setAttribute("PriceRange", EPriceRange.values());
                 req.getRequestDispatcher(href).forward(req, resp);
             }
 
@@ -133,6 +140,8 @@ public class MainController extends HttpServlet {
                 req.setAttribute("message", req.getParameter("message"));
                 req.setAttribute("isShowRestore", isShowRestore);
                 req.setAttribute("search", req.getParameter("search"));
+                req.setAttribute("branchs",productService.findAllBranch());
+                req.setAttribute("PriceRange", EPriceRange.values());
                 req.getRequestDispatcher(href).forward(req, resp);
             } else if (ePriceRange==null||branch==null) {
                 req.setAttribute("user",user);
@@ -142,6 +151,8 @@ public class MainController extends HttpServlet {
                 req.setAttribute("message", req.getParameter("message"));
                 req.setAttribute("isShowRestore", isShowRestore);
                 req.setAttribute("search", req.getParameter("search"));
+                req.setAttribute("branchs",productService.findAllBranch());
+                req.setAttribute("PriceRange", EPriceRange.values());
                 req.getRequestDispatcher(href).forward(req, resp);
             }else if(ePriceRange!=null&&branch!=null){
                 req.setAttribute("user",user);
@@ -151,6 +162,8 @@ public class MainController extends HttpServlet {
                 req.setAttribute("message", req.getParameter("message"));
                 req.setAttribute("isShowRestore", isShowRestore);
                 req.setAttribute("search", req.getParameter("search"));
+                req.setAttribute("branchs",productService.findAllBranch());
+                req.setAttribute("PriceRange", EPriceRange.values());
                 req.getRequestDispatcher(href).forward(req, resp);
             }
 

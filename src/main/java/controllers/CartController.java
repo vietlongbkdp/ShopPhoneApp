@@ -55,9 +55,36 @@ public class CartController extends HttpServlet {
         switch (action) {
             case "delete" -> delete(req, resp);
             case "buy" -> buy(req, resp);
+            case "buyNow" -> buyNow(req, resp);
+            case "addCart" -> addCart(req, resp);
             case "updateCart" -> updateCart(req, resp);
             case "payment" -> payment(req, resp);
         }
+    }
+
+    private void addCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        int idProduct = Integer.parseInt(req.getParameter("idProduct"));
+        int quantity = Integer.parseInt(req.getParameter("quantityB"));
+        Cart cart = shoppingService.findByUserId(user.getId());
+        if (shoppingService.checkProductInCart(cart.getId(), idProduct)) {
+            shoppingService.updateCartDetail(shoppingService.findByUserId(user.getId()), idProduct, quantity);
+        } else {
+            shoppingService.createCartDetail(user, idProduct,quantity);
+        }
+        resp.sendRedirect("/main?action=detail&id="+idProduct);
+
+    }
+
+    private void buyNow(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int idProduct = Integer.parseInt(req.getParameter("idProduct"));
+        int quantity = Integer.parseInt(req.getParameter("quantityB"));
+        Product product = productService.findByIdProduct(idProduct);
+        req.setAttribute("product", product);
+        req.setAttribute("idProduct", idProduct);
+        req.setAttribute("quantityB", quantity);
+        req.getRequestDispatcher("user/client/createOrder.jsp").forward(req, resp);
     }
 
     private void reBuy(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -80,7 +107,7 @@ public class CartController extends HttpServlet {
                 return;
             }
         }
-        req.setAttribute("OrderDTs",idOrder);
+        req.setAttribute("OrderDTs", idOrder);
         req.setAttribute("orderDetails", orderDetails);
         req.getRequestDispatcher("user/client/createOrder.jsp").forward(req, resp);
     }
@@ -90,13 +117,12 @@ public class CartController extends HttpServlet {
     }
 
     private void showlist(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("/shopping");
+        resp.sendRedirect("/main");
     }
 
     private void deleteCD(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         shoppingService.deleteCartDetail(Integer.parseInt(req.getParameter("id")));
-        String idu = req.getParameter("idu");
-        resp.sendRedirect("/cart?action=showCart&id=" + idu);
+        resp.sendRedirect("/cart?action=showCart");
     }
 
     private void showCart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -114,11 +140,11 @@ public class CartController extends HttpServlet {
         int cartid = shoppingService.findCartIdByUserId(user);
         int id = Integer.parseInt(req.getParameter("id"));
         if (shoppingService.checkProductInCart(cartid, id)) {
-            shoppingService.updateCartDetail(shoppingService.findByUserId(user.getId()), id);
+            shoppingService.updateCartDetail(shoppingService.findByUserId(user.getId()), id, 1);
         } else {
-            shoppingService.createCartDetail(user, req);
+            shoppingService.createCartDetail(user, id, 1);
         }
-        resp.sendRedirect("/shopping");
+        resp.sendRedirect("/main");
 
     }
 
@@ -127,14 +153,14 @@ public class CartController extends HttpServlet {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         String DetailIDS = req.getParameter("DetailIDS");
-        String OrderDTs= req.getParameter("OrderDTs");
+        String OrderDTs = req.getParameter("OrderDTs");
 //        String quantityB=req.getParameter("quantityB");
 //        String idProduct=req.getParameter("idProduct");
         if (!userService.checkProfileUser(user.getId())) {
             if (DetailIDS != null) {
                 resp.sendRedirect("/shopping?action=editProfile&DetailIDS=" + DetailIDS);
                 return;
-            } else if (OrderDTs!=null) {
+            } else if (OrderDTs != null) {
                 resp.sendRedirect("/shopping?action=editProfile&OrderDTs=" + OrderDTs);
                 return;
 //            }else if(quantityB!=null&&idProduct!=null){
@@ -173,7 +199,7 @@ public class CartController extends HttpServlet {
         String[] cDetailIDS = req.getParameterValues("cDetailID");
         Cart cart = shoppingService.findByUserId(user.getId());
         if (cDetailIDS == null) {
-            resp.sendRedirect("/shopping&message=Please choose product");
+            resp.sendRedirect("/main?message=Please choose product");
         } else if (cDetailIDS != null) {
             shoppingService.updateCartDetails(cart, req);
             var listCartDetailChoosen = shoppingService.cartDetails(shoppingService.findByUserId(user.getId()).getId(), 1);
@@ -205,7 +231,7 @@ public class CartController extends HttpServlet {
                     DetailIDS += ",";
                 }
             }
-            req.setAttribute("DetailIDS",DetailIDS);
+            req.setAttribute("DetailIDS", DetailIDS);
             req.setAttribute("cartDetails", shoppingService.cartDetails(cart.getId(), 1));
             req.getRequestDispatcher("user/client/createOrder.jsp").forward(req, resp);
         }

@@ -40,9 +40,9 @@ public class ClientController extends HttpServlet {
             action = "";
         }
         switch (action) {
-//            case "profile" -> showProfile(req, resp);
+            case "profile" -> showProfile(req, resp);
             case "editProfile" -> editProfile(req, resp);
-            default ->  showProfile(req, resp);
+            default ->  showlist(req, resp);
 
         }
     }
@@ -156,20 +156,23 @@ public class ClientController extends HttpServlet {
 //            req.setAttribute("cartDetails", shoppingService.findListCartDetail(cartDetailids));
 //            req.getRequestDispatcher("user/client/createOrder.jsp").forward(req, resp);
 //        }
-        if (DetailIDS != null) {
+        if (!DetailIDS.isEmpty()) {
             String[] cd = DetailIDS.split(",");
             userService.updateProfile(req);
             List<Integer> cartDetailids = Arrays.stream(cd)
                     .map(Integer::parseInt).toList();
             req.setAttribute("cartDetails", shoppingService.findListCartDetail(cartDetailids));
             req.getRequestDispatcher("user/client/createOrder.jsp").forward(req, resp);
-        } else if (OrderDTs != null) {
+        } else if (!OrderDTs.isEmpty()) {
+            userService.updateProfile(req);
             int idOrder = Integer.parseInt(req.getParameter("OrderDTs"));
             List<OrderDetail> orderDetails = shoppingService.findAllOD(idOrder);
             req.setAttribute("orderDetails", orderDetails);
             req.getRequestDispatcher("user/client/createOrder.jsp").forward(req, resp);
 //
 //        } else if (quantity != null && idProduct != null) {
+//            userService.updateProfile(req);
+
 //            int id = Integer.parseInt(req.getParameter("idProduct"));
 //            Product product = productService.findByIdProduct(id);
 //            int quantity1 = Integer.parseInt(quantity);

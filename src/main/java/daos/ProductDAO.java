@@ -348,4 +348,26 @@ public class ProductDAO extends DatabaseConnection {
         product.setePriceRange(EPriceRange.valueOf(rs.getString("price_range")));
         return product;
     }
+    public List<Branch> findAllBranch(){
+        var content = new ArrayList<Branch>();
+        var SELECT_ALL = "SELECT * FROM bandienthoai.branchs;";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL)) {
+            System.out.println(preparedStatement);
+            var rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                content.add(getBranchByResultSet(rs));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return content;
+    }
+
+    private Branch getBranchByResultSet(ResultSet rs) throws SQLException {
+        var branch = new Branch();
+        branch.setId(rs.getInt("id"));
+        branch.setName(rs.getString("name"));
+        return branch;
+    }
 }
