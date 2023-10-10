@@ -40,7 +40,7 @@ public class ProductController extends HttpServlet {
         switch (action) {
             case "create" -> showCreate(req, resp);
             case "edit" -> showEdit(req, resp);
-            case "restore" -> showRestore(req, resp);
+            case "showRestore" -> showRestore(req, resp);
             case "delete" -> delete(req, resp);
             default -> showList(req, resp);
         }
@@ -53,18 +53,14 @@ public class ProductController extends HttpServlet {
     }
 
     private void showRestore(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        showTable(req, true,"product/s.jsp", resp);
+        showTable(req, true,"product/restore.jsp", resp);
     }
 
     private void showTable(HttpServletRequest req, boolean isShowRestore, String href, HttpServletResponse resp) throws ServletException, IOException {
-        String pageString = req.getParameter("page");
-        if (pageString == null) {
-            pageString = "1";
-        }
-        req.setAttribute("page", productService.getProducts(Integer.parseInt(pageString), isShowRestore, req.getParameter("search")));
+
+        req.setAttribute("products",productService.findAllProductDto(isShowRestore));
         req.setAttribute("message", req.getParameter("message"));
         req.setAttribute("isShowRestore", isShowRestore);
-        req.setAttribute("search", req.getParameter("search"));
         req.getRequestDispatcher(href).forward(req, resp);
     }
 
@@ -87,12 +83,13 @@ public class ProductController extends HttpServlet {
 
     private void restore(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         productService.restore(req.getParameterValues("restoredProduct"));
-        resp.sendRedirect("/product?action=restore&message=Restored");
+        resp.sendRedirect("/product?action=showRestore&message=Restored");
     }
 
 
     private void showEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("product",(Product) productService.findById(Integer.parseInt(req.getParameter("id"))));
+        req.setAttribute("product", productService.findById(Integer.parseInt(req.getParameter("id"))));
+        Product product=productService.findById(Integer.parseInt(req.getParameter("id")));
         req.setAttribute("branchs", branchService.getBranchs());
         req.getRequestDispatcher("product/edit.jsp").forward(req, resp);
     }

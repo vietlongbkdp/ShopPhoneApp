@@ -3,6 +3,7 @@ package daos;
 import models.Branch;
 import models.EPriceRange;
 import models.Product;
+import services.dto.AllProductDto;
 import services.dto.Page;
 
 import java.sql.Connection;
@@ -13,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDAO extends DatabaseConnection {
-    public Object findById(int id) {
-        var SELECT_BY_ID = "SELECT p.*, b.name branch_name " + "FROM products p JOIN branchs b on " + "b.id = p.branch_id " + "WHERE p.id = ? and p.deleted = '0'";
+    public Product findById(int id) {
+        var SELECT_BY_ID = "SELECT * FROM bandienthoai.products where id = ? and deleted = '0'";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID)) {
             preparedStatement.setInt(1, id);
@@ -28,6 +29,7 @@ public class ProductDAO extends DatabaseConnection {
         }
         return null;
     }
+
     public Product findByIdProduct(int id) {
         var SELECT_BY_ID = "SELECT p.*, b.name branch_name " + "FROM products p JOIN branchs b on " + "b.id = p.branch_id " + "WHERE p.id = ? and p.deleted = '0'";
         try (Connection connection = getConnection();
@@ -95,14 +97,13 @@ public class ProductDAO extends DatabaseConnection {
         return result;
     }
 
-    public List<Product> findAll(){
+    public List<Product> findAll() {
         var content = new ArrayList<Product>();
         var SELECT_ALL = "SELECT p.*, b.name AS branch_name " +
                 "FROM products p " +
                 "JOIN branchs b ON b.id = p.branch_id ";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL)) {
-//            preparedStatement.setInt(1, 0);
             System.out.println(preparedStatement);
             var rs = preparedStatement.executeQuery();
             while (rs.next()) {
@@ -113,6 +114,70 @@ public class ProductDAO extends DatabaseConnection {
         }
         return content;
     }
+
+    public List<Product> findAllProduct(boolean isShowRestore) {
+        var content = new ArrayList<Product>();
+        final var DELETED = isShowRestore ? 1 : 0;
+        var SELECT_ALL = "SELECT p.*, b.name AS branch_name " +
+                "FROM products p " +
+                "JOIN branchs b ON b.id = p.branch_id " +
+                "WHERE " +
+                "    (p.deleted = ?)";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL)) {
+            System.out.println(preparedStatement);
+            preparedStatement.setInt(1, DELETED);
+            var rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                content.add(getProductByResultSet(rs));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return content;
+    }
+    public Branch findBranchByID(int id){
+        var SELECT_BY_ID = "SELECT * FROM bandienthoai.branchs where  id =?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID)) {
+            preparedStatement.setInt(1, id);
+            System.out.println(preparedStatement);
+            var rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                return getBranchByRs(rs);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    private Branch getBranchByRs(ResultSet rs) throws SQLException {
+        var branch = new Branch();
+        branch.setId(rs.getInt("id"));
+        branch.setName(rs.getString(" name"));
+        return branch;
+    }
+
+    private Product getProductByResultSet(ResultSet rs) throws SQLException {
+        var product = new Product();
+        product.setId(rs.getInt("id"));
+        product.setProductName(rs.getString("productName"));
+        product.setBranch(findBranchByID(rs.getInt("branch_id")));
+        product.setImage(rs.getString("image"));
+        product.setPrice(rs.getBigDecimal("price"));
+        product.setQuantity(rs.getInt("quantity"));
+        product.setWarrantyPeriod(rs.getString("warrantyPeriod"));
+        product.setRam(rs.getString("ram"));
+        product.setSize(rs.getString("size"));
+        product.setColor(rs.getString("color"));
+        product.setCamera(rs.getString("camera"));
+        product.setOperatingSystem(rs.getString("operatingSystem"));
+        product.setPin(rs.getString("pin"));
+        product.setePriceRange(EPriceRange.valueOf(rs.getString("price_range")));
+        return product;
+    }
+
 
     public void update(Product product) {
         String UPDATE = "UPDATE `bandienthoai`.`products` " + "SET `productName` = ?, `branch_id` = ?, `image` = ?, `price` = ?, `warrantyPeriod` = ?, `ram` = ?, `size` = ?, `color` = ?, `camera` = ?, `operatingSystem` = ?, `pin` = ? " + "WHERE (`id` = ?)";
@@ -128,7 +193,7 @@ public class ProductDAO extends DatabaseConnection {
             preparedStatement.setString(9, product.getCamera());
             preparedStatement.setString(10, product.getOperatingSystem());
             preparedStatement.setString(11, product.getPin());
-            preparedStatement.setInt(12,product.getId());
+            preparedStatement.setInt(12, product.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -137,7 +202,8 @@ public class ProductDAO extends DatabaseConnection {
 
     public void restore(int id) {
         String DELETE = "UPDATE `bandienthoai`.`products` " + "SET `deleted` = '0' " + "WHERE (`id` = ?)";
-        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE)) {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -179,23 +245,35 @@ public class ProductDAO extends DatabaseConnection {
         }
     }
 
-    private Product getProductByResultSet(ResultSet rs) throws SQLException {
-        var product = new Product();
-        product.setId(rs.getInt("id"));
-        product.setProductName(rs.getString("productName"));
-        product.setBranch(new Branch(rs.getInt("branch_id"), rs.getString("branch_name")));
-        product.setImage(rs.getString("image"));
-        product.setPrice(rs.getBigDecimal("price"));
-        product.setQuantity(rs.getInt("quantity"));
-        product.setWarrantyPeriod(rs.getString("warrantyPeriod"));
-        product.setRam(rs.getString("ram"));
-        product.setSize(rs.getString("size"));
-        product.setColor(rs.getString("color"));
-        product.setCamera(rs.getString("camera"));
-        product.setOperatingSystem(rs.getString("operatingSystem"));
-        product.setPin(rs.getString("pin"));
-        product.setePriceRange(EPriceRange.valueOf(rs.getString("price_range")));
-        return product;
+    public List<AllProductDto> findAllProductDto(boolean isShowRestore) {
+        var content = new ArrayList<AllProductDto>();
+        final var DELETED = isShowRestore ? 1 : 0;
+        var SELECT_ALL = "SELECT p.id, p.productName, p.quantity, b.name AS branchName, p.image, p.price\n" +
+                "FROM products p \n" +
+                "JOIN branchs b ON b.id = p.branch_id \n" +
+                "WHERE   (p.deleted = ?);";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL)) {
+            System.out.println(preparedStatement);
+            preparedStatement.setInt(1, DELETED);
+            var rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                content.add(getProductDtoByResultSet(rs));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return content;
     }
 
+    private AllProductDto getProductDtoByResultSet(ResultSet rs) throws SQLException {
+        var product = new AllProductDto();
+        product.setId(rs.getInt("id"));
+        product.setProductName(rs.getString("productName"));
+        product.setQuantity(rs.getInt("quantity"));
+        product.setBranchName(rs.getString("branchName"));
+        product.setUrlImage(rs.getString("image"));
+        product.setPrice(rs.getBigDecimal("price"));
+        return product;
+    }
 }
