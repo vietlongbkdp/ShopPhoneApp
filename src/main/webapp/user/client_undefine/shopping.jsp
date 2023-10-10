@@ -113,7 +113,7 @@
                     <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="price_range">
                         <option selected>Price Range</option>
                         <c:forEach var="priceRanges" items="${PriceRange}">
-                            <option value="${priceRanges}" ${priceRanges == ePriceRange ? 'selected' : ''} >${priceRanges}</option>
+                            <option value="${priceRanges}" ${priceRanges == ePriceRange ? 'selected' : ''} >${priceRanges.title}</option>
                         </c:forEach>
                     </select>
                 </div>
@@ -195,21 +195,21 @@
     <div style="background-color: #ceebe1; border-radius: 10px; border-style: solid; border-width: 2px; border-color: #1b1e21; margin-bottom: 2rem" class="container">
         <div class="d-flex justify-content-center"><h2  style="color: red">BEST SELLER OF MONTH</h2></div>
         <div class="row row-cols-1 row-cols-md-3 g-4 p-2">
-            <c:forEach var="i" begin="1" end="3">
+            <c:forEach var="productBS" items="${productBSs}">
                 <div class="col d-flex justify-content-center">
                     <div class="card" style="width: 17rem; border-radius: 8px">
-                        <a href="/user/client_undefine/productDetailShow.jsp"><img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14"></a>
+                        <a href="/user/client_undefine/productDetailShow.jsp"><img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="#"></a>
                         <div class="card-body text-center" >
-                            <a href="/user/client_undefine/productDetailShow.jsp"><h5 class="card-title">Iphone 14 ProMax</h5></a>
+                            <a href="/user/client_undefine/productDetailShow.jsp"><h5 class="card-title">${productBS.productName}</h5></a>
                             <div class="row">
-                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-memory"></i> 8GB</div>
-                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-database"></i> 128GB</div>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-memory"></i> ${productBS.ram}</div>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-database"></i> ${productBS.size}</div>
                             </div>
                             <div class="row">
-                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-camera"></i> 12MP</div>
-                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-battery-three-quarters"></i> 5000mA</div>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-camera"></i> ${productBS.camera}</div>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-battery-three-quarters"></i> ${productBS.pin}</div>
                             </div>
-                            <p style="color:red; font-weight: bold" class="card-text">570 USD</p>
+                            <p style="color:red; font-weight: bold" class="card-text">${productBS.price}</p>
                             <c:if test="${user.role.roleName != 'Admin'&& user.role.roleName != 'Staff'}">
                                 <div>
                                     <a href="#addToCart" class="btn btn-warning"> <i class="fas fa-cart-plus"></i>AddCart</a>
@@ -230,21 +230,21 @@
 
     <div class="container">
         <div class="row row-cols-4 row-cols-md-4 g-4">
-            <c:forEach var="i" begin="1" end="12">
+            <c:forEach var="pager" items="${page}">
                 <div class="col d-flex justify-content-center">
                     <div class="card" style="width: 17rem; border-radius: 8px">
                         <a href="/user/client_undefine/productDetailShow.jsp"><img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14"></a>
                         <div class="card-body text-center" >
-                            <a href="/user/client_undefine/productDetailShow.jsp"><h5 class="card-title">Iphone 14 ProMax</h5></a>
+                            <a href="/user/client_undefine/productDetailShow.jsp"><h5 class="card-title">${pager.productName}</h5></a>
                             <div class="row">
-                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-memory"></i> 8GB</div>
-                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-database"></i> 128GB</div>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-memory"></i> ${pager.ram}</div>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-database"></i> ${pager.size}</div>
                             </div>
                             <div class="row">
-                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-camera"></i> 12MP</div>
-                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-battery-three-quarters"></i> 5000mA</div>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-camera"></i> ${pager.camera}</div>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-battery-three-quarters"></i> ${pager.pin}</div>
                             </div>
-                            <p style="color:red; font-weight: bold" class="card-text">570 USD</p>
+                            <p style="color:red; font-weight: bold" class="card-text">${pager.price}</p>
                             <c:if test="${user.role.roleName != 'Admin'&& user.role.roleName != 'Staff'}">
                                 <div>
                                     <a href="#addToCart" class="btn btn-warning"> <i class="fas fa-cart-plus"></i>AddCart</a>
