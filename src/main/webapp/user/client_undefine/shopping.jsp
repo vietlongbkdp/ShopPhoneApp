@@ -216,10 +216,17 @@
                                 <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-battery-three-quarters"></i> 5000mA</div>
                             </div>
                             <p style="color:red; font-weight: bold" class="card-text">570 USD</p>
-                            <div>
-                                <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
-                                <a href="#buyNow" class="btn btn-primary">BuyNow  <i class="fas fa-credit-card"></i></a>
-                            </div>
+                            <c:if test="${user.role.roleName != 'Admin'&& user.role.roleName != 'Staff'}">
+                                <div>
+                                    <a href="#addToCart" class="btn btn-warning"> <i class="fas fa-cart-plus"></i>AddCart</a>
+                                    <a href="/user/client_undefine/productDetailShow.jsp" class="btn btn-primary"><i class="fas fa-credit-card"></i> BuyNow</a>
+                                </div>
+                            </c:if>
+                            <c:if test="${user.role.roleName == 'Admin'|| user.role.roleName == 'Staff'}">
+                                <div>
+                                    <a href="#buyNow" class="btn btn-primary"><i class="fas fa-info"></i>  Detail</a>
+                                </div>
+                            </c:if>
                         </div>
                     </div>
                 </div>
@@ -244,10 +251,17 @@
                         <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-battery-three-quarters"></i> 5000mA</div>
                     </div>
                     <p style="color:red; font-weight: bold" class="card-text">570 USD</p>
-                    <div>
-                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
-                        <a href="#buyNow" class="btn btn-primary">BuyNow  <i class="fas fa-credit-card"></i></a>
-                    </div>
+                    <c:if test="${user.role.roleName != 'Admin'&& user.role.roleName != 'Staff'}">
+                        <div>
+                            <a href="#addToCart" class="btn btn-warning"> <i class="fas fa-cart-plus"></i>AddCart</a>
+                            <a href="#buyNow" class="btn btn-primary"><i class="fas fa-credit-card"></i> BuyNow</a>
+                        </div>
+                    </c:if>
+                    <c:if test="${user.role.roleName == 'Admin'|| user.role.roleName == 'Staff'}">
+                        <div>
+                            <a href="#buyNow" class="btn btn-primary"><i class="fas fa-info"></i>  Detail</a>
+                        </div>
+                    </c:if>
                 </div>
             </div>
         </div>
