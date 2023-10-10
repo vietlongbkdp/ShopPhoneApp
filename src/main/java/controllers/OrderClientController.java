@@ -44,28 +44,36 @@ public class OrderClientController extends HttpServlet {
             default -> showOrder(req, resp);
         }
     }
+
     private void showDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        req.setAttribute("orders", shoppingService.findAllByUser("CONFIRMING", user.getId()));
+        req.setAttribute("orderCM", shoppingService.findAllByUser("CONFIRMING", user.getId()));
+        req.setAttribute("orderCD", shoppingService.findAllByUser("CONFIRMED", user.getId()));
+        req.setAttribute("orderC", shoppingService.findAllByUser("CANCELED", user.getId()));
         int idOrder = Integer.parseInt(req.getParameter("id"));
-        req.setAttribute("orderDetails",shoppingService.findAllOD(idOrder));
+        req.setAttribute("orderDetails", shoppingService.findAllOD(idOrder));
         req.getRequestDispatcher("/user/client/orderDetail.jsp").forward(req, resp);
     }
+
     private void showOrderConfirming(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        req.setAttribute("orders",shoppingService.findAllByUser("CONFIRMING",user.getId()));
-        req.setAttribute("orderCM",shoppingService.findAllByUser("CONFIRMING",user.getId()));
-        req.setAttribute("orderCD",shoppingService.findAllByUser("CONFIRMED",user.getId()));
-        req.setAttribute("orderC",shoppingService.findAllByUser("CANCELED",user.getId()));
+        req.setAttribute("orders", shoppingService.findAllByUser("CONFIRMING", user.getId()));
+        req.setAttribute("orderCM", shoppingService.findAllByUser("CONFIRMING", user.getId()));
+        req.setAttribute("orderCD", shoppingService.findAllByUser("CONFIRMED", user.getId()));
+        req.setAttribute("orderC", shoppingService.findAllByUser("CANCELED", user.getId()));
         req.getRequestDispatcher("/user/client/orderConfirming.jsp").forward(req, resp);
     }
 
     private void showOrderConfirmed(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        req.setAttribute("orders",shoppingService.findAllByUser("CONFIRMED",user.getId()));
-        req.setAttribute("orderCM",shoppingService.findAllByUser("CONFIRMING",user.getId()));
-        req.setAttribute("orderCD",shoppingService.findAllByUser("CONFIRMED",user.getId()));
-        req.setAttribute("orderC",shoppingService.findAllByUser("CANCELED",user.getId()));
+        req.setAttribute("orders", shoppingService.findAllByUser("CONFIRMED", user.getId()));
+        req.setAttribute("orderCM", shoppingService.findAllByUser("CONFIRMING", user.getId()));
+        req.setAttribute("orderCD", shoppingService.findAllByUser("CONFIRMED", user.getId()));
+        req.setAttribute("orderC", shoppingService.findAllByUser("CANCELED", user.getId()));
         req.getRequestDispatcher("/user/client/orderConfirmed.jsp").forward(req, resp);
 
     }
@@ -73,10 +81,10 @@ public class OrderClientController extends HttpServlet {
     private void showOrderCanceled(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        req.setAttribute("orders",shoppingService.findAllByUser("CANCELED",user.getId()));
-        req.setAttribute("orderCM",shoppingService.findAllByUser("CONFIRMING",user.getId()));
-        req.setAttribute("orderCD",shoppingService.findAllByUser("CONFIRMED",user.getId()));
-        req.setAttribute("orderC",shoppingService.findAllByUser("CANCELED",user.getId()));
+        req.setAttribute("orders", shoppingService.findAllByUser("CANCELED", user.getId()));
+        req.setAttribute("orderCM", shoppingService.findAllByUser("CONFIRMING", user.getId()));
+        req.setAttribute("orderCD", shoppingService.findAllByUser("CONFIRMED", user.getId()));
+        req.setAttribute("orderC", shoppingService.findAllByUser("CANCELED", user.getId()));
         req.getRequestDispatcher("/user/client/orderCanceled.jsp").forward(req, resp);
 
     }
@@ -84,10 +92,10 @@ public class OrderClientController extends HttpServlet {
     private void showOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        List<Order> orderList=shoppingService.findAllByUser("CONFIRMING",user.getId());
-        req.setAttribute("orderCM",shoppingService.findAllByUser("CONFIRMING",user.getId()));
-        req.setAttribute("orderCD",shoppingService.findAllByUser("CONFIRMED",user.getId()));
-        req.setAttribute("orderC",shoppingService.findAllByUser("CANCELED",user.getId()));
+        List<Order> orderList = shoppingService.findAllByUser("CONFIRMING", user.getId());
+        req.setAttribute("orderCM", shoppingService.findAllByUser("CONFIRMING", user.getId()));
+        req.setAttribute("orderCD", shoppingService.findAllByUser("CONFIRMED", user.getId()));
+        req.setAttribute("orderC", shoppingService.findAllByUser("CANCELED", user.getId()));
         req.getRequestDispatcher("/user/client/orderClient.jsp").forward(req, resp);
     }
 

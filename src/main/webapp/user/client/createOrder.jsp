@@ -20,62 +20,109 @@
 <body>
 <div class="container">
     <div>
-        <a href="/shopping" class="btn btn-primary ">Home</a>
+        <a href="/main" class="btn btn-primary ">Home</a>
     </div>
-    <form method="post" id="cartForm" action="/cart?action=payment">
+    <form method="post" id="cartForm" action="${pageContext.request.contextPath}/cart?action=payment">
         <div class="card container px-6" style="height: 100vh">
             <h3 class="text-center">Payment page</h3>
             <c:if test="${message != null}">
                 <h6 class="d-none" id="message">${message}</h6>
             </c:if>
             <table class="table table-striped">
-                <tr>
-                    <th></th>
-                    <th>Product</th>
-                    <th></th>
-                    <th></th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total value</th>
-                </tr>
-                <c:forEach var="cartDetail" items="${cartDetails}">
+                <thead>
                     <tr>
-                        <td><input type="hidden" name="cartChecked" value="${cartDetail.checked}"></td>
-                        <td name="productIds" value="${cartDetail.product.id}">${cartDetail.product.productName}</td>
-                        <td><input type="hidden" value="${cartDetail.id}" name="cDetailID"></td>
-                        <td>${cartDetail.product.image}</td>
-                        <td>${cartDetail.product.price}</td>
-                        <td name="quantities" value="${cartDetail.quantity}">${cartDetail.quantity}</td>
-                        <td id="totalAmount_${cartDetail.id}" class="total_detail" >${cartDetail.totalAmount}</td>
+                        <th></th>
+                        <th>Product</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total value</th>
                     </tr>
-                </c:forEach>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>Total cost</td>
-                    <td id="total_amount_chosen"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>VAT 10%</td>
-                    <td id ="VAT"></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>Total cost including VAT</td>
-                    <td id="total_cost_VAT"></td>
-                </tr>
+                </thead>
+                <tbody>
+<%--                <input type="text" name="quantity" value="10" />--%>
+                <c:if test="${not empty cartDetails}">
+                    <c:forEach var="cartDetail" items="${cartDetails}">
+                        <tr>
+                            <td><input type="hidden" name="cartChecked" value="${cartDetail.checked}"></td>
+                            <td>${cartDetail.product.productName}</td>
+                            <td><input name="productIds" value="${cartDetail.product.id}"></td>
+                            <td><input type="hidden" value="${cartDetail.id}" name="DetailIDS"></td>
+                            <td>${cartDetail.product.image}</td>
+                            <td><input type="hidden" name="quantities" value="${cartDetail.quantity}"></td>
+                            <td>${cartDetail.product.price}</td>
+                            <td>${cartDetail.quantity}</td>
+                            <td id="totalAmount_${cartDetail.id}" class="total_detail">${cartDetail.totalAmount}</td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
+                <c:if test="${not empty orderDetails}">
+                    <c:forEach var="od" items="${orderDetails}">
+                        <tr>
+                            <td><input type="hidden"name="productIds" value="${od.product.id}"></td>
+                            <td>${od.product.productName}</td>
+                            <td></td>
+                            <td><input type="hidden" value="${OrderDTs}" name="OrderDTs"></td>
+                            <td>${od.product.image}</td>
+                            <td><input type="hidden" name="quantities" value="${od.quantity}"></td>
+                            <td>${od.product.price}</td>
+                            <td>${od.quantity}</td>
+                            <td id="totalAmount_${od.id}" class="total_detail">${od.totalAmount}</td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
+<%--<c:if test="${not empty product}">--%>
+<%--        <tr>--%>
+<%--            <td><input type="hidden" value="${idProduct}" name="idProduct"></td>--%>
+<%--            <td><input name="productIds" value="${product.id}">${product.productName}</td>--%>
+<%--            <td><input type="hidden" value="${quantityB}" name="quantityB"></td>--%>
+<%--            <td></td>--%>
+<%--            <td>${product.image}</td>--%>
+<%--            <td><input type="hidden" name="quantities" value="${quantityB}"></td>--%>
+<%--            <td>${product.price}</td>--%>
+<%--            <td>${quantityB}</td>--%>
+<%--            <td  class="total_detail"></td>--%>
+<%--        </tr>--%>
+<%--</c:if>--%>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Total cost</td>
+                        <td id="total_amount_chosen"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>VAT 10%</td>
+                        <td id="VAT"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Total cost including VAT</td>
+                        <td id="total_cost_VAT"></td>
+                    </tr>
+                </tfoot>
             </table>
             <div>
                 <button type="submit" class="btn btn-primary">Payment</button>
@@ -91,7 +138,7 @@
     if (message !== null && message.innerHTML) {
         toastr.success(message.innerHTML);
     }
-    window.addEventListener('DOMContentLoaded', function() {
+    window.addEventListener('DOMContentLoaded', function () {
         var totalAmountChosen = document.getElementById('total_amount_chosen');
         var vatElement = document.getElementById('VAT');
         var totalCostVATElement = document.getElementById('total_cost_VAT');

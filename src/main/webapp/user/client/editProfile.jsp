@@ -421,6 +421,10 @@
                             <div class="panel">
                                 <div class="container-fluid">
                                     <form class="user" action="/shopping?action=editProfile" method="post">
+                                        <input type="hidden" name="DetailIDS" value="${DetailIDS}">
+                                        <input type="hidden" name="OrderDTs" value="${OrderDTs}">
+                                        <input type="hidden" name="quantityB" value="${quantityB}">
+                                        <input type="hidden" name="idProduct" value="${idProduct}">
                                         <input type="hidden" name="url" id="urlInput">
                                         <div class="sidebar-brand-text mx-5 mb-3 font-weight-bold">EDIT PROFILE</div>
                                         <div class="col-sm-12 mb-3 mb-sm-3">User Name : ${user.userName}</div>
@@ -452,7 +456,7 @@
                                         </div>
                                         <input type="submit" value="Submit" class="btn btn-primary">
                                         <c:if test="${user.role.roleName == 'Client'}">
-                                            <a href="/shopping?action=shopping" class="btn btn-warning">Back to Shopping</a>
+                                            <a href="/main?action=shopping" class="btn btn-warning">Back to Shopping</a>
                                         </c:if>
                                         <c:if test="${user.role.roleName == 'Admin' || user.role.roleName == 'Staff'}">
                                             <a href="/total" class="btn btn-warning">Back to Management page</a>
@@ -470,6 +474,15 @@
     </div>
 
 </div>
+<script>
+    function getPreviousUrl() {
+        var previousUrl = document.referrer;
+        document.getElementById("urlInput").value = previousUrl;
+    }
+
+    // Gọi hàm lấy URL trước đó khi trang được tải
+    window.onload = getPreviousUrl;
+</script>
 <script src="../login/assets/jquery.min.js"></script>
 <script src="../login/assets/bootstrap.bundle.min.js"></script>
 <script src="../login/assets/jquery.easing.min.js"></script>

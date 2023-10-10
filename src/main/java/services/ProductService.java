@@ -2,6 +2,7 @@ package services;
 
 import daos.ProductDAO;
 import models.Product;
+import services.dto.Page;
 
 import java.util.List;
 
@@ -18,6 +19,15 @@ public class ProductService {
 
     public Object getProducts(int page, boolean isShowRestore, String search) {
         return productDAO.findAll(page, isShowRestore, search);
+    }
+    public Page<Product> findAll(int page,boolean isShowRestore,String search){
+        return (Page) productDAO.findAll(page,isShowRestore,search);
+    }
+    public Page<Product>findAllProduct(int page, boolean isShowRestore, String search, String ePriceRange, String branchName){
+return  productDAO.findAllProduct(page,isShowRestore,search,ePriceRange,branchName);
+    }
+    public Page<Product>findAllProductIfNull(int page, boolean isShowRestore, String search, String ePriceRange, String branchName){
+        return productDAO.findAllProductIfNULL(page,isShowRestore,search,ePriceRange,branchName);
     }
 
     public void update(Product product, int id) {

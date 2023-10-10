@@ -8,6 +8,7 @@ import services.dto.Page;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -128,5 +129,14 @@ public class ShoppingService {
      }
      public void updateOrderStatus (String status, int idOrder){
         orderDao.updateStatusOrder(status,idOrder);
+     }
+     public CartDetail findCartDetail(int id){
+        return cartDao.findCartDetailByCartDetailID(id);
+     }
+     public List<CartDetail> findListCartDetail(List<Integer> cartDetails){
+        List<CartDetail> cartDetails1 = new ArrayList<>();
+        for (var cartDetail :cartDetails ){
+            cartDetails1.add(findCartDetail(cartDetail));
+        }return cartDetails1;
      }
 }

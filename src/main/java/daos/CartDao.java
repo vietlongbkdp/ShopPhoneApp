@@ -150,6 +150,21 @@ public class CartDao extends DatabaseConnection {
             System.out.println(e.getMessage());
         }
     }
+    public CartDetail findCartDetailByCartDetailID(int id ){
+        String SELECT = "SELECT * FROM bandienthoai.cart_details where id = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT)) {
+            System.out.println(preparedStatement);
+            preparedStatement.setInt(1, id);
+            var rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                return getCartDetailByRs(rs);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 
     public List<CartDetail> findListCartDetailByCartID(int cartId) {
         var result = new ArrayList<CartDetail>();
