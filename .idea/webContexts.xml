@@ -4,13 +4,16 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/login/login.jsp" value="file://$PROJECT_DIR$/src/main/webapp/login" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/login/register.jsp" value="file://$PROJECT_DIR$/src/main/webapp/login" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/login/register2.jsp" value="file://$PROJECT_DIR$/src/main/webapp/login" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/login/testValid.html" value="file://$PROJECT_DIR$/src/main/webapp/login" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/product/create.jsp" value="file://$PROJECT_DIR$/src/main/webapp/product" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/user/admin/admin3.jsp" value="file://$PROJECT_DIR$/src/main/webapp/user/admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/user/admin/edit.jsp" value="file://$PROJECT_DIR$/src/main/webapp/user/admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/user/admin/managerTotal.jsp" value="file://$PROJECT_DIR$/src/main/webapp/user/admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/user/admin/managerUser.jsp" value="file://$PROJECT_DIR$/src/main/webapp/user/admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/user/client/orderConfirming.jsp" value="file://$PROJECT_DIR$/src/main/webapp/user/client" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/user/client_undefine/shopping.jsp" value="file://$PROJECT_DIR$/src/main/webapp/user/client_undefine" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/user/cliented/shopping.jsp" value="file://$PROJECT_DIR$/src/main/webapp/user/cliented" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/user/staff/productTotal.jsp" value="file://$PROJECT_DIR$/src/main/webapp/user/staff" />
       </map>

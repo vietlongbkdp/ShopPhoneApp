@@ -157,7 +157,7 @@
                                     <th>Gender</th>
                                     <th>Role</th>
                                     <th>Action</th>
-                                    <th>Action</th>
+<%--                                    <th>Action</th>--%>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -175,9 +175,9 @@
                                         <td>
                                             <a href="/admin?action=edit&id=${user.id}" class="btn btn-warning ">Edit</a>
                                         </td>
-                                        <td>
-                                            <a href="/admin?action=delete&id=${user.id}" class="btn btn-danger ">Delete</a>
-                                        </td>
+<%--                                        <td>--%>
+<%--                                            <a href="/admin?action=delete&id=${user.id}" class="btn btn-danger ">Delete</a>--%>
+<%--                                        </td>--%>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -235,7 +235,7 @@
 <script src="/user/admin/assets/bootstrap.bundle.min.js"></script>
 <script src="/user/admin/assets/jquery.easing.min.js"></script>
 <script src="/user/admin/assets/sb-admin-2.min.js"></script>
-<script src="/user/admin/assets/jquery.dataTables.min.js"></script>
+<%--<script src="/user/admin/assets/jquery.dataTables.min.js"></script>--%>
 <script src="/user/admin/assets/dataTables.bootstrap4.min.js"></script>
 <script src="/user/admin/assets/datatables-demo.js"></script>
 </body>

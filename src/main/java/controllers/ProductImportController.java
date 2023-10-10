@@ -33,8 +33,8 @@ public class ProductImportController extends HttpServlet {
             case "create":
                 showCreate(req, resp);
                 break;
-            case "update":
-                showUpdate(req, resp);
+            case "edit":
+                showEdit(req, resp);
                 break;
             case "delete":
                 delete(req, resp);
@@ -61,16 +61,16 @@ public class ProductImportController extends HttpServlet {
 
 
     private void showCreate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        var products = productService.fillAll();
+        var products = productService.findAll();
         req.setAttribute("products", products);
         req.setAttribute("productsJSON", new ObjectMapper().writeValueAsString(products));
         req.getRequestDispatcher("product-import/create.jsp").forward(req, resp);
     }
 
-    private void showUpdate(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        req.setAttribute("productImport", productImportService
-                .findById(Integer.parseInt(req.getParameter("id"))));
-        var products = productService.fillAll();
+    private void showEdit(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+
+        req.setAttribute("productImport", productImportService.findById(Integer.parseInt(req.getParameter("id"))));
+        var products = productService.findAll();
         req.setAttribute("products", products);
         req.setAttribute("productsJSON", new ObjectMapper().writeValueAsString(products));
         req.getRequestDispatcher("product-import/edit.jsp").forward(req, resp);
@@ -90,15 +90,15 @@ public class ProductImportController extends HttpServlet {
             case "create":
                 create(req, resp);
                 break;
-            case "update":
-                update(req, resp);
+            case "edit":
+                edit(req, resp);
                 break;
 
         }
     }
 
-    private void update(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        productImportService.update(req);
+    private void edit(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        productImportService.edit(req);
         resp.sendRedirect("/product-import?message=Updated Successfully");
     }
 

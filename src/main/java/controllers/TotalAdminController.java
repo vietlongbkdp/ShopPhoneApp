@@ -1,5 +1,7 @@
 package controllers;
 
+import daos.OrderDao;
+import services.BranchService;
 import services.ProductService;
 import services.UserService;
 
@@ -11,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 @WebServlet(name = "TotalAdminController", value = "/total")
 public class TotalAdminController extends HttpServlet {
+    private UserService userService;
+    private BranchService branchService;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
@@ -40,10 +44,12 @@ public class TotalAdminController extends HttpServlet {
     }
 
     private void showOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.sendRedirect("/order"); // getRequestDispatcher đến cartTotal
+
+        resp.sendRedirect("/order");
     }
 
     private void showBranch(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("num_branch",branchService.getBranchs().size() );
         req.getRequestDispatcher("/user/staff/branchTotal.jsp").forward(req, resp);
     }
 
@@ -52,11 +58,17 @@ public class TotalAdminController extends HttpServlet {
     }
 
     private void showListUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("num_Admin", userService.getQuantityAdmin());
+        req.setAttribute("num_Staff", userService.getQuantityStaff());
+        req.setAttribute("num_Client", userService.getQuantityClient());
+        int num_User_total = userService.getQuantityAdmin() + userService.getQuantityStaff() + userService.getQuantityClient();
+        req.setAttribute("num_User_total", num_User_total);
         req.getRequestDispatcher("/user/admin/userTotal.jsp").forward(req, resp);
     }
 
     @Override
     public void init() throws ServletException {
-        super.init();
+        userService = new UserService();
+        branchService = new BranchService();
     }
 }

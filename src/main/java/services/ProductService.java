@@ -49,7 +49,7 @@ return  productDAO.findAllProduct(page,isShowRestore,search,ePriceRange,branchNa
         productDAO.delete(id);
     }
 
-    public List<Product> fillAll() {
+    public List<Product> findAll() {
         return productDAO.findAll();
     }
 

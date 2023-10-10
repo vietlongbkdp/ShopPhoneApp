@@ -14,27 +14,24 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
+    <link href="css/style1.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-
 <div class="container">
-    <div class="card container px-6" style="height: 100vh">
-        <h3 class="text-center">Mobile Store</h3>
-        <c:if test="${message != null}">
-            <h6 class="d-none" id="message">${message}</h6>
-        </c:if>
-        <form action="/product" method="get">
-            <input type="hidden" name="action" value="restore"/>
-            <input type="text" id="searchBook" value="${search}" name="search"
-                   class="form-control d-flex" placeholder="Search product">
-            <button id="searchButton" class="btn btn-primary" type="submit">Search</button>
-        </form>
+    <h3 class="text-center">Restore Product</h3>
+    <c:if test="${message != null}">
+        <h6 class="d-none" id="message">${message}</h6>
+    </c:if>
 
-
-
-        <form id="restoreForm" action="/product?action=restore" method="post">
+    <form action="/product" method="get">
+        <input type="hidden" name="action" value="showRestore"> <!-- Thêm input hidden để truyền giá trị action -->
+        <input type="text" id="searchBook" value="${search}" name="search" class="form-control d-flex"
+               placeholder="Search product">
+        <button id="searchButton" class="btn btn-primary">Search</button>
+    </form>
+    <form action="/product?action=restore" method="post">
+        <div class="card container px-6" style="height: 100vh">
             <table class="table table-striped">
                 <tr>
                     <th>Id</th>
@@ -44,7 +41,6 @@
                     <th>Price</th>
                     <th>Action</th>
                 </tr>
-
                 <c:set var="hasProducts" value="false"/>
                 <c:forEach var="product" items="${page.content}">
                     <tr>
@@ -54,7 +50,7 @@
                         <td><img src="../images${product.image}" alt="" style="width: 100px;height: 100px"></td>
                         <td>${product.price}</td>
                         <td>
-                            <input type="checkbox" name="ids" value="${product.id}" class="product-check"/>
+                            <input type="checkbox" name="restoredProduct" value="${product.id}" class="myCheckBox">
                             <!-- Checkbox -->
                         </td>
                     </tr>
@@ -70,55 +66,57 @@
                         <td><input type="checkbox" id="selectAllCheckbox"> <!-- Checkbox to select all --></td>
                     </tr>
                 </c:if>
+
             </table>
-        </form>
-        <c:if test="${hasProducts}">
-            <nav aria-label="...">
-                <c:set var="url" value="/product?page="/>
-                <c:if test="${isShowRestore}">
-                    <c:set var="url" value="/product?action=restore&page="/>
-                </c:if>
-                <ul class="pagination">
-                    <li class="page-item <c:if test="${page.currentPage == 1}">disabled</c:if>">
-                        <a class="page-link" href="${url}${(page.currentPage - 1)}" tabindex="-1"
-                           aria-disabled="true">Previous</a>
-                    </li>
-                    <c:forEach var="number" begin="1" end="${page.totalPage}">
-                        <c:if test="${number == page.currentPage}">
-                            <li class="page-item active" aria-current="page">
-                                <a class="page-link" href="${url}${number}">${number}</a>
-                            </li>
-                        </c:if>
-                        <c:if test="${number != page.currentPage}">
-                            <li class="page-item">
-                                <a class="page-link" href="${url}${number}">${number}</a>
-                            </li>
-                        </c:if>
-                    </c:forEach>
-                    <li class="page-item <c:if test="${page.currentPage == page.totalPage}">disabled</c:if>">
-                        <a class="page-link" href="${url}${(page.currentPage + 1)}">Next</a>
-                    </li>
-                </ul>
-            </nav>
-        </c:if>
-        <div>
-            <a class="btn btn-primary" onclick="showConfirm()">Restore</a>
-            <a href="/product" class="btn btn-primary ">Cancel</a>
-        </div>
-        <div id="confirmDialog" class="modal">
-            <div class="modal-content">
-                <p>Are you sure to restore?</p>
-                <div class="button-container">
-                    <button type="button" onclick="confirmRestore()" class="btn btn-primary mb-2">Yes</button>
-                    <button onclick="hideConfirmDialog()">No</button>
+            <c:if test="${hasProducts}">
+                <nav aria-label="...">
+                    <c:set var="url" value="/product?page="/>
+                    <c:if test="${isShowRestore}">
+                        <c:set var="url" value="/product?action=restore&page="/>
+                    </c:if>
+                    <ul class="pagination">
+                        <li class="page-item <c:if test="${page.currentPage == 1}">disabled</c:if>">
+                            <a class="page-link" href="${url}${(page.currentPage - 1)}" tabindex="-1"
+                               aria-disabled="true">Previous</a>
+                        </li>
+                        <c:forEach var="number" begin="1" end="${page.totalPage}">
+                            <c:if test="${number == page.currentPage}">
+                                <li class="page-item active" aria-current="page">
+                                    <a class="page-link" href="${url}${number}">${number}</a>
+                                </li>
+                            </c:if>
+                            <c:if test="${number != page.currentPage}">
+                                <li class="page-item">
+                                    <a class="page-link" href="${url}${number}">${number}</a>
+                                </li>
+                            </c:if>
+                        </c:forEach>
+                        <li class="page-item <c:if test="${page.currentPage == page.totalPage}">disabled</c:if>">
+                            <a class="page-link" href="${url}${(page.currentPage + 1)}">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </c:if>
+            <div>
+                <a class="btn btn-primary" onclick="showConfirm()">Restore</a>
+                <a href="/product" class="btn btn-primary ">Cancel</a>
+            </div>
+            <div id="confirmDialog" class="modal">
+                <div class="modal-content">
+                    <p>Are you sure to restore?</p>
+                    <div class="button-container">
+                        <button type="submit" class="btn btn-primary mb-2">Yes</button>
+                        <button onclick="hideConfirmDialog()">No</button>
+                    </div>
                 </div>
             </div>
+
         </div>
-
-    </div>
-
+    </form>
+</div>
 </div>
 
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
@@ -127,7 +125,7 @@
     if (message !== null && message.innerHTML) {
         toastr.success(message.innerHTML);
     }
-    var checkboxes = document.querySelectorAll('.product-check');
+    var checkboxes = document.querySelectorAll('.myCheckBox');
     var checkedIds = [];
 
     function hideConfirmDialog() {
@@ -148,19 +146,13 @@
     }
 
     const selectAllCheckbox = document.getElementById('selectAllCheckbox');
-    const checkedboxes = document.getElementsByClassName('restoredProduct');
+    const checkedboxes = document.getElementsByName('restoredProduct');
 
     selectAllCheckbox.addEventListener('change', function () {
         checkedboxes.forEach(function (checkbox) {
             checkbox.checked = selectAllCheckbox.checked;
         });
     });
-
-    const confirmRestore = () => {
-        const form = document.getElementById('restoreForm');
-        form.submit();
-    }
-
 </script>
 </body>
 </html>
