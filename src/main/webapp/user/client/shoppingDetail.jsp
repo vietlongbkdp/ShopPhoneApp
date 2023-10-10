@@ -36,10 +36,10 @@
                     <tr>
                         <td>${product.productName}</td>
                         <td>${product.price}</td>
-                        <td><input type="number" name="quantityB" min="1" max="${product.quantity}" onblur="adjustValue()" id="myInput"></td>
+                        <td><input type="number" name="quantityB" min="1" max="${product.quantity}" onblur="adjustValue()" id="myInput" value="1"></td>
                         <td>
-                            <a class="btn btn-primary" onclick="setAction('/cart?action=buyNow')">Buy now</a>
-                            <a class="btn btn-primary" onclick="setAction('/cart?action=addCart')">Add to Cart</a>
+                            <a class="btn btn-primary" onclick="setActionCancel('/cart?action=buyNow')">Buy now</a>
+                            <a class="btn btn-primary" onclick="setActionCancel('/cart?action=addCart')">Add to Cart</a>
                         </td>
                     </tr>
             </table>

@@ -74,19 +74,19 @@
                         </tr>
                     </c:forEach>
                 </c:if>
-<%--<c:if test="${not empty product}">--%>
-<%--        <tr>--%>
-<%--            <td><input type="hidden" value="${idProduct}" name="idProduct"></td>--%>
-<%--            <td><input name="productIds" value="${product.id}">${product.productName}</td>--%>
-<%--            <td><input type="hidden" value="${quantityB}" name="quantityB"></td>--%>
-<%--            <td></td>--%>
-<%--            <td>${product.image}</td>--%>
-<%--            <td><input type="hidden" name="quantities" value="${quantityB}"></td>--%>
-<%--            <td>${product.price}</td>--%>
-<%--            <td>${quantityB}</td>--%>
-<%--            <td  class="total_detail"></td>--%>
-<%--        </tr>--%>
-<%--</c:if>--%>
+<c:if test="${not empty product}">
+        <tr>
+            <td><input type="hidden" value="${product.id}" name="idProduct"></td>
+            <td><input name="productIds" value="${product.id}">${product.productName}</td>
+            <td><input type="hidden" value="${quantityB}" name="quantityB"></td>
+            <td></td>
+            <td>${product.image}</td>
+            <td><input type="hidden" name="quantities" value="${quantityB}"></td>
+            <td>${product.price}</td>
+            <td>${quantityB}</td>
+            <td  class="total_detail"></td>
+        </tr>
+</c:if>
                 </tbody>
                 <tfoot>
                     <tr>

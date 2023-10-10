@@ -50,10 +50,10 @@ public class ClientController extends HttpServlet {
     private void editProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        String DetailIDS = req.getParameter("DetailIDS");   //null
+        String DetailIDS = req.getParameter("DetailIDS");
         String OrderDTs = req.getParameter("OrderDTs");
-//        String quantityB = req.getParameter("quantityB");
-//        String idProduct = req.getParameter("idProduct");
+        String quantityB = req.getParameter("quantityB");
+        String idProduct = req.getParameter("idProduct");
         if (DetailIDS != null) {
             req.setAttribute("userEdit", user);
             req.setAttribute("genders", EGender.values());
@@ -64,12 +64,12 @@ public class ClientController extends HttpServlet {
             req.setAttribute("genders", EGender.values());
             req.setAttribute("OrderDTs", OrderDTs);
             req.getRequestDispatcher("user/client/editProfile.jsp").forward(req, resp);
-//        } else if (quantityB!=null&&idProduct!=null) {
-//            req.setAttribute("userEdit", user);
-//            req.setAttribute("genders", EGender.values());
-//            req.setAttribute("quantityB", quantityB);
-//            req.setAttribute("idProduct", idProduct);
-//            req.getRequestDispatcher("user/client/editProfile.jsp").forward(req, resp);
+        } else if (quantityB!=null&&idProduct!=null) {
+            req.setAttribute("userEdit", user);
+            req.setAttribute("genders", EGender.values());
+            req.setAttribute("quantityB", quantityB);
+            req.setAttribute("idProduct", idProduct);
+            req.getRequestDispatcher("user/client/editProfile.jsp").forward(req, resp);
         }else {
             req.setAttribute("userEdit", user);
             req.setAttribute("genders", EGender.values());
@@ -143,8 +143,8 @@ public class ClientController extends HttpServlet {
     private void updateProfile(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String DetailIDS = req.getParameter("DetailIDS");
         String OrderDTs = req.getParameter("OrderDTs");
-//        String quantity = req.getParameter("quantityB");
-//        String idProduct = req.getParameter("idProduct");
+        String quantity = req.getParameter("quantityB");
+        String idProduct = req.getParameter("idProduct");
 //        if (DetailIDS==null) {
 //            userService.updateProfile(req);
 //            resp.sendRedirect("/shopping?action=showProfile&message=Update Success");
@@ -169,16 +169,14 @@ public class ClientController extends HttpServlet {
             List<OrderDetail> orderDetails = shoppingService.findAllOD(idOrder);
             req.setAttribute("orderDetails", orderDetails);
             req.getRequestDispatcher("user/client/createOrder.jsp").forward(req, resp);
-//
-//        } else if (quantity != null && idProduct != null) {
-//            userService.updateProfile(req);
-
-//            int id = Integer.parseInt(req.getParameter("idProduct"));
-//            Product product = productService.findByIdProduct(id);
-//            int quantity1 = Integer.parseInt(quantity);
-//            req.setAttribute("product", product);
-//            req.setAttribute("quantity", quantity1);
-//            req.getRequestDispatcher("user/client/createOrder.jsp").forward(req, resp);
+        } else if (!quantity.isEmpty()&& !idProduct.isEmpty()) {
+            userService.updateProfile(req);
+            int id = Integer.parseInt(req.getParameter("idProduct"));
+            Product product = productService.findByIdProduct(id);
+            int quantity1 = Integer.parseInt(quantity);
+            req.setAttribute("product", product);
+            req.setAttribute("quantityB", quantity1);
+            req.getRequestDispatcher("user/client/createOrder.jsp").forward(req, resp);
         } else {
             userService.updateProfile(req);
             resp.sendRedirect("/shopping?action=showProfile&message=Update Success");
