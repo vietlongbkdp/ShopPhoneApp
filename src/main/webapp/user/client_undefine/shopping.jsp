@@ -91,15 +91,12 @@
 <%--                </div>--%>
 <%--                <span class="toggle_icon" onclick="openNav()"><img src="images/toggle-icon.png"></span>--%>
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Branch
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <%--truyền vô list Branch xong forEach để hiển thị lên--%>
-                        <a class="dropdown-item" href="#">Apple</a>
-                        <a class="dropdown-item" href="#">Samsung</a>
-                        <a class="dropdown-item" href="#">Sony</a>
-                        <a class="dropdown-item" href="#">LG</a>
-                    </div>
+                        <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example">
+                            <option selected>All Branch</option>
+                            <c:forEach var="branchh" items="${branchs}">
+                                <option value="${branchh}" ${branchh == branch.name ? 'selected' : ''} >${branchh.name}</option>
+                            </c:forEach>
+                        </select>
                 </div>
                 <div class="main">
                     <!-- Another variation with a button -->
@@ -113,15 +110,12 @@
                     </div>
                 </div>
                 <div style="margin: 0" class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Price Range
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-<%--                   truyền vô list Price Range xong forEach để hiển thị lên--%>
-                        <a class="dropdown-item" href="#"> < 200$ </a>
-                        <a class="dropdown-item" href="#">200$ - 500$</a>
-                        <a class="dropdown-item" href="#">500$-1000$</a>
-                        <a class="dropdown-item" href="#"><1000$</a>
-                    </div>
+                    <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="price_range">
+                        <option selected>Price Range</option>
+                        <c:forEach var="priceRanges" items="${PriceRange}">
+                            <option value="${priceRanges}" ${priceRanges == ePriceRange ? 'selected' : ''} >${priceRanges}</option>
+                        </c:forEach>
+                    </select>
                 </div>
                 <div class="header_box">
                     <div class="login_menu">
@@ -323,6 +317,39 @@
 
     function closeNav() {
         document.getElementById("mySidenav").style.width = "0";
+    }
+    var priceRangeSelect = document.getElementById('price_range');
+    var priceRangeOptions = priceRangeSelect.getElementsByTagName('option');
+
+    for (var i = 0; i < priceRangeOptions.length; i++) {
+        var value = priceRangeOptions[i].value;
+        var displayText = '';
+
+        switch (value) {
+            case 'UNDER_100_USD':
+                displayText = 'UNDER 100 USD';
+                break;
+            case 'RANGE_100_299_USD':
+                displayText = '100-299 USD';
+                break;
+            case 'RANGE_300_499_USD':
+                displayText = '300-499 USD';
+                break;
+            case 'RANGE_500_699_USD':
+                displayText = '500-699 USD';
+                break;
+            case 'RANGE_700_999_USD':
+                displayText = '700-999 USD';
+                break;
+            case 'OVER_999_USD':
+                displayText = 'OVER 999 USD';
+                break;
+            default:
+                displayText = value; // Nếu không có giá trị khớp, sử dụng giá trị gốc
+                break;
+        }
+
+        priceRangeOptions[i].textContent = displayText;
     }
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossOrigin="anonymous"></script>
 </script>

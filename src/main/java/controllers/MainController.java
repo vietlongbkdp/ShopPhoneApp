@@ -50,8 +50,7 @@ public class MainController extends HttpServlet {
     }
 
     private void showShopping(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        show(req, false, "user/client/client.jsp", resp);
+        show(req, false, "user/client_undefine/shopping.jsp", resp);
     }
 
     @Override
