@@ -91,23 +91,36 @@
 <%--                </div>--%>
 <%--                <span class="toggle_icon" onclick="openNav()"><img src="images/toggle-icon.png"></span>--%>
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Category
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Branch
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <%--truyền vô list Branch xong forEach để hiển thị lên--%>
+                        <a class="dropdown-item" href="#">Apple</a>
+                        <a class="dropdown-item" href="#">Samsung</a>
+                        <a class="dropdown-item" href="#">Sony</a>
+                        <a class="dropdown-item" href="#">LG</a>
                     </div>
                 </div>
                 <div class="main">
                     <!-- Another variation with a button -->
-                    <div class="input-group">
+                    <div  class="input-group">
                         <input type="text" class="form-control" placeholder="Search this blog">
                         <div class="input-group-append">
                             <button class="btn btn-secondary" type="button" style="background-color: #f26522; border-color:#f26522 ">
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>
+                    </div>
+                </div>
+                <div style="margin: 0" class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButtons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Price Range
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+<%--                   truyền vô list Price Range xong forEach để hiển thị lên--%>
+                        <a class="dropdown-item" href="#"> < 200$ </a>
+                        <a class="dropdown-item" href="#">200$ - 500$</a>
+                        <a class="dropdown-item" href="#">500$-1000$</a>
+                        <a class="dropdown-item" href="#"><1000$</a>
                     </div>
                 </div>
                 <div class="header_box">
@@ -185,222 +198,74 @@
             </button>
         </div>
     </div>
-    <div style="background-color: #1c606a" class="container">
-        PHẦN NÀY ĐỂ BỎ SẢN PHẨM BÁN CHẠY
-        <div id="carouselExampleInterval2" class="carousel slide" style="text-align: center; margin: 2rem" data-bs-ride="carousel">
-            <div class="carousel-inner align-content-center">
-                <div class="carousel-item align-content-center" data-bs-interval="5000">
-                    <div class="card" style="width: 15rem; border-radius: 8px">
+    <div style="background-color: #ceebe1; border-radius: 10px; border-style: solid; border-width: 2px; border-color: #1b1e21; margin-bottom: 2rem" class="container">
+        <div class="d-flex justify-content-center"><h2  style="color: red">BEST SELLER OF MONTH</h2></div>
+        <div class="row row-cols-1 row-cols-md-3 g-4 p-2">
+            <c:forEach var="i" begin="1" end="3">
+                <div class="col d-flex justify-content-center">
+                    <div class="card" style="width: 17rem; border-radius: 8px">
                         <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
                         <div class="card-body text-center" >
-                            <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
-                            <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
-                            <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
+                            <h5 class="card-title">Iphone 14 ProMax</h5>
+                            <div class="row">
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-memory"></i> 8GB</div>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-database"></i> 128GB</div>
+                            </div>
+                            <div class="row">
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-camera"></i> 12MP</div>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-battery-three-quarters"></i> 5000mA</div>
+                            </div>
+                            <p style="color:red; font-weight: bold" class="card-text">570 USD</p>
+                            <c:if test="${user.role.roleName != 'Admin'&& user.role.roleName != 'Staff'}">
+                                <div>
+                                    <a href="#addToCart" class="btn btn-warning"> <i class="fas fa-cart-plus"></i>AddCart</a>
+                                    <a href="/user/client_undefine/productDetailShow.jsp" class="btn btn-primary"><i class="fas fa-credit-card"></i> BuyNow</a>
+                                </div>
+                            </c:if>
+                            <c:if test="${user.role.roleName == 'Admin'|| user.role.roleName == 'Staff'}">
+                                <div>
+                                    <a href="#buyNow" class="btn btn-primary"><i class="fas fa-info"></i>  Detail</a>
+                                </div>
+                            </c:if>
                         </div>
                     </div>
                 </div>
-
-                <div class="carousel-item align-content-center" data-bs-interval="5000">
-                    <div class="card" style="width: 15rem; border-radius: 8px">
-                        <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
-                        <div class="card-body text-center" >
-                            <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
-                            <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
-                            <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="carousel-item align-content-center" data-bs-interval="5000">
-                    <div class="card" style="width: 15rem; border-radius: 8px">
-                        <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
-                        <div class="card-body text-center" >
-                            <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
-                            <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
-                            <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval2" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval2" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+            </c:forEach>
         </div>
     </div>
 
     <div class="container">
-        <div class="row row-cols-4 row-cols-md-5 g-4">
-
-            <div class="col">
-                <div class="card" style="width: 15rem; border-radius: 8px">
-                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
-                    <div class="card-body text-center" >
-                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
-                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
-                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
+        <div class="row row-cols-4 row-cols-md-4 g-4">
+            <c:forEach var="i" begin="1" end="12">
+            <div class="col d-flex justify-content-center">
+            <div class="card" style="width: 17rem; border-radius: 8px">
+                <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
+                <div class="card-body text-center" >
+                    <h5 class="card-title">Iphone 14 ProMax</h5>
+                    <div class="row">
+                        <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-memory"></i> 8GB</div>
+                        <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-database"></i> 128GB</div>
                     </div>
+                    <div class="row">
+                        <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-camera"></i> 12MP</div>
+                        <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-battery-three-quarters"></i> 5000mA</div>
+                    </div>
+                    <p style="color:red; font-weight: bold" class="card-text">570 USD</p>
+                    <c:if test="${user.role.roleName != 'Admin'&& user.role.roleName != 'Staff'}">
+                        <div>
+                            <a href="#addToCart" class="btn btn-warning"> <i class="fas fa-cart-plus"></i>AddCart</a>
+                            <a href="#buyNow" class="btn btn-primary"><i class="fas fa-credit-card"></i> BuyNow</a>
+                        </div>
+                    </c:if>
+                    <c:if test="${user.role.roleName == 'Admin'|| user.role.roleName == 'Staff'}">
+                        <div>
+                            <a href="#buyNow" class="btn btn-primary"><i class="fas fa-info"></i>  Detail</a>
+                        </div>
+                    </c:if>
                 </div>
             </div>
-
-            <div class="col">
-                <div class="card" style="width: 15rem; border-radius: 8px">
-                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
-                    <div class="card-body text-center" >
-                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
-                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
-                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card" style="width: 15rem; border-radius: 8px">
-                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
-                    <div class="card-body text-center" >
-                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
-                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
-                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card" style="width: 15rem; border-radius: 8px">
-                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
-                    <div class="card-body text-center" >
-                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
-                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
-                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card" style="width: 15rem; border-radius: 8px">
-                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
-                    <div class="card-body text-center" >
-                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
-                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
-                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card" style="width: 15rem; border-radius: 8px">
-                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
-                    <div class="card-body text-center" >
-                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
-                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
-                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card" style="width: 15rem; border-radius: 8px">
-                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
-                    <div class="card-body text-center" >
-                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
-                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
-                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card" style="width: 15rem; border-radius: 8px">
-                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
-                    <div class="card-body text-center" >
-                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
-                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
-                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card" style="width: 15rem; border-radius: 8px">
-                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
-                    <div class="card-body text-center" >
-                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
-                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
-                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card" style="width: 15rem; border-radius: 8px">
-                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
-                    <div class="card-body text-center" >
-                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
-                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
-                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card" style="width: 15rem; border-radius: 8px">
-                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
-                    <div class="card-body text-center" >
-                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
-                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
-                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card" style="width: 15rem; border-radius: 8px">
-                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
-                    <div class="card-body text-center" >
-                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
-                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
-                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card" style="width: 15rem; border-radius: 8px">
-                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
-                    <div class="card-body text-center" >
-                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
-                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
-                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card" style="width: 15rem; border-radius: 8px">
-                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
-                    <div class="card-body text-center" >
-                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
-                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
-                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card" style="width: 15rem; border-radius: 8px">
-                    <img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14">
-                    <div class="card-body text-center" >
-                        <h5 class="card-title">Iphone 14 ProMax chính hãng VNA</h5>
-                        <p style="color:red; font-weight: bold" class="card-text">26.500.000 đồng</p>
-                        <a href="#addToCart" class="btn btn-warning">AddCart  <i class="fas fa-cart-plus"></i></a>
-                    </div>
-                </div>
-            </div>
+        </div>
+            </c:forEach>
         </div>
         <nav aria-label="Page navigation example">
             <ul class="pagination">

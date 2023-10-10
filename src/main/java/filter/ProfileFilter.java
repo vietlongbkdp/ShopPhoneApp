@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-//@WebFilter("/shopping/*")
-public class ShoppingFilter implements Filter {
+@WebFilter("/shopping/*")
+public class ProfileFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpSession session = ((HttpServletRequest)request).getSession();
