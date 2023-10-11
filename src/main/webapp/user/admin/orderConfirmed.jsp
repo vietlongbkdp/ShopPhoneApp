@@ -221,7 +221,7 @@
                                 <td>${od.user.userName}</td>
                                 <td>${od.totalAmount}</td>
                                 <td>
-                                    <a href="/order?action=detail&id=${od.id}" class="btn btn-warning ">Detail</a>
+                                    <a href="/order?action=detail&id=${od.id}" class="btn btn-primary ">Detail</a>
                                 </td>
                             </tr>
                         </c:forEach>

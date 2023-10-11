@@ -82,7 +82,6 @@ public class CartController extends HttpServlet {
         int quantity = Integer.parseInt(req.getParameter("quantityB"));
         Product product = productService.findByIdProduct(idProduct);
         req.setAttribute("product", product);
-        req.setAttribute("idProduct", idProduct);
         req.setAttribute("quantityB", quantity);
         req.getRequestDispatcher("user/client/createOrder.jsp").forward(req, resp);
     }
@@ -144,7 +143,8 @@ public class CartController extends HttpServlet {
         } else {
             shoppingService.createCartDetail(user, id, 1);
         }
-        resp.sendRedirect("/main");
+        // chỉnh lại
+        resp.sendRedirect("/shopping");
 
     }
 
@@ -155,7 +155,7 @@ public class CartController extends HttpServlet {
         String DetailIDS = req.getParameter("DetailIDS");
         String OrderDTs = req.getParameter("OrderDTs");
         String quantityB=req.getParameter("quantityB");
-        String idProduct=req.getParameter("idProduct");
+        String idProduct=req.getParameter("productIds");
         if (!userService.checkProfileUser(user.getId())) {
             if (DetailIDS != null) {
                 resp.sendRedirect("/shopping?action=editProfile&DetailIDS=" + DetailIDS);

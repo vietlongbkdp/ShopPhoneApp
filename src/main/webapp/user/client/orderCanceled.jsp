@@ -197,7 +197,6 @@
                             <th>Order Date</th>
                             <th>Total Amount</th>
                             <th >Action</th>
-                            <th >Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -207,10 +206,8 @@
                                 <td>${od.orderDate}</td>
                                 <td>${od.totalAmount}</td>
                                 <td>
-                                    <a href="/order-client?action=detail&id=${od.id}" class="btn btn-danger ">Detail</a>
-                                </td>
-                                <td>
-                                    <a href="/cart?action=reBuy&id=${od.id}&urlLink=Canceled" class="btn btn-danger ">ReBuy</a>
+                                    <a href="/order-client?action=detail&id=${od.id}" class="btn btn-primary ">Detail</a>
+                                    <a href="/cart?action=reBuy&id=${od.id}&url=Confirmed" class="btn btn-primary ">ReBuy</a>
                                 </td>
                             </tr>
                         </c:forEach>

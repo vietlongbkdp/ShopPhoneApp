@@ -54,7 +54,7 @@
                         ></td>
                         <td id="totalAmount_${cartDetail.id}">${cartDetail.totalAmount}</td>
                         <td>
-                            <a href="/cart?action=deleteCD&id=${cartDetail.id}&idu=${user.id}" class="btn btn-primary ">Delete</a>
+                            <a href="/cart?action=deleteCD&id=${cartDetail.id}&idu=${user.id}" class="btn btn-danger ">Delete</a>
                         </td>
                     </tr>
                     <c:set var="hasCartDetail" value="true"/>
@@ -74,7 +74,7 @@
                 </c:if>
             </table>
             <div>
-                <a class="btn btn-primary" onclick="setAction('/cart?action=delete&id=${user.id}',${user.id})">Delete</a>
+                <a class="btn btn-danger" onclick="setAction('/cart?action=delete&id=${user.id}',${user.id})">Delete</a>
                 <a class="btn btn-primary" onclick="setAction('/cart?action=buy')">Buy product</a>
                 <a onclick="setActionCancel('/cart?action=updateCart')" class="btn btn-primary">Cancel</a>
             </div>
