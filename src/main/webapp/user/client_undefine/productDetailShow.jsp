@@ -96,7 +96,7 @@
                         </div>
                     </div>
                     <a href="#" class="btn btn-warning shadow-0"> Buy now </a>
-                    <a href="/cart?action=cart&id=${user.id}" class="btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart </a>
+                    <a href="/cart?action=cart&id=${product.id}" class="btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart </a>
             </main>
         </div>
     </div>
