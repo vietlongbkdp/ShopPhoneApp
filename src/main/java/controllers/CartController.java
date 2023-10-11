@@ -91,16 +91,16 @@ public class CartController extends HttpServlet {
         List<OrderDetail> orderDetails = shoppingService.findAllOD(idOrder);
         String urlLink = req.getParameter("url");
         for (var orderDetail : orderDetails) {
-            if (!productService.checkAvaibleProduct(orderDetail.getProduct().getId())) {
+            if (!productService.checkAvaibleProduct(orderDetail.getProduct().getId(),orderDetail.getQuantity())) {
                 Product product = (Product) productService.findById(orderDetail.getProduct().getId());
                 String productName = product.getProductName();
                 String url = "";
                 if (urlLink.equals("Confirming")) {
-                    url = "/order-client?action=orderConfirming&message=" + productName + " is out of stock";
+                    url = "/order-client?action=orderConfirming&message=" + productName + " is not enough";
                 } else if (urlLink.equals("Confirmed")) {
-                    url = "/order-client?action=orderConfirmed&message=" + productName + " is out of stock";
+                    url = "/order-client?action=orderConfirmed&message=" + productName + " is not enough";
                 } else if (urlLink.equals("Canceled")) {
-                    url = "/order-client?action=orderCanceled&message=" + productName + " is out of stock";
+                    url = "/order-client?action=orderCanceled&message=" + productName + "is not enough";
                 }
                 resp.sendRedirect(url);
                 return;
@@ -205,25 +205,14 @@ public class CartController extends HttpServlet {
             var listCartDetailChoosen = shoppingService.cartDetails(shoppingService.findByUserId(user.getId()).getId(), 1);
 
             for (var cartDetail : listCartDetailChoosen) {
-                if (!productService.checkAvaibleProduct(cartDetail.getProduct().getId())) {
+                if (!productService.checkAvaibleProduct(cartDetail.getProduct().getId(),cartDetail.getQuantity())) {
                     Product product = (Product) productService.findById(cartDetail.getProduct().getId());
                     String productName = product.getProductName();
-                    String url = "/cart?action=showCart&message=" + productName + " is out of stock";
+                    String url = "/cart?action=showCart&message=" + productName + " is not enough";
                     resp.sendRedirect(url);
                     return;
                 }
             }
-//            if (!userService.checkProfileUser(user.getId())) {
-//                String DetailIDS = "";
-//                for (var i = 0; i < listCartDetailChoosen.size(); i++) {
-//                    DetailIDS += listCartDetailChoosen.get(i).getId();
-//                    if (i != listCartDetailChoosen.size() - 1) {
-//                        DetailIDS += ",";
-//                    }
-//                }
-//                resp.sendRedirect("/shopping?action=editProfile&DetailIDS=" + DetailIDS);
-//                return;
-//            }
             String DetailIDS = "";
             for (var i = 0; i < listCartDetailChoosen.size(); i++) {
                 DetailIDS += listCartDetailChoosen.get(i).getId();

@@ -488,12 +488,17 @@ public class ProductDAO extends DatabaseConnection {
         var content = new ArrayList<Product>();
         if(search==null){
             search="";
-        }if(ePriceRange==null){
+        }
+
+        if(ePriceRange==null|| ePriceRange.equals("DEFAULT")){
             ePriceRange="";
-        }if(branchName==null){
+        }
+
+        if(branchName==null){
             branchName="";
         }
         search = "%" + search.toLowerCase() + "%";
+
         var SEARCH_QUERY = "SELECT p.*, b.name AS branch_name \n" +
                 "FROM products p\n" +
                 "JOIN branchs b ON b.id = p.branch_id\n" +
@@ -503,24 +508,24 @@ public class ProductDAO extends DatabaseConnection {
                 "WHERE p.deleted = 0 \n";
         if (search.equals("%%")) {
             if (!ePriceRange.isEmpty()) {
-                SEARCH_QUERY += " AND p.price_range = " + ePriceRange;
-                SELECT_COUNT_QUERY += " AND p.price_range = " + ePriceRange;
+                SEARCH_QUERY += " AND p.price_range = " + "'"+ePriceRange+ "'";
+                SELECT_COUNT_QUERY += " AND p.price_range = " + "'"+ePriceRange+ "'";
             }
             if (!branchName.isEmpty()) {
-                SEARCH_QUERY += " AND b.name = " + branchName;
-                SELECT_COUNT_QUERY += " AND b.name = " + branchName;
+                SEARCH_QUERY += " AND b.name = " + "'"+branchName+ "'";
+                SELECT_COUNT_QUERY += " AND b.name = " + "'"+branchName+ "'";
             }
         } else  {
-            SEARCH_QUERY += " AND ( LOWER(p.productName) LIKE " + search + " OR LOWER(b.name) LIKE " + search + " OR LOWER(p.price) LIKE " + search + ")";
-            SELECT_COUNT_QUERY += " AND ( LOWER(p.productName) LIKE " + search + " OR LOWER(b.name) LIKE " + search + " OR LOWER(p.price) LIKE " + search + ")";
+            SEARCH_QUERY += " AND ( LOWER(p.productName) LIKE " + "'"+search+ "'" + " OR LOWER(b.name) LIKE " + "'"+search+ "'" + " OR LOWER(p.price) LIKE " + "'"+search+ "'" + ")";
+            SELECT_COUNT_QUERY += " AND ( LOWER(p.productName) LIKE " + "'"+search+ "'" + " OR LOWER(b.name) LIKE " + "'"+search+ "'" + " OR LOWER(p.price) LIKE " + "'"+search+ "'" + ")";
 
             if (!ePriceRange.isEmpty()) {
-                SEARCH_QUERY += " AND p.price_range = " + ePriceRange;
-                SELECT_COUNT_QUERY += " AND p.price_range = " + ePriceRange;
+                SEARCH_QUERY += " AND p.price_range = " + "'"+ePriceRange+ "'";
+                SELECT_COUNT_QUERY += " AND p.price_range = " + "'"+ePriceRange+ "'";
             }
             if (!branchName.isEmpty()) {
-                SEARCH_QUERY += " AND b.name = " + branchName;
-                SELECT_COUNT_QUERY += " AND b.name = " + branchName;
+                SEARCH_QUERY += " AND b.name = " + "'"+branchName+ "'";
+                SELECT_COUNT_QUERY += " AND b.name = " + "'"+branchName+ "'";
             }
         }
         SEARCH_QUERY += " LIMIT " + TOTAL_ELEMENT + " OFFSET " + (page - 1) * TOTAL_ELEMENT;

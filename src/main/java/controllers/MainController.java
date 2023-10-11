@@ -86,21 +86,16 @@ public class MainController extends HttpServlet {
         if (pageString == null) {
             pageString = "1";
         }
+        String ePriceRangeString = req.getParameter("ePriceRange");
+        if (ePriceRangeString == null) {
+            ePriceRangeString = "DEFAULT";
+        }
         List<Product> productList = productService.findAllProductBestSeller(3);
         if (user == null) {
-            req.setAttribute("page", productService.findProduct(Integer.parseInt(pageString), req.getParameter("search"), req.getParameter("ePriceRange"), req.getParameter("branch")));
+            req.setAttribute("page", productService.findProduct(Integer.parseInt(pageString), req.getParameter("search"), ePriceRangeString, req.getParameter("branch")));
             req.setAttribute("branch", req.getParameter("branch"));
             req.setAttribute("productBSs", productService.findAllProductBestSeller(3));
-            String ePriceRangeString = req.getParameter("ePriceRange");
-            EPriceRange ePriceRange = null;
-            if (ePriceRangeString != null) {
-                try {
-                    ePriceRange = EPriceRange.valueOf(ePriceRangeString);
-                } catch (IllegalArgumentException e) {
-                    // Xử lý nếu giá trị ePriceRangeString không hợp lệ
-                }
-            }
-            req.setAttribute("ePriceRange", ePriceRange);
+            req.setAttribute("ePriceRange", EPriceRange.getEPriceRange(ePriceRangeString));
             req.setAttribute("branchs", productService.findAllBranch());
             req.setAttribute("PriceRange", EPriceRange.values());
             req.setAttribute("message", req.getParameter("message"));
@@ -110,17 +105,9 @@ public class MainController extends HttpServlet {
         } else if (user != null) {
             req.setAttribute("cart", shoppingService.findByUserId(user.getId()));
             req.setAttribute("user", user);
-            req.setAttribute("page", productService.findProduct(Integer.parseInt(pageString), req.getParameter("search"), req.getParameter("ePriceRange"), req.getParameter("branch")));
+            req.setAttribute("page", productService.findProduct(Integer.parseInt(pageString), req.getParameter("search"),ePriceRangeString, req.getParameter("branch")));
             req.setAttribute("branch", req.getParameter("branch"));
-            String ePriceRangeString = req.getParameter("ePriceRange");
-            EPriceRange ePriceRange = null;
-            if (ePriceRangeString != null) {
-                try {
-                    ePriceRange = EPriceRange.valueOf(ePriceRangeString);
-                } catch (IllegalArgumentException e) {
-                }
-            }
-            req.setAttribute("ePriceRange", ePriceRange);
+            req.setAttribute("ePriceRange", EPriceRange.getEPriceRange(ePriceRangeString));
             req.setAttribute("productBSs", productService.findAllProductBestSeller(3));
             req.setAttribute("message", req.getParameter("message"));
             req.setAttribute("search", req.getParameter("search"));

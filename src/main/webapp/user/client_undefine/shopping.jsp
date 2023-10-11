@@ -85,7 +85,7 @@
                 <form action="/main?page=${page.currentPage}">
                 <div class="dropdown">
                     <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="branch_select"  name="branch" >
-                        <option selected>All Branch</option>
+                        <option value="" >All Branch</option>
                         <c:forEach var="branchh" items="${branchs}">
                             <option ${branch==branchh?"selected":""}>${branchh.name}</option>
                         </c:forEach>
@@ -103,10 +103,9 @@
                     </div>
                 </div>
                 <div style="margin: 0" class="dropdown">
-                    <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="price_range" name="ePriceRange" >
-                        <option selected>Price Range</option>
-                        <c:forEach var="priceRanges" items="${PriceRange}">
-                            <option ${ePriceRange== priceRanges?"selected":""} ${ePriceRange.title == "" ? 'hidden' : ''}>${priceRanges.title}</option>
+                    <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="price_range" name="ePriceRange">
+                        <c:forEach var="priceRange" items="${PriceRange}">
+                            <option value="${priceRange}" ${priceRange == ePriceRange ? "selected" : ""}>${priceRange.title}</option>
                         </c:forEach>
                     </select>
                 </div>
@@ -341,6 +340,19 @@
         var selectedValue = selectElement.value;
         var branchElement = document.getElementsByName("branch")[0];
         branchElement.value = selectedValue;
+    }
+    // Lắng nghe sự kiện "change" khi chọn một tùy chọn trong các dropdown
+    document.getElementById("branch_select").addEventListener("change", function() {
+        submitForm();
+    });
+
+    document.getElementById("price_range").addEventListener("change", function() {
+        submitForm();
+    });
+
+    // Hàm gửi form
+    function submitForm() {
+        document.getElementById("myForm").submit();
     }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
