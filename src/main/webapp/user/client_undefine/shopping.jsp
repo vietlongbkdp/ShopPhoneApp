@@ -117,7 +117,7 @@
                             <c:if test="${user.role.roleName != 'Admin'&&user.role.roleName != 'Staff'}">
                                 <li><a href="#">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                    <span class="padding_10">Cart</span></a>
+                                    <span class="padding_10">Cart</span><span style="color: red; font-weight: bold; font-size: small; margin-right: 2rem; padding-left: 0.5rem" class="padding_10">3</span></a>
                                 </li>
                             </c:if>
                             <c:if test="${user != null}">
@@ -192,9 +192,9 @@
             <c:forEach var="productBS" items="${productBSs}">
                 <div class="col d-flex justify-content-center">
                     <div class="card" style="width: 17rem; border-radius: 8px">
-                        <a href="/user/client_undefine/productDetailShow.jsp"><img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="#"></a>
+                        <a href="/main?action=showDetailProduct&id=${productBS.id}"><img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="#"></a>
                         <div class="card-body text-center" >
-                            <a href="/user/client_undefine/productDetailShow.jsp"><h5 class="card-title">${productBS.productName}</h5></a>
+                            <a href="/main?action=showDetailProduct&id=${productBS.id}"><h5 class="card-title">${productBS.productName}</h5></a>
                             <div class="row">
                                 <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-memory"></i> ${productBS.ram}</div>
                                 <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-database"></i> ${productBS.size}</div>
@@ -207,7 +207,7 @@
                             <c:if test="${user.role.roleName != 'Admin'&& user.role.roleName != 'Staff'}">
                                 <div>
                                     <a href="#addToCart" class="btn btn-warning"> <i class="fas fa-cart-plus"></i>AddCart</a>
-                                    <a href="/user/client_undefine/productDetailShow.jsp" class="btn btn-primary"><i class="fas fa-credit-card"></i> BuyNow</a>
+                                    <a href="/main?action=showDetailProduct&id=${productBS.id}" class="btn btn-primary"><i class="fas fa-credit-card"></i> BuyNow</a>
                                 </div>
                             </c:if>
                             <c:if test="${user.role.roleName == 'Admin'|| user.role.roleName == 'Staff'}">
@@ -227,9 +227,9 @@
             <c:forEach var="pager" items="${page.content}">
                 <div class="col d-flex justify-content-center">
                     <div class="card" style="width: 17rem; border-radius: 8px">
-                        <a href="/user/client_undefine/productDetailShow.jsp"><img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14"></a>
+                        <a href="/main?action=showDetailProductl&id=${pager.id}"><img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14"></a>
                         <div class="card-body text-center" >
-                            <a href="/user/client_undefine/productDetailShow.jsp"><h5 class="card-title">${pager.productName}</h5></a>
+                            <a href="/main?action=showDetailProductl&id=${pager.id}"><h5 class="card-title">${pager.productName}</h5></a>
                             <div class="row">
                                 <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-memory"></i> ${pager.ram}</div>
                                 <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-database"></i> ${pager.size}</div>
@@ -242,7 +242,7 @@
                             <c:if test="${user.role.roleName != 'Admin'&& user.role.roleName != 'Staff'}">
                                 <div>
                                     <a href="#addToCart" class="btn btn-warning"> <i class="fas fa-cart-plus"></i>AddCart</a>
-                                    <a href="/user/client_undefine/productDetailShow.jsp" class="btn btn-primary"><i class="fas fa-credit-card"></i> BuyNow</a>
+                                    <a href="/main?action=showDetailProduct&id=${pager.id}" class="btn btn-primary"><i class="fas fa-credit-card"></i> BuyNow</a>
                                 </div>
                             </c:if>
                             <c:if test="${user.role.roleName == 'Admin'|| user.role.roleName == 'Staff'}">
