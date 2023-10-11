@@ -144,7 +144,7 @@ public class CartController extends HttpServlet {
             shoppingService.createCartDetail(user, id, 1);
         }
         // chỉnh lại
-        resp.sendRedirect("/shopping");
+        resp.sendRedirect("/main");
 
     }
 
@@ -190,7 +190,7 @@ public class CartController extends HttpServlet {
         if (cDetailIDS != null) {
             shoppingService.updateCartDetails(shoppingService.findByUserId(user.getId()), req);
         }
-        resp.sendRedirect("/shopping");
+        resp.sendRedirect("/main");
     }
 
     private void buy(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

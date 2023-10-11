@@ -106,7 +106,7 @@
                     <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="price_range" name="ePriceRange" >
                         <option selected>Price Range</option>
                         <c:forEach var="priceRanges" items="${PriceRange}">
-                            <option ${ePriceRange== priceRanges?"selected":""}>${priceRanges.title}</option>
+                            <option ${ePriceRange== priceRanges?"selected":""} ${ePriceRange.title == "" ? 'hidden' : ''}>${priceRanges.title}</option>
                         </c:forEach>
                     </select>
                 </div>
@@ -115,7 +115,7 @@
                     <div class="login_menu">
                         <ul>
                             <c:if test="${user.role.roleName != 'Admin'&&user.role.roleName != 'Staff'}">
-                                <li><a href="#">
+                                <li><a href="/cart?action=showCart">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                     <span class="padding_10">Cart</span><span style="color: red; font-weight: bold; font-size: small; margin-right: 2rem; padding-left: 0.5rem" class="padding_10">3</span></a>
                                 </li>
@@ -206,7 +206,7 @@
                             <p style="color:red; font-weight: bold" class="card-text">${productBS.price}</p>
                             <c:if test="${user.role.roleName != 'Admin'&& user.role.roleName != 'Staff'}">
                                 <div>
-                                    <a href="/cart?action=cart&id=${user.id}" class="btn btn-warning"> <i class="fas fa-cart-plus"></i>AddCart</a>
+                                    <a href="/cart?action=cart&id=${productBS.id}" class="btn btn-warning"> <i class="fas fa-cart-plus"></i>AddCart</a>
                                     <a href="/main?action=showDetailProduct&id=${productBS.id}" class="btn btn-primary"><i class="fas fa-credit-card"></i> BuyNow</a>
                                 </div>
                             </c:if>
@@ -241,7 +241,7 @@
                             <p style="color:red; font-weight: bold" class="card-text">${pager.price}</p>
                             <c:if test="${user.role.roleName != 'Admin'&& user.role.roleName != 'Staff'}">
                                 <div>
-                                    <a href="/cart?action=cart&id=${user.id}" class="btn btn-warning"> <i class="fas fa-cart-plus"></i>AddCart</a>
+                                    <a href="/cart?action=cart&id=${pager.id}" class="btn btn-warning"> <i class="fas fa-cart-plus"></i>AddCart</a>
                                     <a href="/main?action=showDetailProduct&id=${pager.id}" class="btn btn-primary"><i class="fas fa-credit-card"></i> BuyNow</a>
                                 </div>
                             </c:if>
