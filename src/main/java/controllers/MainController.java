@@ -72,14 +72,45 @@ public class MainController extends HttpServlet {
         req.getRequestDispatcher("/user/client_undefine/shopping.jsp").forward(req, resp);
     }
 
-    private void showShopping(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        show(req,  "user/client_undefine/shopping.jsp", resp);
-    }
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        super.doPost(req, resp);
     }
+
+    private void showShopping(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        String pageString = req.getParameter("page");
+        if (pageString == null) {
+            pageString = "1";
+        }
+        List<Product> productList = productService.findAllProductBestSeller(3);
+        if (user == null) {
+            req.setAttribute("page", productService.findProduct(Integer.parseInt(pageString), req.getParameter("search"), req.getParameter("ePriceRange"), req.getParameter("branch")));
+            req.setAttribute("branch",  req.getParameter("branch"));
+            req.setAttribute("productBSs", productService.findAllProductBestSeller(3));
+            req.setAttribute("ePriceRange",req.getParameter("ePriceRange"));
+            req.setAttribute("branchs", productService.findAllBranch());
+            req.setAttribute("PriceRange", EPriceRange.values());
+            req.setAttribute("message", req.getParameter("message"));
+            req.setAttribute("search", req.getParameter("search"));
+            req.getRequestDispatcher("user/client_undefine/shopping.jsp").forward(req, resp);
+
+        } else if (user != null) {
+            req.setAttribute("cart",shoppingService.findByUserId(user.getId()));
+            req.setAttribute("user", user);
+            req.setAttribute("page", productService.findProduct(Integer.parseInt(pageString), req.getParameter("search"), req.getParameter("ePriceRange"), req.getParameter("branch")));
+            req.setAttribute("branch", req.getParameter("branch"));
+            req.setAttribute("ePriceRange", req.getParameter("ePriceRange"));
+            req.setAttribute("productBSs", productService.findAllProductBestSeller(3));
+            req.setAttribute("message", req.getParameter("message"));
+            req.setAttribute("search", req.getParameter("search"));
+            req.setAttribute("branchs", productService.findAllBranch());
+            req.setAttribute("PriceRange", EPriceRange.values());
+            req.getRequestDispatcher("user/client_undefine/shopping.jsp").forward(req, resp);
+    }
+
+
 
 
 
@@ -107,37 +138,6 @@ public class MainController extends HttpServlet {
 //        }
 //    }
 
-    private void show(HttpServletRequest req, String href, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        User user = (User) session.getAttribute("user");
-        String pageString = req.getParameter("page");
-        if (pageString == null) {
-            pageString = "1";
-        }
-        List<Product> productList = productService.findAllProductBestSeller(3);
-        if (user == null) {
-            req.setAttribute("page", productService.findProduct(Integer.parseInt(pageString), req.getParameter("search"), req.getParameter("ePriceRange"), req.getParameter("branch")));
-            req.setAttribute("branch",  req.getParameter("branch"));
-            req.setAttribute("productBSs", productService.findAllProductBestSeller(3));
-            req.setAttribute("ePriceRange",req.getParameter("ePriceRange"));
-            req.setAttribute("branchs", productService.findAllBranch());
-            req.setAttribute("PriceRange", EPriceRange.values());
-            req.setAttribute("message", req.getParameter("message"));
-            req.setAttribute("search", req.getParameter("search"));
-            req.getRequestDispatcher(href).forward(req, resp);
 
-        } else if (user != null) {
-            req.setAttribute("user", user);
-            req.setAttribute("page", productService.findProduct(Integer.parseInt(pageString), req.getParameter("search"), req.getParameter("ePriceRange"), req.getParameter("branch")));
-            req.setAttribute("branch", req.getParameter("branch"));
-            req.setAttribute("ePriceRange", req.getParameter("ePriceRange"));
-            req.setAttribute("productBSs", productService.findAllProductBestSeller(3));
-            req.setAttribute("message", req.getParameter("message"));
-            req.setAttribute("search", req.getParameter("search"));
-            req.setAttribute("branchs", productService.findAllBranch());
-            req.setAttribute("PriceRange", EPriceRange.values());
-            req.getRequestDispatcher(href).forward(req, resp);
-
-        }
     }
 }
