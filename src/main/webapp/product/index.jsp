@@ -173,7 +173,7 @@
                                         <td>${product.productName}</td>
                                         <td>${product.quantity}</td>
                                         <td>${product.branchName}</td>
-                                        <td><img src="../images${product.urlImage}" alt="" style="width: 100px;height: 100px"></td>
+                                        <td><img src="../images${product.urlImage}" alt="" style="width: 145px;height: 90px"></td>
                                         <td>${product.price}</td>
                                         <td>
                                             <a href="/product?action=edit&id=${product.id}" class="btn btn-primary ">Update</a>
