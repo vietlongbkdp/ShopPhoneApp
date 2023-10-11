@@ -463,7 +463,7 @@ public class ProductDAO extends DatabaseConnection {
             System.out.println(preparedStatement);
             var rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                content.add(getProductByResultSet(rs));
+                content.add(getProductByRs(rs));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
