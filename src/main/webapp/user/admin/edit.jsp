@@ -119,7 +119,6 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="/cart?action=profile">
                                 <a class="dropdown-item" href="/shopping?action=profile">
                                 Profile
                             </a>
@@ -162,7 +161,7 @@
                         <label for="gender" class="form-label">Gender</label>
                             <select class="form-control" id="gender" name="gender">
                                 <c:forEach var="gender" items="${genders}">
-                                    <option value="${gender}">${gender}</option>
+                                    <option value="${gender} ${gender == userEdit.gender ? 'selected' : ''}" >${gender}</option>
                                 </c:forEach>
                         </select>
                     </div>
@@ -171,7 +170,7 @@
                            <label for="role1" class="form-label">Role</label>
                            <select class="form-control" id="role1" name="role">
                                <c:forEach var="role" items="${roles}">
-                                   <option value="${role.roleName}" selected ${role.roleName == "Client" ? 'hidden' : ''}>${role.roleName}</option>
+                                   <option value="${role.roleName}" ${role.roleName == userEdit.role.roleName ? 'selected' : ''} ${role.roleName == "Client" ? 'hidden' : ''}>${role.roleName}</option>
                                </c:forEach>
                            </select>
                        </div>
