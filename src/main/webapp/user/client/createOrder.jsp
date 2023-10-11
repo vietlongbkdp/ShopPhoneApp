@@ -29,31 +29,26 @@
                 <h6 class="d-none" id="message">${message}</h6>
             </c:if>
             <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Product</th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total value</th>
-                    </tr>
-                </thead>
-                <tbody>
-<%--                <input type="text" name="quantity" value="10" />--%>
+                <tr>
+                    <th></th>
+                    <th>Product</th>
+                    <th></th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total value</th>
+                </tr>
+                <%--                <input type="text" name="quantity" value="10" />--%>
                 <c:if test="${not empty cartDetails}">
                     <c:forEach var="cartDetail" items="${cartDetails}">
                         <tr>
                             <td><input type="hidden" name="cartChecked" value="${cartDetail.checked}"></td>
                             <td>${cartDetail.product.productName}</td>
-                            <td><input name="productIds" value="${cartDetail.product.id}"></td>
-                            <td><input type="hidden" value="${cartDetail.id}" name="DetailIDS"></td>
-                            <td>${cartDetail.product.image}</td>
-                            <td><input type="hidden" name="quantities" value="${cartDetail.quantity}"></td>
-                            <td>${cartDetail.product.price}</td>
+                            <td><input name="productIds" value="${cartDetail.product.id}">
+                                <input type="hidden" value="${cartDetail.id}" name="DetailIDS">
+                                    ${cartDetail.product.image}
+                                <input type="hidden" name="quantities" value="${cartDetail.quantity}"></td>
+                            <td>${cartDetail.product.price}
+                            <a> USD</a></td>
                             <td>${cartDetail.quantity}</td>
                             <td id="totalAmount_${cartDetail.id}" class="total_detail">${cartDetail.totalAmount}</td>
                         </tr>
@@ -61,68 +56,57 @@
                 </c:if>
                 <c:if test="${not empty orderDetails}">
                     <c:forEach var="od" items="${orderDetails}">
+                        <input type="hidden" name="productIds" value="${od.product.id}">
                         <tr>
-                            <td><input type="hidden"name="productIds" value="${od.product.id}"></td>
-                            <td>${od.product.productName}</td>
                             <td></td>
-                            <td><input type="hidden" value="${OrderDTs}" name="OrderDTs"></td>
-                            <td>${od.product.image}</td>
-                            <td><input type="hidden" name="quantities" value="${od.quantity}"></td>
-                            <td>${od.product.price}</td>
+                            <td>${od.product.productName}</td>
+                            <td>
+                                <input type="hidden" value="${OrderDTs}" name="OrderDTs">
+                                    ${od.product.image}
+                                <input type="hidden" name="quantities" value="${od.quantity}"></td>
+                            <td>${od.product.price}<a> USD</a></td>
                             <td>${od.quantity}</td>
                             <td id="totalAmount_${od.id}" class="total_detail">${od.totalAmount}</td>
                         </tr>
                     </c:forEach>
                 </c:if>
-<c:if test="${not empty product}">
-        <tr>
-            <td><input type="hidden" value="${product.id}" name="idProduct"></td>
-            <td><input name="productIds" value="${product.id}">${product.productName}</td>
-            <td><input type="hidden" value="${quantityB}" name="quantityB"></td>
-            <td></td>
-            <td>${product.image}</td>
-            <td><input type="hidden" name="quantities" value="${quantityB}"></td>
-            <td>${product.price}</td>
-            <td>${quantityB}</td>
-            <td  class="total_detail"></td>
-        </tr>
-</c:if>
-                </tbody>
-                <tfoot>
+                <c:if test="${not empty product}">
+                    <input type="hidden" value="${product.id}" name="productIds">
                     <tr>
                         <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Total cost</td>
-                        <td id="total_amount_chosen"></td>
+                        <td>${product.productName}</td>
+                        <td><input type="hidden" value="${quantityB}" name="quantityB">
+                                ${product.image}
+                            <input type="hidden" name="quantities" value="${quantityB}"></td>
+                        <td id ="price">${product.price}<a> USD</a></td>
+                        <td id ="quantityB">${quantityB}</td>
+                        <td class="total_detail" id="total"></td>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>VAT 10%</td>
-                        <td id="VAT"></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Total cost including VAT</td>
-                        <td id="total_cost_VAT"></td>
-                    </tr>
-                </tfoot>
+                </c:if>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total cost</td>
+                    <td id="total_amount_chosen"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>VAT 10%</td>
+                    <td id="VAT"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total cost including VAT</td>
+                    <td id="total_cost_VAT"></td>
+                </tr>
             </table>
             <div>
                 <button type="submit" class="btn btn-primary">Payment</button>
@@ -138,7 +122,29 @@
     if (message !== null && message.innerHTML) {
         toastr.success(message.innerHTML);
     }
+    // function calculateTotal() {
+    //     // Lấy giá trị của price và quantityB từ phần tử html
+    //     var price = parseFloat(document.getElementById("price").innerText);
+    //     var quantityB = parseInt(document.getElementById("quantityB").innerText);
+    //
+    //     // Tính tổng
+    //     var total = price * quantityB;
+    //
+    //     // Cập nhật giá trị trong phần tử có id "total"
+    //     document.getElementById("total").innerText = total;
+    // }
+
+    // Gọi hàm calculateTotal khi trang được tải hoặc khi có sự thay đổi trong giá trị price hoặc quantityB
+    // window.onload = calculateTotal;
     window.addEventListener('DOMContentLoaded', function () {
+        var price = parseFloat(document.getElementById("price").innerText);
+        var quantityB = parseInt(document.getElementById("quantityB").innerText);
+
+        // Tính tổng
+        var total = price * quantityB;
+
+        // Cập nhật giá trị trong phần tử có id "total"
+        document.getElementById("total").innerText = total;
         var totalAmountChosen = document.getElementById('total_amount_chosen');
         var vatElement = document.getElementById('VAT');
         var totalCostVATElement = document.getElementById('total_cost_VAT');
@@ -154,10 +160,12 @@
         // Tính tổng giá trị bao gồm VAT
         var totalCostVAT = totalAmount + vat;
         // Chèn giá trị vào các thẻ tương ứng
-        totalAmountChosen.innerText = totalAmount.toFixed(1);
-        vatElement.innerText = vat.toFixed(1);
-        totalCostVATElement.innerText = totalCostVAT.toFixed(1);
+        totalAmountChosen.innerText = totalAmount.toFixed(1) +' USD';
+        vatElement.innerText = vat.toFixed(1)+' USD';
+        totalCostVATElement.innerText = totalCostVAT.toFixed(1)+' USD';
+        document.getElementById("total").innerText = total.toFixed(1)+' USD'
     });
+
 </script>
 </body>
 </html>

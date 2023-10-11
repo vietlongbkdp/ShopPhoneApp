@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Branch;
 import models.EPriceRange;
 import models.Product;
 import models.User;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "MainController", value = "/main")
 
@@ -29,9 +31,9 @@ public class MainController extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "shopping" -> showShopping(req, resp);
+//            case "shopping" -> showShopping(req, resp);
             case "detail"->showDetail(req,resp);
-            default -> showlist(req, resp);
+            default -> showShopping(req, resp);
         }
     }
 
@@ -50,13 +52,12 @@ public class MainController extends HttpServlet {
     }
 
     private void showShopping(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        show(req, false, "user/client/client.jsp", resp);
+        show(req, false, "user/client_undefine/shopping.jsp", resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+
     }
 
     @Override
@@ -98,6 +99,7 @@ public class MainController extends HttpServlet {
         }
         String ePriceRange = req.getParameter("ePriceRange");
         String branch = req.getParameter("branch");
+        List<Product> productList = productService.findAllProductBestSeller(3);
         if (user == null) {
             if (ePriceRange == null && branch == null) {
 

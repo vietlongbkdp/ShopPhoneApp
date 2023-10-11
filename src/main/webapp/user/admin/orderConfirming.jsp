@@ -211,8 +211,7 @@
                             <th>Customer username</th>
                             <th>Total Amount</th>
                             <th >Action</th>
-                            <th >Action</th>
-                            <th >Action</th>
+
                         </tr>
                         </thead>
                         <tbody>
@@ -223,12 +222,8 @@
                                 <td>${od.user.userName}</td>
                                 <td>${od.totalAmount}</td>
                                     <td>
-                                        <a href="/order?action=detail&id=${od.id}" class="btn btn-warning ">Detail</a>
-                                    </td>
-                                    <td>
-                                        <a href="/order?action=confirm&id=${od.id}" class="btn btn-warning ">Confirm</a>
-                                    </td>
-                                    <td>
+                                        <a href="/order?action=detail&id=${od.id}" class="btn btn-primary ">Detail</a>
+                                        <a href="/order?action=confirm&id=${od.id}" class="btn btn-primary ">Confirm</a>
                                         <a href="/order?action=cancel&id=${od.id}" class="btn btn-danger ">Cancel</a>
                                     </td>
                             </tr>
