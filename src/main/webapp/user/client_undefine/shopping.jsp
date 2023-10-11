@@ -84,10 +84,10 @@
             <div class="containt_main">
                 <form action="/main?page=${page.currentPage}">
                 <div class="dropdown">
-                    <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="branch_select" value="${branch}" name="branch" >
+                    <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="branch_select"  name="branch" >
                         <option selected>All Branch</option>
                         <c:forEach var="branchh" items="${branchs}">
-                            <option${branch==branchh?"selected":""}>${branchh.name}</option>
+                            <option ${branch==branchh?"selected":""}>${branchh.name}</option>
                         </c:forEach>
                     </select>
                 </div>
@@ -103,10 +103,10 @@
                     </div>
                 </div>
                 <div style="margin: 0" class="dropdown">
-                    <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="price_range" value="${ePriceRange}" name="ePriceRange" ">
+                    <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="price_range" name="ePriceRange" >
                         <option selected>Price Range</option>
                         <c:forEach var="priceRanges" items="${PriceRange}">
-                            <option ${ePriceRange==priceRanges?"selected":""}>${priceRanges.title}</option>
+                            <option ${ePriceRange== priceRanges?"selected":""}>${priceRanges.title}</option>
                         </c:forEach>
                     </select>
                 </div>
