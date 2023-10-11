@@ -5,6 +5,7 @@ import models.Branch;
 import models.EPriceRange;
 import models.Product;
 import models.User;
+import services.BranchService;
 import services.ProductService;
 import services.ShoppingService;
 import services.UserService;
@@ -25,7 +26,15 @@ public class MainController extends HttpServlet {
     private ProductDAO productDAO;
     private UserService userService;
     private ShoppingService shoppingService;
-
+    private BranchService branchService;
+    @Override
+    public void init() throws ServletException {
+        productService = new ProductService();
+        userService = new UserService();
+        shoppingService = new ShoppingService();
+        productDAO = new ProductDAO();
+        branchService= new BranchService();
+    }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
@@ -72,13 +81,7 @@ public class MainController extends HttpServlet {
 
     }
 
-    @Override
-    public void init() throws ServletException {
-        productService = new ProductService();
-        userService = new UserService();
-        shoppingService = new ShoppingService();
-        productDAO = new ProductDAO();
-    }
+
 
 
 //    private void showTable(HttpServletRequest req, boolean isShowRestore, String href, HttpServletResponse resp) throws ServletException, IOException {
@@ -116,9 +119,9 @@ public class MainController extends HttpServlet {
         List<Product> productList = productService.findAllProductBestSeller(3);
         if (user == null) {
             req.setAttribute("page", productService.findProduct(Integer.parseInt(pageString), req.getParameter("search"), req.getParameter("ePriceRange"), req.getParameter("branch")));
-            req.setAttribute("branch", branch);
+            req.setAttribute("branch", branchService.getBranchByName(branch));
             req.setAttribute("productBSs", productService.findAllProductBestSeller(3));
-            req.setAttribute("ePriceRange", ePriceRange);
+            req.setAttribute("ePriceRange",EPriceRange.valueOf(ePriceRange));
             req.setAttribute("branchs", productService.findAllBranch());
             req.setAttribute("PriceRange", EPriceRange.values());
             req.setAttribute("message", req.getParameter("message"));
@@ -128,8 +131,8 @@ public class MainController extends HttpServlet {
         } else if (user != null) {
             req.setAttribute("user", user);
             req.setAttribute("page", productService.findProduct(Integer.parseInt(pageString), req.getParameter("search"), req.getParameter("ePriceRange"), req.getParameter("branch")));
-            req.setAttribute("branch", branch);
-            req.setAttribute("ePriceRange", ePriceRange);
+            req.setAttribute("branch", branchService.getBranchByName(branch));
+            req.setAttribute("ePriceRange", EPriceRange.valueOf(ePriceRange));
             req.setAttribute("productBSs", productService.findAllProductBestSeller(3));
             req.setAttribute("message", req.getParameter("message"));
             req.setAttribute("search", req.getParameter("search"));
