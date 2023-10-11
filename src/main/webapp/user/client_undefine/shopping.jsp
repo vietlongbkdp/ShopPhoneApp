@@ -82,41 +82,35 @@
     <div class="header_section">
         <div class="container">
             <div class="containt_main">
-<%--                <div id="mySidenav" class="sidenav">--%>
-<%--                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>--%>
-<%--                    <a href="index.html">Home</a>--%>
-<%--                    <a href="fashion.html">Fashion</a>--%>
-<%--                    <a href="electronic.html">Electronic</a>--%>
-<%--                    <a href="jewellery.html">Jewellery</a>--%>
-<%--                </div>--%>
-<%--                <span class="toggle_icon" onclick="openNav()"><img src="images/toggle-icon.png"></span>--%>
+                <form action="/main?page=${page.currentPage}">
                 <div class="dropdown">
-                        <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example">
-                            <option selected>All Branch</option>
-                            <c:forEach var="branchh" items="${branchs}">
-                                <option value="${branchh}" ${branchh == branch.name ? 'selected' : ''} >${branchh.name}</option>
-                            </c:forEach>
-                        </select>
+                    <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="branch_select" value="${branch}" name="branch" onchange="updateBranch(this)">
+                        <option selected>All Branch</option>
+                        <c:forEach var="branchh" items="${branchs}">
+                            <option${branch==branchh?"selected":""}>${branchh.name}</option>
+                        </c:forEach>
+                    </select>
                 </div>
                 <div class="main">
                     <!-- Another variation with a button -->
                     <div  class="input-group">
-                        <input type="text" class="form-control" placeholder="Search this blog">
+                        <input type="text" class="form-control" placeholder="Search this blog" id="str_search" name="search" value="${search}">
                         <div class="input-group-append">
-                            <button class="btn btn-secondary" type="button" style="background-color: #f26522; border-color:#f26522 ">
+                            <button class="btn btn-secondary" id="searchButton" type="button" style="background-color: #f26522; border-color:#f26522 ">
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>
                     </div>
                 </div>
                 <div style="margin: 0" class="dropdown">
-                    <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="price_range">
+                    <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="price_range" value="${ePriceRange}" name="ePriceRange" onchange="updatePriceRange(this)">
                         <option selected>Price Range</option>
                         <c:forEach var="priceRanges" items="${PriceRange}">
-                            <option value="${priceRanges}" ${priceRanges == ePriceRange ? 'selected' : ''} >${priceRanges.title}</option>
+                            <option ${ePriceRange==priceRanges?"selected":""}>${priceRanges.title}</option>
                         </c:forEach>
                     </select>
                 </div>
+                </form>
                 <div class="header_box">
                     <div class="login_menu">
                         <ul>
@@ -230,7 +224,7 @@
 
     <div class="container">
         <div class="row row-cols-4 row-cols-md-4 g-4">
-            <c:forEach var="pager" items="${page}">
+            <c:forEach var="pager" items="${page.content}">
                 <div class="col d-flex justify-content-center">
                     <div class="card" style="width: 17rem; border-radius: 8px">
                         <a href="/user/client_undefine/productDetailShow.jsp"><img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14"></a>
@@ -261,13 +255,28 @@
                 </div>
             </c:forEach>
         </div>
+
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                <li class="page-item <c:if test="${page.currentPage == 1}">disabled</c:if>">
+                    <a class="page-link" href="${url}${(page.currentPage - 1)}" tabindex="-1"
+                       aria-disabled="true">Previous</a>
+                </li>
+                <c:forEach var="number" begin="1" end="${page.totalPage}">
+                    <c:if test="${number == page.currentPage}">
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="${url}${number}">${number}</a>
+                        </li>
+                    </c:if>
+                    <c:if test="${number != page.currentPage}">
+                        <li class="page-item">
+                            <a class="page-link" href="${url}${number}">${number}</a>
+                        </li>
+                    </c:if>
+                </c:forEach>
+                <li class="page-item <c:if test="${page.currentPage == page.totalPage}">disabled</c:if>">
+                    <a class="page-link" href="${url}${(page.currentPage + 1)}">Next</a>
+                </li>
             </ul>
         </nav>
     </div>
@@ -352,6 +361,20 @@
         priceRangeOptions[i].textContent = displayText;
     }
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossOrigin="anonymous"></script>
+</script>
+<script>
+    function updatePriceRange(selectElement) {
+        var selectedValue = selectElement.value;
+        var ePriceRangeElement = document.getElementsByName("ePriceRange")[0];
+        ePriceRangeElement.value = selectedValue;
+    }
+</script>
+<script>
+    function updateBranch(selectElement) {
+        var selectedValue = selectElement.value;
+        var branchElement = document.getElementsByName("branch")[0];
+        branchElement.value = selectedValue;
+    }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>

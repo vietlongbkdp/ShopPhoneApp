@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDAO extends DatabaseConnection {
+    private BranchDAO branchDAO;
+    public ProductDAO(){
+        branchDAO = new BranchDAO();
+    }
     public Product findById(int id) {
         var SELECT_BY_ID = "SELECT * FROM bandienthoai.products where id = ? and deleted = '0'";
         try (Connection connection = getConnection();
@@ -413,7 +417,7 @@ public class ProductDAO extends DatabaseConnection {
         var product = new Product();
         product.setId(rs.getInt("id"));
         product.setProductName(rs.getString("productName"));
-        product.setBranch(new Branch(rs.getInt("branch_id"), rs.getString("branch_name")));
+        product.setBranch(branchDAO.findById(rs.getInt("branch_id")));
         product.setImage(rs.getString("image"));
         product.setPrice(rs.getBigDecimal("price"));
         product.setQuantity(rs.getInt("quantity"));
@@ -452,11 +456,12 @@ public class ProductDAO extends DatabaseConnection {
     public List<Product> findProductBestSeller( int limit ){
         var content = new ArrayList<Product>();
         String SELECT ="SELECT products.*, SUM(product_import_details.quantity) - products.quantity AS sold_quantity\n" +
-                "FROM product_import_details\n" +
-                "JOIN products ON products.id = product_import_details.product_id\n" +
-                "GROUP BY products.id\n" +
-                "ORDER BY sold_quantity DESC\n," +
-                "limit ?";
+                "                FROM product_import_details\n" +
+                "                JOIN products ON products.id = product_import_details.product_id\n" +
+                "                WHERE products.deleted = 0\n" +
+                "                GROUP BY products.id\n" +
+                "                ORDER BY sold_quantity DESC limit ?" ;
+
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT)) {
             preparedStatement.setInt(1, limit);
