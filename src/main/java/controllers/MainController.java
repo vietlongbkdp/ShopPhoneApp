@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "MainController", value = "/main")
 
@@ -97,6 +98,7 @@ public class MainController extends HttpServlet {
         }
         String ePriceRange = req.getParameter("ePriceRange");
         String branch = req.getParameter("branch");
+        List<Product> productList = productService.findAllProductBestSeller(3);
         if (user == null) {
             if (ePriceRange == null && branch == null) {
 

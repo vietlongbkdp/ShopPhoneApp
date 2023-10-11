@@ -230,7 +230,7 @@
 
     <div class="container">
         <div class="row row-cols-4 row-cols-md-4 g-4">
-            <c:forEach var="pager" items="${page}">
+            <c:forEach var="pager" items="${page.content}">
                 <div class="col d-flex justify-content-center">
                     <div class="card" style="width: 17rem; border-radius: 8px">
                         <a href="/user/client_undefine/productDetailShow.jsp"><img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14"></a>
