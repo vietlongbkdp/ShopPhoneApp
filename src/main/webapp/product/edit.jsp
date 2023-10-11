@@ -188,7 +188,7 @@
             <div class="mb-3">
                 <label for="file-input" class="form-label">Image</label>
                 <img id="img-preview" style=" width: 100%;
-    max-width: 350px;"/>
+    max-width: 350px;" src="../images${product.image}"/>
                 <input type="file" accept="image/*" class="form-control" id="file-input" name="image"
                        value="${product.image}">
             </div>
@@ -242,6 +242,119 @@
                         image.src = src;
                     }
                 });
+            </script>
+
+            <script>
+                let existingFiles = [];
+                let currentFiles = [];
+                const inputElement = document.getElementById("img");
+                const previewContainer = document.getElementById("image-preview");
+
+                // Lấy danh sách đường dẫn file từ dữ liệu ban đầu
+                <c:forEach items="${room.images}" var="image">
+                existingFiles.push("/image${image.url}");
+                </c:forEach>
+
+                // Gọi hàm để tải và gán tệp vào ô input
+                loadFiles(existingFiles);
+
+                function loadFiles(fileUrls) {
+                    // Lặp qua danh sách đường dẫn file và tải tệp từ mỗi URL
+                    fileUrls.forEach(function (fileUrl) {
+                        fetch(fileUrl)
+                            .then(response => response.blob())
+                            .then(blob => {
+                                // Tạo một đối tượng File từ Blob và đặt tên tệp
+                                const fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+                                const file = new File([blob], fileName);
+
+                                // Kiểm tra xem tệp đã tồn tại trong danh sách hiện tại chưa
+                                if (!currentFiles.some(existingFile => existingFile.name === file.name)) {
+                                    currentFiles.push(file);
+                                }
+
+                                // Cập nhật danh sách tệp trong ô input
+                                const newFileList = new DataTransfer();
+                                currentFiles.forEach(function (file) {
+                                    newFileList.items.add(file);
+                                });
+                                inputElement.files = newFileList.files;
+
+                                // Sau khi thêm tệp vào ô input, cần cập nhật lại giao diện người dùng
+                                renderUploadedFiles(currentFiles);
+                            });
+                    });
+                }
+
+                function renderUploadedFiles(files) {
+                    previewContainer.innerHTML = ""; // Xóa nội dung hiện tại
+
+                    files.forEach(function (file) {
+                        const imgContainer = document.createElement("div");
+                        imgContainer.classList.add("img-container");
+
+                        const img = document.createElement("img");
+                        img.src = URL.createObjectURL(file); // Sử dụng URL.createObjectURL để hiển thị tệp đã thêm
+
+                        img.style.width = "200px"; // Kích thước hình ảnh xem trước
+                        img.style.height = "auto";
+                        img.style.marginTop = "5px";
+
+                        const deleteIcon = document.createElement("span");
+                        deleteIcon.classList.add("delete-icon");
+                        deleteIcon.innerHTML = "&times;";
+
+                        // Gắn sự kiện click vào biểu tượng "x" để xóa hình ảnh và tệp tin
+                        deleteIcon.addEventListener("click", function () {
+                            imgContainer.remove();
+
+                            // Xóa tệp tương ứng từ danh sách
+                            const index = currentFiles.findIndex(existingFile => existingFile.name === file.name);
+                            if (index !== -1) {
+                                currentFiles.splice(index, 1);
+
+                                // Cập nhật lại danh sách tệp trong ô input
+                                const newFileList = new DataTransfer();
+                                currentFiles.forEach(function (file) {
+                                    newFileList.items.add(file);
+                                });
+                                inputElement.files = newFileList.files;
+                            }
+                        });
+
+                        imgContainer.appendChild(img);
+                        imgContainer.appendChild(deleteIcon);
+                        previewContainer.appendChild(imgContainer);
+                    });
+                }
+
+                inputElement.addEventListener("change", function (event) {
+                    const newFiles = event.target.files;
+                    addNewFiles(newFiles);
+                });
+
+                function addNewFiles(newFiles) {
+                    // Kiểm tra và lọc ra các đối tượng File từ newFiles
+                    const validNewFiles = Array.from(newFiles).filter(function (file) {
+                        return file instanceof File;
+                    });
+
+                    validNewFiles.forEach(function (file) {
+                        if (!currentFiles.some(existingFile => existingFile.name === file.name)) {
+                            currentFiles.push(file);
+                        }
+                    });
+
+                    // Cập nhật lại danh sách tệp trong ô input
+                    const newFileList = new DataTransfer();
+                    currentFiles.forEach(function (file) {
+                        newFileList.items.add(file);
+                    });
+                    inputElement.files = newFileList.files;
+
+                    // Sau khi thêm tệp vào ô input, cần cập nhật lại giao diện người dùng
+                    renderUploadedFiles(currentFiles);
+                }
             </script>
 
             <script src="/user/admin/assets/jquery.min.js"></script>

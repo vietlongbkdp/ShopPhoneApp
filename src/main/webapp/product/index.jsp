@@ -173,7 +173,7 @@
                                         <td>${product.productName}</td>
                                         <td>${product.quantity}</td>
                                         <td>${product.branchName}</td>
-                                        <td><img src="../images${product.urlImage}" alt="" style="width: 100px;height: 100px"></td>
+                                        <td><img src="../images${product.urlImage}" alt="" style="width: 145px;height: 90px"></td>
                                         <td>${product.price}</td>
                                         <td>
                                             <a href="/product?action=edit&id=${product.id}" class="btn btn-primary ">Update</a>
@@ -305,7 +305,7 @@
                 </style>
 
 
-<script src="/user/admin/assets/jquery.min.js"></script>
+
 <script src="/user/admin/assets/bootstrap.bundle.min.js"></script>
 <script src="/user/admin/assets/jquery.easing.min.js"></script>
 <script src="/user/admin/assets/sb-admin-2.min.js"></script>

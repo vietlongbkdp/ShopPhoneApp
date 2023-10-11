@@ -1,5 +1,6 @@
 package controllers;
 
+import daos.ProductDAO;
 import models.Branch;
 import models.EPriceRange;
 import models.Product;
@@ -21,6 +22,7 @@ import java.util.List;
 
 public class MainController extends HttpServlet {
     private ProductService productService;
+    private ProductDAO productDAO;
     private UserService userService;
     private ShoppingService shoppingService;
 
@@ -31,10 +33,20 @@ public class MainController extends HttpServlet {
             action = "";
         }
         switch (action) {
-//            case "shopping" -> showShopping(req, resp);
-            case "detail" -> showDetail(req, resp);
+            case "showDetailProduct" -> showDetailProduct(req, resp);
+            case "detail"->showDetail(req,resp);
             default -> showShopping(req, resp);
         }
+    }
+
+    private void showDetailProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id = Integer.parseInt(req.getParameter("id"));
+        Product product = productDAO.findById(id);
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("user");
+        req.setAttribute("user", user);
+        req.setAttribute("product", product);
+        req.getRequestDispatcher("/user/client_undefine/productDetailShow.jsp").forward(req, resp);
     }
 
     private void showDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -65,7 +77,9 @@ public class MainController extends HttpServlet {
         productService = new ProductService();
         userService = new UserService();
         shoppingService = new ShoppingService();
+        productDAO = new ProductDAO();
     }
+
 
 //    private void showTable(HttpServletRequest req, boolean isShowRestore, String href, HttpServletResponse resp) throws ServletException, IOException {
 //        HttpSession session = req.getSession();

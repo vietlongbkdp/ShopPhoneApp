@@ -94,8 +94,48 @@ public class ProductController extends HttpServlet {
         req.getRequestDispatcher("product/edit.jsp").forward(req, resp);
     }
 
-    private void edit(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        productService.update(getProductByRequest(req), Integer.parseInt(req.getParameter("id")));
+    private void edit(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+
+        String image = null;
+
+        String pathServerImage = getServletContext().getRealPath("/") + "images";
+        String pathProjectImage = "F:\\ShopPhoneApp\\src\\main\\webapp\\images";
+
+        String dbImageUrl = null;
+
+        boolean imageUploaded = false;
+
+        for (Part part : req.getParts()) {
+            String fileName = extractFileName(part);
+
+            if (!fileName.isEmpty()) {
+                fileName = new File(fileName).getName();
+                image = "/"+fileName;
+
+                if (part.getContentType().equals("image/jpeg")) {
+
+                    String imagePath = "images" + File.separator + fileName;
+
+//                    part.write(pathProjectImage + File.separator + fileName);
+//                    part.write(getServletContext().getRealPath("/") + imagePath);
+
+                    writeImage(pathProjectImage + File.separator + fileName, part);
+                    writeImage(getServletContext().getRealPath("/") + imagePath, part);
+                    dbImageUrl = imagePath;
+                    imageUploaded = true;
+                } else {
+                    req.setAttribute("errorImage", "File ảnh không hợp lệ!");
+                }
+            }
+        }
+
+        if (!imageUploaded) {
+            req.setAttribute("errorImage", "File ảnh không được để trống hoặc không hợp lệ!");
+        }
+        var product =getProductByRequest(req);
+        product.setImage(image);
+        productService.update(product, Integer.parseInt(req.getParameter("id")));
+
         resp.sendRedirect("/product?message=Updated");
     }
 

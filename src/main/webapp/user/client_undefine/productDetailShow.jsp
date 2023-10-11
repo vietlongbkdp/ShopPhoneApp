@@ -47,15 +47,13 @@
             </aside>
             <main class="col-lg-6">
                 <div class="ps-lg-3">
-                    <h4 class="title text-dark">
-                        IPHONE 14 PRO MAX
-                    </h4>
-                        <span class="text-muted"><i class="fas fa-shopping-basket fa-sm mx-1"></i>123 product</span>
+                    <h4 class="title text-dark">${product.productName}</h4>
+                        <span class="text-muted"><i class="fas fa-shopping-basket fa-sm mx-1"></i>${product.quantity} product</span>
                         <span class="text-success ms-2">Inventory</span>
                     </div>
 
                     <div style="margin: 2rem; color: #b21f2d" class="mb-3">
-                        <span class="h3">$750</span>
+                        <span class="h3">$${product.price}</span>
                         <span class="text-muted">/per peice</span>
                     </div>
 
@@ -66,25 +64,25 @@
 
                     <div class="row">
                         <dt class="col-5"><i class="fas fa-file-code"></i> Operating System: </dt>
-                        <dd class="col-7">IOS 17</dd>
+                        <dd class="col-7">${product.operatingSystem}</dd>
 
                         <dt class="col-5"><i class="fas fa-memory"></i> RAM: </dt>
-                        <dd class="col-7">8GB</dd>
+                        <dd class="col-7">${product.ram}</dd>
 
                         <dt class="col-5"><i class="fas fa-database"></i> Storage: </dt>
-                        <dd class="col-7">128GB</dd>
+                        <dd class="col-7">${product.size}</dd>
 
                         <dt class="col-5"><i class="fas fa-palette"></i> Color: </dt>
-                        <dd class="col-7">Black</dd>
+                        <dd class="col-7">${product.color}</dd>
 
                         <dt class="col-5"><i class="fas fa-camera"></i> Camera: </dt>
-                        <dd class="col-7">12MP</dd>
+                        <dd class="col-7">${product.camera}</dd>
 
                         <dt class="col-5"><i class="fas fa-battery-three-quarters"></i> Battery Capacity: </dt>
-                        <dd class="col-7">Black</dd>
+                        <dd class="col-7">${product.pin}</dd>
 
                         <dt class="col-5"><i class="fas fa-screwdriver-wrench"></i> Warranty Period</dt>
-                        <dd class="col-7">2 year</dd>
+                        <dd class="col-7">${product.warrantyPeriod}</dd>
                     </div>
 
                     <hr />
