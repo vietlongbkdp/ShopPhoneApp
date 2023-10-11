@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Branch;
 import models.EPriceRange;
 import models.Product;
 import models.User;
@@ -30,9 +31,9 @@ public class MainController extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "shopping" -> showShopping(req, resp);
+//            case "shopping" -> showShopping(req, resp);
             case "detail"->showDetail(req,resp);
-            default -> showlist(req, resp);
+            default -> showShopping(req, resp);
         }
     }
 
@@ -56,7 +57,7 @@ public class MainController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+
     }
 
     @Override
