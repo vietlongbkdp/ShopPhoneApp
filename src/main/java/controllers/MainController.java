@@ -114,14 +114,12 @@ public class MainController extends HttpServlet {
         if (pageString == null) {
             pageString = "1";
         }
-        String ePriceRange = req.getParameter("ePriceRange");
-        String branch = req.getParameter("branch");
         List<Product> productList = productService.findAllProductBestSeller(3);
         if (user == null) {
             req.setAttribute("page", productService.findProduct(Integer.parseInt(pageString), req.getParameter("search"), req.getParameter("ePriceRange"), req.getParameter("branch")));
-            req.setAttribute("branch", branchService.getBranchByName(branch));
+            req.setAttribute("branch",  req.getParameter("branch"));
             req.setAttribute("productBSs", productService.findAllProductBestSeller(3));
-            req.setAttribute("ePriceRange",EPriceRange.valueOf(ePriceRange));
+            req.setAttribute("ePriceRange",req.getParameter("ePriceRange"));
             req.setAttribute("branchs", productService.findAllBranch());
             req.setAttribute("PriceRange", EPriceRange.values());
             req.setAttribute("message", req.getParameter("message"));
@@ -131,8 +129,8 @@ public class MainController extends HttpServlet {
         } else if (user != null) {
             req.setAttribute("user", user);
             req.setAttribute("page", productService.findProduct(Integer.parseInt(pageString), req.getParameter("search"), req.getParameter("ePriceRange"), req.getParameter("branch")));
-            req.setAttribute("branch", branchService.getBranchByName(branch));
-            req.setAttribute("ePriceRange", EPriceRange.valueOf(ePriceRange));
+            req.setAttribute("branch", req.getParameter("branch"));
+            req.setAttribute("ePriceRange", req.getParameter("ePriceRange"));
             req.setAttribute("productBSs", productService.findAllProductBestSeller(3));
             req.setAttribute("message", req.getParameter("message"));
             req.setAttribute("search", req.getParameter("search"));
