@@ -54,7 +54,7 @@ public class ProductDAO extends DatabaseConnection {
 
     public Object findAll(int page, boolean isShowRestore, String search) {
         var result = new Page<Product>();
-        final int TOTAL_ELEMENT = 6;
+        final int TOTAL_ELEMENT = 12;
         result.setCurrentPage(page);
         var content = new ArrayList<Product>();
         if (search == null) {
