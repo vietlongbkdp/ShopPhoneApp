@@ -15,9 +15,11 @@ import java.util.List;
 
 public class ProductDAO extends DatabaseConnection {
     private BranchDAO branchDAO;
-    public ProductDAO(){
+
+    public ProductDAO() {
         branchDAO = new BranchDAO();
     }
+
     public Product findById(int id) {
         var SELECT_BY_ID = "SELECT * FROM bandienthoai.products where id = ? and deleted = '0'";
         try (Connection connection = getConnection();
@@ -140,7 +142,8 @@ public class ProductDAO extends DatabaseConnection {
         }
         return content;
     }
-    public Branch findBranchByID(int id){
+
+    public Branch findBranchByID(int id) {
         var SELECT_BY_ID = "SELECT * FROM bandienthoai.branchs where  id =?";
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_BY_ID)) {
@@ -307,10 +310,10 @@ public class ProductDAO extends DatabaseConnection {
                 "  AND (\n" +
                 "    LOWER(p.productName) LIKE ?\n" +
                 "    OR LOWER(b.name) LIKE ?\n" +
-                "  ) AND p.price_range = ?  "+
+                "  ) AND p.price_range = ?  " +
                 " LIMIT ? OFFSET ?";
 
-        var SELECT_COUNT = "SELECT COUNT(1) cnt " +  "FROM products p\n" +
+        var SELECT_COUNT = "SELECT COUNT(1) cnt " + "FROM products p\n" +
                 "JOIN branchs b ON b.id = p.branch_id\n" +
                 "WHERE p.deleted = ?\n" +
                 "  AND b.name = ?\n" +
@@ -348,6 +351,7 @@ public class ProductDAO extends DatabaseConnection {
         }
         return result;
     }
+
     public Page<Product> findAllProductIfNULL(int page, boolean isShowRestore, String search, String ePriceRange, String branchName) {
         var result = new Page<Product>();
         final int TOTAL_ELEMENT = 6;
@@ -369,11 +373,10 @@ public class ProductDAO extends DatabaseConnection {
                 "FROM products p\n" +
                 "JOIN branchs b ON b.id = p.branch_id\n" +
                 "WHERE p.deleted = ?\n" +
-                "  AND b.name = ?\n" +
                 "  AND (\n" +
                 "    LOWER(p.productName) LIKE ?\n" +
                 "    OR LOWER(b.name) LIKE ?\n" +
-                "  ) OR p.price_range = ? "+
+                "  ) OR p.price_range = ? " +
                 " LIMIT ? OFFSET ?";
         var SELECT_COUNT = "SELECT COUNT(1) cnt " + "FROM products p\n" +
                 "JOIN branchs b ON b.id = p.branch_id\n" +
@@ -386,12 +389,11 @@ public class ProductDAO extends DatabaseConnection {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT)) {
             preparedStatement.setInt(1, DELETED);
-            preparedStatement.setString(2, branchName);
+            preparedStatement.setString(2, search);
             preparedStatement.setString(3, search);
-            preparedStatement.setString(3, search);
-            preparedStatement.setString(5, ePriceRange);
-            preparedStatement.setInt(6, TOTAL_ELEMENT);
-            preparedStatement.setInt(7, (page - 1) * TOTAL_ELEMENT);
+            preparedStatement.setString(4, ePriceRange);
+            preparedStatement.setInt(5, TOTAL_ELEMENT);
+            preparedStatement.setInt(6, (page - 1) * TOTAL_ELEMENT);
             System.out.println(preparedStatement);
             var rs = preparedStatement.executeQuery();
             while (rs.next()) {
@@ -413,6 +415,7 @@ public class ProductDAO extends DatabaseConnection {
         }
         return result;
     }
+
     private Product getProductByRs(ResultSet rs) throws SQLException {
         var product = new Product();
         product.setId(rs.getInt("id"));
@@ -431,7 +434,8 @@ public class ProductDAO extends DatabaseConnection {
         product.setePriceRange(EPriceRange.valueOf(rs.getString("price_range")));
         return product;
     }
-    public List<Branch> findAllBranch(){
+
+    public List<Branch> findAllBranch() {
         var content = new ArrayList<Branch>();
         var SELECT_ALL = "SELECT * FROM bandienthoai.branchs;";
         try (Connection connection = getConnection();
@@ -453,14 +457,15 @@ public class ProductDAO extends DatabaseConnection {
         branch.setName(rs.getString("name"));
         return branch;
     }
-    public List<Product> findProductBestSeller( int limit ){
+
+    public List<Product> findProductBestSeller(int limit) {
         var content = new ArrayList<Product>();
-        String SELECT ="SELECT products.*, SUM(product_import_details.quantity) - products.quantity AS sold_quantity\n" +
+        String SELECT = "SELECT products.*, SUM(product_import_details.quantity) - products.quantity AS sold_quantity\n" +
                 "                FROM product_import_details\n" +
                 "                JOIN products ON products.id = product_import_details.product_id\n" +
                 "                WHERE products.deleted = 0\n" +
                 "                GROUP BY products.id\n" +
-                "                ORDER BY sold_quantity DESC limit ?" ;
+                "                ORDER BY sold_quantity DESC limit ?";
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT)) {
@@ -476,4 +481,65 @@ public class ProductDAO extends DatabaseConnection {
         return content;
     }
 
+    public Page<Product> findAll(int page, String search, String ePriceRange, String branchName) {
+        var result = new Page<Product>();
+        final int TOTAL_ELEMENT = 12;
+        result.setCurrentPage(page);
+        var content = new ArrayList<Product>();
+        if(search==null){
+            search="";
+        }if(ePriceRange==null){
+            ePriceRange="";
+        }if(branchName==null){
+            branchName="";
+        }
+        search = "%" + search.toLowerCase() + "%";
+        var SEARCH_QUERY = "SELECT p.*, b.name AS branch_name \n" +
+                "FROM products p\n" +
+                "JOIN branchs b ON b.id = p.branch_id\n" +
+                "WHERE p.deleted = 0 \n";
+        var SELECT_COUNT_QUERY = "SELECT COUNT(1) cnt " + "FROM products p\n" +
+                "JOIN branchs b ON b.id = p.branch_id\n" +
+                "WHERE p.deleted = 0 \n";
+        if (search.equals("%%")) {
+            if (!ePriceRange.isEmpty()) {
+                SEARCH_QUERY += " AND p.price_range = " + ePriceRange;
+                SELECT_COUNT_QUERY += " AND p.price_range = " + ePriceRange;
+            }
+            if (!branchName.isEmpty()) {
+                SEARCH_QUERY += " AND b.name = " + branchName;
+                SELECT_COUNT_QUERY += " AND b.name = " + branchName;
+            }
+        } else  {
+            SEARCH_QUERY += " AND ( LOWER(p.productName) LIKE " + search + " OR LOWER(b.name) LIKE " + search + " OR LOWER(p.price) LIKE " + search + ")";
+            SELECT_COUNT_QUERY += " AND ( LOWER(p.productName) LIKE " + search + " OR LOWER(b.name) LIKE " + search + " OR LOWER(p.price) LIKE " + search + ")";
+
+            if (!ePriceRange.isEmpty()) {
+                SEARCH_QUERY += " AND p.price_range = " + ePriceRange;
+                SELECT_COUNT_QUERY += " AND p.price_range = " + ePriceRange;
+            }
+            if (!branchName.isEmpty()) {
+                SEARCH_QUERY += " AND b.name = " + branchName;
+                SELECT_COUNT_QUERY += " AND b.name = " + branchName;
+            }
+        }
+        SEARCH_QUERY += " LIMIT " + TOTAL_ELEMENT + " OFFSET " + (page - 1) * TOTAL_ELEMENT;
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_QUERY)) {
+            System.out.println(preparedStatement);
+            var rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                content.add(getProductByRs(rs));
+                result.setContent(content);
+                var preparedStatementCount = connection.prepareStatement(SELECT_COUNT_QUERY);
+                var rsCount = preparedStatementCount.executeQuery();
+                if (rsCount.next()) {
+                    result.setTotalPage((int) Math.ceil((double) rsCount.getInt("cnt") / TOTAL_ELEMENT));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
 }

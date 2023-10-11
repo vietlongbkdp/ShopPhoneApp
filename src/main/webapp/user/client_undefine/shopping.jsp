@@ -84,7 +84,7 @@
             <div class="containt_main">
                 <form action="/main?page=${page.currentPage}">
                 <div class="dropdown">
-                    <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="branch_select" value="${branch}" name="branch" onchange="updateBranch(this)">
+                    <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="branch_select" value="${branch}" name="branch" >
                         <option selected>All Branch</option>
                         <c:forEach var="branchh" items="${branchs}">
                             <option${branch==branchh?"selected":""}>${branchh.name}</option>
@@ -96,14 +96,14 @@
                     <div  class="input-group">
                         <input type="text" class="form-control" placeholder="Search this blog" id="str_search" name="search" value="${search}">
                         <div class="input-group-append">
-                            <button class="btn btn-secondary" id="searchButton" type="button" style="background-color: #f26522; border-color:#f26522 ">
+                            <button class="btn btn-secondary" id="searchButton" type="submit" style="background-color: #f26522; border-color:#f26522 ">
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>
                     </div>
                 </div>
                 <div style="margin: 0" class="dropdown">
-                    <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="price_range" value="${ePriceRange}" name="ePriceRange" onchange="updatePriceRange(this)">
+                    <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="price_range" value="${ePriceRange}" name="ePriceRange" ">
                         <option selected>Price Range</option>
                         <c:forEach var="priceRanges" items="${PriceRange}">
                             <option ${ePriceRange==priceRanges?"selected":""}>${priceRanges.title}</option>
@@ -327,41 +327,8 @@
     function closeNav() {
         document.getElementById("mySidenav").style.width = "0";
     }
-    var priceRangeSelect = document.getElementById('price_range');
-    var priceRangeOptions = priceRangeSelect.getElementsByTagName('option');
-
-    for (var i = 0; i < priceRangeOptions.length; i++) {
-        var value = priceRangeOptions[i].value;
-        var displayText = '';
-
-        switch (value) {
-            case 'UNDER_100_USD':
-                displayText = 'UNDER 100 USD';
-                break;
-            case 'RANGE_100_299_USD':
-                displayText = '100-299 USD';
-                break;
-            case 'RANGE_300_499_USD':
-                displayText = '300-499 USD';
-                break;
-            case 'RANGE_500_699_USD':
-                displayText = '500-699 USD';
-                break;
-            case 'RANGE_700_999_USD':
-                displayText = '700-999 USD';
-                break;
-            case 'OVER_999_USD':
-                displayText = 'OVER 999 USD';
-                break;
-            default:
-                displayText = value; // Nếu không có giá trị khớp, sử dụng giá trị gốc
-                break;
-        }
-
-        priceRangeOptions[i].textContent = displayText;
-    }
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossOrigin="anonymous"></script>
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossOrigin="anonymous"></script>
 <script>
     function updatePriceRange(selectElement) {
         var selectedValue = selectElement.value;

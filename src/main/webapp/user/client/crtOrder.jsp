@@ -118,7 +118,7 @@
             <div class="container-fluid">
 
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Order Management</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Payment page</h1>
                 </div>
 
                 <!-- Content Row -->
@@ -140,7 +140,6 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th></th>
                             <th>Product</th>
                             <th></th>
                             <th>Price</th>
@@ -151,8 +150,7 @@
                         <tbody>
                         <c:if test="${not empty cartDetails}">
                             <c:forEach var="cartDetail" items="${cartDetails}">
-                                <tr>
-                                    <td><input type="hidden" name="cartChecked" value="${cartDetail.checked}"></td>
+                                <tr><input type="hidden" name="cartChecked" value="${cartDetail.checked}">
                                     <td>${cartDetail.product.productName}</td>
                                     <td><input name="productIds" value="${cartDetail.product.id}">
                                         <input type="hidden" value="${cartDetail.id}" name="DetailIDS">
@@ -169,7 +167,6 @@
                             <c:forEach var="od" items="${orderDetails}">
                                 <input type="hidden" name="productIds" value="${od.product.id}">
                                 <tr>
-                                    <td></td>
                                     <td>${od.product.productName}</td>
                                     <td>
                                         <input type="hidden" value="${OrderDTs}" name="OrderDTs">
@@ -184,7 +181,6 @@
                         <c:if test="${not empty product}">
                             <input type="hidden" value="${product.id}" name="productIds">
                             <tr>
-                                <td></td>
                                 <td>${product.productName}</td>
                                 <td><input type="hidden" value="${quantityB}" name="quantityB">
                                         ${product.image}
@@ -201,7 +197,6 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td></td>
                             <td>Total cost</td>
                             <td id="total_amount_chosen"></td>
                         </tr>
@@ -209,12 +204,10 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td></td>
                             <td>VAT 10%</td>
                             <td id="VAT"></td>
                         </tr>
                         <tr>
-                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -326,7 +319,7 @@
 <script src="/user/admin/assets/bootstrap.bundle.min.js"></script>
 <script src="/user/admin/assets/jquery.easing.min.js"></script>
 <script src="/user/admin/assets/sb-admin-2.min.js"></script>
-<script src="/user/admin/assets/jquery.dataTables.min.js"></script>
+<%--<script src="/user/admin/assets/jquery.dataTables.min.js"></script>--%>
 <script src="/user/admin/assets/dataTables.bootstrap4.min.js"></script>
 <script src="/user/admin/assets/datatables-demo.js"></script>
 </body>

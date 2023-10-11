@@ -305,7 +305,7 @@
                 </style>
 
 
-<script src="/user/admin/assets/jquery.min.js"></script>
+
 <script src="/user/admin/assets/bootstrap.bundle.min.js"></script>
 <script src="/user/admin/assets/jquery.easing.min.js"></script>
 <script src="/user/admin/assets/sb-admin-2.min.js"></script>

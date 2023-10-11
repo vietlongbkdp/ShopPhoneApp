@@ -9,6 +9,7 @@ import services.dto.AllProductDto;
 import services.dto.Page;
 
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class ProductService {
@@ -77,6 +78,9 @@ return  productDAO.findAllProduct(page,isShowRestore,search,ePriceRange,branchNa
     }
     public List<Product> findAllProductBestSeller(int limit ){
       return   productDAO.findProductBestSeller(limit);
+    }
+    public Page<Product> findProduct(int page, String search, String ePriceRange, String branchName)  {
+        return productDAO.findAll(page,search,ePriceRange,branchName);
     }
 }
 

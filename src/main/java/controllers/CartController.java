@@ -83,7 +83,7 @@ public class CartController extends HttpServlet {
         Product product = productService.findByIdProduct(idProduct);
         req.setAttribute("product", product);
         req.setAttribute("quantityB", quantity);
-        req.getRequestDispatcher("user/client/createOrder.jsp").forward(req, resp);
+        req.getRequestDispatcher("user/client/crtOrder.jsp").forward(req, resp);
     }
 
     private void reBuy(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -108,7 +108,7 @@ public class CartController extends HttpServlet {
         }
         req.setAttribute("OrderDTs", idOrder);
         req.setAttribute("orderDetails", orderDetails);
-        req.getRequestDispatcher("user/client/createOrder.jsp").forward(req, resp);
+        req.getRequestDispatcher("user/client/crtOrder.jsp").forward(req, resp);
     }
 
     private void showDefault(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -233,7 +233,7 @@ public class CartController extends HttpServlet {
             }
             req.setAttribute("DetailIDS", DetailIDS);
             req.setAttribute("cartDetails", shoppingService.cartDetails(cart.getId(), 1));
-            req.getRequestDispatcher("user/client/createOrder.jsp").forward(req, resp);
+            req.getRequestDispatcher("user/client/crtOrder.jsp").forward(req, resp);
         }
     }
 }
