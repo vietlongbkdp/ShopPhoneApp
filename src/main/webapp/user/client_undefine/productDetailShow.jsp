@@ -41,7 +41,7 @@
             <aside class="col-lg-6">
                 <div class="border rounded-4 mb-3 d-flex justify-content-center">
                     <a data-fslightbox="mygalley" class="rounded-4" target="_blank" data-type="image" href="#">
-                        <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="/user/client_undefine/img/phone/iphone14.png" />
+                        <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit" src="/images/${product.image}" />
                     </a>
                 </div>
             </aside>
@@ -96,7 +96,7 @@
                         </div>
                     </div>
                     <a href="#" class="btn btn-warning shadow-0"> Buy now </a>
-                    <a href="#" class="btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart </a>
+                    <a href="/cart?action=cart&id=${user.id}" class="btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart </a>
             </main>
         </div>
     </div>
