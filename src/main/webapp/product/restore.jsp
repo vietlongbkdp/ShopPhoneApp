@@ -10,11 +10,6 @@
 <html>
 <head>
     <title>Title</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" rel="stylesheet">
     <link href="/user/admin/assets/all.min.css" rel="stylesheet" type="text/css">
     <link href="/user/admin/assets/sb-admin-2.min.css" rel="stylesheet">
     <link href="/user/admin/assets/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -144,116 +139,148 @@
                 <!-- DataTales Example -->
                 <div class="card shadow mb-4">
                     <div class="card-header py-3" style="display: flex; justify-content: space-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Product Management</h6>
-                        <c:if test="${message != null}">
-                            <h6 class="d-none" id="message">${message}</h6>
-                        </c:if>
-                        <a href="/product?action=create" class="btn btn-primary ">Create new Product</a>
-                        <a href="/product?action=showRestore" class="btn btn-primary ">Restore Product</a>
-
-
+                        <h6 class="m-0 font-weight-bold text-primary">Restore Product Management</h6>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Product Name</th>
-                                    <th>Quantity</th>
-                                    <th>Branch</th>
-                                    <th>Image</th>
-                                    <th>Price</th>
-                                    <th>Action</th>
-                                </tr>
-                                </thead>
+                    <c:if test="${message != null}">
+                        <h6 class="d-none" id="message">${message}</h6>
+                    </c:if>
+
+                    <form action="/product" method="get">
+                        <input type="hidden" name="action" value="showRestore"> <!-- Thêm input hidden để truyền giá trị action -->
+                    </form>
+                    <form action="/product?action=restore" method="post" id="restoreForm"> <!-- Đặt id cho form -->
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Product Name</th>
+                                        <th>Branch</th>
+                                        <th>Image</th>
+                                        <th>Price</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                <c:set var="hasProducts" value="false"/>
                                 <c:forEach var="product" items="${products}">
                                     <tr>
                                         <td>${product.id}</td>
                                         <td>${product.productName}</td>
-                                        <td>${product.quantity}</td>
                                         <td>${product.branchName}</td>
                                         <td><img src="../images${product.urlImage}" alt="" style="width: 100px;height: 100px"></td>
                                         <td>${product.price}</td>
                                         <td>
-                                            <a href="/product?action=edit&id=${product.id}" class="btn btn-primary ">Update</a>
-                                            <a onclick="showConfirm(${product.id})"
-                                               class="btn btn-primary ">Delete</a>
+                                            <input type="checkbox" name="restoredProduct" value="${product.id}" class="myCheckBox">
+                                            <!-- Checkbox -->
                                         </td>
                                     </tr>
                                     <c:set var="hasProducts" value="true"/>
                                 </c:forEach>
+                                <c:if test="${hasProducts}">
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Select All</td>
+                                        <td><input type="checkbox" id="selectAllCheckbox"> <!-- Checkbox to select all --></td>
+                                    </tr>
+                                </c:if>
+
                             </table>
-
-
+                            <div>
+                                <a class="btn btn-primary" onclick="showConfirm(event)">Restore</a>
+                                <a href="/product" class="btn btn-primary">Cancel</a>
+                            </div>
                             <div id="confirmDialog" class="modal">
                                 <div class="modal-content">
-                                    <p>Are you sure to delete?</p>
+                                    <p>Are you sure to restore?</p>
                                     <div class="button-container">
-                                        <button id="deleteButton">Yes</button>
-                                        <button onclick="hideConfirmDialog()">No</button>
+                                        <button type="submit" class="btn btn-primary mb-2">Yes</button>
+                                        <button class="btn btn-primary mb-2" onclick="hideConfirmDialog(event)">No</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                </div>
+                <!-- End of Page Wrapper -->
+
+                <!-- Scroll to Top Button-->
+                <a class="scroll-to-top rounded" href="#page-top">
+                    <i class="fas fa-angle-up"></i>
+                </a>
+
+                <!-- Logout Modal-->
+                <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                <a class="btn btn-primary" href="/login?action=logout">Logout</a>
+                            </div>
+                        </div>
                     </div>
-</div>
-
-<!-- End of Page Wrapper -->
-
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="/login?action=logout">Logout</a>
-            </div>
-        </div>
-    </div>
-    <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span>---------  Website Design by Huy - Long - Thắng Team  ---------</span>
-            </div>
-        </div>
-    </footer>
-</div>
-
+                    <footer class="sticky-footer bg-white">
+                        <div class="container my-auto">
+                            <div class="copyright text-center my-auto">
+                                <span>---------  Website Design by Huy - Long - Thắng Team  ---------</span>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
                 <script>
                     const message = document.getElementById('message');
                     if (message !== null && message.innerHTML) {
                         toastr.success(message.innerHTML);
                     }
 
-                    function showConfirm(id) {
-                        document.getElementById("confirmDialog").style.display = "block";
-                        var buttonDelete = document.getElementById("deleteButton");
-                        buttonDelete.addEventListener("click", function () {
-                            deleteItem(id);
-                        });
-                    }
+                    var checkboxes = document.querySelectorAll('.myCheckBox');
+                    var checkedIds = [];
 
-                    function hideConfirmDialog() {
+                    function hideConfirmDialog(event) {
+                        event.preventDefault(); // Ngăn chặn mặc định submit của form
                         document.getElementById("confirmDialog").style.display = "none";
                     }
 
-                    function deleteItem(id) {
-                        window.location.href = "product?action=delete&id=" + id;
+                    function showConfirm(event) {
+                        checkedIds = []; // Đặt lại mảng checkedIds mỗi khi bạn hiển thị modal
+                        for (var i = 0; i < checkboxes.length; i++) {
+                            if (checkboxes[i].checked) {
+                                checkedIds.push(checkboxes[i].value);
+                            }
+                        }
+                        if (checkedIds.length === 0) {
+                            toastr.warning("Please select at least one product to restore.");
+                        } else {
+                            document.getElementById("confirmDialog").style.display = "block";
+                        }
                     }
+
+                    const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+                    const checkedboxes = document.getElementsByName('restoredProduct');
+
+                    selectAllCheckbox.addEventListener('change', function () {
+                        checkedboxes.forEach(function (checkbox) {
+                            checkbox.checked = selectAllCheckbox.checked;
+                        });
+                    });
+
+                    // Xử lý khi bấm nút "No"
+                    const noButton = document.querySelector('#confirmDialog button[type="button"]');
+                    noButton.addEventListener('click', function (event) {
+                        hideConfirmDialog(event);
+                        checkedIds = [];
+                    });
+
                 </script>
 
                 <style>
@@ -304,13 +331,12 @@
                     }
                 </style>
 
-
-<script src="/user/admin/assets/jquery.min.js"></script>
-<script src="/user/admin/assets/bootstrap.bundle.min.js"></script>
-<script src="/user/admin/assets/jquery.easing.min.js"></script>
-<script src="/user/admin/assets/sb-admin-2.min.js"></script>
-<script src="/user/admin/assets/jquery.dataTables.min.js"></script>
-<script src="/user/admin/assets/dataTables.bootstrap4.min.js"></script>
-<script src="/user/admin/assets/datatables-demo.js"></script>
+                <script src="/user/admin/assets/jquery.min.js"></script>
+                <script src="/user/admin/assets/bootstrap.bundle.min.js"></script>
+                <script src="/user/admin/assets/jquery.easing.min.js"></script>
+                <script src="/user/admin/assets/sb-admin-2.min.js"></script>
+                <script src="/user/admin/assets/jquery.dataTables.min.js"></script>
+                <script src="/user/admin/assets/dataTables.bootstrap4.min.js"></script>
+                <script src="/user/admin/assets/datatables-demo.js"></script>
 </body>
 </html>

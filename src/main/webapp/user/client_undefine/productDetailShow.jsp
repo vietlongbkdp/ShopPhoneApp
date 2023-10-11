@@ -93,7 +93,7 @@
                         <div class="col-md-4 col-6 mb-3">
                             <div class="input-group mb-3" style="width: 170px;">
                                 <label style="margin-right: 1rem; vertical-align: center; text-align: center">Quantity</label>
-                                <input type="number" class="form-control text-center border border-secondary" placeholder="0" aria-label="Example text with button addon" min="0" max="10" aria-describedby="button-addon1" />
+                                <input type="number" class="form-control text-center border border-secondary" placeholder="0" aria-label="Example text with button addon"  value="1" min="0" max="10" aria-describedby="button-addon1" />
                             </div>
                         </div>
                     </div>

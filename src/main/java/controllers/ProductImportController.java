@@ -36,8 +36,8 @@ public class ProductImportController extends HttpServlet {
             case "edit":
                 showEdit(req, resp);
                 break;
-            case "delete":
-                delete(req, resp);
+            case "detail":
+                showDetail(req, resp);
                 break;
             default:
                 showList(req, resp);
@@ -45,18 +45,15 @@ public class ProductImportController extends HttpServlet {
 
     }
 
+    private void showDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        var productImport = productImportService.findById(Integer.parseInt(req.getParameter("id")));
+        req.setAttribute("productImport", productImport);
+        req.getRequestDispatcher("product-import/index_details.jsp").forward(req, resp);
+    }
+
 
     private void showList(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        String pageString = req.getParameter("page");
-        if (pageString == null) {
-            pageString = "1";
-        }
-        req.setAttribute("page", productImportService.findAll(Integer.parseInt(pageString), req.getParameter("search")));
-//        req.setAttribute("productImports", productImportService.findAll());
-        req.setAttribute("search", req.getParameter("search"));
-        req.setAttribute("message", req.getParameter("message"));
-        req.getRequestDispatcher("product-import/index.jsp").forward(req, resp);
+        showTable(req, "product-import/index.jsp", resp);
     }
 
 
@@ -68,7 +65,6 @@ public class ProductImportController extends HttpServlet {
     }
 
     private void showEdit(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-
         req.setAttribute("productImport", productImportService.findById(Integer.parseInt(req.getParameter("id"))));
         var products = productService.findAll();
         req.setAttribute("products", products);
@@ -97,6 +93,10 @@ public class ProductImportController extends HttpServlet {
         }
     }
 
+
+
+
+
     private void edit(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         productImportService.edit(req);
         resp.sendRedirect("/product-import?message=Updated Successfully");
@@ -106,5 +106,11 @@ public class ProductImportController extends HttpServlet {
     private void create(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         productImportService.create(req);
         resp.sendRedirect("/product-import?message=Created Successfully");
+    }
+
+    private void showTable(HttpServletRequest req , String href, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("productImports",productImportService.findAllProductImport());
+        req.setAttribute("message", req.getParameter("message"));
+        req.getRequestDispatcher(href).forward(req, resp);
     }
 }

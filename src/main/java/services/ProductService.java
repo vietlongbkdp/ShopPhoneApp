@@ -3,7 +3,11 @@ package services;
 import daos.ProductDAO;
 import models.Branch;
 import models.Product;
+
+import services.dto.AllProductDto;
+
 import services.dto.Page;
+
 
 import java.util.List;
 
@@ -14,8 +18,8 @@ public class ProductService {
         productDAO = new ProductDAO();
     }
 
-    public Object findById(int id) {
-        return productDAO.findById(id);
+    public Product findById(int id) {
+        return  productDAO.findById(id);
     }
 
     public Object getProducts(int page, boolean isShowRestore, String search) {
@@ -52,6 +56,10 @@ return  productDAO.findAllProduct(page,isShowRestore,search,ePriceRange,branchNa
 
     public List<Product> findAll() {
         return productDAO.findAll();
+    }
+
+    public List<AllProductDto> findAllProductDto(boolean deleted) {
+        return productDAO.findAllProductDto(deleted);
     }
 
     public boolean checkAvaibleProduct(int productID) {

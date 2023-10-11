@@ -49,6 +49,10 @@ public class Product {
         this.id = id;
     }
 
+    public Product(int id, String productName) {
+        this.id = id;
+        this.productName = productName;
+    }
 
     public int getId() {
         return id;

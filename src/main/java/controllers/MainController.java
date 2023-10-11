@@ -50,7 +50,7 @@ public class MainController extends HttpServlet {
     }
 
     private void showShopping(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        show(req, false, "user/client/client.jsp", resp);
+        show(req, false, "user/client_undefine/shopping.jsp", resp);
     }
 
     @Override
@@ -130,8 +130,6 @@ public class MainController extends HttpServlet {
                 req.setAttribute("PriceRange", EPriceRange.values());
                 req.getRequestDispatcher(href).forward(req, resp);
             }
-
-
         } else if (user != null) {
             if (ePriceRange == null && branch == null) {
                 req.setAttribute("user",user);
