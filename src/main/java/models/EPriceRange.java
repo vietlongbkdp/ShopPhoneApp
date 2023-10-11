@@ -6,7 +6,8 @@ public enum EPriceRange {
     RANGE_300_499_USD(3, "300 - 499 USD"),
     RANGE_500_699_USD(4, "500 - 699 USD"),
     RANGE_700_999_USD(5, "700 - 999 USD"),
-    OVER_999_USD(6, "OVER 999 USD");
+    OVER_999_USD(6, "OVER 999 USD"),
+    DEFAULT(7, "");
 
     private int id;
     private String title;
