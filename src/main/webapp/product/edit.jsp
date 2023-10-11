@@ -188,7 +188,7 @@
             <div class="mb-3">
                 <label for="file-input" class="form-label">Image</label>
                 <img id="img-preview" style=" width: 100%;
-    max-width: 350px;"/>
+    max-width: 350px;" src="../images${product.image}"/>
                 <input type="file" accept="image/*" class="form-control" id="file-input" name="image"
                        value="${product.image}">
             </div>
