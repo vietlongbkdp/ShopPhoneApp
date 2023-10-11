@@ -86,17 +86,19 @@
                     </div>
 
                     <hr />
-
+                <form method="post" id="cartForm">
                     <div class="row mb-4">
                         <div class="col-md-4 col-6 mb-3">
                             <div class="input-group mb-3" style="width: 170px;">
+                                <input type="hidden" name="idProduct" value="${product.id}">
                                 <label style="margin-right: 1rem; vertical-align: center; text-align: center">Quantity</label>
-                                <input type="number" class="form-control text-center border border-secondary" placeholder="0" aria-label="Example text with button addon"  value="1" min="0" max="10" aria-describedby="button-addon1" />
+                                <input type="number" name="quantityB" min="1" max="${product.quantity}" onblur="adjustValue()" id="myInput" value="1">
                             </div>
                         </div>
                     </div>
-                    <a href="#" class="btn btn-warning shadow-0"> Buy now </a>
-                    <a href="/cart?action=cart&id=${user.id}" class="btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart </a>
+                    <a class="btn btn-primary" onclick="setActionCancel('/cart?action=buyNow')">Buy now</a>
+                    <a class="btn btn-primary" onclick="setActionCancel('/cart?action=addCart')">Add to Cart</a>
+                </form>
             </main>
         </div>
     </div>
@@ -121,5 +123,22 @@
     </div>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script>
+    function adjustValue() {
+        var inputElement = document.getElementById("myInput");
+        var value = parseInt(inputElement.value);
+        var min = parseInt(inputElement.getAttribute("min"));
+        var max = parseInt(inputElement.getAttribute("max"));
+
+        if (   isNaN(value) || value < min) {
+            inputElement.value = min;
+        } else if (value > max) {
+            inputElement.value = max;
+        }
+    } function setActionCancel(action){
+        document.getElementById('cartForm').action = action;
+        document.getElementById('cartForm').submit();
+    }
+</script>
 </body>
 </html>

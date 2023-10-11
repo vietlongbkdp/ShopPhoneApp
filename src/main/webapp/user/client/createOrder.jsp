@@ -23,6 +23,7 @@
         <a href="/main" class="btn btn-primary ">Home</a>
     </div>
     <form method="post" id="cartForm" action="${pageContext.request.contextPath}/cart?action=payment">
+
         <div class="card container px-6" style="height: 100vh">
             <h3 class="text-center">Payment page</h3>
             <c:if test="${message != null}">

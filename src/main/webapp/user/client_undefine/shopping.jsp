@@ -196,14 +196,14 @@
                         <div class="card-body text-center" >
                             <a href="/main?action=showDetailProduct&id=${productBS.id}"><h5 class="card-title">${productBS.productName}</h5></a>
                             <div class="row">
-                                <div style="padding: 0.1rem" class="col-5"> <i class="fas fa-memory"></i> ${productBS.ram}</div>
-                                <div style="padding: 0.1rem" class="col-7"> <i class="fas fa-database"></i> ${productBS.size}</div>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-memory"></i> ${productBS.ram}</div>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-database"></i> ${productBS.size}</div>
                             </div>
                             <div class="row">
-                                <div style="padding: 0.1rem" class="col-5"> <i class="fas fa-battery-three-quarters"></i> ${productBS.pin}</div>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-battery-three-quarters"></i> ${productBS.pin}</div>
                             </div>
-                                <div style="padding: 0.1rem" class="col-7"> <i class="fas fa-camera"></i> ${productBS.camera}</div>
-                            <p style="color:red; font-weight: bold" class="card-text">${productBS.price}</p>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-camera"></i> ${productBS.camera}</div>
+                            <p style="color:red; font-weight: bold; font-size: 1.2rem" class="card-text">${productBS.price} USD</p>
                             <c:if test="${user.role.roleName != 'Admin'&& user.role.roleName != 'Staff'}">
                                 <div>
                                     <a href="/cart?action=cart&id=${productBS.id}" class="btn btn-warning"> <i class="fas fa-cart-plus"></i>AddCart</a>
@@ -231,14 +231,14 @@
                         <div class="card-body text-center" >
                             <a href="/main?action=showDetailProduct&id=${pager.id}"><h5 class="card-title">${pager.productName}</h5></a>
                             <div class="row">
-                                <div style="padding: 0.1rem" class="col-5"> <i class="fas fa-memory"></i> ${pager.ram}</div>
-                                <div style="padding: 0.1rem" class="col-7"> <i class="fas fa-database"></i> ${pager.size}</div>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-memory"></i> ${pager.ram}</div>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-database"></i> ${pager.size}</div>
                             </div>
                             <div class="row">
-                                <div style="padding: 0.1rem" class="col-5"> <i class="fas fa-battery-three-quarters"></i> ${pager.pin}</div>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-battery-three-quarters"></i> ${pager.pin}</div>
                             </div>
-                                <div style="padding: 0.1rem" class="col-7"> <i class="fas fa-camera"></i> ${pager.camera}</div>
-                            <p style="color:red; font-weight: bold" class="card-text">${pager.price}</p>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-camera"></i> ${pager.camera}</div>
+                            <p style="color:red; font-weight: bold; font-size: 1.2rem" class="card-text">${pager.price} USD</p>
                             <c:if test="${user.role.roleName != 'Admin'&& user.role.roleName != 'Staff'}">
                                 <div>
                                     <a href="/cart?action=cart&id=${pager.id}" class="btn btn-warning"> <i class="fas fa-cart-plus"></i>AddCart</a>

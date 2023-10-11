@@ -68,7 +68,7 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td id="total_amount_chosen"></td>
+                        <td id="total_amount_chosen"> </td>
                         <td></td>
                     </tr>
                 </c:if>
