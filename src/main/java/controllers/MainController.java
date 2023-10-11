@@ -52,10 +52,7 @@ public class MainController extends HttpServlet {
 
     private void showDetailProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
-        Product product = productDAO.findById(id);
-        HttpSession session = req.getSession();
-        User user = (User) session.getAttribute("user");
-        req.setAttribute("user", user);
+        Product product = productService.findByIdProduct(id);
         req.setAttribute("product", product);
         req.getRequestDispatcher("/user/client_undefine/productDetailShow.jsp").forward(req, resp);
     }

@@ -73,7 +73,7 @@ public class CartController extends HttpServlet {
         } else {
             shoppingService.createCartDetail(user, idProduct,quantity);
         }
-        resp.sendRedirect("/main?action=detail&id="+idProduct);
+        resp.sendRedirect("/main?action=showDetailProduct&id="+idProduct);
 
     }
 
