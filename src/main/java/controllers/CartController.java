@@ -139,7 +139,7 @@ public class CartController extends HttpServlet {
         req.setAttribute("user", user);
         req.setAttribute("cart", shoppingService.findByUserId(user.getId()));
         req.setAttribute("message", req.getAttribute("message"));
-        req.getRequestDispatcher("user/client/cart.jsp").forward(req, resp);
+        req.getRequestDispatcher("user/client/showCart.jsp").forward(req, resp);
     }
 
     private void cart(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -182,6 +182,10 @@ public class CartController extends HttpServlet {
                 return;
             }
         }
+        String[] listCartDetais= DetailIDS.split(",");
+        List<Integer> listCartDetailID =Arrays.stream(listCartDetais)
+                .map(Integer::parseInt).toList();
+        shoppingService.deleteListCartDetail(listCartDetailID);
         List<Integer> quantities = Arrays.stream(req.getParameterValues("quantities"))
                 .map(Integer::parseInt).toList();
         List<Integer> productIds = Arrays.stream(req.getParameterValues("productIds"))
@@ -236,7 +240,6 @@ public class CartController extends HttpServlet {
             req.setAttribute("DetailIDS", DetailIDS);
             req.setAttribute("cartDetails", shoppingService.cartDetails(cart.getId(), 1));
             req.getRequestDispatcher("user/client/crtOrder.jsp").forward(req, resp);
-            shoppingService.deleteListCartDetail(listCartDetailChoosen);
         }
     }
 }

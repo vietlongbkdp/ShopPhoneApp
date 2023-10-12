@@ -47,8 +47,7 @@
                             <td><input name="productIds" value="${cartDetail.product.id}">
                                 <input type="hidden" value="${cartDetail.id}" name="DetailIDS">
                                 <input type="hidden" name="quantities" value="${cartDetail.quantity}"></td>
-                            <td>${cartDetail.product.price}
-                            <a> USD</a></td>
+                            <td>${cartDetail.product.price}</td>
                             <td>${cartDetail.quantity}</td>
                             <td id="totalAmount_${cartDetail.id}" class="total_detail">${cartDetail.totalAmount}</td>
                         </tr>
@@ -64,7 +63,7 @@
                                 <input type="hidden" value="${OrderDTs}" name="OrderDTs">
                                 <img src="/images${od.product.image}" style="width: 145px;height: 90px">
                                 <input type="hidden" name="quantities" value="${od.quantity}"></td>
-                            <td>${od.product.price}<a> USD</a></td>
+                            <td>${od.product.price}></td>
                             <td>${od.quantity}</td>
                             <td id="totalAmount_${od.id}" class="total_detail">${od.totalAmount}</td>
                         </tr>
@@ -78,7 +77,7 @@
                         <td><input type="hidden" value="${quantityB}" name="quantityB">
                             <img src="/images${product.image}" style="width: 145px;height: 90px">
                             <input type="hidden" name="quantities" value="${quantityB}"></td>
-                        <td id ="price">${product.price}<a> USD</a></td>
+                        <td id ="price">${product.price}</td>
                         <td id ="quantityB">${quantityB}</td>
                         <td class="total_detail" id="total"></td>
                     </tr>

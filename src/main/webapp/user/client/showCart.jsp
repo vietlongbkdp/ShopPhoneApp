@@ -135,63 +135,69 @@
             <div class="card-header py-3" style="display: flex; justify-content: space-between">
                 <h6 class="m-0 font-weight-bold text-primary">Cart</h6>
             </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th>Product</th>
-                            <th></th>
-                            <th></th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Total value</th>
-                            <th>Action</th>
-                        </tr>
-                        <c:set var="hasCartDetail" value="false"/>
-                        <c:forEach var="cartDetail" items="${cart.cartDetails}">
+            <form method="post" id="cartForm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <tr>
-                                <td><input type="checkbox" name="cartDetailID" value="${cartDetail.id}" class="myCheckBox">
-                                </td>
-                                <td><input type="hidden" name="cartChecked" value="${cartDetail.checked}"></td>
-                                <td>${cartDetail.product.productName}</td>
-                                <td><input type="hidden" value="${cartDetail.id}"name="cDetailID"></td>
-                                <td><img src="/images${cartDetail.product.image}" style="width: 145px;height: 90px"></td>
-                                <td>${cartDetail.product.price}</td>
-                                <td><input type="number" value="${cartDetail.quantity}" min="1"
-                                           max="${cartDetail.product.quantity}"
-                                           id="myInput" onblur="adjustValue()" name="quantities"
-                                           oninput="updateTotalAmount(${cartDetail.product.price}, this.value,${cartDetail.id})"
-                                ></td>
-                                <td id="totalAmount_${cartDetail.id}">${cartDetail.totalAmount}</td>
-                                <td>
-                                    <a href="/cart?action=deleteCD&id=${cartDetail.id}&idu=${user.id}" class="btn btn-danger ">Delete</a>
-                                </td>
+                                <th></th>
+                                <th hidden></th>
+                                <th>Product</th>
+                                <th hidden></th>
+                                <th></th>
+                                <th>Price (USD)</th>
+                                <th>Quantity</th>
+                                <th>Total value (USD)</th>
+                                <th>Action</th>
                             </tr>
-                            <c:set var="hasCartDetail" value="true"/>
-                        </c:forEach>
-                        <c:if test="${hasCartDetail}">
-                            <tr>
-                                <td><input type="checkbox" id="selectAllCheckbox"> <!-- Checkbox to select all --></td>
-                                <td>Select All</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td id="total_amount_chosen"></td>
-                                <td></td>
-                            </tr>
-                        </c:if>
-                    </table>
-                    <div>
-                        <a class="btn btn-danger" onclick="setAction('/cart?action=delete&id=${user.id}',${user.id})">Delete</a>
-                        <a class="btn btn-primary" onclick="setAction('/cart?action=buy')">Buy product</a>
-                        <a onclick="setActionCancel('/cart?action=updateCart')" class="btn btn-primary">Cancel</a>
+                            <c:set var="hasCartDetail" value="false"/>
+                            <c:forEach var="cartDetail" items="${cart.cartDetails}">
+                                <tr>
+                                    <td><input type="checkbox" name="cartDetailID" value="${cartDetail.id}"
+                                               class="myCheckBox">
+                                    </td>
+                                    <td hidden><input type="hidden" name="cartChecked" value="${cartDetail.checked}">
+                                    </td>
+                                    <td>${cartDetail.product.productName}</td>
+                                    <td hidden><input type="hidden" value="${cartDetail.id}" name="cDetailID"></td>
+                                    <td><img src="/images${cartDetail.product.image}" style="width: 145px;height: 90px"></td>
+                                    <td>${cartDetail.product.price}</td>
+                                    <td><input type="number" value="${cartDetail.quantity}" min="1"
+                                               max="${cartDetail.product.quantity}"
+                                               id="myInput" onblur="adjustValue()" name="quantities"
+                                               oninput="updateTotalAmount(${cartDetail.product.price}, this.value,${cartDetail.id})"
+                                    ></td>
+                                    <td id="totalAmount_${cartDetail.id}">${cartDetail.totalAmount}</td>
+                                    <td>
+                                        <a href="/cart?action=deleteCD&id=${cartDetail.id}&idu=${user.id}"
+                                           class="btn btn-danger ">Delete</a>
+                                    </td>
+                                </tr>
+                                <c:set var="hasCartDetail" value="true"/>
+                            </c:forEach>
+                            <c:if test="${hasCartDetail}">
+                                <tr>
+                                    <td><input type="checkbox" id="selectAllCheckbox"> <!-- Checkbox to select all -->
+                                    </td>
+                                    <td hidden></td>
+                                    <td>Select All</td>
+                                    <td hidden></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td id="total_amount_chosen"></td>
+                                    <td></td>
+                                </tr>
+                            </c:if>
+                        </table>
+                        <div>
+                            <a class="btn btn-danger" onclick="setAction('/cart?action=delete')">Delete</a>
+                            <a class="btn btn-primary" onclick="setAction('/cart?action=buy')">Buy product</a>
+                            <a onclick="setActionCancel('/cart?action=updateCart')" class="btn btn-primary">Cancel</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
@@ -246,25 +252,27 @@
     }
     var checkboxes = document.querySelectorAll('.myCheckBox');
 
-    function setAction(action, link) {
+    function setAction(action) {
         var checkedIds = [];
-        var url = link;
+
         for (var i = 0; i < checkboxes.length; i++) {
             if (checkboxes[i].checked) {
                 checkedIds.push(checkboxes[i].id);
             }
         }
         if (checkedIds.length === 0) {
-            window.location.href = "/cart?action=showCart&id="+url;
+            window.location.href = "/cart?action=showCart";
         } else {
             document.getElementById('cartForm').action = action;
             document.getElementById('cartForm').submit();
         }
     }
-    function setActionCancel(action){
+
+    function setActionCancel(action) {
         document.getElementById('cartForm').action = action;
         document.getElementById('cartForm').submit();
     }
+
     const selectAllCheckbox = document.getElementById('selectAllCheckbox');
     const checkedboxes = document.getElementsByName('cartDetailID');
 
@@ -273,42 +281,45 @@
             checkbox.checked = selectAllCheckbox.checked;
         });
     });
+
     function adjustValue() {
         var inputElement = document.getElementById("myInput");
         var value = parseInt(inputElement.value);
         var min = parseInt(inputElement.getAttribute("min"));
         var max = parseInt(inputElement.getAttribute("max"));
 
-        if (   isNaN(value) || value < min) {
+        if (isNaN(value) || value < min) {
             inputElement.value = min;
         } else if (value > max) {
             inputElement.value = max;
         }
     }
-    function updateTotalAmount(price, quantity,link) {
-        var totalAmountElement = document.getElementById("totalAmount_"+link);
+
+    function updateTotalAmount(price, quantity, link) {
+        var totalAmountElement = document.getElementById("totalAmount_" + link);
         var totalAmount = price * quantity;
         totalAmountElement.innerText = totalAmount;
     }
+
     /////
     // Lắng nghe sự kiện khi các checkbox được chọn hoặc bỏ chọn
-    document.querySelectorAll('.myCheckBox').forEach(function(checkbox) {
-        checkbox.addEventListener('change', function() {
+    document.querySelectorAll('.myCheckBox').forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
             updateTotalAmountChosen();
         });
     });
 
     // Lắng nghe sự kiện khi giá trị số lượng thay đổi
-    document.querySelectorAll('input[name="quantities"]').forEach(function(quantityInput) {
-        quantityInput.addEventListener('change', function() {
+    document.querySelectorAll('input[name="quantities"]').forEach(function (quantityInput) {
+        quantityInput.addEventListener('change', function () {
             updateTotalAmountChosen();
         });
     });
 
-    document.getElementById('selectAllCheckbox').addEventListener('click', function() {
+    document.getElementById('selectAllCheckbox').addEventListener('click', function () {
         var selectAllCheckbox = document.getElementById('selectAllCheckbox');
         var isChecked = selectAllCheckbox.checked;
-        document.querySelectorAll('.myCheckBox').forEach(function(checkbox) {
+        document.querySelectorAll('.myCheckBox').forEach(function (checkbox) {
             checkbox.checked = isChecked;
         });
         updateTotalAmountChosen();
@@ -321,7 +332,7 @@
         var selectAllCheckbox = document.getElementById('selectAllCheckbox');
         var isChecked = selectAllCheckbox.checked;
 
-        checkboxes.forEach(function(checkbox) {
+        checkboxes.forEach(function (checkbox) {
             var row = checkbox.closest('tr');
             var priceElement = row.querySelector('td:nth-child(6)');
             var quantityInput = row.querySelector('input[name="quantities"]');
@@ -341,21 +352,21 @@
             totalAmount = 0;
         }
 
-        document.getElementById('total_amount_chosen').textContent = totalAmount+" USD" ;
+        document.getElementById('total_amount_chosen').textContent = totalAmount;
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         updateTotalAmountChosen();
     });
-    document.querySelectorAll('.myCheckBox').forEach(function(checkbox) {
-        checkbox.addEventListener('change', function() {
+    document.querySelectorAll('.myCheckBox').forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
             var hiddenInput = this.parentNode.nextElementSibling.querySelector('input[name="cartChecked"]');
             hiddenInput.value = this.checked ? '1' : '0';
         });
     });
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         // Lặp qua tất cả các checkbox và input ẩn
-        document.querySelectorAll('.myCheckBox').forEach(function(checkbox) {
+        document.querySelectorAll('.myCheckBox').forEach(function (checkbox) {
             var hiddenInput = checkbox.parentNode.nextElementSibling.querySelector('input[name="cartChecked"]');
 
             // Kiểm tra giá trị ban đầu của input ẩn
@@ -364,7 +375,7 @@
             }
         });
     });
-    window.onload = function() {
+    window.onload = function () {
         updateTotalAmountChosen();
     };
 

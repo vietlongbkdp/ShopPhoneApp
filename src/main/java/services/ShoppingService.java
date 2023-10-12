@@ -102,9 +102,9 @@ public class ShoppingService {
     public List<CartDetail> cartDetails(int cartId, int checked) {
         return cartDao.findCartByCartIdChecked(cartId, checked);
     }
-    public void deleteListCartDetail(List<CartDetail>cartDetails){
-        for (var cartDT:cartDetails){
-            deleteCartDetail(cartDT.getId());
+    public void deleteListCartDetail(List<Integer> listCartDetailIds){
+        for (var listCartDetailId:listCartDetailIds){
+            deleteCartDetail(listCartDetailId);
         }
     }
 
