@@ -182,10 +182,13 @@ public class CartController extends HttpServlet {
                 return;
             }
         }
-        String[] listCartDetais= DetailIDS.split(",");
-        List<Integer> listCartDetailID =Arrays.stream(listCartDetais)
-                .map(Integer::parseInt).toList();
-        shoppingService.deleteListCartDetail(listCartDetailID);
+        if (DetailIDS!=null){
+            String[] listCartDetais= DetailIDS.split(",");
+            List<Integer> listCartDetailID =Arrays.stream(listCartDetais)
+                    .map(Integer::parseInt).toList();
+            shoppingService.deleteListCartDetail(listCartDetailID);
+
+        }
         List<Integer> quantities = Arrays.stream(req.getParameterValues("quantities"))
                 .map(Integer::parseInt).toList();
         List<Integer> productIds = Arrays.stream(req.getParameterValues("productIds"))
