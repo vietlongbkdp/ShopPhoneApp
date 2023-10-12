@@ -11,8 +11,7 @@
 <head>
     <title>Title</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" rel="stylesheet">
     <link href="/user/admin/assets/all.min.css" rel="stylesheet" type="text/css">
@@ -148,8 +147,11 @@
                         <c:if test="${message != null}">
                             <h6 class="d-none" id="message">${message}</h6>
                         </c:if>
-                        <a href="/product?action=create" class="btn btn-primary ">Create new Product</a>
-                        <a href="/product?action=showRestore" class="btn btn-primary ">Restore Product</a>
+                        <div class="button-container">
+                            <a href="/product?action=create" class="btn btn-primary">Create new Product</a>
+                            <span class="button-separator"></span>
+                            <a href="/product?action=showRestore" class="btn btn-primary">Restore Product</a>
+                        </div>
 
 
                     </div>
@@ -302,6 +304,14 @@
                     button:hover {
                         background-color: #0056b3;
                     }
+
+                    .button-container {
+                        display: flex;
+                    }
+
+                    .button-separator {
+                        width: 15px; /* Điều chỉnh khoảng cách theo ý muốn */
+                    }
                 </style>
 
 
@@ -312,5 +322,6 @@
 <script src="/user/admin/assets/jquery.dataTables.min.js"></script>
 <script src="/user/admin/assets/dataTables.bootstrap4.min.js"></script>
 <script src="/user/admin/assets/datatables-demo.js"></script>
+
 </body>
 </html>

@@ -136,45 +136,53 @@
             </nav>
 
             <div class="container">
-                <div class="card container px-6" >
+                <div class="card container px-6">
                     <h3 class="sidebar-brand-text mx-5 mb-3 font-weight-bold">Create Product</h3>
-                    <form action="/product?action=create" method="post" enctype="multipart/form-data">
+                    <form id="productForm" action="/product?action=create" method="post" enctype="multipart/form-data">
                         <label for="productName" class="col-sm-6 mb-3 mb-sm-3">Product Name</label>
                         <input type="text" class="form-control form-control-user" id="productName" name="productName"
                                value="${product.productName}">
                         <div class="mb-3">
                             <label for="price" class="col-sm-6 mb-3 mb-sm-3">Price</label>
-                            <input type="number" class="form-control form-control-user" name="price" id="price" value="${product.price}">
+                            <input type="number" class="form-control form-control-user" name="price" id="price"
+                                   value="${product.price}">
                         </div>
                         <div class="mb-3">
                             <label for="warrantyPeriod" class="col-sm-6 mb-3 mb-sm-3">Warranty Period</label>
-                            <input type="text" class="form-control form-control-user" name="warrantyPeriod" id="warrantyPeriod"
+                            <input type="text" class="form-control form-control-user" name="warrantyPeriod"
+                                   id="warrantyPeriod"
                                    value="${product.warrantyPeriod}">
                         </div>
                         <div class="mb-3">
                             <label for="ram" class="col-sm-6 mb-3 mb-sm-3">RAM</label>
-                            <input type="text" class="form-control form-control-user" name="ram" id="ram" value="${product.ram}">
+                            <input type="text" class="form-control form-control-user" name="ram" id="ram"
+                                   value="${product.ram}">
                         </div>
                         <div class="mb-3">
                             <label for="size" class="col-sm-6 mb-3 mb-sm-3">Size</label>
-                            <input type="text" class="form-control form-control-user" name="size" id="size" value="${product.size}">
+                            <input type="text" class="form-control form-control-user" name="size" id="size"
+                                   value="${product.size}">
                         </div>
                         <div class="mb-3">
                             <label for="color" class="col-sm-6 mb-3 mb-sm-3">Color</label>
-                            <input type="text" class="form-control form-control-user" name="color" id="color" value="${product.color}">
+                            <input type="text" class="form-control form-control-user" name="color" id="color"
+                                   value="${product.color}">
                         </div>
                         <div class="mb-3">
                             <label for="camera" class="col-sm-6 mb-3 mb-sm-3">Camera</label>
-                            <input type="text" class="form-control form-control-user" name="camera" id="camera" value="${product.camera}">
+                            <input type="text" class="form-control form-control-user" name="camera" id="camera"
+                                   value="${product.camera}">
                         </div>
                         <div class="mb-3">
                             <label for="operatingSystem" class="col-sm-6 mb-3 mb-sm-3">Operating System</label>
-                            <input type="text" class="form-control form-control-user" name="operatingSystem" id="operatingSystem"
+                            <input type="text" class="form-control form-control-user" name="operatingSystem"
+                                   id="operatingSystem"
                                    value="${product.operatingSystem}">
                         </div>
                         <div class="mb-3">
                             <label for="pin" class="col-sm-6 mb-3 mb-sm-3">Pin</label>
-                            <input type="text" class="form-control form-control-user" name="pin" id="pin" value="${product.pin}">
+                            <input type="text" class="form-control form-control-user" name="pin" id="pin"
+                                   value="${product.pin}">
                         </div>
                         <div class="mb-3">
                             <label for="branch" class="col-sm-6 mb-3 mb-sm-3">Branch</label>
@@ -257,6 +265,90 @@
             image.src = src;
         }
     });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const productForm = document.getElementById('productForm');
+
+        productForm.addEventListener('submit', function (event) {
+            event.preventDefault(); // Ngăn chặn việc gửi biểu mẫu
+
+            const formData = new FormData(productForm);
+
+            const productName = formData.get('productName');
+            const price = formData.get('price');
+            const warrantyPeriod = formData.get('warrantyPeriod');
+            const ram = formData.get('ram');
+            const size = formData.get('size');
+            const color = formData.get('ram');
+            const camera = formData.get('camera');
+            const operatingSystem = formData.get('operatingSystem');
+            const pin = formData.get('pin');
+
+
+
+
+
+
+            if (!productName.trim()) {
+                alert('Vui lòng nhập tên sản phẩm.');
+                return;
+            }
+            if (!price.trim()) {
+                alert('Vui lòng nhập giá sản phẩm.');
+                return;
+            }
+            if (!warrantyPeriod.trim()) {
+                alert('Vui lòng nhập thời gian bảo hành sản phẩm.');
+                return;
+            }
+            if (!ram.trim()) {
+                alert('Vui lòng nhập ram sản phẩm.');
+                return;
+            }
+            if (!size.trim()) {
+                alert('Vui lòng nhập size sản phẩm.');
+                return;
+            }if (!color.trim()) {
+                alert('Vui lòng nhập màu sắc sản phẩm.');
+                return;
+            }if (!camera.trim()) {
+                alert('Vui lòng nhập camera sản phẩm.');
+                return;
+            }
+            if (!operatingSystem.trim()) {
+                alert('Vui lòng nhập hệ điều hành sản phẩm.');
+                return;
+            }
+            if (!pin.trim()) {
+                alert('Vui lòng nhập pin sản phẩm.');
+                return;
+            }
+            //
+            console.log('Gửi yêu cầu tạo sản phẩm...');
+            fetch('/product?action=create', {
+                method: 'POST',
+                body: formData,
+            })
+                // .then(response => response.json())
+                .then(data => {
+                    console.log('Phản hồi từ máy chủ:', data);
+                    window.location.href = '/product';
+                    if (data.success) {
+                        console.log('Sản phẩm được tạo thành công.');
+                        window.location.href = '/product';
+                    } else {
+                        console.log('Có lỗi xảy ra khi tạo sản phẩm.');
+                        // Hiển thị thông báo lỗi hoặc thực hiện các xử lý khác nếu cần.
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi khi gửi biểu mẫu:', error);
+                    // Xử lý lỗi nếu có.
+                });
+        });
+    });
+
 </script>
 
 <script src="/user/admin/assets/jquery.min.js"></script>
