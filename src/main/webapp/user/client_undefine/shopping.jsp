@@ -88,14 +88,14 @@
         <div class="container">
             <div class="containt_main">
                 <form action="/main?page=${page.currentPage}">
-                <div class="dropdown">
-                    <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="branch_select"  name="branch" >
-                        <option value="" >All Branch</option>
-                        <c:forEach var="branchh" items="${branchs}">
-                            <option ${branch==branchh?"selected":""}>${branchh.name}</option>
-                        </c:forEach>
-                    </select>
-                </div>
+                    <div class="dropdown">
+                        <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="branch_select" name="branch">
+                            <option value="">All Branch</option>
+                            <c:forEach var="branchh" items="${branchs}">
+                                <option ${branch==branchh?"selected":""}>${branchh.name}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
                 <div class="main">
                     <!-- Another variation with a button -->
                     <div  class="input-group">
@@ -107,13 +107,13 @@
                         </div>
                     </div>
                 </div>
-                <div style="margin: 0" class="dropdown">
-                    <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="price_range" name="ePriceRange">
-                        <c:forEach var="priceRange" items="${PriceRange}">
-                            <option value="${priceRange}" ${priceRange == ePriceRange ? "selected" : ""}>${priceRange.title}</option>
-                        </c:forEach>
-                    </select>
-                </div>
+                    <div style="margin: 0" class="dropdown">
+                        <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="price_range" name="ePriceRange">
+                            <c:forEach var="priceRange" items="${PriceRange}">
+                                <option value="${priceRange}" ${priceRange == ePriceRange ? "selected" : ""}>${priceRange.title}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
                 </form>
                 <div class="header_box">
                     <div class="login_menu">
@@ -343,21 +343,37 @@
     }
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var productElements = document.getElementsByClassName('product');
+    var branchDropdown = document.getElementById("branch_select");
+    var priceRangeDropdown = document.getElementById("price_range");
 
-        for (var i = 0; i < productElements.length; i++) {
-            var quantityElement = productElements[i].querySelector('.quantity');
-            var addToCartBtns = productElements[i].getElementsByClassName('addToCartBtn');
-            var quantity = parseInt(quantityElement.innerText);
+    // Lấy giá trị đã lưu từ local storage (nếu có)
+    var storedBranchValue = localStorage.getItem("selectedBranch");
+    var storedPriceRangeValue = localStorage.getItem("selectedPriceRange");
 
-            if (quantity === 0) {
-                for (var j = 0; j < addToCartBtns.length; j++) {
-                    addToCartBtns[j].disabled = true;
-                    addToCartBtns[j].classList.add('disable-hover');
-                }
-            }
-        }
+    // Nếu đã có giá trị lưu trữ, đặt giá trị cho dropdowns
+    if (storedBranchValue) {
+        branchDropdown.value = storedBranchValue;
+    }
+    if (storedPriceRangeValue) {
+        priceRangeDropdown.value = storedPriceRangeValue;
+    }
+
+    // Lắng nghe sự kiện thay đổi giá trị của branch dropdown
+    branchDropdown.addEventListener("change", function() {
+        // Lấy giá trị đã chọn
+        var selectedBranchValue = branchDropdown.value;
+
+        // Lưu giá trị đã chọn vào local storage
+        localStorage.setItem("selectedBranch", selectedBranchValue);
+    });
+
+    // Lắng nghe sự kiện thay đổi giá trị của price range dropdown
+    priceRangeDropdown.addEventListener("change", function() {
+        // Lấy giá trị đã chọn
+        var selectedPriceRangeValue = priceRangeDropdown.value;
+
+        // Lưu giá trị đã chọn vào local storage
+        localStorage.setItem("selectedPriceRange", selectedPriceRangeValue);
     });
     function updateBranch(selectElement) {
         var selectedValue = selectElement.value;

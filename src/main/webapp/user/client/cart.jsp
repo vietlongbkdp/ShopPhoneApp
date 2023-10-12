@@ -74,9 +74,9 @@
                 </c:if>
             </table>
             <div>
-                <a class="btn btn-danger" onclick="setAction('/cart?action=delete')">Delete</a>
-                <a class="btn btn-primary" onclick="setAction('/cart?action=buy')">Buy product</a>
-                <a onclick="setActionCancel('/cart?action=updateCart')" class="btn btn-primary">Cancel</a>
+                <button class="btn btn-danger" onclick="setAction('/cart?action=delete')">Delete</button>
+                <button class="btn btn-primary" onclick="setAction('/cart?action=buy')">Buy product</button>
+                <button onclick="setActionCancel('/cart?action=updateCart')" class="btn btn-primary">Cancel</button>
             </div>
         </div>
     </form>
@@ -213,9 +213,6 @@
             }
         });
     });
-    window.onload = function() {
-        updateTotalAmountChosen();
-    };
 
 </script>
 </body>
