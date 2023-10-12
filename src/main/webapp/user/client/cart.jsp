@@ -45,7 +45,7 @@
                         <td><input type="hidden" name="cartChecked" value="${cartDetail.checked}"></td>
                         <td>${cartDetail.product.productName}</td>
                         <td><input type="hidden" value="${cartDetail.id}"name="cDetailID"></td>
-                        <td>${cartDetail.product.image}</td>
+                        <td><img src="/images${cartDetail.product.image}" style="width: 145px;height: 90px"></td>
                         <td>${cartDetail.product.price}</td>
                         <td><input type="number" value="${cartDetail.quantity}" min="1"
                                    max="${cartDetail.product.quantity}"
@@ -74,9 +74,9 @@
                 </c:if>
             </table>
             <div>
-                <a class="btn btn-danger" onclick="setAction('/cart?action=delete')">Delete</a>
-                <a class="btn btn-primary" onclick="setAction('/cart?action=buy')">Buy product</a>
-                <a onclick="setActionCancel('/cart?action=updateCart')" class="btn btn-primary">Cancel</a>
+                <button class="btn btn-danger" onclick="setAction('/cart?action=delete')">Delete</button>
+                <button class="btn btn-primary" onclick="setAction('/cart?action=buy')">Buy product</button>
+                <button onclick="setActionCancel('/cart?action=updateCart')" class="btn btn-primary">Cancel</button>
             </div>
         </div>
     </form>
@@ -213,9 +213,6 @@
             }
         });
     });
-    window.onload = function() {
-        updateTotalAmountChosen();
-    };
 
 </script>
 </body>

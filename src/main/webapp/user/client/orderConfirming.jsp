@@ -188,11 +188,13 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <a> Vui lòng thanh toán qua mã QR sau</a>
+                    <a> Please Scane this QR-Code to payment:       </a>
+                    <img src="/images/qr_code_2.jpg" style="width: auto;height: 150px">
                     <%--                   <img src="">--%>
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Order Code</th>
                             <th>Order Date</th>
                             <th>Total Amount</th>
@@ -202,15 +204,14 @@
                         <tbody>
                         <c:forEach var="od" items="${orderCM}">
                             <tr>
+                                <td>${od.id}</td>
                                 <td>${od.shippingCode}</td>
                                 <td>${od.orderDate}</td>
                                 <td>${od.totalAmount}</td>
                                 <td>
                                     <a href="/order-client?action=detail&id=${od.id}" class="btn btn-primary ">Detail</a>
                                     <a href="/cart?action=reBuy&id=${od.id}&url=Confirming" class="btn btn-primary ">ReBuy</a>
-
                                 </td>
-
                             </tr>
                         </c:forEach>
 

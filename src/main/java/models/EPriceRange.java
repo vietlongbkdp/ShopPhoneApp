@@ -28,7 +28,7 @@ public enum EPriceRange {
     }
     public static EPriceRange getEPriceRange(String title) {
         for (EPriceRange ePriceRange : EPriceRange.values()) {
-            if (ePriceRange.getTitle().equals(title)) {
+            if (ePriceRange.toString().equals(title)) {
                 return ePriceRange;
             }
         }

@@ -14,6 +14,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/user/admin/managerTotal.jsp" value="file://$PROJECT_DIR$/src/main/webapp/user/admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/user/admin/managerUser.jsp" value="file://$PROJECT_DIR$/src/main/webapp/user/admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/user/client/orderConfirming.jsp" value="file://$PROJECT_DIR$/src/main/webapp/user/client" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/user/client/showCart.jsp" value="file://$PROJECT_DIR$/src/main/webapp/user/client" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/user/client_undefine/productDetailShow.jsp" value="file://$PROJECT_DIR$/src/main/webapp/user/client_undefine" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/user/client_undefine/shopping.jsp" value="file://$PROJECT_DIR$/src/main/webapp/user/client_undefine" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/user/cliented/shopping.jsp" value="file://$PROJECT_DIR$/src/main/webapp/user/cliented" />

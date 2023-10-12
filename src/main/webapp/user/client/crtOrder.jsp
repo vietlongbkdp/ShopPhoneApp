@@ -149,9 +149,9 @@
                                     <th></th>
                                     <th>Product</th>
                                     <th></th>
-                                    <th>Price</th>
+                                    <th>Price (USD)</th>
                                     <th>Quantity</th>
-                                    <th>Total value</th>
+                                    <th>Total value (USD)</th>
                                 </tr>
                                 <%--                <input type="text" name="quantity" value="10" />--%>
                                 <c:if test="${not empty cartDetails}">
@@ -159,12 +159,11 @@
                                         <tr>
                                             <td><input type="hidden" name="cartChecked" value="${cartDetail.checked}"></td>
                                             <td>${cartDetail.product.productName}</td>
-                                            <td><input name="productIds" value="${cartDetail.product.id}">
+                                            <td><input hidden name="productIds" value="${cartDetail.product.id}">
                                                 <input type="hidden" value="${cartDetail.id}" name="DetailIDS">
-                                                    ${cartDetail.product.image}
+                                                    <img src="../images${cartDetail.product.image}" alt="" style="width: 145px;height: 90px">
                                                 <input type="hidden" name="quantities" value="${cartDetail.quantity}"></td>
-                                            <td>${cartDetail.product.price}
-                                                <a> USD</a></td>
+                                            <td>${cartDetail.product.price}</td>
                                             <td>${cartDetail.quantity}</td>
                                             <td id="totalAmount_${cartDetail.id}" class="total_detail">${cartDetail.totalAmount}</td>
                                         </tr>
@@ -180,7 +179,7 @@
                                                 <input type="hidden" value="${OrderDTs}" name="OrderDTs">
                                                     <img src="/images${od.product.image}" style="width: 145px;height: 90px">
                                                 <input type="hidden" name="quantities" value="${od.quantity}"></td>
-                                            <td>${od.product.price}<a> USD</a></td>
+                                            <td>${od.product.price}</td>
                                             <td>${od.quantity}</td>
                                             <td id="totalAmount_${od.id}" class="total_detail">${od.totalAmount}</td>
                                         </tr>
@@ -192,9 +191,9 @@
                                         <td></td>
                                         <td>${product.productName}</td>
                                         <td><input type="hidden" value="${quantityB}" name="quantityB">
-                                                <img src="/images${product.image}" style="width: 145px;height: 90px">
+                                            <img src="/images${product.image}" style="width: 145px;height: 90px">
                                             <input type="hidden" name="quantities" value="${quantityB}"></td>
-                                        <td id ="price">${product.price}<a> USD</a></td>
+                                        <td id ="price">${product.price}</td>
                                         <td id ="quantityB">${quantityB}</td>
                                         <td class="total_detail" id="total"></td>
                                     </tr>
@@ -204,7 +203,7 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td>Total cost</td>
+                                    <td>Total cost (USD)</td>
                                     <td id="total_amount_chosen"></td>
                                 </tr>
                                 <tr>
@@ -212,7 +211,7 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td>VAT 10%</td>
+                                    <td>VAT 10% (USD)</td>
                                     <td id="VAT"></td>
                                 </tr>
                                 <tr>
@@ -220,7 +219,7 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td>Total cost including VAT</td>
+                                    <td>Total cost including VAT (USD)</td>
                                     <td id="total_cost_VAT"></td>
                                 </tr>
                             </table>
@@ -293,37 +292,40 @@
     // }
 
     // Gọi hàm calculateTotal khi trang được tải hoặc khi có sự thay đổi trong giá trị price hoặc quantityB
-    // window.onload = calculateTotal;
+
     window.addEventListener('DOMContentLoaded', function () {
-        var price = parseFloat(document.getElementById("price").innerText);
-        var quantityB = parseInt(document.getElementById("quantityB").innerText);
+        // Lấy thông tin từ các phần tử HTML
+        var priceElement = document.getElementById("price");
+        var quantityBElement = document.getElementById("quantityB");
+        var totalElement = document.getElementById("total");
+        var totalAmountElements = document.getElementsByClassName("total_detail");
+        var totalAmountChosenElement = document.getElementById("total_amount_chosen");
+        var VATElement = document.getElementById("VAT");
+        var totalCostVATElement = document.getElementById("total_cost_VAT");
 
-        // Tính tổng
+        // Lấy giá trị từ các phần tử HTML
+        var price = parseFloat(priceElement.innerText);
+        var quantityB = parseInt(quantityBElement.innerText);
+
+        // Tính toán tổng
         var total = price * quantityB;
+        totalElement.innerText = total;
 
-        // Cập nhật giá trị trong phần tử có id "total"
-        document.getElementById("total").innerText = total;
-        var totalAmountChosen = document.getElementById('total_amount_chosen');
-        var vatElement = document.getElementById('VAT');
-        var totalCostVATElement = document.getElementById('total_cost_VAT');
-        // Lấy danh sách các thẻ có class "total_detail"
-        var totalDetailElements = document.getElementsByClassName('total_detail');
-        // Tính tổng giá trị từ các thẻ "total_detail"
-        var totalAmount = 0;
-        for (var i = 0; i < totalDetailElements.length; i++) {
-            totalAmount += parseFloat(totalDetailElements[i].innerText);
+        // Tính toán tổng giá trị của các thẻ class="total_detail"
+        var totalAmountChosen = 0;
+        for (var i = 0; i < totalAmountElements.length; i++) {
+            totalAmountChosen += parseFloat(totalAmountElements[i].innerText);
         }
-        // Tính giá trị VAT
-        var vat = totalAmount * 0.1;
-        // Tính tổng giá trị bao gồm VAT
-        var totalCostVAT = totalAmount + vat;
-        // Chèn giá trị vào các thẻ tương ứng
-        totalAmountChosen.innerText = totalAmount.toFixed(1) +' USD';
-        vatElement.innerText = vat.toFixed(1)+' USD';
-        totalCostVATElement.innerText = totalCostVAT.toFixed(1)+' USD';
-        document.getElementById("total").innerText = total.toFixed(1)+' USD'
-    });
+        totalAmountChosenElement.innerText = totalAmountChosen;
 
+        // Tính toán giá trị của VAT (10%)
+        var VAT = totalAmountChosen * 0.1;
+        VATElement.innerText = VAT;
+
+        // Tính toán tổng giá trị bao gồm VAT
+        var totalCostVAT = totalAmountChosen + VAT;
+        totalCostVATElement.innerText = totalCostVAT;
+    });
 </script>
 <script src="/user/admin/assets/jquery.min.js"></script>
 <script src="/user/admin/assets/bootstrap.bundle.min.js"></script>

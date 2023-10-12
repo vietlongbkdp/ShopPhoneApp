@@ -193,6 +193,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
+                            <th>id</th>
                             <th>Shipping Code</th>
                             <th>Order Date</th>
                             <th>Total Amount</th>
@@ -202,6 +203,7 @@
                         <tbody>
                         <c:forEach var="od" items="${orderC}">
                             <tr>
+                                <td>${od.id}</td>
                                 <td>${od.shippingCode}</td>
                                 <td>${od.orderDate}</td>
                                 <td>${od.totalAmount}</td>

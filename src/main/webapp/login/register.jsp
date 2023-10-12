@@ -13,13 +13,13 @@
     <link href="../login/assets/all.min.css" rel="stylesheet" type="text/css">
     <link href="../login/assets/sb-admin-2.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-    <style>
-        .error {
-            color: red;
-            font-style: italic;
-            font-size: 14px;
-        }
-        </style>
+<%--    <style>--%>
+<%--        .error {--%>
+<%--            color: red;--%>
+<%--            font-style: italic;--%>
+<%--            font-size: 14px;--%>
+<%--        }--%>
+<%--        </style>--%>
 </head>
 <body class="bg-gradient-primary">
 <div class="container">
@@ -45,24 +45,24 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control form-control-user" id="userName"
-                                           placeholder="User Name" name="userName" >
+                                           placeholder="User Name" name="userName" required>
                                     <span id="userName-error" class="error"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <input type="email" class="form-control form-control-user" id="email"
-                                       placeholder="Email Address" name="email" >
+                                       placeholder="Email Address" name="email" required>
                                 <span id="email-error" class="error"></span>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input type="password" class="form-control form-control-user"
-                                           id="password" placeholder="Password" name="password" >
+                                           id="password" placeholder="Password" name="password" required>
                                     <span id="password-error" class="error"></span>
                                 </div>
                                 <div class="col-sm-6">
                                     <input type="password" class="form-control form-control-user"
-                                           id="repeatPassword" placeholder="Repeat Password" name="confirmPassword" >
+                                           id="repeatPassword" placeholder="Repeat Password" name="confirmPassword" required>
                                     <span id="repeatPassword-error" class="error"></span>
                                 </div>
                             </div>
@@ -100,34 +100,34 @@
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script>
-    $(document).ready(function () {
-        jQuery.validator.addMethod('userName_rule', function (value, element) {
-            return /^[a-zA-Z0-9_-]+$/.test(value);
-        });
-        // jQuery.validator.addMethod('email_rule', function (value, element) {
-        //     return /^([a-zA-Z0-9_\-\.]+)\+?([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/.test(value);
-        // });
-        $('#createForm').validate({
-            rules: {
-                'email': {
-                    required: true,
-                    email_rule: true
-                },
-                'userName': {
-                    required: true,
-                    userName_rule: true
-                },
-                'fullName': {
-                    required: true,
-                },
-            },
-            messages: {
-                'email': "Please enter a valid email address.",
-                'userName': "Please type your user name.",
-                'fullName': "Please type your full name."
-            }
-        });
-    });
+    // $(document).ready(function () {
+    //     jQuery.validator.addMethod('userName_rule', function (value, element) {
+    //         return /^[a-zA-Z0-9_-]+$/.test(value);
+    //     });
+    //     // jQuery.validator.addMethod('email_rule', function (value, element) {
+    //     //     return /^([a-zA-Z0-9_\-\.]+)\+?([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/.test(value);
+    //     // });
+    //     $('#createForm').validate({
+    //         rules: {
+    //             'email': {
+    //                 required: true,
+    //                 email_rule: true
+    //             },
+    //             'userName': {
+    //                 required: true,
+    //                 userName_rule: true
+    //             },
+    //             'fullName': {
+    //                 required: true,
+    //             },
+    //         },
+    //         messages: {
+    //             'email': "Please enter a valid email address.",
+    //             'userName': "Please type your user name.",
+    //             'fullName': "Please type your full name."
+    //         }
+    //     });
+    // });
 </script>
 </body>
 </html>
