@@ -159,9 +159,9 @@
                                         <tr>
                                             <td><input type="hidden" name="cartChecked" value="${cartDetail.checked}"></td>
                                             <td>${cartDetail.product.productName}</td>
-                                            <td><input name="productIds" value="${cartDetail.product.id}">
+                                            <td><input hidden name="productIds" value="${cartDetail.product.id}">
                                                 <input type="hidden" value="${cartDetail.id}" name="DetailIDS">
-                                                    ${cartDetail.product.image}
+                                                    <img src="../images${cartDetail.product.image}" alt="" style="width: 145px;height: 90px">
                                                 <input type="hidden" name="quantities" value="${cartDetail.quantity}"></td>
                                             <td>${cartDetail.product.price}</td>
                                             <td>${cartDetail.quantity}</td>
@@ -191,7 +191,7 @@
                                         <td></td>
                                         <td>${product.productName}</td>
                                         <td><input type="hidden" value="${quantityB}" name="quantityB">
-                                                <img src="/images${product.image}" style="width: 145px;height: 90px">
+                                            <img src="/images${product.image}" style="width: 145px;height: 90px">
                                             <input type="hidden" name="quantities" value="${quantityB}"></td>
                                         <td id ="price">${product.price}</td>
                                         <td id ="quantityB">${quantityB}</td>

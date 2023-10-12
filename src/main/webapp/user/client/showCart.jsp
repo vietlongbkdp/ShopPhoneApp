@@ -160,7 +160,7 @@
                                     </td>
                                     <td>${cartDetail.product.productName}</td>
                                     <td hidden><input type="hidden" value="${cartDetail.id}" name="cDetailID"></td>
-                                    <td>${cartDetail.product.image}</td>
+                                    <td><img src="/images${cartDetail.product.image}" style="width: 145px;height: 90px"></td>
                                     <td>${cartDetail.product.price}</td>
                                     <td><input type="number" value="${cartDetail.quantity}" min="1"
                                                max="${cartDetail.product.quantity}"

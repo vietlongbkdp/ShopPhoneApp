@@ -188,7 +188,8 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <a> Vui lòng thanh toán qua mã QR sau</a>
+                    <a> Please Scane this QR-Code to payment:       </a>
+                    <img src="/images/qr_code_2.jpg" style="width: auto;height: 150px">
                     <%--                   <img src="">--%>
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>

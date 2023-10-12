@@ -38,13 +38,13 @@
                                     <div class="form-group">
                                         <input style="margin-bottom: 10px" type="password" class="form-control form-control-user"
                                                id="password" name="password" aria-describedby="emailHelp"
-                                               placeholder="Enter new password...">
+                                               placeholder="Enter new password..." required>
                                         <input style="margin-bottom: 10px" type="password" class="form-control form-control-user"
                                                id="re_password" name="re_password" aria-describedby="emailHelp"
-                                               placeholder="Confirm password...">
+                                               placeholder="Confirm password..." required>
                                         <input type="text" class="form-control form-control-user"
                                                id="pinCode" name="pinCode" aria-describedby="emailHelp"
-                                               placeholder="PIN code from your email...">
+                                               placeholder="PIN code from your email..." required>
                                     </div>
                                     <button class="btn btn-primary btn-user btn-block" type="submit">
                                         Restore Account

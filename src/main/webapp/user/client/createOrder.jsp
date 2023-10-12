@@ -46,7 +46,6 @@
                             <td>${cartDetail.product.productName}</td>
                             <td><input name="productIds" value="${cartDetail.product.id}">
                                 <input type="hidden" value="${cartDetail.id}" name="DetailIDS">
-                                    ${cartDetail.product.image}
                                 <input type="hidden" name="quantities" value="${cartDetail.quantity}"></td>
                             <td>${cartDetail.product.price}</td>
                             <td>${cartDetail.quantity}</td>
@@ -62,7 +61,7 @@
                             <td>${od.product.productName}</td>
                             <td>
                                 <input type="hidden" value="${OrderDTs}" name="OrderDTs">
-                                    ${od.product.image}
+                                <img src="/images${od.product.image}" style="width: 145px;height: 90px">
                                 <input type="hidden" name="quantities" value="${od.quantity}"></td>
                             <td>${od.product.price}></td>
                             <td>${od.quantity}</td>
@@ -76,7 +75,7 @@
                         <td></td>
                         <td>${product.productName}</td>
                         <td><input type="hidden" value="${quantityB}" name="quantityB">
-                                ${product.image}
+                            <img src="/images${product.image}" style="width: 145px;height: 90px">
                             <input type="hidden" name="quantities" value="${quantityB}"></td>
                         <td id ="price">${product.price}</td>
                         <td id ="quantityB">${quantityB}</td>
