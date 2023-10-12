@@ -57,7 +57,6 @@ public class BranchDAO extends DatabaseConnection {
 
     public void create(String nameBranch) {
         String CREATE_BRANCH = "INSERT INTO `branchs` (`name`) VALUES (?)";
-
         try {
             Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(CREATE_BRANCH);

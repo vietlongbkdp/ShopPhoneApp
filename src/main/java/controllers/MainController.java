@@ -45,7 +45,7 @@ public class MainController extends HttpServlet {
         }
         switch (action) {
             case "showDetailProduct" -> showDetailProduct(req, resp);
-            case "detail" -> showDetail(req, resp);
+//            case "detail" -> showDetail(req, resp);
             default -> showShopping(req, resp);
         }
     }
@@ -53,14 +53,18 @@ public class MainController extends HttpServlet {
     private void showDetailProduct(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         Product product = productService.findByIdProduct(id);
+        String message = req.getParameter("message");
+        req.setAttribute("message",message);
         req.setAttribute("product", product);
         req.getRequestDispatcher("/user/client_undefine/productDetailShow.jsp").forward(req, resp);
     }
 
     private void showDetail(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
+        String message =req.getParameter("message");
         Product product = productService.findByIdProduct(id);
         req.setAttribute("product", product);
+        req.setAttribute("message", message);
         req.getRequestDispatcher("/user/client/shoppingDetail.jsp").forward(req, resp);
     }
 

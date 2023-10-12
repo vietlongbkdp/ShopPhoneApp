@@ -44,6 +44,11 @@
     <link rel="stylesoeet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <style>
+        .product .quantity {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <!-- banner bg main start -->
@@ -204,9 +209,10 @@
                                 <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-camera"></i> ${productBS.camera}</div>
                             <p style="color:red; font-weight: bold; font-size: 1.2rem" class="card-text">${productBS.price} USD</p>
                             <c:if test="${user.role.roleName != 'Admin'&& user.role.roleName != 'Staff'}">
-                                <div>
-                                    <a href="/cart?action=cart&id=${productBS.id}" class="btn btn-warning"> <i class="fas fa-cart-plus"></i>AddCart</a>
-                                    <a href="/main?action=showDetailProduct&id=${productBS.id}" class="btn btn-primary"><i class="fas fa-credit-card"></i> BuyNow</a>
+                                <div class="product">
+                                    <a   class="quantity" >${productBS.quantity}</a>
+                                    <a href="/cart?action=cart&id=${productBS.id}" class="btn btn-warning" class="btn btn-primary addToCartBtn"> <i class="fas fa-cart-plus"></i>AddCart</a>
+                                    <a href="/main?action=showDetailProduct&id=${productBS.id}"   class="btn btn-primary" disabled><i class="fas fa-credit-card"></i> BuyNow</a>
                                 </div>
                             </c:if>
                             <c:if test="${user.role.roleName == 'Admin'|| user.role.roleName == 'Staff'}">
@@ -239,9 +245,10 @@
                                 <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-camera"></i> ${pager.camera}</div>
                             <p style="color:red; font-weight: bold; font-size: 1.2rem" class="card-text">${pager.price} USD</p>
                             <c:if test="${user.role.roleName != 'Admin'&& user.role.roleName != 'Staff'}">
-                                <div>
-                                    <a href="/cart?action=cart&id=${pager.id}" class="btn btn-warning"> <i class="fas fa-cart-plus"></i>AddCart</a>
-                                    <a href="/main?action=showDetailProduct&id=${pager.id}" class="btn btn-primary"><i class="fas fa-credit-card"></i> BuyNow</a>
+                                <div class="product">
+                                    <a class="quantity" disabled  >${pager.quantity}</a>
+                                    <a href="/cart?action=cart&id=${pager.id}" class="btn btn-warning" class="btn btn-primary addToCartBtn"> <i class="fas fa-cart-plus"></i>AddCart</a>
+                                    <a href="/main?action=showDetailProduct&id=${pager.id}"  class="btn btn-primary"><i class="fas fa-credit-card"></i> BuyNow</a>
                                 </div>
                             </c:if>
                             <c:if test="${user.role.roleName == 'Admin'|| user.role.roleName == 'Staff'}">
@@ -336,6 +343,22 @@
     }
 </script>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var productElements = document.getElementsByClassName('product');
+
+        for (var i = 0; i < productElements.length; i++) {
+            var quantityElement = productElements[i].querySelector('.quantity');
+            var addToCartBtns = productElements[i].getElementsByClassName('addToCartBtn');
+            var quantity = parseInt(quantityElement.innerText);
+
+            if (quantity === 0) {
+                for (var j = 0; j < addToCartBtns.length; j++) {
+                    addToCartBtns[j].disabled = true;
+                    addToCartBtns[j].classList.add('disable-hover');
+                }
+            }
+        }
+    });
     function updateBranch(selectElement) {
         var selectedValue = selectElement.value;
         var branchElement = document.getElementsByName("branch")[0];

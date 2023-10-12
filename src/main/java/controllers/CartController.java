@@ -68,12 +68,17 @@ public class CartController extends HttpServlet {
         int idProduct = Integer.parseInt(req.getParameter("idProduct"));
         int quantity = Integer.parseInt(req.getParameter("quantityB"));
         Cart cart = shoppingService.findByUserId(user.getId());
+        Product product = productService.findByIdProduct(idProduct);
+        if (product.getQuantity() == 0) {
+            resp.sendRedirect("/main?action=showDetailProduc&id=" + idProduct + "&message=" + product.getProductName() + " is out of stock ");
+            return;
+        }
         if (shoppingService.checkProductInCart(cart.getId(), idProduct)) {
             shoppingService.updateCartDetail(shoppingService.findByUserId(user.getId()), idProduct, quantity);
         } else {
-            shoppingService.createCartDetail(user, idProduct,quantity);
+            shoppingService.createCartDetail(user, idProduct, quantity);
         }
-        resp.sendRedirect("/main?action=showDetailProduct&id="+idProduct);
+        resp.sendRedirect("/main?action=showDetailProduct&id=" + idProduct);
 
     }
 
@@ -81,6 +86,10 @@ public class CartController extends HttpServlet {
         int idProduct = Integer.parseInt(req.getParameter("idProduct"));
         int quantity = Integer.parseInt(req.getParameter("quantityB"));
         Product product = productService.findByIdProduct(idProduct);
+        if (product.getQuantity() == 0) {
+            resp.sendRedirect("/main?action=showDetailProduc&id=" + idProduct + "&message=" + product.getProductName() + " is out of stock ");
+            return;
+        }
         req.setAttribute("product", product);
         req.setAttribute("quantityB", quantity);
         req.getRequestDispatcher("user/client/crtOrder.jsp").forward(req, resp);
@@ -91,7 +100,7 @@ public class CartController extends HttpServlet {
         List<OrderDetail> orderDetails = shoppingService.findAllOD(idOrder);
         String urlLink = req.getParameter("url");
         for (var orderDetail : orderDetails) {
-            if (!productService.checkAvaibleProduct(orderDetail.getProduct().getId(),orderDetail.getQuantity())) {
+            if (!productService.checkAvaibleProduct(orderDetail.getProduct().getId(), orderDetail.getQuantity())) {
                 Product product = (Product) productService.findById(orderDetail.getProduct().getId());
                 String productName = product.getProductName();
                 String url = "";
@@ -138,6 +147,11 @@ public class CartController extends HttpServlet {
         User user = (User) session.getAttribute("user");
         int cartid = shoppingService.findCartIdByUserId(user);
         int id = Integer.parseInt(req.getParameter("id"));
+        Product product = productService.findByIdProduct(id);
+        if (product.getQuantity() == 0) {
+            resp.sendRedirect("/main?message=" + product.getProductName() + "is out of stock ");
+            return;
+        }
         if (shoppingService.checkProductInCart(cartid, id)) {
             shoppingService.updateCartDetail(shoppingService.findByUserId(user.getId()), id, 1);
         } else {
@@ -154,8 +168,8 @@ public class CartController extends HttpServlet {
         User user = (User) session.getAttribute("user");
         String DetailIDS = req.getParameter("DetailIDS");
         String OrderDTs = req.getParameter("OrderDTs");
-        String quantityB=req.getParameter("quantityB");
-        String idProduct=req.getParameter("productIds");
+        String quantityB = req.getParameter("quantityB");
+        String idProduct = req.getParameter("productIds");
         if (!userService.checkProfileUser(user.getId())) {
             if (DetailIDS != null) {
                 resp.sendRedirect("/shopping?action=editProfile&DetailIDS=" + DetailIDS);
@@ -163,8 +177,8 @@ public class CartController extends HttpServlet {
             } else if (OrderDTs != null) {
                 resp.sendRedirect("/shopping?action=editProfile&OrderDTs=" + OrderDTs);
                 return;
-            }else if(quantityB!=null&&idProduct!=null){
-                resp.sendRedirect("/shopping?action=editProfile&quantityB=" +quantityB+"&idProduct="+idProduct);
+            } else if (quantityB != null && idProduct != null) {
+                resp.sendRedirect("/shopping?action=editProfile&quantityB=" + quantityB + "&idProduct=" + idProduct);
                 return;
             }
         }
@@ -203,9 +217,8 @@ public class CartController extends HttpServlet {
         } else if (cDetailIDS != null) {
             shoppingService.updateCartDetails(cart, req);
             var listCartDetailChoosen = shoppingService.cartDetails(shoppingService.findByUserId(user.getId()).getId(), 1);
-
             for (var cartDetail : listCartDetailChoosen) {
-                if (!productService.checkAvaibleProduct(cartDetail.getProduct().getId(),cartDetail.getQuantity())) {
+                if (!productService.checkAvaibleProduct(cartDetail.getProduct().getId(), cartDetail.getQuantity())) {
                     Product product = (Product) productService.findById(cartDetail.getProduct().getId());
                     String productName = product.getProductName();
                     String url = "/cart?action=showCart&message=" + productName + " is not enough";
@@ -223,6 +236,7 @@ public class CartController extends HttpServlet {
             req.setAttribute("DetailIDS", DetailIDS);
             req.setAttribute("cartDetails", shoppingService.cartDetails(cart.getId(), 1));
             req.getRequestDispatcher("user/client/crtOrder.jsp").forward(req, resp);
+            shoppingService.deleteListCartDetail(listCartDetailChoosen);
         }
     }
 }

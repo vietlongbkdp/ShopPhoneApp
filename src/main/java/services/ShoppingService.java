@@ -65,7 +65,7 @@ public class ShoppingService {
     public boolean checkProductInCart(int cartId, int idProduct) {
         boolean check = false;
         List<CartDetail> cartDetails = cartDao.findListCartDetailByCartID(cartId);
-        if (cartDetails.isEmpty()) {
+        if (cartDetails.size()==0) {
             return check;
         }
         for (var cartDetail : cartDetails) {
@@ -101,6 +101,11 @@ public class ShoppingService {
 //    }
     public List<CartDetail> cartDetails(int cartId, int checked) {
         return cartDao.findCartByCartIdChecked(cartId, checked);
+    }
+    public void deleteListCartDetail(List<CartDetail>cartDetails){
+        for (var cartDT:cartDetails){
+            deleteCartDetail(cartDT.getId());
+        }
     }
 
     public int createOrder(int idUser) {

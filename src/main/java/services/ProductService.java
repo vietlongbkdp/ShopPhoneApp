@@ -90,5 +90,7 @@ public class ProductService {
     public Page<Product> findProduct(int page, String search, String ePriceRange, String branchName) {
         return productDAO.findAll(page, search, ePriceRange, branchName);
     }
+
+
 }
 
