@@ -44,6 +44,11 @@
     <link rel="stylesoeet" href="css/owl.theme.default.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <style>
+        .product .quantity {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <!-- banner bg main start -->
@@ -84,10 +89,10 @@
             <div class="containt_main">
                 <form action="/main?page=${page.currentPage}">
                 <div class="dropdown">
-                    <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="branch_select" value="${branch}" name="branch" onchange="updateBranch(this)">
-                        <option selected>All Branch</option>
+                    <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="branch_select"  name="branch" >
+                        <option value="" >All Branch</option>
                         <c:forEach var="branchh" items="${branchs}">
-                            <option${branch==branchh?"selected":""}>${branchh.name}</option>
+                            <option ${branch==branchh?"selected":""}>${branchh.name}</option>
                         </c:forEach>
                     </select>
                 </div>
@@ -96,17 +101,16 @@
                     <div  class="input-group">
                         <input type="text" class="form-control" placeholder="Search this blog" id="str_search" name="search" value="${search}">
                         <div class="input-group-append">
-                            <button class="btn btn-secondary" id="searchButton" type="button" style="background-color: #f26522; border-color:#f26522 ">
+                            <button class="btn btn-secondary" id="searchButton" type="submit" style="background-color: #f26522; border-color:#f26522 ">
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>
                     </div>
                 </div>
                 <div style="margin: 0" class="dropdown">
-                    <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="price_range" value="${ePriceRange}" name="ePriceRange" onchange="updatePriceRange(this)">
-                        <option selected>Price Range</option>
-                        <c:forEach var="priceRanges" items="${PriceRange}">
-                            <option ${ePriceRange==priceRanges?"selected":""}>${priceRanges.title}</option>
+                    <select style="min-width: 8rem" class="form-select btn btn-secondary" aria-label="Default select example" id="price_range" name="ePriceRange">
+                        <c:forEach var="priceRange" items="${PriceRange}">
+                            <option value="${priceRange}" ${priceRange == ePriceRange ? "selected" : ""}>${priceRange.title}</option>
                         </c:forEach>
                     </select>
                 </div>
@@ -115,7 +119,7 @@
                     <div class="login_menu">
                         <ul>
                             <c:if test="${user.role.roleName != 'Admin'&&user.role.roleName != 'Staff'}">
-                                <li><a href="#">
+                                <li><a href="/cart?action=showCart">
                                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                     <span class="padding_10">Cart</span><span style="color: red; font-weight: bold; font-size: small; margin-right: 2rem; padding-left: 0.5rem" class="padding_10">3</span></a>
                                 </li>
@@ -131,7 +135,7 @@
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <a style="color: #1b1e21" class="dropdown-item" href="/shopping?action=profile">Profile</a>
                                             <c:if test="${user.role.roleName != 'Admin'&&user.role.roleName != 'Staff'}">
-                                                <a style="color: #1b1e21" class="dropdown-item" href="/cart?action=showDefault">Order Management</a>
+                                                <a style="color: #1b1e21" class="dropdown-item" href="/order-client">Order Management</a>
                                             </c:if>
                                             <c:if test="${user.role.roleName == 'Admin'||user.role.roleName == 'Staff'}">
                                                 <a style="color: #1b1e21" class="dropdown-item" href="/total">Go to management page</a>
@@ -192,7 +196,7 @@
             <c:forEach var="productBS" items="${productBSs}">
                 <div class="col d-flex justify-content-center">
                     <div class="card" style="width: 17rem; border-radius: 8px">
-                        <a href="/main?action=showDetailProduct&id=${productBS.id}"><img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="#"></a>
+                        <a href="/main?action=showDetailProduct&id=${productBS.id}"><img style="padding: 1rem" src="/images/${productBS.image}" class="card-img-top" alt="#"></a>
                         <div class="card-body text-center" >
                             <a href="/main?action=showDetailProduct&id=${productBS.id}"><h5 class="card-title">${productBS.productName}</h5></a>
                             <div class="row">
@@ -200,14 +204,15 @@
                                 <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-database"></i> ${productBS.size}</div>
                             </div>
                             <div class="row">
-                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-camera"></i> ${productBS.camera}</div>
                                 <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-battery-three-quarters"></i> ${productBS.pin}</div>
                             </div>
-                            <p style="color:red; font-weight: bold" class="card-text">${productBS.price}</p>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-camera"></i> ${productBS.camera}</div>
+                            <p style="color:red; font-weight: bold; font-size: 1.2rem" class="card-text">${productBS.price} USD</p>
                             <c:if test="${user.role.roleName != 'Admin'&& user.role.roleName != 'Staff'}">
-                                <div>
-                                    <a href="#addToCart" class="btn btn-warning"> <i class="fas fa-cart-plus"></i>AddCart</a>
-                                    <a href="/main?action=showDetailProduct&id=${productBS.id}" class="btn btn-primary"><i class="fas fa-credit-card"></i> BuyNow</a>
+                                <div class="product">
+                                    <a   class="quantity" >${productBS.quantity}</a>
+                                    <a href="/cart?action=cart&id=${productBS.id}" class="btn btn-warning" class="btn btn-primary addToCartBtn"> <i class="fas fa-cart-plus"></i>AddCart</a>
+                                    <a href="/main?action=showDetailProduct&id=${productBS.id}"   class="btn btn-primary" disabled><i class="fas fa-credit-card"></i> BuyNow</a>
                                 </div>
                             </c:if>
                             <c:if test="${user.role.roleName == 'Admin'|| user.role.roleName == 'Staff'}">
@@ -227,22 +232,23 @@
             <c:forEach var="pager" items="${page.content}">
                 <div class="col d-flex justify-content-center">
                     <div class="card" style="width: 17rem; border-radius: 8px">
-                        <a href="/main?action=showDetailProductl&id=${pager.id}"><img style="padding: 1rem" src="/user/client_undefine/img/phone/iphone14.png" class="card-img-top" alt="Iphone 14"></a>
+                        <a href="/main?action=showDetailProduct&id=${pager.id}"><img style="padding: 1rem" src="/images/${pager.image}" class="card-img-top" alt="Iphone 14"></a>
                         <div class="card-body text-center" >
-                            <a href="/main?action=showDetailProductl&id=${pager.id}"><h5 class="card-title">${pager.productName}</h5></a>
+                            <a href="/main?action=showDetailProduct&id=${pager.id}"><h5 class="card-title">${pager.productName}</h5></a>
                             <div class="row">
                                 <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-memory"></i> ${pager.ram}</div>
                                 <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-database"></i> ${pager.size}</div>
                             </div>
                             <div class="row">
-                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-camera"></i> ${pager.camera}</div>
                                 <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-battery-three-quarters"></i> ${pager.pin}</div>
                             </div>
-                            <p style="color:red; font-weight: bold" class="card-text">${pager.price}</p>
+                                <div style="padding: 0.1rem" class="col-6"> <i class="fas fa-camera"></i> ${pager.camera}</div>
+                            <p style="color:red; font-weight: bold; font-size: 1.2rem" class="card-text">${pager.price} USD</p>
                             <c:if test="${user.role.roleName != 'Admin'&& user.role.roleName != 'Staff'}">
-                                <div>
-                                    <a href="#addToCart" class="btn btn-warning"> <i class="fas fa-cart-plus"></i>AddCart</a>
-                                    <a href="/main?action=showDetailProduct&id=${pager.id}" class="btn btn-primary"><i class="fas fa-credit-card"></i> BuyNow</a>
+                                <div class="product">
+                                    <a class="quantity" disabled  >${pager.quantity}</a>
+                                    <a href="/cart?action=cart&id=${pager.id}" class="btn btn-warning" class="btn btn-primary addToCartBtn"> <i class="fas fa-cart-plus"></i>AddCart</a>
+                                    <a href="/main?action=showDetailProduct&id=${pager.id}"  class="btn btn-primary"><i class="fas fa-credit-card"></i> BuyNow</a>
                                 </div>
                             </c:if>
                             <c:if test="${user.role.roleName == 'Admin'|| user.role.roleName == 'Staff'}">
@@ -327,41 +333,8 @@
     function closeNav() {
         document.getElementById("mySidenav").style.width = "0";
     }
-    var priceRangeSelect = document.getElementById('price_range');
-    var priceRangeOptions = priceRangeSelect.getElementsByTagName('option');
-
-    for (var i = 0; i < priceRangeOptions.length; i++) {
-        var value = priceRangeOptions[i].value;
-        var displayText = '';
-
-        switch (value) {
-            case 'UNDER_100_USD':
-                displayText = 'UNDER 100 USD';
-                break;
-            case 'RANGE_100_299_USD':
-                displayText = '100-299 USD';
-                break;
-            case 'RANGE_300_499_USD':
-                displayText = '300-499 USD';
-                break;
-            case 'RANGE_500_699_USD':
-                displayText = '500-699 USD';
-                break;
-            case 'RANGE_700_999_USD':
-                displayText = '700-999 USD';
-                break;
-            case 'OVER_999_USD':
-                displayText = 'OVER 999 USD';
-                break;
-            default:
-                displayText = value; // Nếu không có giá trị khớp, sử dụng giá trị gốc
-                break;
-        }
-
-        priceRangeOptions[i].textContent = displayText;
-    }
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossOrigin="anonymous"></script>
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossOrigin="anonymous"></script>
 <script>
     function updatePriceRange(selectElement) {
         var selectedValue = selectElement.value;
@@ -370,10 +343,39 @@
     }
 </script>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var productElements = document.getElementsByClassName('product');
+
+        for (var i = 0; i < productElements.length; i++) {
+            var quantityElement = productElements[i].querySelector('.quantity');
+            var addToCartBtns = productElements[i].getElementsByClassName('addToCartBtn');
+            var quantity = parseInt(quantityElement.innerText);
+
+            if (quantity === 0) {
+                for (var j = 0; j < addToCartBtns.length; j++) {
+                    addToCartBtns[j].disabled = true;
+                    addToCartBtns[j].classList.add('disable-hover');
+                }
+            }
+        }
+    });
     function updateBranch(selectElement) {
         var selectedValue = selectElement.value;
         var branchElement = document.getElementsByName("branch")[0];
         branchElement.value = selectedValue;
+    }
+    // Lắng nghe sự kiện "change" khi chọn một tùy chọn trong các dropdown
+    document.getElementById("branch_select").addEventListener("change", function() {
+        submitForm();
+    });
+
+    document.getElementById("price_range").addEventListener("change", function() {
+        submitForm();
+    });
+
+    // Hàm gửi form
+    function submitForm() {
+        document.getElementById("myForm").submit();
     }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

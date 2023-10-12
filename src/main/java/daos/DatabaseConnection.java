@@ -9,14 +9,9 @@ public class DatabaseConnection {
 //    private final String JDBC_USERNAME = "root";
 //    //                            password của mình
 //    private final String JDBC_PASSWORD = "11061999";
-    private final String JDBC_URL = "jdbc:mysql://localhost:3306/bandienthoai"; // sửa chữ bài tập thành database của mình;
+    private final String JDBC_URL = "jdbc:mysql://localhost:3306/bandienthoai";
     private final String JDBC_USERNAME = "root";
-    //                            password của mình
-
-    
-    private final String JDBC_PASSWORD = "11061999";
-
-
+    private final String JDBC_PASSWORD = "quochuy248@gmail";
 
 
     protected Connection getConnection() {

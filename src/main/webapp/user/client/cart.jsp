@@ -68,13 +68,13 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td id="total_amount_chosen"></td>
+                        <td id="total_amount_chosen"> </td>
                         <td></td>
                     </tr>
                 </c:if>
             </table>
             <div>
-                <a class="btn btn-danger" onclick="setAction('/cart?action=delete&id=${user.id}',${user.id})">Delete</a>
+                <a class="btn btn-danger" onclick="setAction('/cart?action=delete')">Delete</a>
                 <a class="btn btn-primary" onclick="setAction('/cart?action=buy')">Buy product</a>
                 <a onclick="setActionCancel('/cart?action=updateCart')" class="btn btn-primary">Cancel</a>
             </div>
@@ -91,16 +91,16 @@
     }
     var checkboxes = document.querySelectorAll('.myCheckBox');
 
-    function setAction(action, link) {
+    function setAction(action) {
         var checkedIds = [];
-        var url = link;
+
         for (var i = 0; i < checkboxes.length; i++) {
             if (checkboxes[i].checked) {
                 checkedIds.push(checkboxes[i].id);
             }
         }
         if (checkedIds.length === 0) {
-            window.location.href = "/cart?action=showCart&id="+url;
+            window.location.href = "/cart?action=showCart";
         } else {
             document.getElementById('cartForm').action = action;
             document.getElementById('cartForm').submit();
@@ -153,8 +153,11 @@
     document.getElementById('selectAllCheckbox').addEventListener('click', function() {
         var selectAllCheckbox = document.getElementById('selectAllCheckbox');
         var isChecked = selectAllCheckbox.checked;
+        var checkboxes = document.querySelectorAll('.myCheckBox');
         document.querySelectorAll('.myCheckBox').forEach(function(checkbox) {
             checkbox.checked = isChecked;
+            var hiddenInput = checkbox.parentNode.nextElementSibling.querySelector('input[name="cartChecked"]');
+            hiddenInput.value = checkbox.checked ? '1' : '0';
         });
         updateTotalAmountChosen();
     });
@@ -196,6 +199,7 @@
         checkbox.addEventListener('change', function() {
             var hiddenInput = this.parentNode.nextElementSibling.querySelector('input[name="cartChecked"]');
             hiddenInput.value = this.checked ? '1' : '0';
+
         });
     });
     document.addEventListener('DOMContentLoaded', function() {

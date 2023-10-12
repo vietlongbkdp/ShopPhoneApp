@@ -18,6 +18,9 @@ public class BranchService {
     public Branch getBranch(int id){
         return branchDAO.findById(id);
     }
+    public Branch getBranchByName(String name){
+        return branchDAO.findByName(name);
+    }
 
     public void createBranch(String nameBranch) {
         branchDAO.create(nameBranch);
