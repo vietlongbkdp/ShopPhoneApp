@@ -294,8 +294,9 @@
                 alert('Vui lòng nhập tên sản phẩm.');
                 return;
             }
-            if (!price.trim()) {
-                alert('Vui lòng nhập giá sản phẩm.');
+            const priceValue = parseFloat(price);
+            if (isNaN(priceValue) || priceValue <= 0 || !/^[0-9]+$/.test(price)) {
+                alert('Vui lòng nhập một giá sản phẩm hợp lệ và lớn hơn 0.');
                 return;
             }
             if (!warrantyPeriod.trim()) {

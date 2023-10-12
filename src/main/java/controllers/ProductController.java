@@ -196,6 +196,7 @@ public class ProductController extends HttpServlet {
         Product product = new Product(productName, branch, image, price, warrantyPeriod, ram, size, color, camera, operatingSystem, pin);
         productService.create(product);
         resp.sendRedirect("/product?message=Created");
+        resp.getWriter().write("<script>editSuccess();</script>");
     }
 
     private Product getProductByRequest(HttpServletRequest req) {
