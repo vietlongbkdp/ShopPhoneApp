@@ -292,34 +292,40 @@
     // }
 
     // Gọi hàm calculateTotal khi trang được tải hoặc khi có sự thay đổi trong giá trị price hoặc quantityB
-    // window.onload = calculateTotal;
+
     window.addEventListener('DOMContentLoaded', function () {
+        // Lấy thông tin từ các phần tử HTML
+        var priceElement = document.getElementById("price");
+        var quantityBElement = document.getElementById("quantityB");
+        var totalElement = document.getElementById("total");
+        var totalAmountElements = document.getElementsByClassName("total_detail");
+        var totalAmountChosenElement = document.getElementById("total_amount_chosen");
+        var VATElement = document.getElementById("VAT");
+        var totalCostVATElement = document.getElementById("total_cost_VAT");
+
+        // Lấy giá trị từ các phần tử HTML
+        var price = parseFloat(priceElement.innerText);
+        var quantityB = parseInt(quantityBElement.innerText);
+
+        // Tính toán tổng
+        var total = price * quantityB;
+        totalElement.innerText = total;
 
         // Tính toán tổng giá trị của các thẻ class="total_detail"
-        var totalAmountElements = document.getElementsByClassName("total_detail");
         var totalAmountChosen = 0;
         for (var i = 0; i < totalAmountElements.length; i++) {
             totalAmountChosen += parseFloat(totalAmountElements[i].innerText);
         }
-
-        // Cập nhật giá trị cho thẻ id="total_amount_chosen"
-        var totalAmountChosenElement = document.getElementById("total_amount_chosen");
         totalAmountChosenElement.innerText = totalAmountChosen;
 
         // Tính toán giá trị của VAT (10%)
         var VAT = totalAmountChosen * 0.1;
-
-        // Cập nhật giá trị cho thẻ id="VAT"
-        var VATElement = document.getElementById("VAT");
         VATElement.innerText = VAT;
 
         // Tính toán tổng giá trị bao gồm VAT
         var totalCostVAT = totalAmountChosen + VAT;
-        // Cập nhật giá trị cho thẻ id="total_cost_VAT"
-        var totalCostVATElement = document.getElementById("total_cost_VAT");
         totalCostVATElement.innerText = totalCostVAT;
     });
-
 </script>
 <script src="/user/admin/assets/jquery.min.js"></script>
 <script src="/user/admin/assets/bootstrap.bundle.min.js"></script>

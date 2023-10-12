@@ -142,9 +142,9 @@
 
         // Tính tổng
         var total = price * quantityB;
-
-        // Cập nhật giá trị trong phần tử có id "total"
         document.getElementById("total").innerText = total;
+        // Cập nhật giá trị trong phần tử có id "total"
+
         var totalAmountChosen = document.getElementById('total_amount_chosen');
         var vatElement = document.getElementById('VAT');
         var totalCostVATElement = document.getElementById('total_cost_VAT');

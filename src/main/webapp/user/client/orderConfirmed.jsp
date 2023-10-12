@@ -192,6 +192,7 @@
                         <thead>
                         <tr>
                             <th>Order Code</th>
+                            <th>ID</th>
                             <th>Order Date</th>
                             <th>Total Amount</th>
                             <th >Action</th>
@@ -200,6 +201,7 @@
                         <tbody>
                         <c:forEach var="od" items="${orderCD}">
                             <tr>
+                                <td>${od.id}</td>
                                 <td>${od.shippingCode}</td>
                                 <td>${od.orderDate}</td>
                                 <td>${od.totalAmount}</td>
