@@ -158,7 +158,7 @@
                     <%--            <label for="totalAmount" class="form-label">Tổng giá trị</label>--%>
                     <%--            <input type="number" class="form-control" id="totalAmount" name="totalAmount" required>--%>
                     <%--        </div>--%>
-                    <div class="row mb-3">
+                    <div class="row mb-3" id="product-import-${status.index + 1}">
                         <div class="col-4">
                             Product
                         </div>
@@ -176,7 +176,7 @@
                         <c:forEach var="piDetail" varStatus="status" items="${productImport.productImportDetails}">
 
 
-                            <div class="row mb-3" id="product-import-${status.index + 1}">
+                            <div class="row mb-3" id="product-import-${status.index + 1}" data-index="${status.index + 1}">
                                 <div class="col-4">
                                     <select class="form-control" onchange="onChangeSelect(this)" name="productIds" id="product" required>
                                         <option value="">---Please Choose---</option>

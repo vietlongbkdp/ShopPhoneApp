@@ -137,7 +137,7 @@
 <div class="container">
     <div class="card container px-6" >
         <h3 class="sidebar-brand-text mx-5 mb-3 font-weight-bold">Edit Product</h3>
-        <form id="productForm1" action="/product?action=edit&id=${product.id}" method="post" enctype="multipart/form-data">
+        <form    action="/product?action=edit&id=${product.id}" method="post" enctype="multipart/form-data">
             <label for="productName" class="col-sm-6 mb-3 mb-sm-3">Product Name</label>
             <input type="text" class="form-control form-control-user" id="productName" name="productName"
                    value="${product.productName}">
@@ -356,90 +356,7 @@
                     renderUploadedFiles(currentFiles);
                 }
             </script>
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const productForm1 = document.getElementById('productForm1');
 
-                    productForm1.addEventListener('submit', function (event) {
-                        event.preventDefault(); // Ngăn chặn việc gửi biểu mẫu
-
-                        const formData1 = new FormData(productForm1);
-
-                        const productName = formData1.get('productName');
-                        const price = formData1.get('price');
-                        const warrantyPeriod = formData1.get('warrantyPeriod');
-                        const ram = formData1.get('ram');
-                        const size = formData1.get('size');
-                        const color = formData1.get('ram');
-                        const camera = formData1.get('camera');
-                        const operatingSystem = formData1.get('operatingSystem');
-                        const pin = formData1.get('pin');
-
-
-
-
-
-
-                        if (!productName.trim()) {
-                            alert('Vui lòng nhập tên sản phẩm.');
-                            return;
-                        }
-                        if (!price.trim()) {
-                            alert('Vui lòng nhập giá sản phẩm.');
-                            return;
-                        }
-                        if (!warrantyPeriod.trim()) {
-                            alert('Vui lòng nhập thời gian bảo hành sản phẩm.');
-                            return;
-                        }
-                        if (!ram.trim()) {
-                            alert('Vui lòng nhập ram sản phẩm.');
-                            return;
-                        }
-                        if (!size.trim()) {
-                            alert('Vui lòng nhập size sản phẩm.');
-                            return;
-                        }if (!color.trim()) {
-                            alert('Vui lòng nhập màu sắc sản phẩm.');
-                            return;
-                        }if (!camera.trim()) {
-                            alert('Vui lòng nhập camera sản phẩm.');
-                            return;
-                        }
-                        if (!operatingSystem.trim()) {
-                            alert('Vui lòng nhập hệ điều hành sản phẩm.');
-                            return;
-                        }
-                        if (!pin.trim()) {
-                            alert('Vui lòng nhập pin sản phẩm.');
-                            return;
-                        }
-                        //
-                        console.log('Gửi yêu cầu tạo sản phẩm...');
-                        fetch('/product?action=create', {
-                            method: 'POST',
-                            body: formData1,
-                        })
-                            // .then(response => response.json())
-                            .then(data => {
-                                console.log('Phản hồi từ máy chủ:', data);
-                                window.location.href = '/product';
-                                if (data.success) {
-                                    console.log('Sản phẩm được tạo thành công.');
-                                    window.location.href = '/product';
-                                } else {
-                                    console.log('Có lỗi xảy ra khi tạo sản phẩm.');
-                                    // Hiển thị thông báo lỗi hoặc thực hiện các xử lý khác nếu cần.
-                                }
-                            })
-                            .catch(error => {
-                                console.error('Lỗi khi gửi biểu mẫu:', error);
-                                // Xử lý lỗi nếu có.
-                            });
-                    });
-                });
-
-            </script>
 
             <script src="/user/admin/assets/jquery.min.js"></script>
             <script src="/user/admin/assets/bootstrap.bundle.min.js"></script>
