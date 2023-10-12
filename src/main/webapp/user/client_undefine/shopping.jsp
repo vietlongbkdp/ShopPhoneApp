@@ -120,8 +120,8 @@
                         <ul>
                             <c:if test="${user.role.roleName != 'Admin'&&user.role.roleName != 'Staff'}">
                                 <li><a href="/cart?action=showCart">
-                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                    <span class="padding_10">Cart</span><span style="color: red; font-weight: bold; font-size: small; margin-right: 2rem; padding-left: 0.5rem" class="padding_10">3</span></a>
+                                    <i class="fa fa-shopping-cart" style="position: relative" aria-hidden="true"></i>
+                                    <span class="padding_10">Cart</span><span style="color: red; font-weight: bold; font-size: small; margin-right: 2rem; padding-left: 0.5rem; position: absolute; top: 9rem; left: 47rem " class="padding_10">${cart.cartDetails.size()}</span></a>
                                 </li>
                             </c:if>
                             <c:if test="${user != null}">
@@ -262,7 +262,7 @@
             </c:forEach>
         </div>
 
-        <nav aria-label="Page navigation example">
+        <nav style="margin-top: 2rem" aria-label="Page navigation example">
             <ul class="pagination">
                 <li class="page-item <c:if test="${page.currentPage == 1}">disabled</c:if>">
                     <a class="page-link" href="${url}${(page.currentPage - 1)}" tabindex="-1"

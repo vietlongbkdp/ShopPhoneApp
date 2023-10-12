@@ -191,7 +191,7 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th></th>
+                            <th>Image</th>
                             <th>Product Name</th>
                             <th>Quantity</th>
                             <th>Price</th>
@@ -201,7 +201,7 @@
                         <tbody>
                         <c:forEach var="od" items="${orderDetails}">
                             <tr>
-                                <td>${od.product.image}</td>
+                                <td><img src="/images${od.product.image}" style="width: 145px;height: 90px"></td>
                                 <td>${od.product.productName}</td>
                                 <td>${od.quantity}</td>
                                 <td>${od.product.price}</td>
