@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Phone Shop</title>
     <link href="../login/assets/all.min.css" rel="stylesheet" type="text/css">
     <link href="../login/assets/sb-admin-2.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
@@ -77,6 +77,10 @@
 <script src="../login/assets/bootstrap.bundle.min.js"></script>
 <script src="../login/assets/jquery.easing.min.js"></script>
 <script src="../login/assets/sb-admin-2.min.js"></script>
+<script>
+    localStorage.removeItem("selectedBranch");
+    localStorage.removeItem("selectedPriceRange");
+</script>
 
 </body>
 </html>

@@ -103,31 +103,10 @@ public class ClientController extends HttpServlet {
     }
 
     private void showlist(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        showTable(req, false, "user/client/client.jsp", resp);
+        resp.sendRedirect("/main");
     }
 
-    private void showTable(HttpServletRequest req, boolean isShowRestore, String href, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        User user = (User) session.getAttribute("user");
-        String pageString = req.getParameter("page");
-        if (pageString == null) {
-            pageString = "1";
-        }
-        if (user == null) {
-            req.setAttribute("page", productService.getProducts(Integer.parseInt(pageString), isShowRestore, req.getParameter("search")));
-            req.setAttribute("message", req.getParameter("message"));
-            req.setAttribute("isShowRestore", isShowRestore);
-            req.setAttribute("search", req.getParameter("search"));
-            req.getRequestDispatcher(href).forward(req, resp);
-        } else if (user != null) {
-            req.setAttribute("user", user);
-            req.setAttribute("page", productService.getProducts(Integer.parseInt(pageString), isShowRestore, req.getParameter("search")));
-            req.setAttribute("message", req.getParameter("message"));
-            req.setAttribute("isShowRestore", isShowRestore);
-            req.setAttribute("search", req.getParameter("search"));
-            req.getRequestDispatcher(href).forward(req, resp);
-        }
-    }
+
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

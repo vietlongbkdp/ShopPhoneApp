@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>CLIENT PAGE</title>
+    <title>Phone Shop</title>
     <link href="/user/admin/assets/all.min.css" rel="stylesheet" type="text/css">
     <link href="/user/admin/assets/sb-admin-2.min.css" rel="stylesheet">
     <link href="/user/admin/assets/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
     <ul style="background-color: #e3b53d; background-image: none " class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="width: 10%" >
 
         <!-- Sidebar - Brand -->
-        <a style="color: #1b1e21" class="sidebar-brand d-flex align-items-center justify-content-center" href="/main?action=shopping">
+        <a style="color: #1b1e21" class="sidebar-brand d-flex align-items-center justify-content-center" href="/main">
             <div class="sidebar-brand-icon">
                 <i class="fas fa-home"></i>
             </div>

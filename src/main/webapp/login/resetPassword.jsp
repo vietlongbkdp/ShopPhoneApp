@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Forgot password</title>
+    <title>Phone Shop</title>
     <link href="../login/assets/all.min.css" rel="stylesheet" type="text/css">
     <link href="../login/assets/sb-admin-2.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />

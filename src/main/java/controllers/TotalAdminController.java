@@ -22,9 +22,6 @@ public class TotalAdminController extends HttpServlet {
             action = "";
         }
         switch (action) {
-            case "user":
-                showListUser(req, resp);
-                break;
             case "product":
                 showListProduct(req, resp);
                 break;
