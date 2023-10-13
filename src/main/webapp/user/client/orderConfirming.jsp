@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Client Page</title>
+    <title>Phone Shop</title>
     <link href="/user/admin/assets/all.min.css" rel="stylesheet" type="text/css">
     <link href="/user/admin/assets/sb-admin-2.min.css" rel="stylesheet">
     <link href="/user/admin/assets/dataTables.bootstrap4.min.css" rel="stylesheet">
@@ -22,7 +22,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/main?action=shopping">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/main">
             <div class="sidebar-brand-icon">
                 <i class="fas fa-home"></i>
             </div>
@@ -167,7 +167,7 @@
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                            <a href="/order-client?action=orderConfirmed">ORDER CANCELED</a>
+                                            <a href="/order-client?action=orderCanceled">ORDER CANCELED</a>
                                         </div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">${orderC.size()}</div>
                                     </div>
