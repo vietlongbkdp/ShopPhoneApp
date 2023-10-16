@@ -323,20 +323,20 @@
 
     // Cập nhật giá trị cho thẻ id="total_amount_chosen"
     var totalAmountChosenElement = document.getElementById("total_amount_chosen");
-    totalAmountChosenElement.innerText = totalAmountChosen;
+    totalAmountChosenElement.innerText = totalAmountChosen.toFixed(1);
 
     // Tính toán giá trị của VAT (10%)
     var VAT = totalAmountChosen * 0.1;
 
     // Cập nhật giá trị cho thẻ id="VAT"
     var VATElement = document.getElementById("VAT");
-    VATElement.innerText = VAT;
+    VATElement.innerText = VAT.toFixed(1);
 
     // Tính toán tổng giá trị bao gồm VAT
     var totalCostVAT = totalAmountChosen + VAT;
     // Cập nhật giá trị cho thẻ id="total_cost_VAT"
     var totalCostVATElement = document.getElementById("total_cost_VAT");
-    totalCostVATElement.innerText = totalCostVAT;
+    totalCostVATElement.innerText = totalCostVAT.toFixed(1);
 </script>
 <script src="/user/admin/assets/jquery.min.js"></script>
 <script src="/user/admin/assets/bootstrap.bundle.min.js"></script>

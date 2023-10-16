@@ -188,6 +188,7 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
+                    <a>Please download "GIAO HANG TIET KIEM" app to follow your order with Shipping code</a>
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>

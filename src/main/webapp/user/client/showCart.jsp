@@ -177,10 +177,10 @@
                             </c:forEach>
                             <c:if test="${hasCartDetail}">
                                 <tr>
-                                    <td><input type="checkbox" id="selectAllCheckbox"> <!-- Checkbox to select all -->
+                                    <td><input hidden type="checkbox" id="selectAllCheckbox"> <!-- Checkbox to select all -->
                                     </td>
                                     <td hidden></td>
-                                    <td>Select All</td>
+                                    <td></td>
                                     <td hidden></td>
                                     <td></td>
                                     <td></td>

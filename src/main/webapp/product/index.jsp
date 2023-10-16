@@ -192,8 +192,11 @@
                                 <div class="modal-content">
                                     <p>Are you sure to delete?</p>
                                     <div class="button-container">
-                                        <button id="deleteButton">Yes</button>
+                                        <span>
+                                            <button id="deleteButton">Yes</button>
                                         <button onclick="hideConfirmDialog()">No</button>
+                                        </span>
+
                                     </div>
                                 </div>
                             </div>
@@ -281,6 +284,10 @@
                         border-radius: 5px;
                         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
                         text-align: center;
+                        width : 30rem;
+                        justify-content: center;
+
+
                     }
 
                     p {
@@ -307,6 +314,7 @@
 
                     .button-container {
                         display: flex;
+                        justify-content: center;
                     }
 
                     .button-separator {

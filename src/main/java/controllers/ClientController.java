@@ -141,13 +141,13 @@ public class ClientController extends HttpServlet {
             List<Integer> cartDetailids = Arrays.stream(cd)
                     .map(Integer::parseInt).toList();
             req.setAttribute("cartDetails", shoppingService.findListCartDetail(cartDetailids));
-            req.getRequestDispatcher("user/client/createOrder.jsp").forward(req, resp);
+            req.getRequestDispatcher("user/client/crtOrder.jsp").forward(req, resp);
         } else if (!OrderDTs.isEmpty()) {
             userService.updateProfile(req);
             int idOrder = Integer.parseInt(req.getParameter("OrderDTs"));
             List<OrderDetail> orderDetails = shoppingService.findAllOD(idOrder);
             req.setAttribute("orderDetails", orderDetails);
-            req.getRequestDispatcher("user/client/createOrder.jsp").forward(req, resp);
+            req.getRequestDispatcher("user/client/crtOrder.jsp").forward(req, resp);
         } else if (!quantity.isEmpty()&& !idProduct.isEmpty()) {
             userService.updateProfile(req);
             int id = Integer.parseInt(req.getParameter("idProduct"));
@@ -155,10 +155,10 @@ public class ClientController extends HttpServlet {
             int quantity1 = Integer.parseInt(quantity);
             req.setAttribute("product", product);
             req.setAttribute("quantityB", quantity1);
-            req.getRequestDispatcher("user/client/createOrder.jsp").forward(req, resp);
+            req.getRequestDispatcher("user/client/crtOrder.jsp").forward(req, resp);
         } else {
             userService.updateProfile(req);
-            resp.sendRedirect("/shopping?action=showProfile&message=Update Success");
+            resp.sendRedirect("/shopping?action=profile&message=Update Success");
         }
 
 
