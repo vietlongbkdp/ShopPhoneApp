@@ -236,4 +236,6 @@ public class ProductController extends HttpServlet {
         }
         return "";
     }
+
+//    Feature remove product
 }
